@@ -5,10 +5,6 @@ import { IoMdSearch } from "react-icons/io";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
 
 const Menu = [
   {
