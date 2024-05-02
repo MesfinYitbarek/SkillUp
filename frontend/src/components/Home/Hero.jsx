@@ -4,13 +4,14 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const Hero = () => {
   return (
-    <div
+    <div className="  bg-gradient-to-r from-slate-100 
+    to-slate-50  ">
+      <div
       className=" flex justify-between  
-    bg-gradient-to-r from-slate-100
-    to-slate-50 p-16 "
+     dark:text-white dark:bg-gray-800 p-16 pl-24"
     >
-      <div className=" mt-6">
-        <h1 className=" text-6xl font-bold text-sky-900">
+      <div className=" mt-6 ">
+        <h1 className=" text-6xl font-bold text-sky-900 dark:text-white">
           The Future of <span className=" text-blue-600">Online Learning</span>{" "}
           is Here.
         </h1>
@@ -21,7 +22,7 @@ const Hero = () => {
         </p>
         <button
           className=" hover:bg-white hover:text-sky-950 hover:border-2
-                      hover:border-sky-800   
+                      hover:border-sky-800  dark:bg-white dark:text-blue-900  
                       bg-blue-600 mt-9 text-white p-2 px-4 rounded-md"
         >
           Explore Courses <ArrowForwardIcon />
@@ -31,6 +32,8 @@ const Hero = () => {
         <img src={image} alt="" />
       </div>
     </div>
+    </div>
+    
   );
 };
 

@@ -63,7 +63,7 @@ const Header = () => {
   return (
     <div
       className=" flex justify-between items-center shadow-sm bg-slate-100
-    dark:bg-gray-900 dark:text-white duration-200
+    dark:bg-gray-800 dark:text-white duration-200
      relative z-40 py-9 px-12 font-serif"
     >
       <div>
