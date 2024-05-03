@@ -6,10 +6,10 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PrintIcon from "@mui/icons-material/Print";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import XIcon from '@mui/icons-material/X';
-import TelegramIcon from '@mui/icons-material/Telegram';
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import XIcon from "@mui/icons-material/X";
+import TelegramIcon from "@mui/icons-material/Telegram";
 
 const Catagories = [
   {
@@ -42,9 +42,9 @@ const Catagories = [
 
 const Footer = () => {
   return (
-    <div className="bg-sky-950 text-white flex flex-col justify-between items-center">
+    <div className="bg-sky-950 w-full text-white flex flex-col justify-between items-center p-8 gap-3">
       <div className=" pb-2  sm:flex justify-between pt-6  gap-20 text-white">
-        <div className="sm:w-[400px] pb-2  ">
+        <div className="sm:w-auto pb-2  ">
           <Link
             to={"/"}
             className="font-bold text-2xl sm:text-3xl flex 
@@ -71,7 +71,9 @@ const Footer = () => {
           </div>
         </div>
         <div>
-          <h1 className=" mb-8  text-2xl font-bold hover:text-blue-500">Pages</h1>
+          <h1 className=" mb-8  text-2xl font-bold hover:text-blue-500">
+            Pages
+          </h1>
           {
             <ul>
               {Menu.map((data) => (
@@ -96,7 +98,9 @@ const Footer = () => {
           }
         </div>
         <div>
-          <h1 className=" mb-8 text-2xl font-bold hover:text-blue-500">Catagories</h1>
+          <h1 className=" mb-8 text-2xl font-bold hover:text-blue-500">
+            Catagories
+          </h1>
           <ul>
             {Catagories.map((data) => (
               <li key={data.id}>
@@ -111,7 +115,9 @@ const Footer = () => {
           </ul>
         </div>
         <div className="">
-          <h1 className=" mb-8 text-2xl font-bold hover:text-blue-500">Contact</h1>
+          <h1 className=" mb-8 text-2xl font-bold hover:text-blue-500">
+            Contact
+          </h1>
           <div>
             <p>
               <LocationOnIcon className=" mr-3 mb-4" /> CMC Michael, Addis
@@ -123,7 +129,21 @@ const Footer = () => {
             <p>
               <EmailIcon className=" mr-3 mb-4" /> contactskillup@gmail.com
             </p>
-            <p className=""> <Link><FacebookIcon/></Link> <Link><InstagramIcon/></Link> <Link><XIcon/></Link> <Link><TelegramIcon/></Link>  </p>
+            <p className="">
+              {" "}
+              <Link>
+                <FacebookIcon />
+              </Link>{" "}
+              <Link>
+                <InstagramIcon />
+              </Link>{" "}
+              <Link>
+                <XIcon />
+              </Link>{" "}
+              <Link>
+                <TelegramIcon />
+              </Link>{" "}
+            </p>
           </div>
         </div>
       </div>

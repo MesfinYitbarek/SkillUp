@@ -38,13 +38,18 @@ const Catagories = [
 ];
 
 const Header = () => {
+  const [showMenu, setShowMenu] = React.useState(false);
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
   return (
     <div
-      className=" flex flex-wrap justify-between items-center shadow-sm bg-slate-100
+      className="  xl:flex p-5 flex-wrap justify-between items-center shadow-sm bg-slate-100
     dark:bg-gray-800 dark:text-white duration-200
-      relative z-40 py-9 px-6 font-serif "
+      relative  xl:py-9  xl:px-6 font-serif "
     >
-      <div className=" w-full sm:w-auto mb-4 sm:mb-0">
+      <div className=" flex  w-full sm:w-auto mb-4 sm:mb-0">
         <h1></h1>
         <Link
           to={"/"}
@@ -54,13 +59,54 @@ const Header = () => {
           <span className=" -mr-2 text-4xl ml-8">S</span>kill
           <span className="text-black dark:text-white -ml-2">Up.</span>
         </Link>
+        {/*Menu bar*/}
+        <button
+          onClick={toggleMenu}
+          className={`${
+            showMenu ? "hidden" : "absolute right-8 flex sm:hidden"
+          }`}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+        <div>
+          <div>
+            <ul></ul>
+          </div>
+        </div>
       </div>
-      <div className=" flex w-full sm:w-auto  ">
+      <div className=" xl:flex px-6 w-full sm:w-auto  ">
         <div>
           <nav>
-            <ul className="flex justify-between gap-6 items-center text-sky-900 dark:text-white">
+            <ul
+              className={`${
+                showMenu
+                  ? " flex flex-col absolute right-0 top-0   "
+                  : "hidden sm:flex justify-center gap-10 items-center text-sky-900 dark:text-white"
+              }`}
+            >
               {Menu.map((data) => (
-                <li key={data.id}>
+                <li
+                  key={data.id}
+                  onClick={toggleMenu}
+                  className={`${
+                    showMenu
+                      ? " even:bg-slate-200 flex flex-col h-[50px] w-[200px] p-3 pt-5 z-50 shadow-md shadow-purple-500 bg-slate-100 text-black   "
+                      : ""
+                  }`}
+                >
                   <Link
                     to={data.link}
                     className="hover:text-blue-600 group font-mono"
@@ -79,9 +125,12 @@ const Header = () => {
               ))}
               <li
                 className="group relative bg-white dark:bg-gray-600
-                    cursor-pointer ml-12 border-2 py-1/2 px-9  "
+                    cursor-pointer xl:ml-12 border-2 py-1/2 px-9  "
               >
-                <a href="#" className="flex items-center gap-[2px] py-1 ">
+                <a
+                  href="#"
+                  className="hidden sm:flex items-center gap-[2px] py-1 "
+                >
                   {" "}
                   <DashboardIcon className=" -ml-4 mr-1 text-blue-600" />
                   Catagories
@@ -114,7 +163,7 @@ const Header = () => {
             </ul>
           </nav>
         </div>
-        <div className="sm:flex justify-between items-center gap-4">
+        <div className="flex justify-center   items-center ">
           <div className="relative group hidden sm:block">
             <input
               type="text"
@@ -136,7 +185,8 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <Link to={"/sign-in"}>
+
+      <Link to={"/sign-in"} className=" hidden sm:flex">
         <Stack spacing={2} direction="row" className="mt-4 sm:mt-0">
           <Button variant="contained">Login</Button>
         </Stack>

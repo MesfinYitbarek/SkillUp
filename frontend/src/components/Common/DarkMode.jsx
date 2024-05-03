@@ -22,20 +22,11 @@ const DarkMode = () => {
   }, [theme]);
 
   return (
-    <div className="relative">
+    <div className="relative hidden sm:flex items-center ">
       <LightModeIcon
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-        className={`w-12 cursor-pointer drop-shadow-[1px_1px_1px_rgba(0,0,0,0.1)]
-        translation-all duration-300 absolute right-0 z-10 
-        ${theme === "dark" ? "opacity-0" : "opacity-100"} `}
-      />
-
-      <LightModeIcon
-        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-        className={`w-[50px] cursor-pointer
-      drop-shadow-[1px_1px_1px_rgba(0,0,0,0.1)] 
-      translation-all  duration-300 
-      ${theme === "light" ? "opacity-0" : "opacity-100"}`}
+        className="w-12 cursor-pointer drop-shadow-[1px_1px_1px_rgba(0,0,0,0.1)]
+        translation-all duration-300 absolute right-0 z-10 "
       />
     </div>
   );

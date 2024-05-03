@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <div className=" bg-gradient-to-r from-slate-100 to-slate-50  ">
       <div
-        className=" flex justify-between p-16 pl-24 
+        className=" sm:flex justify-between p-16 pl-24 
       dark:text-white dark:bg-gray-800 "
       >
         <div className=" mt-6 ">
@@ -14,7 +14,7 @@ const Hero = () => {
             data-aos="zoom-in"
             data-aos-duration="500"
             data-aos-once="true"
-            className=" text-6xl font-bold text-sky-900 dark:text-white"
+            className=" text-4xl sm:text-6xl font-bold text-sky-900 dark:text-white"
           >
             The Future of{" "}
             <span className=" text-blue-600">Online Learning</span>
@@ -35,7 +35,7 @@ const Hero = () => {
             Explore Courses <ArrowForwardIcon />
           </button>
         </div>
-        <div>
+        <div className=" hidden sm:flex">
           <img src={image} alt="" />
         </div>
       </div>
