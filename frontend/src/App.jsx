@@ -7,6 +7,8 @@ import Profile from "./components/Profile/Profile";
 import Home from "./components/Home/Home";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Contact from "./components/Contact/Contact";
+import Courses from "./components/Courses/Courses";
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -25,6 +27,8 @@ const App = () => {
         <Route path="/sign-in" element={<Login />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact-us" element={<Contact />} />
+        <Route path="/courses" element={<Courses />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>

@@ -123,6 +123,7 @@ const Header = () => {
                   </Link>
                 </li>
               ))}
+
               <li
                 className="group relative bg-white dark:bg-gray-600
                     cursor-pointer xl:ml-12 border-2 py-1/2 px-9  "
@@ -163,6 +164,7 @@ const Header = () => {
             </ul>
           </nav>
         </div>
+        {/*Search bar */}
         <div className="flex justify-center   items-center ">
           <div className="relative group hidden sm:block">
             <input

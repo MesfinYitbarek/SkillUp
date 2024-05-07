@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <div className=" bg-gradient-to-r from-slate-100 to-slate-50  ">
       <div
-        className=" sm:flex justify-between p-16 pl-24 
+        className=" sm:flex justify-between p-16  
       dark:text-white dark:bg-gray-800 "
       >
         <div className=" mt-6 ">
@@ -17,14 +17,14 @@ const Hero = () => {
             className=" text-4xl sm:text-6xl font-bold text-sky-900 dark:text-white"
           >
             The Future of{" "}
-            <span className=" text-blue-600">Online Learning</span>
-            is Here.
+            <span className=" text-blue-600">Online Learning</span> is Here.
           </h1>
           <p data-aos="fade-up" className=" mt-4 opacity-70 ">
             Borem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
             tellus, luctus nec ullamcorper mattisBorem ipsum dolor sit amet
             consectetur adipiscing area we followelit.
           </p>
+
           <button
             data-aos="fade-up"
             data-aos-delay="300"

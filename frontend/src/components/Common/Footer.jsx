@@ -44,7 +44,7 @@ const Footer = () => {
   return (
     <div className="bg-sky-950 w-full text-white flex flex-col justify-between items-center p-8 gap-3">
       <div className=" pb-2  sm:flex justify-between pt-6  gap-20 text-white">
-        <div className="sm:w-auto pb-2  ">
+        <div className="sm:w-auto pb-2 lg:w-[400px]  ">
           <Link
             to={"/"}
             className="font-bold text-2xl sm:text-3xl flex 
@@ -61,13 +61,15 @@ const Footer = () => {
               latest technologies in the area of design and development of
               computer software, but not readily available in Ethiopia.
             </p>
-            <button
-              className=" hover:bg-white hover:text-sky-950 hover:border-2
+            <Link to={"/courses"}>
+              <button
+                className=" hover:bg-white hover:text-sky-950 hover:border-2
                       hover:border-sky-800  dark:bg-white dark:text-blue-900  
                       bg-blue-600 mt-9 text-white p-2 px-4 rounded-md"
-            >
-              Explore Courses <ArrowForwardIcon />
-            </button>
+              >
+                Explore Courses <ArrowForwardIcon />
+              </button>
+            </Link>
           </div>
         </div>
         <div>
@@ -147,7 +149,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className=" pb-6 mb-0">
+      <div className=" pb-6 mb-0 text-center">
         Copyright &copy; 2024 SkillUp. All Rights Reserved.
       </div>
     </div>

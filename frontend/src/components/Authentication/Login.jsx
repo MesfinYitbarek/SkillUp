@@ -8,7 +8,7 @@ const Login = () => {
       <Header />
       <div className=" flex justify-center items-center">
         <div className=" shadow-sm shadow-purple-600 dark:bg-gray-400  p-[5%] rounded-2xl sm:w-[650px] bg-slate-50  border border-slate-300  m-[5%]">
-          <h1 className=" m-3 -mt-5 font-serif sm:text-[22px] text-sky-900">
+          <h1 className=" m-3  font-serif sm:text-[22px] text-sky-900">
             Hi, Welcome back!
           </h1>
           <form

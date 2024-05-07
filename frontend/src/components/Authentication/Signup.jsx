@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../Common/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Common/Footer";
-
+import axios from "axios"
 const Signup = () => {
+
+  const [username, setName] = useState()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+  const navigate = useNavigate()
+  
+  const handleSubmit= (e) =>{
+    e.preventDefault()
+    axios.post('http://localhost:4444/api/auth/signup', {username, email, password})
+    .then(result => {console.log(result)
+    navigate('/sign-in')
+    })
+    .catch(err => console.log(err))
+  }
   return (
     <div className=" dark:bg-gray-800">
       <Header />
@@ -13,6 +27,7 @@ const Signup = () => {
             Hi, Welcome back!
           </h1>
           <form
+            onSubmit={handleSubmit}
             action=""
             className="  flex flex-col justify-between items-center gap-6 "
           >
@@ -20,21 +35,24 @@ const Signup = () => {
               type="text"
               placeholder="Username"
               id="username"
+              onChange={(e) => setName(e.target.value)}
               className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3  focus:outline-none"
             />
             <input
               type="email"
               placeholder="Email"
               id="email"
+              onChange={(e) => setEmail(e.target.value)}
               className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
             />
             <input
               type="password"
               placeholder="Password"
               id="password"
+              onChange={(e) => setPassword(e.target.value)}
               className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
             />
-            <button className="sm:w-[450px]  font-semibold hover:bg-white hover:text-blue-600 hover:border hover:border-blue-400  p-2 px-6 rounded-lg text-white bg-blue-600">
+            <button type="submit" className="sm:w-[450px]  font-semibold hover:bg-white hover:text-blue-600 hover:border hover:border-blue-400  p-2 px-6 rounded-lg text-white bg-blue-600">
               Sign Up
             </button>
           </form>
