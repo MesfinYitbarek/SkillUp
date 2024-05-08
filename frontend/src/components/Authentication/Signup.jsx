@@ -2,22 +2,46 @@ import React, { useState } from "react";
 import Header from "../Common/Header";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Common/Footer";
-import axios from "axios"
+import axios from "axios";
+import { Try } from "@mui/icons-material";
 const Signup = () => {
-
-  const [username, setName] = useState()
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
-  
-  const handleSubmit= (e) =>{
-    e.preventDefault()
-    axios.post('http://localhost:4444/api/auth/signup', {username, email, password})
-    .then(result => {console.log(result)
-    navigate('/sign-in')
-    })
-    .catch(err => console.log(err))
-  }
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(false);
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        setLoading(false);
+        setError(data.message);
+        return;
+      }
+      setLoading(false);
+      setError(null)
+      navigate('/sign-in')
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+  };
+
   return (
     <div className=" dark:bg-gray-800">
       <Header />
@@ -35,25 +59,29 @@ const Signup = () => {
               type="text"
               placeholder="Username"
               id="username"
-              onChange={(e) => setName(e.target.value)}
+              onChange={handleChange}
               className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3  focus:outline-none"
             />
             <input
               type="email"
               placeholder="Email"
               id="email"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange}
               className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
             />
             <input
               type="password"
               placeholder="Password"
               id="password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
               className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
             />
-            <button type="submit" className="sm:w-[450px]  font-semibold hover:bg-white hover:text-blue-600 hover:border hover:border-blue-400  p-2 px-6 rounded-lg text-white bg-blue-600">
-              Sign Up
+            <button
+              disabled={loading}
+              type="submit"
+              className="sm:w-[450px]  font-semibold hover:bg-white hover:text-blue-600 hover:border hover:border-blue-400  p-2 px-6 rounded-lg text-white bg-blue-600"
+            >
+              {loading ? "Loading..." : "Sign Up"}
             </button>
           </form>
           <div className=" flex gap-2 sm:text-[17px] justify-center mt-2">
@@ -62,6 +90,7 @@ const Signup = () => {
               <span className=" text-blue-600 underline">Sign in</span>
             </Link>
           </div>
+          {error && <p className=" text-red-500 mt-5">{error}</p>}
         </div>
       </div>
       <Footer />
