@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Header from "../Common/Header";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Common/Footer";
+import { Try } from "@mui/icons-material";
 
-const Signup = () => {
+const SignIn = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -19,7 +20,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       setLoading(false);
-      const res = await fetch('/api/auth/signup', {
+      const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +35,7 @@ const Signup = () => {
       }
       setLoading(false);
       setError(null)
-      navigate('/sign-in')
+      navigate('/')
     } catch (error) {
       setLoading(false);
       setError(error.message);
@@ -61,13 +62,7 @@ const Signup = () => {
               onChange={handleChange}
               className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3  focus:outline-none"
             />
-            <input
-              type="email"
-              placeholder="Email"
-              id="email"
-              onChange={handleChange}
-              className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
-            />
+           
             <input
               type="password"
               placeholder="Password"
@@ -80,13 +75,13 @@ const Signup = () => {
               type="submit"
               className="sm:w-[450px]  font-semibold hover:bg-white hover:text-blue-600 hover:border hover:border-blue-400  p-2 px-6 rounded-lg text-white bg-blue-600"
             >
-              {loading ? "Loading..." : "Sign Up"}
+              {loading ? "Loading..." : "Sign In"}
             </button>
           </form>
           <div className=" flex gap-2 sm:text-[17px] justify-center mt-2">
-            <p>Already have an account?</p>
-            <Link to={"/sign-in"}>
-              <span className=" text-blue-600 underline">Sign in</span>
+            <p>Dont have an account?</p>
+            <Link to={"/sign-up"}>
+              <span className=" text-blue-600 underline">Sign Up</span>
             </Link>
           </div>
           {error && <p className=" text-red-500 mt-5">{error}</p>}
@@ -97,4 +92,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignIn;

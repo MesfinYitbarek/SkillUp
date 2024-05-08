@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./components/Authentication/Signup";
 import About from "./components/About/About";
-import Login from "./components/Authentication/Login";
+import SignIn from "./components/Authentication/Signin";
 import Profile from "./components/Profile/Profile";
 import Home from "./components/Home/Home";
 import AOS from "aos";
@@ -24,7 +24,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<Login />} />
+        <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<Signup />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact-us" element={<Contact />} />
