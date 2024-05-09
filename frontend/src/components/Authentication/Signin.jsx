@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import Header from "../Common/Header";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Common/Footer";
-import { Try } from "@mui/icons-material";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -19,11 +18,11 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(false);
-      const res = await fetch('/api/auth/signin', {
-        method: 'POST',
+      setLoading(true);
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -34,8 +33,8 @@ const SignIn = () => {
         return;
       }
       setLoading(false);
-      setError(null)
-      navigate('/')
+      setError(null);
+      navigate("/");
     } catch (error) {
       setLoading(false);
       setError(error.message);
@@ -62,7 +61,7 @@ const SignIn = () => {
               onChange={handleChange}
               className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3  focus:outline-none"
             />
-           
+
             <input
               type="password"
               placeholder="Password"
