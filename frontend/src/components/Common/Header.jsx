@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Link } from "react-router-dom";
 import Menu from "./MenuData";
+import { useSelector } from "react-redux";
 
 const Catagories = [
   {
@@ -38,6 +39,7 @@ const Catagories = [
 ];
 
 const Header = () => {
+  const {currentUser} = useSelector(state => state.user)
   const [showMenu, setShowMenu] = React.useState(false);
 
   const toggleMenu = () => {
@@ -188,10 +190,17 @@ const Header = () => {
         </div>
       </div>
 
-      <Link to={"/sign-in"} className=" hidden sm:flex">
-        <Stack spacing={2} direction="row" className="mt-4 sm:mt-0">
-          <Button variant="contained">Login</Button>
-        </Stack>
+      <Link to={"/profile"} className=" hidden sm:flex">
+        {
+          currentUser ? (
+            <img className=" rounded-full h-7 w-7 object-cover" src={currentUser.avatar} alt="profile" />
+          ): (
+            <Stack spacing={2} direction="row" className="mt-4 sm:mt-0">
+              <Button variant="contained">Login</Button>
+            </Stack>
+          )
+        }
+        
       </Link>
 
       <DarkMode />
