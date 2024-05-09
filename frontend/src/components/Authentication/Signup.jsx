@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../Common/Header";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Common/Footer";
+import GAuth from "./GAuth";
 
 const Signup = () => {
   const [formData, setFormData] = useState({});
@@ -83,6 +84,7 @@ const Signup = () => {
             >
               {loading ? "Loading..." : "Sign Up"}
             </button>
+            <GAuth/>
           </form>
           <div className=" flex gap-2 sm:text-[17px] justify-center mt-2">
             <p>Already have an account?</p>
@@ -92,6 +94,7 @@ const Signup = () => {
           </div>
           {error && <p className=" text-red-500 mt-5">{error}</p>}
         </div>
+
       </div>
       <Footer />
     </div>
