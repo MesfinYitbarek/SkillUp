@@ -1,11 +1,18 @@
-import User from "../models/User.js";
+import User from "../models/User.js"; // User model
 import errorHandler from "../Utils/error.js";
-import jwt from "jsonwebtoken";
-import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken"; // For token generation
+import bcryptjs from "bcryptjs"; // For password hashing
 
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
+
+  // Check for existing user
+  const existingUser = await User.findOne({ email });
+  if (existingUser) return res.status(400).json("Email already exists");
+
+  // Create new User
   const newUser = new User({ username, email, password });
+
   try {
     await newUser.save();
     res.status(201).json("User created successfull");
@@ -17,11 +24,17 @@ export const signup = async (req, res, next) => {
 export const signin = async (req, res, next) => {
   const { username, password } = req.body;
   try {
+    // Find user by username
     const validUser = await User.findOne({ username });
     if (!validUser) return next(errorHandler(404, "User not found!"));
+
+    //Validate Password
     const validPassword = bcryptjs.compareSync(password, validUser.password);
-    if (!validPassword) return next(errorHandler(401, "Wrong credentials!"));
+    if (!validPassword) return next(errorHandler(401, "Invalid password!"));
+
+    // Generate JWT token
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+
     const { password: pass, ...rest } = validUser._doc;
     res
       .cookie("access_token", token, { httpOnly: true })
