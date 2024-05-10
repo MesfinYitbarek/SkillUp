@@ -9,6 +9,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Contact from "./components/Contact/Contact";
 import Courses from "./components/Courses/Courses";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -29,7 +30,9 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/courses" element={<Courses />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route  element={<PrivateRoute />} >
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

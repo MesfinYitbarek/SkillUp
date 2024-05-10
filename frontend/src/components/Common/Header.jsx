@@ -190,7 +190,7 @@ const Header = () => {
         </div>
       </div>
 
-      <Link to={"/profile"} className=" hidden sm:flex">
+      <Link to="/profile" className=" hidden sm:flex">
         {
           currentUser ? (
             <img className=" rounded-full h-7 w-7 object-cover" src={currentUser.avatar} alt="profile" />
