@@ -8,6 +8,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Link } from "react-router-dom";
 import Menu from "./MenuData";
 import { useSelector } from "react-redux";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Catagories = [
   {
@@ -39,7 +40,7 @@ const Catagories = [
 ];
 
 const Header = () => {
-  const {currentUser} = useSelector(state => state.user)
+  const { currentUser } = useSelector((state) => state.user);
   const [showMenu, setShowMenu] = React.useState(false);
 
   const toggleMenu = () => {
@@ -191,16 +192,31 @@ const Header = () => {
       </div>
 
       <Link to="/profile" className=" hidden sm:flex">
-        {
-          currentUser ? (
-            <img className=" rounded-full h-7 w-7 object-cover" src={currentUser.avatar} alt="profile" />
-          ): (
-            <Stack spacing={2} direction="row" className="mt-4 sm:mt-0">
-              <Button variant="contained">Login</Button>
-            </Stack>
-          )
-        }
-        
+        {currentUser ? (
+          <div className=" group">
+            <img
+              className=" rounded-full h-7 w-7 object-cover"
+              src={currentUser.avatar}
+              alt="profile"
+            />
+            <div
+              className="absolute z-[9999] 
+                         right-28 hidden
+                        group-hover:block w-[120px] 
+                        bg-white p-2 text-black shadow-sm  "
+            >
+              <ul className=" ">
+                <Link to={"/student"} ><h3>My Courses</h3></Link> 
+                <Link to={"/profile"}> <h3>Profile</h3></Link> 
+                <Link> <h5><LogoutIcon /> Log Out</h5></Link>
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <Stack spacing={2} direction="row" className="mt-4 sm:mt-0">
+            <Button variant="contained">Login</Button>
+          </Stack>
+        )}
       </Link>
 
       <DarkMode />

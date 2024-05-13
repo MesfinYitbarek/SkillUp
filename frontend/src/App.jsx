@@ -10,6 +10,8 @@ import "aos/dist/aos.css";
 import Contact from "./components/Contact/Contact";
 import Courses from "./components/Courses/Courses";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import Student from "./components/StudentDashboard/Student"
+import UpdateProfile from "./components/Profile/updateProfile";
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -32,6 +34,8 @@ const App = () => {
         <Route path="/courses" element={<Courses />} />
         <Route  element={<PrivateRoute />} >
           <Route path="/profile" element={<Profile />} />
+          <Route path="/student" element={<Student />} />
+          <Route path="/update-profile" element={<UpdateProfile />} />
         </Route>
       </Routes>
     </BrowserRouter>
