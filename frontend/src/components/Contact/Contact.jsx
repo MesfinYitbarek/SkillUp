@@ -37,16 +37,15 @@ const Contact = () => {
     }
   };
 
-
   return (
-    <div className=" bg-slate-50 dark:bg-gray-700 dark:text-white">
+    <div className="  bg-slate-50 dark:bg-gray-700 dark:text-white">
       <div>
         <Header />
       </div>
-      <div className="  bg-gradient-to-br  from-purple-400 sm:p-14 p-3 text-white">
-        <h1 className=" sm:text-4xl font-bold ">Connect with Us</h1>
+      <div className="  bg-gradient-to-br  from-slate-300 sm:p-14 p-3 text-sky-800">
+        <h1 className=" sm:text-3xl font-bold ">Connect with us</h1>
       </div>
-      <div className="container mx-auto px-4 py-8 ">
+      <div className="container mx-auto px-8 lg:px-32 py-8 ">
         <div className=" sm:my-7 sm:mb-20">
           <p className=" sm:text-xl p-4 font-serif leading-10 ">
             We're here to help! Whether you have questions about our courses,
@@ -89,104 +88,106 @@ const Contact = () => {
             <p className=" text-xl sm:text-3xl text-sky-950">
               Follow us on social media
             </p>
-            <div className=" flex flex-col  gap-8 text-purple-950 bg-slate-50 border border-slate-300 p-4 ">
-              <Link to={"/"} className="  hover:translate-x-6 hover:scale-110">
-                <Facebook className=" text-blue-600 hover:text-purple-400" />
+            <div className=" flex flex-col  gap-4 text-purple-950 bg-slate-50 border border-slate-300 p-4 ">
+              <Link to={"/"} className=" bg-purple-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110">
+                <Facebook className="  text-blue-600 hover:text-purple-400" />
                 Facebook
               </Link>
               <hr />
-              <Link to={"/"} className=" hover:translate-x-6 hover:scale-110">
+              <Link to={"/"} className=" bg-blue-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110">
                 <Telegram className=" text-blue-600 hover:text-purple-400" />
                 Telegram
               </Link>
               <hr />
-              <Link to={"/"} className=" hover:translate-x-6 hover:scale-110">
+              <Link to={"/"} className=" bg-pink-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110">
                 <Instagram className=" text-pink-600 hover:text-purple-400" />
                 Instagram
               </Link>
               <hr />
-              <Link to={"/"} className=" hover:translate-x-6 hover:scale-110">
+              <Link to={"/"} className=" bg-sky-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110">
                 <Twitter className=" text-blue-300 hover:text-purple-400" />
                 Twitter
               </Link>
               <hr />
             </div>
           </div>
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col space-y-4 sm:w-[650px] sm:h-[470px]  bg-gradient-to-r from-purple-200 to-pink-200  p-2 sm:p-10 rounded-xl border border-purple-400"
-          >
-            <h2 className="sm:text-3xl  group  font-bold mb-4 sm:mb-8  text-center  py-2 text-sky-900  ">
-              <span
-                className="  bg-left-bottom bg-gradient-to-r
-                    from-purple-600 to-pink-600
-                    bg-[length:50%_5px] bg-no-repeat 
-                    group-hover:bg-[length:100%_5px] 
-                    transition-all duration-500 ease-out"
-              >
-                Contact us
-              </span>
-            </h2>
-
-            <div className="flex  flex-col space-y-2 sm:flex-row ">
-              <label
-                htmlFor="name"
-                className="text-gray-700  font-medium sm:w-1/2"
-              >
-                Name:
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="px-4 py-2 border border-purple-400 rounded-md focus:outline-sky-600 sm:w-full"
-                required
-              />
-            </div>
-            <div className="flex flex-col space-y-2 sm:flex-row ">
-              <label
-                htmlFor="email"
-                className="text-gray-700 font-medium sm:w-1/2"
-              >
-                Email:
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="px-4 py-2 border-purple-400 border rounded-md focus:outline-sky-600 sm:w-full"
-                required
-              />
-            </div>
-            <div className="flex flex-col space-y-2">
-              <label htmlFor="message" className="text-gray-700 font-medium">
-                Message:
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)} // Corrected for Tailwind CSS v3 compatibility
-                className="px-4 py-2 border border-purple-400 rounded-md resize-none focus:outline-sky-600 w-full"
-                required
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="bg-sky-700 hover:bg-white hover:text-sky-700 hover:border hover:border-sky-700 font-semibold  text-white px-4 py-2 rounded-md focus:outline-none mx-auto sm:mx-0"
+          <div className="">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col space-y-4 sm:w-[650px] sm:h-[470px]  bg-slate-100  p-2 sm:p-10 rounded-xl border border-slate-400"
             >
-              Submit
-            </button>
-            {formSubmitted && (
-              <p className="text-green-500 font-medium text-center">
-                Message submitted successfully!
-              </p>
-            )}
-          </form>
+              <h2 className="sm:text-3xl  group  font-bold mb-4 sm:mb-8  text-center  py-2 text-sky-900  ">
+                <span
+                  className="  bg-left-bottom bg-gradient-to-r
+                    from-purple-600 to-pink-600
+                    bg-[length:50%_4px] bg-no-repeat 
+                    group-hover:bg-[length:100%_4px] 
+                    transition-all duration-500 ease-out"
+                >
+                  Contact us
+                </span>
+              </h2>
+
+              <div className="flex  flex-col space-y-2 sm:flex-row ">
+                <label
+                  htmlFor="name"
+                  className="text-gray-700  font-medium sm:w-1/5"
+                >
+                  Name:
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="px-4 py-2 border border-slate-400 rounded-md focus:outline-sky-600 sm:w-full"
+                  required
+                />
+              </div>
+              <div className="flex flex-col space-y-2 sm:flex-row ">
+                <label
+                  htmlFor="email"
+                  className="text-gray-700 font-medium sm:w-1/5"
+                >
+                  Email:
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="px-4 py-2 border-slate-400 border rounded-md focus:outline-sky-600 sm:w-full"
+                  required
+                />
+              </div>
+              <div className="flex flex-col space-y-2">
+                <label htmlFor="message" className="text-gray-700 font-medium">
+                  Message:
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)} // Corrected for Tailwind CSS v3 compatibility
+                  className="px-4 py-2 border border-slate-400 rounded-md resize-none focus:outline-sky-600 w-full"
+                  required
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="bg-sky-700 hover:bg-white hover:text-sky-700 hover:border hover:border-sky-700 font-semibold  text-white px-4 py-2 rounded-md focus:outline-none mx-auto sm:mx-0"
+              >
+                Submit
+              </button>
+              {formSubmitted && (
+                <p className="text-green-500 font-medium text-center">
+                  Message submitted successfully!
+                </p>
+              )}
+            </form>
+          </div>
         </div>
       </div>
       <Footer />
