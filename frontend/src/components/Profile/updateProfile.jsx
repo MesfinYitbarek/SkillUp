@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Header from "../Common/Header";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
+import LogoutIcon from '@mui/icons-material/Logout';
 import {
   getDownloadURL,
   getStorage,
@@ -15,6 +17,7 @@ import {
   updateUserSuccess,
 } from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
+import Footer from "../Common/Footer";
 
 const UpdateProfile = () => {
   const fileRef = useRef(null);
@@ -82,70 +85,86 @@ const UpdateProfile = () => {
   };
 
   return (
-    <div>
+    <div className=" bg-slate-50">
       <Header />
-      <div className=" p-20">
-        <div className=" mb-5 sm:mb-8 ">
-          <h1 className="text-3xl font-semibold">Personal details</h1>
-          <p className=" text-xl">
+      <div className=" sm:p-20 p-10 py-12">
+        <div className=" mb-5 sm:mb-10 gap-5 flex flex-col ">
+          <h1 className="sm:text-3xl  text-2xl font-semibold text-sky-700">Personal details</h1>
+          <p className=" sm:text-xl font-mono opacity-70">
             Add your personal details as you would like to appear on your
             profile.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} action="">
-          <input
-            onChange={(e) => setFile(e.target.files[0])}
-            type="file"
-            ref={fileRef}
-            accept="image/*"
-            hidden
-          />
-          <img
-            src={formData.avatar || currentUser.avatar}
-            alt="profile"
-            className=" h-36 w-36 border-4 border-double border-slate-200 rounded-full"
-          />
-          <p>
-            {fileUploadError ? (
-              <span>Error image upload( image must be less than 2 mb)</span>
-            ) : filePerc > 0 && filePerc < 100 ? (
-              <span>{`Uploading ${filePerc}%`}</span>
-            ) : filePerc === 100 ? (
-              <span>Image successfully uploaded!</span>
-            ) : (
-              ""
-            )}
-          </p>
+        <form onSubmit={handleSubmit} 
+        className="  sm:flex sm:flex-row justify-between flex flex-col gap-12  sm:mb-0 mb-12 items-center lg:ml-40" 
+        action="">
+          <div className=" ">
+            <input
+              onChange={(e) => setFile(e.target.files[0])}
+              type="file"
+              ref={fileRef}
+              accept="image/*"
+              hidden
+            />
+            <img
+              src={formData.avatar || currentUser.avatar}
+              alt="profile"
+              className=" mb-4 h-36 w-36 border-4 border-double border-slate-200 rounded-full"
+            />
+            <p>
+              {fileUploadError ? (
+                <span>Error image upload( image must be less than 2 mb)</span>
+              ) : filePerc > 0 && filePerc < 100 ? (
+                <span>{`Uploading ${filePerc}%`}</span>
+              ) : filePerc === 100 ? (
+                <span>Image successfully uploaded!</span>
+              ) : (
+                ""
+              )}
+            </p>
 
-          <button onClick={() => fileRef.current.click()}>Change Photo</button>
-          <input
-            type="text"
-            defaultValue={currentUser.username}
-            placeholder="Username"
-            id="username"
-            onChange={handleChange}
-          />
-          <input
-            type="email"
-            defaultValue={currentUser.email}
-            placeholder="Email"
-            id="email"
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            id="password"
-            onChange={handleChange}
-          />
-          <button>Update</button>
+            <button
+              onClick={() => fileRef.current.click()}
+              className=" bg-blue-600 p-1 px-3 rounded-md hover:bg-white hover:border hover:border-blue-600 font-semibold hover:text-blue-600 text-white"
+            >
+              Change Photo
+            </button>
+          </div>
+
+          <div className=" flex flex-col gap-5 lg:w-[500px] bg-blue-100 border border-blue-500 rounded-lg p-8">
+            <input
+              type="text"
+              defaultValue={currentUser.username}
+              placeholder="Username"
+              id="username"
+              onChange={handleChange}
+              className=" focus:outline-none border text-blue-600 rounded-md border-blue-600 p-1.5 px-4"
+            />
+            <input
+              type="email"
+              defaultValue={currentUser.email}
+              placeholder="Email"
+              id="email"
+              onChange={handleChange}
+              className=" focus:outline-none  border text-blue-600 rounded-md border-blue-600 p-1.5 px-4"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              onChange={handleChange}
+              className=" focus:outline-none  border text-blue-600 rounded-md border-blue-600 p-1.5 px-4"
+            />
+            <button className=" bg-blue-600 p-1 px-3 rounded-md hover:bg-blue-700   font-semibold  text-white">Update</button>
+          </div>
         </form>
-        <div>
-          <span>Delete account</span>
-          <span>Log Out</span>
+        <div className=" lg:ml-36 flex flex-col gap-3">
+          <span className=" bg-blue-600 p-1 px-3 rounded-md hover:bg-blue-700 max-w-44  font-semibold  text-white"><DeleteIcon/> Delete account </span>
+          <span className=" font-bold text-purple-500">Log Out <LogoutIcon/> </span>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
