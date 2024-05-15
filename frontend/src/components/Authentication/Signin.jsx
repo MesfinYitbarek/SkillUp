@@ -46,7 +46,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className=" dark:bg-gray-800">
+    <div className=" dark:bg-gray-800 bg-slate-50">
       <Header />
       <div className=" flex justify-center items-center">
         <div className="  shadow-sm shadow-purple-600 dark:bg-gray-400  p-[5%] rounded-2xl sm:w-[650px] bg-slate-50  border border-slate-300  m-[5%]">
