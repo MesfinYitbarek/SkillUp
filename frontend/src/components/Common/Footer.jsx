@@ -41,6 +41,7 @@ const Catagories = [
 ];
 
 const Footer = () => {
+  const date = new Date().getFullYear();
   return (
     <div className="bg-sky-950 w-full text-white flex flex-col justify-between items-center p-8 gap-3">
       <div className=" pb-2  sm:flex justify-between pt-6  gap-20 text-white">
@@ -55,11 +56,10 @@ const Footer = () => {
           </Link>
           <div className=" mt-3 ">
             <p>
-              CREAVERS Service P.L.C has been founded in June 2015 as an
-              investment company in Ethiopia. It is born of the desire of its
-              founders to bring, within the Ethiopian market, the very best in
-              latest technologies in the area of design and development of
-              computer software, but not readily available in Ethiopia.
+              SkillUp your journey. Dive into our library of expert-crafted
+              online courses. Upskill for your career, learn a new passion, or
+              explore anything that interests you. Join our vibrant community
+              and empower your potential. It all starts here at SkillUp.
             </p>
             <Link to={"/courses"}>
               <button
@@ -150,7 +150,7 @@ const Footer = () => {
         </div>
       </div>
       <div className=" pb-6 mb-0 text-center">
-        Copyright &copy; 2024 SkillUp. All Rights Reserved.
+        Copyright &copy; {date} SkillUp. All Rights Reserved.
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ const Profile = () => {
           <h1>
             Hi, <span className=" text-purple-500">{currentUser.username}</span>
           </h1>
-          <p className=" sm:text-4xl text-sky-900">Welcome back!</p>
+          
         </div>
 
         <div className=" sm:flex flex flex-col sm:flex-row sm:mb-8 items-center sm:gap-6 lg:gap-64">
@@ -57,7 +57,7 @@ const Profile = () => {
                   My Courses <DoubleArrowIcon className=" ml-14" />
                 </h1>
               </Link>
-              <Link className=" mt-12 text-lg text-blue-600 font-semibold">
+              <Link to={"/update-profile"} className=" mt-12 text-lg text-blue-600 font-semibold">
                 <h1 className=" hover:bg-blue-500 hover:text-white border rounded-md border-blue-600 p-1.5 px-4">
                   Change Password <DoubleArrowIcon className=" ml-3" />
                 </h1>
