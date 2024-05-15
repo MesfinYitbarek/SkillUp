@@ -182,7 +182,7 @@ const UpdateProfile = () => {
               onChange={handleChange}
               className=" focus:outline-none  border text-blue-600 rounded-md border-blue-600 p-1.5 px-4"
             />
-            <button className=" bg-blue-600 p-1 px-3 rounded-md hover:bg-blue-700   font-semibold  text-white">
+            <button onClick={handleSubmit} type="submit" className=" bg-blue-600 p-1 px-3 rounded-md hover:bg-blue-700   font-semibold  text-white">
               Update
             </button>
           </div>
