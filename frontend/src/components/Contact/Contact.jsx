@@ -6,9 +6,10 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
 import Facebook from "@mui/icons-material/Facebook";
 import Instagram from "@mui/icons-material/Instagram";
-import { Twitter } from "@mui/icons-material";
+import { DoubleArrow, Twitter } from "@mui/icons-material";
 import Telegram from "@mui/icons-material/Telegram";
 import Footer from "../Common/Footer";
+import img from "../../assets/background image/pexels-buro-millennial-636760-1438081.jpg"
 const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,12 +39,23 @@ const Contact = () => {
   };
 
   return (
-    <div className="  bg-slate-100 dark:bg-gray-700 dark:text-white">
+    <div className="  bg-slate-50 dark:bg-gray-700 dark:text-white">
       <div>
         <Header />
       </div>
-      <div className="  bg-gradient-to-br  from-purple-200 sm:p-10 p-3 text-sky-600">
-        <h1 className=" sm:text-3xl font-bold ">Connect with us</h1>
+      <div
+        style={{
+          backgroundImage: `url(${img})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: "screen",
+          width: "100%",
+          opacity: "90%", // Adjust height and width as needed
+        }}
+        className="  bg-gradient-to-br  from-purple-200 sm:p-10 p-3 text-slate-300 "
+      >
+        <h1 className=" sm:text-5xl font-bold ">Connect with us</h1>
+        <h2 className=" text-xl font-bold mt-2 text-slate-50">SkillUp <DoubleArrow /> <span className=" text-blue-800">Courses</span>  </h2>
       </div>
       <div className="container mx-auto px-8 lg:px-32 py-8 ">
         <div className=" sm:my-7 sm:mb-20">
@@ -89,22 +101,34 @@ const Contact = () => {
               Follow us on social media
             </p>
             <div className=" flex flex-col  gap-4 text-purple-950 bg-slate-50 border border-slate-300 p-4 ">
-              <Link to={"/"} className=" bg-purple-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110">
+              <Link
+                to={"/"}
+                className=" bg-purple-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110"
+              >
                 <Facebook className="  text-blue-600 hover:text-purple-400" />
                 Facebook
               </Link>
               <hr />
-              <Link to={"/"} className=" bg-blue-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110">
+              <Link
+                to={"/"}
+                className=" bg-blue-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110"
+              >
                 <Telegram className=" text-blue-600 hover:text-purple-400" />
                 Telegram
               </Link>
               <hr />
-              <Link to={"/"} className=" bg-pink-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110">
+              <Link
+                to={"/"}
+                className=" bg-pink-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110"
+              >
                 <Instagram className=" text-pink-600 hover:text-purple-400" />
                 Instagram
               </Link>
               <hr />
-              <Link to={"/"} className=" bg-sky-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110">
+              <Link
+                to={"/"}
+                className=" bg-sky-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110"
+              >
                 <Twitter className=" text-blue-300 hover:text-purple-400" />
                 Twitter
               </Link>
