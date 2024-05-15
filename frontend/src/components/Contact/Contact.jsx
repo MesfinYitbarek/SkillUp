@@ -38,11 +38,11 @@ const Contact = () => {
   };
 
   return (
-    <div className="  bg-slate-50 dark:bg-gray-700 dark:text-white">
+    <div className="  bg-slate-100 dark:bg-gray-700 dark:text-white">
       <div>
         <Header />
       </div>
-      <div className="  bg-gradient-to-br  from-slate-300 sm:p-14 p-3 text-sky-800">
+      <div className="  bg-gradient-to-br  from-purple-200 sm:p-10 p-3 text-sky-600">
         <h1 className=" sm:text-3xl font-bold ">Connect with us</h1>
       </div>
       <div className="container mx-auto px-8 lg:px-32 py-8 ">
