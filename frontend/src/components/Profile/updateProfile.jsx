@@ -3,7 +3,6 @@ import Header from "../Common/Header";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import LogoutIcon from "@mui/icons-material/Logout";
 import {
   getDownloadURL,
   getStorage,
@@ -21,6 +20,7 @@ import {
 } from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import Footer from "../Common/Footer";
+import SignOut from "./SignOut";
 
 const UpdateProfile = () => {
   const fileRef = useRef(null);
@@ -104,6 +104,8 @@ const UpdateProfile = () => {
       dispatch(deleteUserFailure(error.message));
     }
   };
+
+ 
   return (
     <div className=" bg-slate-50">
       <Header />
@@ -192,9 +194,7 @@ const UpdateProfile = () => {
           >
             <DeleteIcon /> Delete account{" "}
           </button>
-          <span className=" font-bold text-purple-500">
-            Log Out <LogoutIcon />{" "}
-          </span>
+          <SignOut/>
         </div>
       </div>
       <Footer />

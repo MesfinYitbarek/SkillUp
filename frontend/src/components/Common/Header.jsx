@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Menu from "./MenuData";
 import { useSelector } from "react-redux";
 import LogoutIcon from '@mui/icons-material/Logout';
+import SignOut from "../Profile/SignOut";
 
 const Catagories = [
   {
@@ -208,7 +209,7 @@ const Header = () => {
               <ul className=" ">
                 <Link to={"/student"} ><h3>My Courses</h3></Link> 
                 <Link to={"/profile"}> <h3>Profile</h3></Link> 
-                <Link> <h5><LogoutIcon /> Log Out</h5></Link>
+                <SignOut />
               </ul>
             </div>
           </div>

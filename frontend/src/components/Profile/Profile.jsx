@@ -5,6 +5,7 @@ import Footer from "../Common/Footer";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
 import { Link } from "react-router-dom";
+import SignOut from "./SignOut";
 const Profile = () => {
   const { currentUser } = useSelector((state) => state.user);
   return (
@@ -35,11 +36,16 @@ const Profile = () => {
             <div className=" mt-12 text-lg text-blue-600 font-semibold">
               <Link
                 to={"/update-profile"}
-                className=" hover:bg-blue-500 hover:text-white border rounded-md border-blue-600 p-1.5 px-4"
+                className="   hover:bg-blue-500 hover:text-white border rounded-md border-blue-600  p-1.5 px-4"
               >
                 Update Profile
               </Link>
+              
+            </div >
+            <div className=" mt-3">
+            <SignOut />
             </div>
+            
           </div>
           <div className=" text-7xl p-3   ">
             <div className=" flex flex-col mb-10">
