@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Header from "../Common/Header";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
-import DeleteIcon from '@mui/icons-material/Delete';
-import LogoutIcon from '@mui/icons-material/Logout';
+import DeleteIcon from "@mui/icons-material/Delete";
+import LogoutIcon from "@mui/icons-material/Logout";
 import {
   getDownloadURL,
   getStorage,
@@ -15,6 +15,9 @@ import {
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
 } from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import Footer from "../Common/Footer";
@@ -84,21 +87,42 @@ const UpdateProfile = () => {
     }
   };
 
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return;
+      }
+
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
   return (
     <div className=" bg-slate-50">
       <Header />
       <div className=" sm:p-20 p-10 py-12">
         <div className=" mb-5 sm:mb-10 gap-5 flex flex-col ">
-          <h1 className="sm:text-3xl  text-2xl font-semibold text-sky-700">Personal details</h1>
+          <h1 className="sm:text-3xl  text-2xl font-semibold text-sky-700">
+            Personal details
+          </h1>
           <p className=" sm:text-xl font-mono opacity-70">
             Add your personal details as you would like to appear on your
             profile.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} 
-        className="  sm:flex sm:flex-row justify-between flex flex-col gap-12  sm:mb-0 mb-12 items-center lg:ml-40" 
-        action="">
+        <form
+          onSubmit={handleSubmit}
+          className="  sm:flex sm:flex-row justify-between flex flex-col gap-12  sm:mb-0 mb-12 items-center lg:ml-40"
+          action=""
+        >
           <div className=" ">
             <input
               onChange={(e) => setFile(e.target.files[0])}
@@ -156,12 +180,21 @@ const UpdateProfile = () => {
               onChange={handleChange}
               className=" focus:outline-none  border text-blue-600 rounded-md border-blue-600 p-1.5 px-4"
             />
-            <button className=" bg-blue-600 p-1 px-3 rounded-md hover:bg-blue-700   font-semibold  text-white">Update</button>
+            <button className=" bg-blue-600 p-1 px-3 rounded-md hover:bg-blue-700   font-semibold  text-white">
+              Update
+            </button>
           </div>
         </form>
         <div className=" lg:ml-36 flex flex-col gap-3">
-          <span className=" bg-blue-600 p-1 px-3 rounded-md hover:bg-blue-700 max-w-44  font-semibold  text-white"><DeleteIcon/> Delete account </span>
-          <span className=" font-bold text-purple-500">Log Out <LogoutIcon/> </span>
+          <button
+            onClick={handleDeleteUser}
+            className=" bg-blue-600 p-1 px-3 rounded-md hover:bg-blue-700 max-w-44  font-semibold  text-white"
+          >
+            <DeleteIcon /> Delete account{" "}
+          </button>
+          <span className=" font-bold text-purple-500">
+            Log Out <LogoutIcon />{" "}
+          </span>
         </div>
       </div>
       <Footer />
