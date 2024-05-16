@@ -7,7 +7,12 @@ import authRouter from "./routes/auth.js";
 import courseRouter from "./routes/courses.js";
 import Contact from "./models/Contact.js";
 import cookieParser from "cookie-parser";
+import cors from "cors"
 dotenv.config();
+
+// Connect to MongoDB database
+
+const app = express();
 
 mongoose
   .connect(process.env.MONGO)
@@ -18,7 +23,10 @@ mongoose
     console.log(err);
   });
 
-const app = express();
+
+
+// Middleware
+app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
 
@@ -26,6 +34,8 @@ app.listen(PORT, () => {
   console.log(`App is listening to port: ${PORT}`);
 });
 
+
+//Routes
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/courses", courseRouter);

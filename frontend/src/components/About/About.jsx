@@ -49,9 +49,8 @@ const About = () => {
           height: "screen",
           width: "100%",
           opacity: "90%",
-          filter: 'brightness(0.3)' // Adjust height and width as needed
+          filter: "brightness(0.3)", 
         }}
-        
       ></div>
       <div className=" absolute text-white top-36 left-20">
         <h2 className=" mb-5 text-2xl sm:text-5xl  font-bold ">
@@ -62,9 +61,12 @@ const About = () => {
         </h2>
       </div>
       <div className=" bg-slate-50 flex flex-col gap-20">
-        <div className=" px-20 flex gap-24  justify-between items-center  ">
-          <div className=" ">
-            <h5 data-aos="zoom-in" className="  mb-5 font-semibold text-3xl text-blue-900">
+        <div className=" px-14 sm:px-20 flex gap-24  justify-between items-center  ">
+          <div className=" pt-10">
+            <h5
+              data-aos="zoom-in"
+              className="  mb-5 font-semibold text-3xl text-blue-900"
+            >
               {" "}
               Empowering Lifelong Learners
             </h5>
@@ -78,6 +80,7 @@ const About = () => {
             </p>
           </div>
           <img
+            data-aos="fade-left"
             className=" mt-7  md:flex hidden max-w-[500px]"
             src={image3}
             alt=" image"
@@ -98,7 +101,10 @@ const About = () => {
         </div>
         <div className=" flex flex-col items-center mx-10  text-slate-900   p-8 py-20">
           <h2 className=" font-semibold mb-5  text-3xl ">OUR MISSION</h2>{" "}
-          <hr data-aos="fade-right" className=" bg-purple-500 h-1 w-[20%]  mb-10 " />
+          <hr
+            data-aos="fade-right"
+            className=" bg-purple-500 h-1 w-[20%]  mb-10 "
+          />
           <p className=" border border-purple-500 p-8 py-20 text-center">
             Our mission is to democratize education by providing affordable,
             high-quality online courses taught by industry experts. We strive to
@@ -106,11 +112,11 @@ const About = () => {
             curiosity, growth, and personal development.
           </p>
         </div>
-        <div className=" mx-20  my-20 flex flex-col">
+        <div className=" mx-14 sm:mx-20  my-20 flex flex-col">
           <h2 className="  text-3xl font-bold text-sky-800">
             What Makes Us Unique?
           </h2>
-          <div className=" mt-8 text-justify   grid grid-cols-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4  lg:gap-3  sm:gap-5 justify-between  items-center">
+          <div className=" mt-8 text-justify   grid grid-cols-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4  gap-3  sm:gap-5 justify-between  items-center">
             {unique.map((data) => (
               <div
                 key={data.id}
@@ -119,8 +125,11 @@ const About = () => {
                 <h2 className=" text-center mb-2   font-bold text-lg">
                   {data.title}
                 </h2>
-                <hr data-aos="fade-left"
-                data-aos-delay="200"  className=" bg-purple-500 h-1 mb-3  w-[60%]   " />
+                <hr
+                  data-aos="fade-left"
+                  data-aos-delay="200"
+                  className=" bg-purple-500 h-1 mb-3  w-[60%]   "
+                />
                 <p className="   font-semibold p-1 rounded-md">
                   {data.description}
                 </p>
@@ -128,7 +137,7 @@ const About = () => {
             ))}
           </div>
         </div>
-        <div className=" bg-slate-300 px-20 py-16">
+        <div className=" bg-slate-300 px-10 sm:px-20 py-16">
           <h2 className=" mb-5  text-2xl text-blue-800">
             Join the SkillUp Community
           </h2>
@@ -155,7 +164,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className=" px-20 text-4xl py-6 text-sky-800 pb-12 font-bold">
+        <div className=" px-10 sm:px-20 text-xl sm:text-4xl py-6 text-sky-800 pb-12 font-bold">
           <h1>We're excited to be part of your learning journey!</h1>
         </div>
       </div>

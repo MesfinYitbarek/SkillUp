@@ -3,39 +3,39 @@ import mongoose from "mongoose";
 const courseSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
+    required: true
   },
   imageUrl: {
     type: String,
-    required: true,
+    required: true
   },
   instructorImage: {
     type: String,
-    required: true,
-  }, 
-  rating: {
-    type: Number,
-    default: 0,
-  }, 
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
   duration: {
     type: String,
-    required: true,
-  }, 
+    required: true
+  },
   isPaid: {
     type: Boolean,
-    required: true,
-  }, 
+    required: true
+  },
   price: {
     type: Number,
-    required: true,
-  }, // Price for paid courses (optional for free courses)
-  
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true
+  }
 });
 
-const Course = mongoose.model("Course", courseSchema);
+const Course = mongoose.model('Course', courseSchema);
+
 
 export default Course;

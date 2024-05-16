@@ -1,9 +1,10 @@
 import express from "express";
-import { courses } from "../controllers/coursesController.js";
+import { courses, createCourses } from "../controllers/coursesController.js";
 
 const courseRouter = express.Router();
 
-courseRouter.post("/courses", courses);
+courseRouter.get("/courses", courses);
+courseRouter.post("/createCourses", createCourses);
 
 
 export default courseRouter;

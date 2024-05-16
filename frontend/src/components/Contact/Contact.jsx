@@ -61,7 +61,7 @@ const Contact = () => {
 
   return (
     <div className="  bg-slate-50 dark:bg-gray-700 dark:text-white">
-      <div className=" h-screen">
+      <div className=" sm:h-screen">
         <div>
           <Header />
         </div>

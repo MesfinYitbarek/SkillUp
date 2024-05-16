@@ -2,6 +2,21 @@ import React from "react";
 import courses from "./coursesData";
 import StarIcon from "@mui/icons-material/Star";
 const CourseListing = () => {
+  const [courses, setCourses] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch('/api/courses/courses');
+        const data = await response.json();
+        setCourses(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchCourses();
+  }, []);
   return (
     <div className=" px-16 py-20 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-8">
