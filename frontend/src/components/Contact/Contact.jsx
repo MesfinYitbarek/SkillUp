@@ -9,12 +9,33 @@ import Instagram from "@mui/icons-material/Instagram";
 import { DoubleArrow, Twitter } from "@mui/icons-material";
 import Telegram from "@mui/icons-material/Telegram";
 import Footer from "../Common/Footer";
-import img from "../../assets/background image/pexels-buro-millennial-636760-1438081.jpg"
+import img from "../../assets/background image/pexels-buro-millennial-636760-1438081.jpg";
 const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const contactData = [
+    {
+      title: "Postal Address",
+      content: " PO Box CMC Michael, Addis Ababa, Ethiopia",
+      icon: <LocationOnIcon />,
+      delay:"100",
+    },
+    {
+      title: "Phone",
+      content: "+251-975364420",
+      icon: <PhoneIcon />,
+      delay:"300",
+    },
+    {
+      title: "Email",
+      content: "contact@skillup.com",
+      icon: <Email />,
+      delay:"500",
+    },
+  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,63 +61,61 @@ const Contact = () => {
 
   return (
     <div className="  bg-slate-50 dark:bg-gray-700 dark:text-white">
-      <div>
-        <Header />
-      </div>
-      <div
-        style={{
-          backgroundImage: `url(${img})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "screen",
-          width: "100%",
-          opacity: "90%", // Adjust height and width as needed
-        }}
-        className="  bg-gradient-to-br  from-purple-200 sm:p-10 p-3 text-slate-300 "
-      >
-        <h1 className=" sm:text-5xl font-bold ">Connect with us</h1>
-        <h2 className=" text-xl font-bold mt-2 text-slate-50">SkillUp <DoubleArrow /> <span className=" text-blue-800">Courses</span>  </h2>
-      </div>
-      <div className="container mx-auto px-8 lg:px-32 py-8 ">
-        <div className=" sm:my-7 sm:mb-20">
-          <p className=" sm:text-xl p-4 font-serif leading-10 ">
-            We're here to help! Whether you have questions about our courses,
-            need assistance navigating the platform, or simply want to share
-            feedback, we'd love to hear from you.
-          </p>
+      <div className=" h-screen">
+        <div>
+          <Header />
         </div>
-        <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
-          <div className=" flex items-center gap-2 shadow-sm  text-white bg-gradient-to-r from-purple-500 to-pink-500 p-3 shadow-purple-400">
-            <div className=" ">
-              <LocationOnIcon className=" text-purple-800  " />
-            </div>
-            <div>
-              <h3>Postal Address</h3>
-              <p>PO Box CMC Michael, Addis Ababa, Ethiopia</p>
-            </div>
+        <div>
+          <div
+            style={{
+              backgroundImage: `url(${img})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              height: "screen",
+              width: "100%",
+              opacity: "90%", // Adjust height and width as needed
+            }}
+            className="  brightness-50 h-[160px] sm:p-10 p-3 text-white"
+          ></div>
+          <div className=" absolute text-white top-36 left-20">
+            <h1 className=" sm:text-5xl font-bold ">Connect with us</h1>
+            <h2 className=" text-xl font-bold mt-2 text-white">
+              SkillUp <DoubleArrow />{" "}
+              <span className=" text-slate-200">Contact</span>{" "}
+            </h2>
           </div>
-          <div className=" flex items-center gap-2 shadow-sm hover:text-white hover:bg-gradient-to-r from-purple-500 to-pink-500 p-3 shadow-purple-400">
-            <div>
-              <PhoneIcon className=" text-purple-800  " />
-            </div>
-            <div>
-              <h3>Phone</h3>
-              <p>+251-975364420</p>
-            </div>
+          <div className=" sm:my-20 sm:mx-20 ">
+            <p data-aos="fade-right" className=" dark:text-white sm:text-2xl p-4 font-serif  text-justify text-blue-900 ">
+              We're here to help! Whether you have questions about our courses,
+              need assistance navigating the platform, or simply want to share
+              feedback, we'd love to hear from you.
+            </p>
           </div>
+        </div>
+      </div>
 
-          <div className=" flex items-center gap-2 shadow-sm text-white bg-gradient-to-r from-purple-500 to-pink-500 p-3 shadow-purple-400">
+      <div className="container mx-auto px-8 lg:px-32 py-8 ">
+        <div className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center ">
+          {contactData.map((data) => (
             <div>
-              <Email className=" text-purple-800  " />
+              <div
+                data-aos="fade-up"
+                data-aos-delay={data.delay}
+                className="  group flex flex-col items-center text-sky-800 gap-6 pt-8 shadow-xl rounded-sm  hover:text-white hover:scale-110 hover:bg-gradient-to-r from-purple-500 to-pink-500 p-3 text-center h-[220px] w-[300px]   bg-white"
+              >
+                <div className="border-2 text-purple-800 group-hover:border-white  group-hover:text-white  border-purple-800 p-2 h-[45px] w-[45px] rounded-full ">
+                  <div className="    ">{data.icon}</div>
+                </div>
+                <div className="  font-semibold">
+                  <h3 className=" font-bold text-lg pb-2">{data.title}</h3>
+                  <p>{data.content}</p>
+                </div>
+              </div>
             </div>
-            <div>
-              <h3>Email</h3>
-              <p>contact@skillup.com</p>
-            </div>
-          </div>
+          ))}
         </div>
-        <div className=" my-20 sm:my-28 sm:flex gap-28">
-          <div className=" flex flex-col gap-5 my-16 ">
+        <div className=" h-screen items-center my-20 sm:my-28 sm:flex gap-28">
+          <div data-aos="fade-right" className=" flex flex-col gap-5 my-16 ">
             <p className=" text-xl sm:text-3xl text-sky-950">
               Follow us on social media
             </p>
@@ -136,22 +155,22 @@ const Contact = () => {
             </div>
           </div>
           <div className="">
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col space-y-4 sm:w-[650px] sm:h-[470px]  bg-slate-100  p-2 sm:p-10 rounded-xl border border-slate-400"
-            >
-              <h2 className="sm:text-3xl  group  font-bold mb-4 sm:mb-8  text-center  py-2 text-sky-900  ">
-                <span
-                  className="  bg-left-bottom bg-gradient-to-r
+            <h2 className="sm:text-4xl   group  font-bold mb-4 sm:mb-8  text-center  py-2 text-sky-900  ">
+              <span
+                className="  bg-left-bottom bg-gradient-to-r
                     from-purple-600 to-pink-600
-                    bg-[length:50%_4px] bg-no-repeat 
-                    group-hover:bg-[length:100%_4px] 
+                    bg-[length:0%_2px] bg-no-repeat 
+                    group-hover:bg-[length:100%_2px] 
                     transition-all duration-500 ease-out"
-                >
-                  Contact us
-                </span>
-              </h2>
-
+              >
+                Send Us a Message
+              </span>
+            </h2>
+            <form
+              data-aos="fade-left"
+              onSubmit={handleSubmit}
+              className="flex flex-col space-y-4 sm:w-[650px]   bg-white shadow-xl p-2 sm:p-20 rounded-xl  border-slate-400"
+            >
               <div className="flex  flex-col space-y-2 sm:flex-row ">
                 <label
                   htmlFor="name"
@@ -165,7 +184,7 @@ const Contact = () => {
                   name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="px-4 py-2 border border-slate-400 rounded-md focus:outline-sky-600 sm:w-full"
+                  className="px-4 py-2 border border-slate-400 rounded-md bg-slate-50 focus:outline-sky-600 sm:w-full"
                   required
                 />
               </div>
@@ -182,7 +201,7 @@ const Contact = () => {
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="px-4 py-2 border-slate-400 border rounded-md focus:outline-sky-600 sm:w-full"
+                  className="px-4 py-2 bg-slate-50 border-slate-400 border rounded-md focus:outline-sky-600 sm:w-full"
                   required
                 />
               </div>
@@ -195,7 +214,7 @@ const Contact = () => {
                   name="message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)} // Corrected for Tailwind CSS v3 compatibility
-                  className="px-4 py-2 border border-slate-400 rounded-md resize-none focus:outline-sky-600 w-full"
+                  className="px-4 py-2 bg-slate-50 border border-slate-400 rounded-md resize-none focus:outline-sky-600 w-full"
                   required
                 ></textarea>
               </div>

@@ -16,14 +16,21 @@ export default function Courses() {
             backgroundPosition: "center",
             height: "screen",
             width: "100%",
-            opacity: "90%",
-            
+            // filter: "brightness(0.5)",
           }}
-          className="  pl-16 items-center py-10 "
+          className=" h-[160px] brightness-50 opacity-100 pl-16 items-center py-10 "
         >
-          <h1 className=" lg:text-5xl  text-slate-200 font-bold">Courses</h1>
-          <h2 className=" text-xl font-bold mt-2 text-slate-50">SkillUp <DoubleArrow /> <span className=" text-blue-800">Courses</span>  </h2>
+          
         </div>
+        <div className=" absolute top-36 left-20">
+            <h1 className=" lg:text-5xl  text-white font-bold">
+              Courses
+            </h1>
+            <h2 className=" text-xl font-bold mt-2 text-white">
+              SkillUp <DoubleArrow />{" "}
+              <span className=" text-slate-300">Courses</span>{" "}
+            </h2>
+          </div>
         <CourseListing />
         <Footer />
       </div>
