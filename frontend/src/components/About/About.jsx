@@ -103,9 +103,9 @@ const About = () => {
           <h2 className=" font-semibold mb-5  text-3xl ">OUR MISSION</h2>{" "}
           <hr
             data-aos="fade-right"
-            className=" bg-purple-500 h-1 w-[20%]  mb-10 "
+            className=" bg-blue-500 h-1 w-[20%]  mb-10 "
           />
-          <p className=" border border-purple-500 p-8 py-20 text-center">
+          <p className=" border border-blue-500 p-8 py-20 text-center">
             Our mission is to democratize education by providing affordable,
             high-quality online courses taught by industry experts. We strive to
             create an engaging and supportive learning environment that fosters
@@ -120,7 +120,7 @@ const About = () => {
             {unique.map((data) => (
               <div
                 key={data.id}
-                className=" group  text-sky-800 hover:scale-110 gap-2 flex flex-col text-center items-center pt-7 bg-white hover:bg-gradient-to-r from-purple-500 to-pink-500 hover:text-white shadow-lg  p-3 "
+                className=" group  text-sky-800 hover:scale-110 gap-2 flex flex-col text-center items-center pt-7 bg-white hover:bg-gradient-to-r from-purple-500 to-blue-500 hover:text-white shadow-lg  p-3 "
               >
                 <h2 className=" text-center mb-2   font-bold text-lg">
                   {data.title}
@@ -128,7 +128,7 @@ const About = () => {
                 <hr
                   data-aos="fade-left"
                   data-aos-delay="200"
-                  className=" bg-purple-500 h-1 mb-3  w-[60%]   "
+                  className=" bg-blue-500 h-1 mb-3  w-[60%]   "
                 />
                 <p className="   font-semibold p-1 rounded-md">
                   {data.description}

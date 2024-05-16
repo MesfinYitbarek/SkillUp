@@ -47,6 +47,23 @@ const Header = () => {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
+  const [catagory, setCatagory] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchCatagory = async () => {
+      try {
+        const response = await fetch("/api/courses/catagory");
+        const data = await response.json();
+        setCatagory(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchCatagory();
+  }, []);
+
   return (
     <div
       className="  xl:flex p-5 flex-wrap justify-between items-center shadow-sm bg-slate-100
@@ -152,7 +169,7 @@ const Header = () => {
                         bg-white p-2 text-black shadow-md  "
                 >
                   <ul className="">
-                    {Catagories.map((data) => (
+                    {catagory.map((data) => (
                       <li key={data.id}>
                         <a
                           href={data.link}

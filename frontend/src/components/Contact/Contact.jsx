@@ -73,7 +73,7 @@ const Contact = () => {
               backgroundPosition: "center",
               height: "screen",
               width: "100%",
-              opacity: "90%", // Adjust height and width as needed
+              opacity: "100%", 
             }}
             className="  brightness-50 h-[160px] sm:p-10 p-3 text-white"
           ></div>
@@ -101,7 +101,7 @@ const Contact = () => {
               <div
                 data-aos="fade-up"
                 data-aos-delay={data.delay}
-                className="  group flex flex-col items-center text-sky-800 gap-6 pt-8 shadow-xl rounded-sm  hover:text-white hover:scale-110 hover:bg-gradient-to-r from-purple-500 to-pink-500 p-3 text-center h-[220px] w-[300px]   bg-white"
+                className="  group flex flex-col items-center text-sky-800 gap-6 pt-8 shadow-xl rounded-sm  hover:text-white hover:scale-110 hover:bg-gradient-to-r from-purple-500 to-blue-500 p-3 text-center h-[220px] w-[300px]   bg-white"
               >
                 <div className="border-2 text-purple-800 group-hover:border-white  group-hover:text-white  border-purple-800 p-2 h-[45px] w-[45px] rounded-full ">
                   <div className="    ">{data.icon}</div>

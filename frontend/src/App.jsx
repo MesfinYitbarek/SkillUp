@@ -14,6 +14,8 @@ import Student from "./components/StudentDashboard/Student"
 import UpdateProfile from "./components/Profile/updateProfile";
 import Instructor from "./components/InstructorDashboard/Instructor";
 import CreateCourse from "./components/Courses/CreateCourse";
+import CreateCatagory from "./components/Courses/CreateCatagory";
+
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -40,6 +42,7 @@ const App = () => {
           <Route path="/instructor" element={<Instructor/>} />
           <Route path="/update-profile" element={<UpdateProfile />} />
           <Route path="/create-course" element={<CreateCourse/>} />
+          <Route path="/create-catagory" element={<CreateCatagory/>} />
         </Route>
       </Routes>
     </BrowserRouter>

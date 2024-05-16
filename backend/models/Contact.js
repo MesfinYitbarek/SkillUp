@@ -8,13 +8,13 @@ const ContactSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true, // Ensure unique email for each submission
+    unique: true, 
   },
   message: {
     type: String,
     required: true,
   },
-}, { timestamps: true }); // Add timestamps for creation/update tracking
+}, { timestamps: true }); 
 
 const Contact= mongoose.model('Contact', ContactSchema);
 export default Contact
