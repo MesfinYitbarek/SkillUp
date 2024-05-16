@@ -4,6 +4,7 @@ import CourseListing from "./CourseListing";
 import Footer from "../Common/Footer";
 import img from "../../assets/background image/pexels-vlada-karpovich-4050315.jpg";
 import { DoubleArrow } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 export default function Courses() {
   return (
     <div className=" bg-slate-50">
@@ -32,6 +33,9 @@ export default function Courses() {
             </h2>
           </div>
         <CourseListing />
+        <Link  to="/create-course">
+          create course
+        </Link>
         <Footer />
       </div>
     </div>
