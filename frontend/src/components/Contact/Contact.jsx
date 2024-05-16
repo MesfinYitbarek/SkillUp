@@ -41,21 +41,21 @@ const Contact = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("/api/contact/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message }),
       });
 
       const data = await response.json();
-      console.log(data.message); // Log success message
+      console.log(data.message); 
       setFormSubmitted(true);
       setName("");
       setEmail("");
-      setMessage(""); // Clear form fields after successful submission
+      setMessage(""); 
     } catch (err) {
-      console.error(err);
-      // Handle error gracefully, e.g., display an error message to the user
+      console.log(err);
+    
     }
   };
 

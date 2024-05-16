@@ -41,6 +41,7 @@ export default function Courses() {
         </div>
         <Link to="/create-course">create course</Link>
         <Link to="/create-catagory">create catagories</Link>
+        <Link to="/contact-display">contact display</Link>
         <Footer />
       </div>
     </div>

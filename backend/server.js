@@ -8,6 +8,7 @@ import courseRouter from "./routes/courses.js";
 import Contact from "./models/Contact.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
+import contactRouter from "./routes/contact.js";
 dotenv.config();
 
 // Connect to MongoDB database
@@ -39,24 +40,7 @@ app.listen(PORT, () => {
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/courses", courseRouter);
-app.post("/api/contact", async (req, res) => {
-  try {
-    const newContact = new Contact({
-      name: req.body.name,
-      email: req.body.email,
-      message: req.body.message,
-    });
-
-    await newContact.save(); // Save contact data to MongoDB
-
-    res
-      .status(201)
-      .json({ message: "Contact information submitted successfully!" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Error submitting contact information" });
-  }
-});
+app.use("/api/contact", contactRouter)
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

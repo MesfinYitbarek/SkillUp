@@ -15,6 +15,7 @@ import UpdateProfile from "./components/Profile/updateProfile";
 import Instructor from "./components/InstructorDashboard/Instructor";
 import CreateCourse from "./components/Courses/CreateCourse";
 import CreateCatagory from "./components/Courses/CreateCatagory";
+import ContactDisplay from "./components/Contact/ContactDisplay";
 
 const App = () => {
   React.useEffect(() => {
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/update-profile" element={<UpdateProfile />} />
           <Route path="/create-course" element={<CreateCourse/>} />
           <Route path="/create-catagory" element={<CreateCatagory/>} />
+          <Route path="/contact-display" element={<ContactDisplay/>} />
         </Route>
       </Routes>
     </BrowserRouter>
