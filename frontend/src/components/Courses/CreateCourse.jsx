@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 const CreateCourse = () => {
+  const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,10 @@ const CreateCourse = () => {
       const res = await fetch("/api/courses/createCourses", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          userRef: currentUser._id,
+        }),
       });
 
       const data = await res.json();
@@ -34,7 +38,7 @@ const CreateCourse = () => {
       }
       setLoading(false);
       setError(null);
-      navigate("/courses");
+      navigate("/instructor-courses");
     } catch (error) {
       setLoading(false);
       setError(error.message);

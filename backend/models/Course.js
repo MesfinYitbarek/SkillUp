@@ -33,8 +33,12 @@ const courseSchema = new mongoose.Schema({
   rating: {
     type: Number,
     required: true
-  }
-});
+  },
+  userRef: {
+    type:String,
+    required:true,
+  },
+}, {timestamps: true});
 
 const Course = mongoose.model('Course', courseSchema);
 
