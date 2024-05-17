@@ -1,32 +1,31 @@
 import React from 'react'
 
-const ContactDisplay = () => {
-    const [contact, setContact] = React.useState([]);
+const Catagory = () => {
+    const [catagory, setCatagory] = React.useState([]);
 
   React.useEffect(() => {
-    const fetchContact = async () => {
+    const fetchCatagory = async () => {
       try {
-        const response = await fetch('/api/contact/contactDisplay');
+        const response = await fetch("/api/courses/catagory");
         const data = await response.json();
-        setContact(data);
+        setCatagory(data);
       } catch (err) {
         console.error(err);
       }
     };
 
-    fetchContact();
+    fetchCatagory();
   }, []);
-
   return (
     <div>
       <div>
         <table>
-            {contact.map(data => (
+            {catagory.map(data => (
                 <tr>
                 <td>{data.name}</td>
-                <td>{data.email}</td>
-                <td>{data.message}</td>
+                <td>{data.labelName}</td>
                 <td><button>Delete</button></td>
+                <td><button>Edit</button></td>
                </tr>
             ))}
             
@@ -36,4 +35,4 @@ const ContactDisplay = () => {
   )
 }
 
-export default ContactDisplay
+export default Catagory

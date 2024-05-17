@@ -39,9 +39,58 @@ export const deleteUser = async (req, res, next) => {
     return next(errorHandler(401, "You can only delete your own account!"));
   try {
     await User.findByIdAndDelete(req.params.id);
-    res.clearCookie('access_token');
+    res.clearCookie("access_token");
     res.status(200).json("User has been deleted!");
   } catch (error) {
     next(error);
   }
 };
+
+export const users = async (req, res, next) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteAdmin = async (req, res, next) => {
+  const users = await User.findById(req.params.id);
+
+  if (!users) {
+    return next(errorHandler(404, "User not found!"));
+  }
+
+  try {
+    await User.findByIdAndDelete(req.params.id);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export const updateAdmin = async (req, res, next) => {
+  try {
+    if (req.body.passowrd) {
+      req.body.password = bcryptjs.hashSync(req.body.passowrd, 10);
+    }
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          username: req.body.username,
+          email: req.body.email,
+          passowrd: req.body.passowrd,
+          avatar: req.body.avatar,
+          role: req.body.role,
+        },
+      },
+      { new: true }
+    );
+
+    const { passowrd, ...rest } = updatedUser._doc;
+    res.status(200).json(rest);
+  } catch (error) {
+    next(error);
+  }
+}

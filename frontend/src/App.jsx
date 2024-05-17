@@ -17,6 +17,8 @@ import CreateCourse from "./components/Courses/CreateCourse";
 import CreateCatagory from "./components/Courses/CreateCatagory";
 import ContactDisplay from "./components/Contact/ContactDisplay";
 import InstructorCourse from "./components/InstructorDashboard/InstructorCourses";
+import Users from "./components/Admin/Users";
+import Catagory from "./components/Admin/Catagory";
 
 const App = () => {
   React.useEffect(() => {
@@ -47,6 +49,8 @@ const App = () => {
           <Route path="/create-course" element={<CreateCourse/>} />
           <Route path="/create-catagory" element={<CreateCatagory/>} />
           <Route path="/contact-display" element={<ContactDisplay/>} />
+          <Route path="/users" element={<Users/>} />
+          <Route path="/catagory" element={<Catagory />} />
         </Route>
       </Routes>
     </BrowserRouter>
