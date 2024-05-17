@@ -66,32 +66,53 @@ export const createCatagory = async (req, res, next) => {
   }
 };
 
-export const personalcourses = async (req, res, next) =>{
-  if(req.user.id == req.params.id) {
+export const personalcourses = async (req, res, next) => {
+  if (req.user.id == req.params.id) {
     try {
-      const courses = await Course.find({userRef: req.params.id});
-      res.status(200).json(courses)
+      const courses = await Course.find({ userRef: req.params.id });
+      res.status(200).json(courses);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
-}
+};
 
 export const deletecourses = async (req, res, next) => {
+  const listing = await Course.findById(req.params.id);
 
-  const listing = await Course.findById(req.params.id)
-
-  if(!listing) {
-    return next (errorHandler(404, "Course not found!"))
+  if (!listing) {
+    return next(errorHandler(404, "Course not found!"));
   }
 
-  if(req.user.id !== listing.userRef) {
-    return next (errorHandler (401,'You can only delete your own course!'))
+  if (req.user.id !== listing.userRef) {
+    return next(errorHandler(401, "You can only delete your own course!"));
   }
 
   try {
-    await Course.findByIdAndDelete(req.params.id)
+    await Course.findByIdAndDelete(req.params.id);
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
+
+export const updatecourses = async (req, res, next) => {
+  const courses = await Course.findById(req.params.id);
+  if (!courses) {
+    return next(errorHandler(404, " Course not found"));
+  }
+  if (req.user.id !== courses.userRef) {
+    return next(errorHandler(401, " You can only update your own courses!"));
+  }
+
+  try {
+    const updatedcourses = await Course.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    res.status(200).json(updatedcourses);
+  } catch (error) {
+    next(error);
+  }
+};
