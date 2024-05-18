@@ -1,0 +1,66 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import Search from "./Search";
+import { Notifications, SearchOutlined } from "@mui/icons-material";
+import DarkMode from "./DarkMode";
+import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
+import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+import MessageIcon from "@mui/icons-material/Message";
+const DashboardHeader = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  return (
+    <div className="  bg-white ml-[230px] flex justify-between items-center py-2 px-10">
+      {/* <div>
+        <h1>
+          SkillUp{" "}
+          <span>
+            {currentUser.role == "admin"
+              ? "Admin"
+              : currentUser.role == "instructor"
+              ? "Instructor"
+              : "Student"}
+          </span>
+        </h1>
+      </div> */}
+      <div className=" font-bold flex gap-1">
+        <CalendarViewDayIcon />
+        <h1 className=" opacity-70">
+          Hello <span>{currentUser.username}</span>
+          <span className=" px-2 py-1">
+            <EmojiPeopleIcon className=" text-yellow-500 " />
+          </span>
+        </h1>
+      </div>
+
+      <div className=" flex items-center">
+        <button className=" p-1 px-2 bg-blue-500 text-white">
+          <SearchOutlined />
+        </button>
+        <input
+          type="text"
+          placeholder="Search here"
+          className=" px-2 py-1.5  bg-gray-100 border-gray-400 "
+        />
+      </div>
+      <div className=" gap-16  flex justify-between items-center">
+        <div className=" bg-gray-100 px-2 py-1.5">
+          <Notifications className=" " />
+        </div>
+        <div className=" bg-gray-100 px-2 py-1.5">
+          <MessageIcon />
+        </div>
+
+        <img
+          src={currentUser.avatar}
+          alt="profile"
+          className=" h-8 w-8 rounded-md"
+        />
+        <div>
+          <DarkMode />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardHeader;

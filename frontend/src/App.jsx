@@ -19,6 +19,7 @@ import ContactDisplay from "./components/Contact/ContactDisplay";
 import InstructorCourse from "./components/InstructorDashboard/InstructorCourses";
 import Users from "./components/Admin/Users";
 import Catagory from "./components/Admin/Catagory";
+import AdminContainer from "./Containers/AdminContainer";
 
 const App = () => {
   React.useEffect(() => {
@@ -51,6 +52,7 @@ const App = () => {
           <Route path="/contact-display" element={<ContactDisplay/>} />
           <Route path="/users" element={<Users/>} />
           <Route path="/catagory" element={<Catagory />} />
+          <Route path="/admin" element={<AdminContainer />} />
         </Route>
       </Routes>
     </BrowserRouter>
