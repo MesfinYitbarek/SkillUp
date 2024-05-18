@@ -5,9 +5,11 @@ import ArrowForward from "@mui/icons-material/ArrowForward";
 import Footer from "../Common/Footer";
 import image1 from "../../assets/image2.png";
 import img from "../../assets/background image/pexels-julia-m-cameron-4144225.jpg";
-import image3 from "../../assets/image1 (1).png";
+import image3 from "../../assets/background image/pexels-august-de-richelieu-4260485.jpg";
 import image4 from "../../assets/background image/vectorstock_24205971.png";
 import { DoubleArrow } from "@mui/icons-material";
+import img3 from "../../assets/background image/vectorstock_24205971.png"
+import img2 from "../../assets/background image/pexels-pixabay-247819.jpg"
 
 const unique = [
   {
@@ -41,34 +43,27 @@ const About = () => {
     <div className=" ">
       <Header />
       <div
-        className=" brightness-50 h-[160px] px-20  py-7"
-        style={{
-          backgroundImage: `url(${img})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "screen",
-          width: "100%",
-          opacity: "90%",
-          filter: "brightness(0.3)", 
-        }}
-      ></div>
-      <div className=" absolute text-white top-36 left-20">
-        <h2 className=" mb-5 text-2xl sm:text-5xl  font-bold ">
-          Welcome to SkillUp!{" "}
-        </h2>
-        <h2 className=" text-xl font-bold mt-2 ">
-          SkillUp <DoubleArrow /> <span className=" text-slate-200">About</span>{" "}
-        </h2>
-      </div>
+            style={{
+              backgroundImage: `url(${img})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              height: "screen",
+              width: "100%",
+              opacity: "100%", 
+            }}
+            className="  brightness-50 h-[5px]  "
+          ></div>
+      
       <div className=" bg-slate-50 flex flex-col gap-20">
         <div className=" px-14 sm:px-20 flex gap-24  justify-between items-center  ">
-          <div className=" pt-10">
+          <div className="  pt-10">
+            <h1 className=" text-red-400 font-bold mb-4">How It Started</h1>
             <h5
               data-aos="zoom-in"
-              className="  mb-5 font-semibold text-3xl text-blue-900"
+              className="  mb-5 font-semibold text-5xl text-sky-700"
             >
               {" "}
-              Empowering Lifelong Learners
+              Empowering Lifelong Learners.
             </h5>
             <p className="  text-justify">
               {" "}
@@ -82,7 +77,7 @@ const About = () => {
           <img
            
             data-aos-once="true"
-            className=" mt-7  md:flex hidden max-w-[500px]"
+            className=" mt-10 md:flex rounded-lg hidden max-w-[500px]"
             src={image3}
             alt=" image"
           />

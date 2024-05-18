@@ -28,7 +28,6 @@ const navigationItems = [
   { name: "Messages", icon: <MessageIcon /> },
   { name: "Users", icon: <GroupIcon /> },
   { name: "Enrolled Students", icon: <SchoolIcon /> },
-  { name: "My Account", icon: <AccountCircleIcon />, link: <Profile /> },
   { name: <SignOut />, icon: <LogoutIcon />, link: <SignOut /> },
 ];
 const  name = "AddCatagory"
@@ -72,6 +71,7 @@ const AdminContainer = () => {
                   {item.name}
                 </button>
               ))}
+              <Link to={'/profile'} className=" opacity-60 pl-3 py-1 rounded-md hover:bg-slate-300"><AccountCircleIcon  className="mr-1"/> My account</Link>
             </div>
           </div>
         </div>
@@ -88,17 +88,7 @@ const AdminContainer = () => {
         <Users />
       )  : condtion == "Enrolled Students" ? (
         <Catagory />
-      ) : condtion == "My Account" ? (
-        <div className=" text-center  h-screen items-center flex justify-center ">
-          {" "}
-          <Link to={"/profile"}>
-            {" "}
-            <h1 className="bg-blue-600 hover:bg-white text-xl hover:text-blue-600 hover:border-2 hover:border-blue-600  text-white font-bold p-6 w-[200px] ">
-              Profile <ArrowForward className=" ml-5" />
-            </h1>
-          </Link>
-        </div>
-      ) : condtion == "Log Out" ? (
+      )  : condtion == "Log Out" ? (
         <SignOut />
       ) : (
         ""

@@ -64,6 +64,7 @@ export const deleteAdmin = async (req, res, next) => {
 
   try {
     await User.findByIdAndDelete(req.params.id);
+    res.status(200).json("User has been deleted!");
   } catch (error) {
     next(error);
   }

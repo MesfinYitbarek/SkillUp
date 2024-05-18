@@ -19,7 +19,7 @@ const InstructorCourse = () => {
     };
 
     fetchCourses();
-  }, []);
+  }, [courses]);
 
   const handleCourseDelete = async (courseid) => {
     try {
@@ -27,19 +27,21 @@ const InstructorCourse = () => {
         method: "DELETE",
       });
       const data = await res.json();
-  
+
       if (data.success === false) {
-        console.log(data.message); // Handle deletion error (optional)
+        console.log(data.message);
         return;
       }
-  
+
       setCourses((prev) => {
-        console.log("Filtered courses:", prev.filter((courses) => courses._id !== courseid));
+        console.log(
+          "Filtered courses:",
+          prev.filter((courses) => courses._id !== courseid)
+        );
         return prev.filter((courses) => courses._id !== courseid);
       });
-  
     } catch (error) {
-      console.error(error.message); // Handle errors (optional)
+      console.error(error.message);
     }
   };
 
@@ -49,9 +51,11 @@ const InstructorCourse = () => {
         <h2 className=" dark:text-white text-4xl text-sky-800 font-semibold sm:mb-24 mb-8 text-center ">
           My Courses
         </h2>
-        
-            <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {courses && courses.length > 0 && courses.map((course) => (
+
+        <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {courses &&
+            courses.length > 0 &&
+            courses.map((course) => (
               <div
                 data-aos="fade-up"
                 data-aos-delay="300"
@@ -77,12 +81,12 @@ const InstructorCourse = () => {
                   <p className=" dark:text-white  text-base font-semibold text-blue-950 mb-2">
                     {course.description}
                   </p>
-  
+
                   <div className="flex justify-between items-center mt-2 mb-3">
                     <span className="dark:text-white text-gray-700 text-sm">
                       Duration: {course.duration}
                     </span>
-  
+
                     {course.isPaid ? (
                       <span className="text-blue-600 font-bold">
                         &#8377; {course.price}
@@ -91,9 +95,9 @@ const InstructorCourse = () => {
                       <span className="text-green-500 font-bold">Free</span>
                     )}
                   </div>
-  
+
                   <hr />
-  
+
                   <div className=" flex justify-between items-center mt-3">
                     <a
                       href={`/courses/${course.id}`}
@@ -101,10 +105,12 @@ const InstructorCourse = () => {
                     >
                       Learn More
                     </a>
-  
+
                     <span>
                       <StarIcon className=" text-yellow-400" />
-                      <span className="text-gray-700 ml-1">{course.rating}</span>
+                      <span className="text-gray-700 ml-1">
+                        {course.rating}
+                      </span>
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
@@ -122,9 +128,7 @@ const InstructorCourse = () => {
                 </div>
               </div>
             ))}
-          </div>
-        
-        
+        </div>
       </div>
     </div>
   );

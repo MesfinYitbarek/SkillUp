@@ -15,7 +15,7 @@ const CourseListing = () => {
     };
 
     fetchCourses();
-  }, []);
+  }, [courses]);
 
  
 

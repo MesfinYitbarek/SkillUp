@@ -1,10 +1,11 @@
 import { ArrowRight } from "@mui/icons-material";
 import React from "react";
 import AdminContainer from "../../Containers/AdminContainer";
-
+import { useState } from "react";
+import axios from "axios";
 const Users = () => {
   const [users, setUsers] = React.useState([]);
-
+  const [error, setError] = useState(null);
   React.useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -17,7 +18,23 @@ const Users = () => {
     };
 
     fetchUsers();
-  }, []);
+  }, [users]);
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      const response = await axios.delete(`/api/user/deleteAdmin/${userId}`);
+
+      if (response.data.success) {
+        setUsers([...users.filter((users) => users._id !== userId)]);
+      } else {
+        setError("Error deleting User");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Error deleting User");
+    }
+  };
+
   return (
     <div className="  flex justify-center items-center ">
       <div className=" bg-white rounded-md mt-12 px-10 py-4 ml-16">
@@ -40,9 +57,9 @@ const Users = () => {
             <td></td>
             <td></td>
           </tr>
-          
+
           {users.map((data) => (
-            <tr className=" even:bg-slate-100 "> 
+            <tr className=" even:bg-slate-100 ">
               <td className=" flex gap-3 items-center">
                 <img
                   src={data.avatar}
@@ -55,7 +72,9 @@ const Users = () => {
               <td className=" p-1">{data.role}</td>
 
               <td className="    text-red-600    text-center">
-                <button>Delete</button>
+                <button onClick={() => handleDeleteUser(data._id)}>
+                  Delete
+                </button>
               </td>
               <td className=" text-center text-purple-600 ">
                 <button>Edit</button>

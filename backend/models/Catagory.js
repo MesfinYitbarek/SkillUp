@@ -12,6 +12,10 @@ const CatagorySchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    userRef: {
+      type:String,
+      required:true,
+    },
   },
   { timestamps: true }
 );

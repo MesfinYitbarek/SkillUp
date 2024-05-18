@@ -118,10 +118,11 @@ export const catagory = async (req, res, next) => {
 
 //catagory creation
 export const createCatagory = async (req, res, next) => {
-  const { name, labelName } = req.body;
+  const { name, labelName, userRef } = req.body;
   const newCatagory = new Catagory({
     name,
     labelName,
+    userRef,
   });
   try {
     await newCatagory.save();

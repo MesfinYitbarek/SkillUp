@@ -3,7 +3,7 @@ import Header from "../Common/Header";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../Common/Footer";
 import GAuth from "./GAuth";
-
+import img from "../../assets/background image/pexels-pixabay-247819.jpg";
 const Signup = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
@@ -44,10 +44,22 @@ const Signup = () => {
   };
 
   return (
-    <div className=" dark:bg-gray-800 bg-slate-50 ">
+    <div  className=" dark:bg-gray-800 bg-slate-50 ">
       <Header />
-      <div className=" flex justify-center items-center">
-        <div className="  shadow-sm shadow-purple-600 dark:bg-gray-400  p-[5%] rounded-2xl sm:w-[650px] bg-slate-50  border border-slate-300  m-[5%]">
+      <div className=" hidden lg:flex h-screen px-20  py-7"
+        style={{
+          backgroundImage: `url(${img})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: "screen",
+          width: "100%",
+          filter: "brightness(0.5)"
+          
+        }}>
+
+      </div>
+      <div  className="  lg:absolute top-32 left-72 flex justify-center items-center">
+        <div className="    dark:bg-gray-400  p-[5%] rounded-2xl sm:w-[650px] bg-slate-50   border border-slate-300  m-[5%]">
           <h1 className=" m-3  font-serif sm:text-[22px] text-sky-900">
             Hi, Welcome back!
           </h1>

@@ -9,6 +9,7 @@ import Instagram from "@mui/icons-material/Instagram";
 import { DoubleArrow, Twitter } from "@mui/icons-material";
 import Telegram from "@mui/icons-material/Telegram";
 import Footer from "../Common/Footer";
+import image3 from "../../assets/background image/pexels-peter-olexa-2214257-4012966.jpg";
 import img from "../../assets/background image/pexels-buro-millennial-636760-1438081.jpg";
 const Contact = () => {
   const [name, setName] = useState("");
@@ -68,34 +69,34 @@ const Contact = () => {
         <div>
           <div
             style={{
-              backgroundImage: `url(${img})`,
+              backgroundImage: `url(${image3})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               height: "screen",
               width: "100%",
               opacity: "100%", 
             }}
-            className="  brightness-50 h-[160px] sm:p-10 p-3 text-white"
+            className="  brightness-50 h-[10px]  text-white"
           ></div>
-          <div className=" absolute text-white top-36 left-20">
-            <h1 className=" sm:text-5xl font-bold ">Connect with us</h1>
-            <h2 className=" text-xl font-bold mt-2 text-white">
-              SkillUp <DoubleArrow />{" "}
-              <span className=" text-slate-200">Contact</span>{" "}
-            </h2>
-          </div>
-          <div className=" sm:my-20 sm:mx-20 ">
-            <p data-aos="fade-right" className=" dark:text-white sm:text-2xl p-4 font-serif  text-justify text-blue-900 ">
-              We're here to help! Whether you have questions about our courses,
+           <div className=" flex justify-between items-center">
+            <div className=" p-4 ">
+           
+            </div>
+            <div className=" sm:my-20 sm:mx-20 ">
+            <p data-aos="fade-right" className=" dark:text-white text-center sm:text-2xl p-4 font-serif   text-blue-900 ">
+              <h1 className="text-5xl pb-6 text-blue-600">We're here to help!</h1>  Whether you have questions about our courses,
               need assistance navigating the platform, or simply want to share
               feedback, we'd love to hear from you.
             </p>
           </div>
+           </div>
+         
         </div>
       </div>
 
-      <div className="container mx-auto px-8 lg:px-32 py-8 ">
-        <div className="  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center ">
+      <div  className="container mx-auto  ">
+        <div style={{ backgroundImage: `url(${image3})`, backgroundSize: "cover",
+              backgroundPosition: "center", }} className=" px-20 py-16  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center ">
           {contactData.map((data) => (
             <div>
               <div
@@ -113,7 +114,7 @@ const Contact = () => {
             </div>
           ))}
         </div>
-        <div className=" h-screen items-center my-20 sm:my-28 sm:flex gap-28">
+        <div className=" px-20 py-16 h-screen items-center my-20 sm:my-28 sm:flex gap-28">
           <div data-aos="fade-right"  data-aos-once="true" className=" flex flex-col gap-5 my-16 ">
             <p className=" text-xl sm:text-3xl text-sky-950">
               Follow us on social media

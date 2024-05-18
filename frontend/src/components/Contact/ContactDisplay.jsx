@@ -1,7 +1,10 @@
 import React from "react";
+import axios from "axios";
+import { useState } from "react";
 
 const ContactDisplay = () => {
   const [contact, setContact] = React.useState([]);
+  const [error, setError] = useState(null);
 
   React.useEffect(() => {
     const fetchContact = async () => {
@@ -15,7 +18,22 @@ const ContactDisplay = () => {
     };
 
     fetchContact();
-  }, []);
+  }, [contact]);
+
+  const handleDeleteContact = async (contactId) => {
+    try {
+      const response = await axios.delete(`/api/contact/delete/${contactId}`);
+
+      if (response.data.success) {
+        setContact([...contact.filter((contact) => contact._id !== contactId)]);
+      } else {
+        setError("Error deleting Contact message");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Error deleting Contact message");
+    }
+  };
 
   return (
     <div className="  flex justify-center items-center">
@@ -39,7 +57,7 @@ const ContactDisplay = () => {
               <td>{data.email}</td>
               <td>{data.message}</td>
               <td className="    text-red-600    text-center">
-                <button>Delete</button>
+                <button onClick={() => handleDeleteContact(data._id)}>Delete</button>
               </td>
             </tr>
           ))}

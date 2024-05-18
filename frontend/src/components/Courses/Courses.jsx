@@ -21,15 +21,12 @@ export default function Courses() {
             width: "100%",
             // filter: "brightness(0.5)",
           }}
-          className=" h-[160px] brightness-50 opacity-100 pl-16 items-center py-10 "
+          className=" h-[50px] brightness-50 opacity-100 pl-16 items-center py-10 pb-16"
         ></div>
 
         <div className=" absolute top-36 left-20">
-          <h1 className=" lg:text-5xl  text-white font-bold">Courses</h1>
-          <h2 className=" text-xl font-bold mt-2 text-white">
-            SkillUp <DoubleArrow />{" "}
-            <span className=" text-slate-300">Courses</span>{" "}
-          </h2>
+          <h1 className=" lg:text-4xl  text-white font-bold">Courses</h1>
+          
         </div>
         <div>
           <Search/>

@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 const CreateCatagory = () => {
+  const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -23,7 +25,7 @@ const CreateCatagory = () => {
       const res = await fetch("/api/courses/createCatagory", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, userRef: currentUser._id }),
       });
 
       const data = await res.json();
@@ -68,9 +70,8 @@ const CreateCatagory = () => {
         >
           {loading ? "Loading..." : "Create"}
         </button>
-        
       </form>
-      
+
       {error && <p className=" text-red-500 mt-5">{error}</p>}
     </div>
   );
