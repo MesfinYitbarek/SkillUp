@@ -9,7 +9,7 @@ import MessageIcon from "@mui/icons-material/Message";
 const DashboardHeader = () => {
   const { currentUser } = useSelector((state) => state.user);
   return (
-    <div className="  bg-white ml-[230px] flex justify-between items-center py-2 px-10">
+    <div className="    bg-blue-500 p-6 py-2">
       {/* <div>
         <h1>
           SkillUp{" "}
@@ -22,6 +22,7 @@ const DashboardHeader = () => {
           </span>
         </h1>
       </div> */}
+      <div className="  bg-white ml-[230px] flex justify-between items-center py-2 px-10">
       <div className=" font-bold flex gap-1">
         <CalendarViewDayIcon />
         <h1 className=" opacity-70">
@@ -59,6 +60,8 @@ const DashboardHeader = () => {
           <DarkMode />
         </div>
       </div>
+      </div>
+      
     </div>
   );
 };

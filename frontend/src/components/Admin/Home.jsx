@@ -30,7 +30,7 @@ const Home = () => {
     <div className=" ml-60 p-12 ">
       <div className=" flex justify-between items-center">
         {homeData.map((data) => (
-          <div className=" bg-white py-5  flex items-center gap-5  border-blue-700 w-[200px] text-blue-700 font-bold">
+          <div className=" bg-white py-5  shadow-md flex items-center gap-5  border-blue-700 w-[200px] text-blue-700 font-bold">
             <div className="border-l-2 px-5 border-blue-700">
             <h4>{data.title}</h4>
             <h1>{data.number}</h1>
