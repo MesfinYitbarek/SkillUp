@@ -99,8 +99,7 @@ const Contact = () => {
           {contactData.map((data) => (
             <div>
               <div
-                data-aos="fade-up"
-                data-aos-delay={data.delay}
+               
                 className="  group flex flex-col items-center text-sky-800 gap-6 pt-8 shadow-xl rounded-sm  hover:text-white hover:scale-110 hover:bg-gradient-to-r from-purple-500 to-blue-500 p-3 text-center h-[220px] w-[300px]   bg-white"
               >
                 <div className="border-2 text-purple-800 group-hover:border-white  group-hover:text-white  border-purple-800 p-2 h-[45px] w-[45px] rounded-full ">
@@ -115,7 +114,7 @@ const Contact = () => {
           ))}
         </div>
         <div className=" h-screen items-center my-20 sm:my-28 sm:flex gap-28">
-          <div data-aos="fade-right" className=" flex flex-col gap-5 my-16 ">
+          <div data-aos="fade-right"  data-aos-once="true" className=" flex flex-col gap-5 my-16 ">
             <p className=" text-xl sm:text-3xl text-sky-950">
               Follow us on social media
             </p>
@@ -167,7 +166,7 @@ const Contact = () => {
               </span>
             </h2>
             <form
-              data-aos="fade-left"
+              data-aos="fade-left"  data-aos-once="true"
               onSubmit={handleSubmit}
               className="flex flex-col space-y-4 sm:w-[650px]   bg-white shadow-xl p-2 sm:p-20 rounded-xl  border-slate-400"
             >

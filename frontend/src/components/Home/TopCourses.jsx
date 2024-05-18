@@ -13,6 +13,7 @@ const Topcourses = () => {
             <div
               data-aos="fade-up"
               data-aos-delay="300"
+              data-aos-once="true"
               key={course.id}
               className="  dark:bg-purple-950 bg-white shadow-lg rounded-md  overflow-hidden  hover:bg-purple-300   "
             >

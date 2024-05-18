@@ -19,6 +19,7 @@ const TopInstructors = () => {
             <div
               data-aos="fade-up"
               data-aos-delay="500"
+              data-aos-once="true"
               key={instructor.id}
               className=" group  border-slate-300 overflow-hidden  hover:bg-purple-300 shadow-purple-400 "
             >

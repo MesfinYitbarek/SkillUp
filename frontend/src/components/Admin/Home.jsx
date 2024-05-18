@@ -3,6 +3,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import GroupIcon from '@mui/icons-material/Group';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Calendar from 'react-calendar';
 const homeData = [
   {
     title: "Courses",

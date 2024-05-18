@@ -12,7 +12,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Home from "../components/Admin/Home";
-import Courses from "../components/Courses/Courses";
+import Courses from "../components/Admin/Courses"
 import Catagory from "../components/Admin/Catagory";
 import ContactDisplay from "../components/Contact/ContactDisplay";
 import Users from "../components/Admin/Users";
@@ -31,6 +31,7 @@ const navigationItems = [
   { name: "My Account", icon: <AccountCircleIcon />, link: <Profile /> },
   { name: <SignOut />, icon: <LogoutIcon />, link: <SignOut /> },
 ];
+const  name = "AddCatagory"
 
 const AdminContainer = () => {
   const [activeItem, setActiveItem] = useState(0); // Initial active item index (0 for Dashboard)
@@ -42,7 +43,7 @@ const AdminContainer = () => {
   var condtion = "";
   const { currentUser } = useSelector((state) => state.user);
   return (
-    <div className="  bg-gray-100 h-screen">
+    <div className="  bg-gray-100 pb-12 min-h-screen ">
       <div>
         <div>
           <DashboardHeader />
@@ -62,7 +63,7 @@ const AdminContainer = () => {
             bg-blue-500 flex gap-3 text-sm  cursor-pointer   py-2 px-3 rounded-md
             ${
               index === activeItem
-                ? `text-white ${(condtion = item.name)}`
+                ? `text-white ${(condtion = item.name)} `
                 : `bg-white  text-gray-500 hover:bg-gray-200`
             } 
           `}
@@ -85,7 +86,7 @@ const AdminContainer = () => {
         <ContactDisplay />
       ) : condtion == "Users" ? (
         <Users />
-      ) : condtion == "Enrolled Students" ? (
+      )  : condtion == "Enrolled Students" ? (
         <Catagory />
       ) : condtion == "My Account" ? (
         <div className=" text-center  h-screen items-center flex justify-center ">

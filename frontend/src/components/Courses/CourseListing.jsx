@@ -29,7 +29,8 @@ const CourseListing = () => {
           {courses.map((course) => (
             <div
               data-aos="fade-up"
-              data-aos-delay="300"
+              data-aos-delay="200"
+              data-aos-once="true"
               key={course.id}
               className=" rounded-2xl border border-slate-300 overflow-hidden  hover:bg-purple-300 shadow-purple-400 p-4 "
             >

@@ -151,7 +151,7 @@ const Header = () => {
               >
                 <a
                   href="#"
-                  className="hidden sm:flex items-center gap-[2px] py-1 "
+                  className=" object-cover hidden sm:flex items-center gap-[2px] py-1 "
                 >
                   {" "}
                   <DashboardIcon className=" -ml-4 mr-1 text-blue-600" />

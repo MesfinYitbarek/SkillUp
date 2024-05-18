@@ -70,7 +70,7 @@ const About = () => {
               {" "}
               Empowering Lifelong Learners
             </h5>
-            <p data-aos="fade-up" className="  text-justify">
+            <p className="  text-justify">
               {" "}
               We're an online learning platform dedicated to making high-quality
               education accessible to everyone, everywhere. Whether you're a
@@ -80,7 +80,8 @@ const About = () => {
             </p>
           </div>
           <img
-            data-aos="fade-left"
+           
+            data-aos-once="true"
             className=" mt-7  md:flex hidden max-w-[500px]"
             src={image3}
             alt=" image"

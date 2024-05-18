@@ -28,7 +28,7 @@ const Profile = () => {
               <img
                 src={currentUser.avatar}
                 alt="profile"
-                className=" h-36 w-36 border-4 border-double border-blue-300 rounded-full"
+                className=" object-cover h-36 w-36 border-4 border-double border-blue-300 rounded-full"
               />
               <h2 className=" text-3xl font-bold">{currentUser.username}</h2>
             </div>
