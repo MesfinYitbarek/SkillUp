@@ -73,6 +73,7 @@ const Signup = () => {
               type="text"
               placeholder="Username"
               id="username"
+              required
               onChange={handleChange}
               className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3  focus:outline-none"
             />
@@ -80,6 +81,7 @@ const Signup = () => {
               type="email"
               placeholder="Email"
               id="email"
+              required
               onChange={handleChange}
               className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
             />
@@ -87,6 +89,7 @@ const Signup = () => {
               type="password"
               placeholder="Password"
               id="password"
+              required
               onChange={handleChange}
               className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
             />

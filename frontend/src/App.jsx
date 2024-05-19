@@ -10,7 +10,7 @@ import "aos/dist/aos.css";
 import Contact from "./components/Contact/Contact";
 import Courses from "./components/Courses/Courses";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
-import Student from "./components/StudentDashboard/Student"
+import Student from "./components/StudentDashboard/Student";
 import UpdateProfile from "./components/Profile/updateProfile";
 import Instructor from "./components/InstructorDashboard/Instructor";
 import CreateCourse from "./components/Courses/CreateCourse";
@@ -41,17 +41,27 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/courses" element={<Courses />} />
-        <Route  element={<PrivateRoute />} >
+
+        {/* Common Private Routes */}
+        <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/Student" element={<Student />} />
-          <Route path="/instructor" element={<Instructor/>} />
-          <Route path="/instructor-courses" element={<InstructorCourse/>} />
           <Route path="/update-profile" element={<UpdateProfile />} />
-          <Route path="/create-course" element={<CreateCourse/>} />
-          <Route path="/create-catagory" element={<CreateCatagory/>} />
-          <Route path="/contact-display" element={<ContactDisplay/>} />
-          <Route path="/users" element={<Users/>} />
           <Route path="/catagory" element={<Catagory />} />
+        </Route>
+
+        {/* Role-Based Private Routes */}
+        <Route element={<PrivateRoute allowedRoles={["student"]} />}>
+          <Route path="/Student" element={<Student />} />
+        </Route>
+        <Route element={<PrivateRoute allowedRoles={["instructor"]} />}>
+          <Route path="/instructor" element={<Instructor />} />
+          <Route path="/instructor-courses" element={<InstructorCourse />} />
+          <Route path="/create-course" element={<CreateCourse />} />
+        </Route>
+        <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
+          <Route path="/create-catagory" element={<CreateCatagory />} />
+          <Route path="/contact-display" element={<ContactDisplay />} />
+          <Route path="/users" element={<Users />} />
           <Route path="/admin" element={<AdminContainer />} />
         </Route>
       </Routes>
