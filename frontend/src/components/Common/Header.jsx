@@ -213,7 +213,7 @@ const Header = () => {
         {currentUser ? (
           <div className=" group">
             <img
-              className=" rounded-full h-7 w-7 object-cover"
+              className=" rounded-full h-9 w-9 object-cover"
               src={currentUser.avatar}
               alt="profile"
             />

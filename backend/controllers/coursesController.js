@@ -4,6 +4,8 @@ import Catagory from "../models/Catagory.js";
 import Course from "../models/Course.js";
 
 
+//courses
+
 //display courses
 export const courses = async (req, res, next) => {
   try {
@@ -81,6 +83,23 @@ export const deletecourses = async (req, res, next) => {
     next(error);
   }
 };
+
+// course delete by admin
+
+export const deletecoursesByAdmin = async (req, res, next) => {
+  const listing = await Course.findById(req.params.id);
+
+  if (!listing) {
+    return next(errorHandler(404, "Course not found!"));
+  }
+
+  try {
+    await Course.findByIdAndDelete(req.params.id);
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 // course update
 export const updatecourses = async (req, res, next) => {

@@ -10,7 +10,7 @@ const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses
 
   return (
     <div className=" px-16 dark:bg-gray-800">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 pb-8">
         <h2 className=" dark:text-white text-4xl text-sky-800 font-semibold sm:mb-24 mb-8 text-center ">
           Explore Our Courses
         </h2>

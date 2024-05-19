@@ -49,7 +49,7 @@ const CreateCatagory = () => {
       <form
         onSubmit={handleSubmit}
         action=""
-        className=" bg-slate-100 p-24  flex flex-col justify-between items-center gap-6 "
+        className=" border-l-8 border-l-blue-500 bg-slate-100 p-24  flex flex-col justify-between items-center gap-6 "
       >
         <Link to={"/admin"}>
         <ArrowBack/>

@@ -42,8 +42,8 @@ const AddUsers = () => {
 
       
   return (
-    <div  className=" h-screen flex justify-center items-center">
-        <div className="    dark:bg-gray-400  p-[5%] rounded-2xl sm:w-[650px] bg-slate-50   border border-slate-300  m-[5%]">
+    <div  className="  h-screen flex justify-center items-center">
+        <div className=" border-t-8 border-t-blue-500    dark:bg-gray-400  p-[5%] rounded-2xl sm:w-[650px] bg-slate-50   border border-slate-300  m-[5%]">
         <Link to={"/admin"}>
         <ArrowBack/>
         </Link>

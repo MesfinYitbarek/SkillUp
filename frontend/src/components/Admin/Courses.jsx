@@ -23,7 +23,7 @@ const Courses = () => {
   const handleDeleteCourse = async (courseId) => {
     try {
       const response = await axios.delete(
-        `/api/courses/deletecourses/${courseId}`
+        `/api/courses/deletecoursesByAdmin/${courseId}`
       );
 
       if (response.data.success) {
