@@ -4,14 +4,14 @@ import jwt from "jsonwebtoken"; // For token generation
 import bcryptjs from "bcryptjs"; // For password hashing
 
 export const signup = async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { username, email, password,role } = req.body;
 
   // Check for existing user
   const existingUser = await User.findOne({ email });
   if (existingUser) return res.status(400).json("Email already exists");
 
   // Create new User
-  const newUser = new User({ username, email, password });
+  const newUser = new User({ username, email, password, role });
 
   try {
     await newUser.save();

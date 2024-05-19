@@ -3,6 +3,7 @@ import React from "react";
 import AdminContainer from "../../Containers/AdminContainer";
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 const Users = () => {
   const [users, setUsers] = React.useState([]);
   const [error, setError] = useState(null);
@@ -45,9 +46,9 @@ const Users = () => {
             <td></td>
             <td></td>
             <td className=" text-center">
-              <button className=" border  text-purple-600 hover:bg-purple-500 hover:text-white border-purple-600 px-4 py-1 mr-1 font-semibold">
+              <Link to={"/add-users"} className=" border  text-purple-600 hover:bg-purple-500 hover:text-white border-purple-600 px-4 py-1 mr-1 font-semibold">
                 Add <ArrowRight />
-              </button>
+              </Link>
             </td>
           </tr>
           <tr className=" bg-blue-400    font-semibold text-white ">

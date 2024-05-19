@@ -1,4 +1,6 @@
+import { ArrowBack } from "@mui/icons-material";
 import React from "react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -36,19 +38,23 @@ const CreateCatagory = () => {
       }
       setLoading(false);
       setError(null);
-      navigate("/courses");
+      navigate("/admin");
     } catch (error) {
       setLoading(false);
       setError(error.message);
     }
   };
   return (
-    <div>
+    <div className=" flex justify-center items-center h-screen">
       <form
         onSubmit={handleSubmit}
         action=""
-        className="  flex flex-col justify-between items-center gap-6 "
+        className=" bg-slate-100 p-24  flex flex-col justify-between items-center gap-6 "
       >
+        <Link to={"/admin"}>
+        <ArrowBack/>
+        </Link>
+        
         <input
           type="text"
           placeholder="Name"

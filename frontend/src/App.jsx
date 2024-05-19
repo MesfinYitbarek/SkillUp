@@ -14,13 +14,14 @@ import Student from "./components/StudentDashboard/Student";
 import UpdateProfile from "./components/Profile/updateProfile";
 import Instructor from "./components/InstructorDashboard/Instructor";
 import CreateCourse from "./components/Courses/CreateCourse";
-import CreateCatagory from "./components/Courses/CreateCatagory";
+import CreateCatagory from "./components/Admin/CreateCatagory";
 import ContactDisplay from "./components/Contact/ContactDisplay";
 import InstructorCourse from "./components/InstructorDashboard/InstructorCourses";
 import Users from "./components/Admin/Users";
 import Catagory from "./components/Admin/Catagory";
 import AdminContainer from "./Containers/AdminContainer";
-
+import CategoryUpdate from "./components/Courses/CatagoryUpdate";
+import AddUsers from "./components/Admin/AddUsers";
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/catagory" element={<Catagory />} />
+        
         {/* Common Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
@@ -50,7 +52,7 @@ const App = () => {
 
         {/* Role-Based Private Routes */}
         <Route element={<PrivateRoute allowedRoles={["student"]} />}>
-          <Route path="/Student" element={<Student />} />
+          <Route path="/student" element={<Student />} />
         </Route>
         <Route element={<PrivateRoute allowedRoles={["instructor"]} />}>
           <Route path="/instructor" element={<Instructor />} />
@@ -59,8 +61,10 @@ const App = () => {
         </Route>
         <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
           <Route path="/create-catagory" element={<CreateCatagory />} />
+          <Route path="/update-catagory" element={<CategoryUpdate />} />
           <Route path="/contact-display" element={<ContactDisplay />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/add-users" element={<AddUsers />} />
           <Route path="/admin" element={<AdminContainer />} />
         </Route>
       </Routes>

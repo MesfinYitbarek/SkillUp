@@ -33,7 +33,7 @@ const navigationItems = [
 const  name = "AddCatagory"
 
 const AdminContainer = () => {
-  const [activeItem, setActiveItem] = useState(0); // Initial active item index (0 for Dashboard)
+  const [activeItem, setActiveItem] = useState(0); 
 
   const handleClick = (index) => {
     setActiveItem(index);
@@ -48,10 +48,10 @@ const AdminContainer = () => {
           <DashboardHeader />
           <div className=" bg-white h-screen absolute w-[230px] top-0 p-5 text-center flex flex-col gap-4">
             <div className="font-bold  text-blue-500 leading-10  text-lg">
-              <h1>
+              <Link to={'/'}>
                 <CastForEducationIcon className="text-purple-500 mb-2" />{" "}
                 SkillUp <span>Admin</span>
-              </h1>
+              </Link>
             </div>
             <div className=" text-start flex p-2 flex-col gap-2">
               {navigationItems.map((item, index) => (

@@ -2,7 +2,7 @@ import { ArrowDownward, ArrowRight } from "@mui/icons-material";
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 const Catagory = () => {
   const [catagory, setCatagory] = React.useState([]);
   const [error, setError] = useState(null);
@@ -47,9 +47,9 @@ const Catagory = () => {
             <td className=" text-blue-700 font-bold text-xl ">Catagories</td>
             <td></td>
             <td className=" text-center">
-              <button className=" border  text-purple-600 hover:bg-purple-500 hover:text-white border-purple-600 px-4 py-1 mr-1 font-semibold">
+              <Link to="/create-catagory" className=" border  text-purple-600 hover:bg-purple-500 hover:text-white border-purple-600 px-4 py-1 mr-1 font-semibold">
                 Add <ArrowRight />
-              </button>
+              </Link>
             </td>
           </tr>
           <tr className=" bg-blue-400   font-semibold text-white ">

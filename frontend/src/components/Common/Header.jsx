@@ -224,7 +224,7 @@ const Header = () => {
                         bg-white p-2 text-black shadow-sm  "
             >
               <ul className=" flex flex-col gap-3 py-2 ">
-                <Link to={`/${currentUser.role}`} className=" hover:bg-slate-200 py-1 px-3" ><h3>My Courses</h3></Link>  <hr />
+                <Link to={`/${currentUser.role.toLowerCase()}`} className=" hover:bg-slate-200 py-1 px-3" ><h3>My Courses</h3></Link>  <hr />
                 <Link to={"/profile"} className=" hover:bg-slate-200 py-1 px-3"> <h3>Profile</h3></Link> <hr />
                 <h2 className=" hover:bg-slate-200 py-1 px-3"><SignOut  /></h2>
                 

@@ -50,7 +50,7 @@ export const createCourses = async (req, res, next) => {
 };
 
 
-//Private course display
+//Private course display for 
 export const personalcourses = async (req, res, next) => {
   if (req.user.id == req.params.id) {
     try {
@@ -104,6 +104,7 @@ export const updatecourses = async (req, res, next) => {
     next(error);
   }
 };
+
 
 // Catagory
 
