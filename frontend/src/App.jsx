@@ -41,12 +41,11 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/courses" element={<Courses />} />
-
+        <Route path="/catagory" element={<Catagory />} />
         {/* Common Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/update-profile" element={<UpdateProfile />} />
-          <Route path="/catagory" element={<Catagory />} />
+          <Route path="/update-profile" element={<UpdateProfile />} />      
         </Route>
 
         {/* Role-Based Private Routes */}
