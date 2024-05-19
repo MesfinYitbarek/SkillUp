@@ -124,7 +124,7 @@ const Header = () => {
                   onClick={toggleMenu}
                   className={`${
                     showMenu
-                      ? " even:bg-slate-200 flex flex-col h-[50px] w-[200px] p-3 pt-5 z-50 shadow-md shadow-purple-500 bg-slate-100 text-black   "
+                      ? " even:bg-slate-200 flex flex-col h-[50px] w-[160px] p-3 pt-5 z-50 shadow-sm  bg-slate-100 text-black   "
                       : ""
                   }`}
                 >
@@ -173,7 +173,7 @@ const Header = () => {
                       <li key={data.id}>
                         <a
                           href={data.link}
-                          className="inline-block w-full rounded-md p-2 hover:bg-sky-600"
+                          className="inline-block w-full rounded-md p-2 hover:bg-gray-200"
                         >
                           {data.name}
                         </a>

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 const CreateCourse = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
@@ -45,6 +46,22 @@ const CreateCourse = () => {
     }
   };
 
+  const [catagory, setCatagory] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchCatagory = async () => {
+      try {
+        const response = await fetch("/api/courses/catagory");
+        const data = await response.json();
+        setCatagory(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchCatagory();
+  }, [catagory]);
+
   return (
     <div className=" flex flex-col justify-between items-center">
       <form onSubmit={handleSubmit} className=" p-20">
@@ -61,6 +78,17 @@ const CreateCourse = () => {
             required
           />
         </div>
+        <div>
+        <label htmlFor="catagory" className="block text-gray-700 font-bold mb-2">
+            Course catagory
+          </label>
+          <select id="catagory" value={formData.catagory} onChange={handleChange}>
+            {catagory.map((catagory) => (
+              <option value={catagory.name}>{catagory.labelName}</option>
+            ))}
+          </select>
+        </div>
+
         <div className="mb-4">
           <label
             htmlFor="imageUrl"

@@ -21,6 +21,11 @@ const courseSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  catagory: {
+    type: String,
+    required: true,
+    default: "Computer Science",
+  },
   isPaid: {
     type: Boolean,
     required: true,

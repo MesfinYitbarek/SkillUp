@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import Header from "../Common/Header";
 import CourseListing from "./CourseListing";
 import Footer from "../Common/Footer";
@@ -8,6 +9,36 @@ import Search from "../Common/Search";
 import { Link } from "react-router-dom";
 import CourseCatagories from "./CourseCatagories";
 export default function Courses() {
+  const [courses, setCourses] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredCourses, setFilteredCourses] = useState([]);
+
+  React.useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch("/api/courses/courses");
+        const data = await response.json();
+        setCourses(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchCourses();
+  }, [courses]);
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+
+    const filteredCourses = courses.filter((course) => {
+      return (
+        course.title.toLowerCase().includes(term.toLowerCase()) ||
+        course.description.toLowerCase().includes(term.toLowerCase()) ||
+        course.catagory.toLowerCase().includes(term.toLowerCase())
+      );
+    });
+    setFilteredCourses(filteredCourses);
+  };
   return (
     <div className=" bg-slate-50">
       <div>
@@ -26,22 +57,18 @@ export default function Courses() {
 
         <div className=" absolute top-36 left-20">
           <h1 className=" lg:text-4xl  text-white font-bold">Courses</h1>
-          
         </div>
         <div>
-          <Search/>
+          <Search onSearch={handleSearch} />
         </div>
         <div className=" flex  ">
           <CourseCatagories />
-
-          <CourseListing />
+          <CourseListing
+            searchTerm={searchTerm}
+            filteredCourses={filteredCourses}
+            courses={courses}
+          />
         </div>
-        <Link to="/create-course">create course</Link>
-        <Link to="/create-catagory">create catagories</Link>
-        <Link to="/contact-display">contact display</Link>
-        <Link to="/users">Users</Link>
-        <Link to="/catagory">Catagory</Link>
-        <Link to="/admin">Admin</Link>
         <Footer />
       </div>
     </div>

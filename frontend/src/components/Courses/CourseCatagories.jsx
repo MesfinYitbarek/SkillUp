@@ -15,7 +15,7 @@ const CourseCatagories = () => {
     };
 
     fetchCatagory();
-  }, []);
+  }, [catagory]);
   return (
     <div className=" sm:mt-26  px-16 py-20">
       <div className=" bg-white shadow-md border-t-4 border-blue-600 container mx-auto px-6 p-10 min-w-[250px]">
