@@ -1,12 +1,33 @@
 import React from "react";
-
-const CourseCatagories = () => {
+import { useState,useEffect } from "react";
+const CourseCatagories = ({onCategoryChange}) => {
   const [catagory, setCatagory] = React.useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  const handleCheckboxChange = (event) => {
+    const { checked, value } = event.target;
+    console.log(checked)
+    if (checked) {
+      setSelectedCategories([...selectedCategories, value]);
+      console.log(selectedCategories)
+    } else {
+      const newSelectedCategories = selectedCategories.filter((cat) => cat !== value);
+      setSelectedCategories(newSelectedCategories);
+    }
+
+
+    onCategoryChange(selectedCategories);
+  };
 
   React.useEffect(() => {
     const fetchCatagory = async () => {
       try {
-        const response = await fetch("/api/courses/catagory");
+        const response = await fetch("/api/courses/catagory",{
+     
+          ...(selectedCategories.length > 0 && {
+            params: { categories: selectedCategories.join(",") },
+          }),
+        });;
         const data = await response.json();
         setCatagory(data);
       } catch (err) {
@@ -16,6 +37,12 @@ const CourseCatagories = () => {
 
     fetchCatagory();
   }, [catagory]);
+
+  useEffect(() => {
+    onCategoryChange(selectedCategories);
+   
+  }, [selectedCategories]);
+
   return (
     <div className=" sm:mt-26  px-16 py-20">
       <div className=" bg-white shadow-md border-t-4 border-blue-600 container mx-auto px-6 p-10 min-w-[250px]">
@@ -27,7 +54,13 @@ const CourseCatagories = () => {
             {catagory.map((data) => (
               <li>
                 {" "}
-                <input type="checkbox" id={data.name} className="mx-2" />
+                <input
+                 checked={selectedCategories.includes(data.name)} 
+                 type="checkbox" 
+                 value={data.name}
+                 id={data.name}
+                 className="mx-2"
+                 onChange={(e) => handleCheckboxChange(e)} />
                 <label htmlFor="isPaid">{data.labelName}</label>
               </li>
             ))}

@@ -1,17 +1,21 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoMdSearch } from "react-icons/io";
 const Search = ({onSearch}) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
+    console.log(searchTerm)
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     onSearch(searchTerm);
   };
+  useEffect(() => {
+    console.log(searchTerm); 
+  }, [searchTerm]);
 
   return (
     
