@@ -17,7 +17,7 @@ export const contact = async (req, res, next) => {
       message: req.body.message,
     });
 
-    await newContact.save(); // Save contact data to MongoDB
+    await newContact.save(); 
 
     res
       .status(201)
