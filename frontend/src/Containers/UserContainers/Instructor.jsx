@@ -11,6 +11,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SignOut from "../../components/Profile/SignOut";
 import { Link } from "react-router-dom";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
 const navigationItems = [
   { name: "My Courses", icon: <PlayCircleIcon />, isActive: true },
@@ -68,6 +70,15 @@ const Instructor = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className=" ml-72 mt-6">
+        <Stack direction="row" spacing={2}>
+          <Link to={"/create-course"}>
+            <Button variant="contained" color="primary">
+              Add Course
+            </Button>
+          </Link>
+        </Stack>
       </div>
       <div className="ml-52">
         {condtion == "My Courses" ? (

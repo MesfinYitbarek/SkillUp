@@ -57,7 +57,7 @@ const InstructorCourse = () => {
 
   return (
     <div className=" px-16 dark:bg-gray-800">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {slicedCourses &&
             slicedCourses.length > 0 &&
