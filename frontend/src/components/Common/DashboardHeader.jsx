@@ -10,18 +10,7 @@ const DashboardHeader = () => {
   const { currentUser } = useSelector((state) => state.user);
   return (
     <div className="    bg-blue-500 p-6 py-2">
-      {/* <div>
-        <h1>
-          SkillUp{" "}
-          <span>
-            {currentUser.role == "admin"
-              ? "Admin"
-              : currentUser.role == "instructor"
-              ? "Instructor"
-              : "Student"}
-          </span>
-        </h1>
-      </div> */}
+    
       <div className="  bg-white ml-[230px] flex justify-between items-center py-2 px-10">
       <div className=" font-bold flex gap-1">
         <CalendarViewDayIcon />

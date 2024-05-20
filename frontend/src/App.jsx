@@ -12,7 +12,7 @@ import Courses from "./components/Courses/Courses";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Student from "./components/StudentDashboard/Student";
 import UpdateProfile from "./components/Profile/updateProfile";
-import Instructor from "./components/InstructorDashboard/Instructor";
+import Instructor from "../src/Containers/UserContainers/Instructor";
 import CreateCourse from "./components/Courses/CreateCourse";
 import CreateCatagory from "./components/Admin/CreateCatagory";
 import ContactDisplay from "./components/Contact/ContactDisplay";

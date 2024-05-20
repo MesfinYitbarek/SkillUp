@@ -15,3 +15,13 @@ export const enrollment = async (req, res, next) => {
     next(err);
   }
 };
+
+//display enrolled students
+export const enrollmentDisplay = async (req, res, next) => {
+  try {
+    const enrollment = await Enrollment.find();
+    res.json(enrollment);
+  } catch (error) {
+    next(error);
+  }
+};

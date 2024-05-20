@@ -1,39 +1,26 @@
 import React from "react";
 import { useState } from "react";
-import DashboardHeader from "../components/Common/DashboardHeader";
+import DashboardHeader from "../../components/Common/DashboardHeader";
 import { useSelector } from "react-redux";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
-import HomeIcon from "@mui/icons-material/Home";
+import InstructorCourse from "../../components/InstructorDashboard/InstructorCourses";
 import MessageIcon from "@mui/icons-material/Message";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import WorkspacesIcon from "@mui/icons-material/Workspaces";
-import GroupIcon from "@mui/icons-material/Group";
 import SchoolIcon from "@mui/icons-material/School";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Home from "../components/Admin/Home";
-import Courses from "../components/Admin/Courses"
-import Catagory from "../components/Admin/Catagory";
-import ContactDisplay from "../components/Contact/ContactDisplay";
-import Users from "../components/Admin/Users";
-import SignOut from "../components/Profile/SignOut";
+import SignOut from "../../components/Profile/SignOut";
 import { Link } from "react-router-dom";
-import EnrolledStudents from "../components/Admin/EnrolledStudents";
-
 
 const navigationItems = [
-  { name: "Dashboard", icon: <HomeIcon />, isActive: true }, // Set active item initially
-  { name: "Courses", icon: <PlayCircleIcon /> },
-  { name: "Categories", icon: <WorkspacesIcon /> },
+  { name: "My Courses", icon: <PlayCircleIcon />, isActive: true },
   { name: "Messages", icon: <MessageIcon /> },
-  { name: "Users", icon: <GroupIcon /> },
   { name: "Enrolled Students", icon: <SchoolIcon /> },
   { name: <SignOut />, icon: <LogoutIcon />, link: <SignOut /> },
 ];
-const  name = "AddCatagory"
 
-const AdminContainer = () => {
-  const [activeItem, setActiveItem] = useState(0); 
+const Instructor = () => {
+  const [activeItem, setActiveItem] = useState(0);
 
   const handleClick = (index) => {
     setActiveItem(index);
@@ -41,16 +28,17 @@ const AdminContainer = () => {
 
   var condtion = "";
   const { currentUser } = useSelector((state) => state.user);
+
   return (
-    <div className="  bg-gray-100 pb-12 min-h-screen ">
+    <div className=" bg-gray-100 pb-12 min-h-screen ">
       <div>
         <div>
           <DashboardHeader />
           <div className=" bg-white h-screen absolute w-[230px] top-0 p-5 text-center flex flex-col gap-4">
             <div className="font-bold  text-blue-500 leading-10  text-lg">
-              <Link to={'/'}>
+              <Link to={"/"}>
                 <CastForEducationIcon className="text-purple-500 mb-2" />{" "}
-                SkillUp <span>Admin</span>
+                SkillUp <span>Instructor</span>
               </Link>
             </div>
             <div className=" text-start flex p-2 flex-col gap-2">
@@ -71,30 +59,31 @@ const AdminContainer = () => {
                   {item.name}
                 </button>
               ))}
-              <Link to={'/profile'} className=" opacity-60 pl-3 py-1 rounded-md hover:bg-slate-300"><AccountCircleIcon  className="mr-1"/> My account</Link>
+              <Link
+                to={"/profile"}
+                className=" opacity-60 pl-3 py-1 rounded-md hover:bg-slate-300"
+              >
+                <AccountCircleIcon className="mr-1" /> My account
+              </Link>
             </div>
           </div>
         </div>
       </div>
-      {condtion == "Dashboard" ? (
-        <Home />
-      ) : condtion == "Courses" ? (
-        <Courses />
-      ) : condtion == "Categories" ? (
-        <Catagory />
-      ) : condtion == "Messages" ? (
-        <ContactDisplay />
-      ) : condtion == "Users" ? (
-        <Users />
-      )  : condtion == "Enrolled Students" ? (
-        <EnrolledStudents />
-      )  : condtion == "Log Out" ? (
-        <SignOut />
-      ) : (
-        ""
-      )}
+      <div className="ml-52">
+        {condtion == "My Courses" ? (
+          <InstructorCourse />
+        ) : condtion == "Messages" ? (
+          <ContactDisplay />
+        ) : condtion == "Enrolled Students" ? (
+          <Catagory />
+        ) : condtion == "Log Out" ? (
+          <SignOut />
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 };
 
-export default AdminContainer;
+export default Instructor;

@@ -39,7 +39,7 @@ const CreateCourse = () => {
       }
       setLoading(false);
       setError(null);
-      navigate("/instructor-courses");
+      navigate("/instructor");
     } catch (error) {
       setLoading(false);
       setError(error.message);

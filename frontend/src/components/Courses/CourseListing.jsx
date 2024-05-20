@@ -1,6 +1,8 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
+import Pagination from "@mui/material/Pagination";
+
 const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses,selectedCategories  }) => {
   
   useEffect(() => {
@@ -8,20 +10,35 @@ const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses
 
   const displayCourses = searchTerm ? filteredCourses:selectedCategories.length ? catagorizedCourses : courses 
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [coursesPerPage] = useState(6);
+
+  
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  
+  // Get the current page courses
+
+  const slicedCourses = displayCourses.slice(
+    coursesPerPage * (currentPage - 1),
+    coursesPerPage * currentPage
+  );
+
   return (
-    <div className=" px-16 dark:bg-gray-800">
+    <div className=" pr-4 dark:bg-gray-800">
       <div className="container mx-auto px-4 pb-8">
-        <h2 className=" dark:text-white text-4xl text-sky-800 font-semibold sm:mb-24 mb-8 text-center ">
+        <h2 className=" dark:text-white text-3xl text-sky-800 font-semibold sm:mb-24 mb-8 text-center ">
           Explore Our Courses
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {displayCourses.map((course) => (
+        {slicedCourses &&
+            slicedCourses.length > 0 &&
+            slicedCourses.map((course) => (
             <div
-              data-aos="fade-up"
-              data-aos-delay="200"
-              data-aos-once="true"
               key={course.id}
-              className=" rounded-2xl border border-slate-300 overflow-hidden  hover:bg-purple-300 shadow-purple-400 p-4 "
+              className="  rounded-2xl border border-slate-300 overflow-hidden  hover:bg-purple-300 shadow-purple-400  p-4 "
             >
               <img
                 src={course.imageUrl}
@@ -30,7 +47,7 @@ const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses
               />
               <div className="px-3 py-4">
                 <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-lg font-medium odd:bg-purple-300 even:bg-pink-300 px-2 py-[3px] rounded">
+                  <h3 className="text-xl font-bold   py-[3px] rounded">
                     {course.title}
                   </h3>
                   <img
@@ -64,7 +81,7 @@ const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses
                     href={`/courses/${course.id}`}
                     className="inline-block px-3 py-1.5  border-purple-500 border bg-red-50 text-purple-600 font-bold rounded mt-4"
                   >
-                    Learn More
+                    Details
                   </a>
                   <span>
                     <StarIcon className=" text-yellow-400" />
@@ -74,6 +91,14 @@ const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses
               </div>
             </div>
           ))}
+        </div>
+        <div className="flex justify-center mt-4">
+          <Pagination
+            count={Math.ceil(courses.length / coursesPerPage)} // Total pages based on courses and per page limit
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary" // Optional: Set color theme
+          />
         </div>
       </div>
     </div>
