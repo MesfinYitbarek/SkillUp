@@ -94,10 +94,10 @@ const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses
         </div>
         <div className="flex justify-center mt-4">
           <Pagination
-            count={Math.ceil(courses.length / coursesPerPage)} // Total pages based on courses and per page limit
+            count={Math.ceil(courses.length / coursesPerPage)} 
             page={currentPage}
             onChange={handlePageChange}
-            color="primary" // Optional: Set color theme
+            color="primary" 
           />
         </div>
       </div>

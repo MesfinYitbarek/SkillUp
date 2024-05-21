@@ -2,9 +2,13 @@ import { Delete, Star } from "@mui/icons-material";
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import Pagination from "@mui/material/Pagination";
+
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [coursesPerPage] = useState(6);
 
   React.useEffect(() => {
     const fetchCourses = async () => {
@@ -36,15 +40,25 @@ const Courses = () => {
       setError("Error deleting course");
     }
   };
+ const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const slicedCourses = courses.slice(
+    coursesPerPage * (currentPage - 1),
+    coursesPerPage * currentPage
+  );
 
   return (
-    <div className=" flex justify-center text-blue-900 p-3  ml-10">
+    <div className=" flex flex-col items-center justify-center text-blue-900 p-3  ml-10">
       <div>
         <div className=" ml-60 mr-10 p-6 font-bold text-2xl">
           <h1>All Courses</h1>
         </div>
         <div className=" ml-60 mr-10 gap-5 grid grid-cols-3">
-          {courses.map((data) => (
+          {slicedCourses &&
+            slicedCourses.length > 0 &&
+            slicedCourses.map((data) => (
             <div className=" bg-white rounded-sm shadow-sm p-5 flex gap-5 items-center">
               <div>
                 <img
@@ -83,6 +97,12 @@ const Courses = () => {
           ))}
         </div>
       </div>
+      <Pagination
+            count={Math.ceil(courses.length / coursesPerPage)} 
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+          />
     </div>
   );
 };

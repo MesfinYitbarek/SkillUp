@@ -7,7 +7,7 @@ import img from "../../assets/background image/pexels-vlada-karpovich-4050315.jp
 import { Link } from "react-router-dom";
 import Search from "../Common/Search";
 
-import CourseCatagories from "./CourseCatagories";
+import CourseCatagories from "../CourseCatagory/CourseCatagories";
 export default function Courses() {
   const [courses, setCourses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

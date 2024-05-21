@@ -1,12 +1,6 @@
 import React from "react";
 import Instructor from "./InstructorsData";
 import ShareIcon from "@mui/icons-material/Share";
-import Facebook from "@mui/icons-material/Facebook";
-import Telegram from "@mui/icons-material/Telegram";
-import Instagram from "@mui/icons-material/Instagram";
-import { Twitter } from "@mui/icons-material";
-import { LinkedIn } from "@mui/icons-material";
-import { Link } from "react-router-dom";
 const TopInstructors = () => {
   return (
     <div className=" dark:bg-gray-800 px-12 sm:py-40 sm:px-20 bg-slate-100">

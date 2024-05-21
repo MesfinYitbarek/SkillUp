@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import img from "../../assets/background image/pexels-artempodrez-4492127.jpg";
-import Header from "../Common/Header";
-import Footer from "../Common/Footer";
+import img from "../../../assets/background image/pexels-artempodrez-4492127.jpg";
+import Header from "../../Common/Header";
+import Footer from "../../Common/Footer";
+import CourseInfo from "./CourseInfo";
+import Lesson from "./Lesson";
 const contentData = {
-  content1:
-    "This is the content for button 1. It can contain any text, images, or other components.",
+  content1: <CourseInfo />,
   content2:
-    "This is the content for button 2. You can customize the content for each button.",
+    <Lesson/>,
   content3:
     "This is the content for button 3. Click any button to see its content displayed below.",
 };

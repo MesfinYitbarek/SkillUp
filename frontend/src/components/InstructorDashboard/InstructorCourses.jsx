@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { useSelector } from "react-redux";
 import Pagination from "@mui/material/Pagination";
@@ -8,10 +8,6 @@ const InstructorCourse = () => {
   const { loading, currentUser } = useSelector((state) => state.user);
   const [currentPage, setCurrentPage] = useState(1);
   const [coursesPerPage] = useState(6); // 6 courses per page
-
-  const handlePageChange = (event, newPage) => {
-    setCurrentPage(newPage);
-  };
 
   const fetchCourses = async () => {
     try {
@@ -27,7 +23,7 @@ const InstructorCourse = () => {
 
   useEffect(() => {
     fetchCourses();
-  }, []);
+  }, [courses]);
 
   const handleCourseDelete = async (courseid) => {
     try {
@@ -41,12 +37,14 @@ const InstructorCourse = () => {
         return;
       }
 
-      setCourses((prev) =>
-        prev.filter((courses) => courses._id !== courseid)
-      );
+      setCourses((prev) => prev.filter((courses) => courses._id !== courseid));
     } catch (error) {
       console.error(error.message);
     }
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage);
   };
 
   // Get the current page courses
@@ -133,7 +131,6 @@ const InstructorCourse = () => {
       </div>
     </div>
   );
-  
 };
 
 export default InstructorCourse;

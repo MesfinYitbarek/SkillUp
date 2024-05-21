@@ -20,9 +20,9 @@ import InstructorCourse from "./components/InstructorDashboard/InstructorCourses
 import Users from "./components/Admin/Users";
 import Catagory from "./components/Admin/Catagory";
 import AdminContainer from "./Containers/AdminContainer";
-import CategoryUpdate from "./components/Courses/CatagoryUpdate";
+import CategoryUpdate from "./components/CourseCatagory/CatagoryUpdate";
 import AddUsers from "./components/Admin/AddUsers";
-import Test from "./components/Courses/CourseDetails";
+import Test from "./components/Courses/Course Details/CourseDetails";
 const App = () => {
   React.useEffect(() => {
     AOS.init({
