@@ -5,7 +5,9 @@ export const enrollment = async (req, res, next) => {
   try {
     const newEnrollment = new Enrollment({
       username: req.body.username,
-      course: req.body.course,
+      email: req.body.email,
+      courseId: req.body.courseId,
+      courseName:req.body.courseName,
     });
 
     await newEnrollment.save();

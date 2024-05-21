@@ -140,6 +140,15 @@ const CreateCourse = () => {
                 required
               />
             </div>
+            <label htmlFor="level" className=' text-lg font-bold'>Course Level: </label>
+            <select id="level"  onChange={handleChange} className=" dark:bg-slate-100  sm:w-[390px] rounded-lg border border-slate-300 p-2.5 ">
+           
+              <option value={'All Level'}>All Level</option>
+              <option value={'Beginner'}>Beginner</option>
+              <option value={'Intermidate'}>Intermidate</option>
+              <option value={'Advanced'}>Advanced</option>
+            
+          </select>
             <button
               className=" mt-14 bg-blue-600 p-4 py-2 text-white rounded-md"
               disabled={loading}

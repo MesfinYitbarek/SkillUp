@@ -16,6 +16,16 @@ export const courses = async (req, res, next) => {
   }
 };
 
+export const courseDetails = async (req, res) => {
+ 
+  try {
+    const course = await Course.findById(req.params.id);
+    if (!course) return res.status(404).json({ message: "Course not found" });
+    res.json(course);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 // create courses
 export const createCourses = async (req, res, next) => {
@@ -30,6 +40,9 @@ export const createCourses = async (req, res, next) => {
     rating,
     userRef,
     catagory,
+    level,
+    createdAt,
+    updatedAt,
   } = req.body;
   const newCourse = new Course({
     title,
@@ -42,6 +55,9 @@ export const createCourses = async (req, res, next) => {
     rating,
     userRef,
     catagory,
+    level,
+    createdAt,
+    updatedAt,
   });
   try {
     await newCourse.save();

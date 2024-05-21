@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import Pagination from "@mui/material/Pagination";
+import { Link } from "react-router-dom";
 
 const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses,selectedCategories  }) => {
   
@@ -77,12 +78,12 @@ const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses
                 <hr />
 
                 <div className=" flex justify-between items-center">
-                  <a
-                    href={`/courses/${course.id}`}
+                  <Link
+                    to={`/courseDetails/${course._id}`}
                     className="inline-block px-3 py-1.5  border-purple-500 border bg-red-50 text-purple-600 font-bold rounded mt-4"
                   >
                     Details
-                  </a>
+                  </Link>
                   <span>
                     <StarIcon className=" text-yellow-400" />
                     <span className="text-gray-700 ml-1">{course.rating}</span>

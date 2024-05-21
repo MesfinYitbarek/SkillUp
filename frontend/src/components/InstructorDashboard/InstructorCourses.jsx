@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { useSelector } from "react-redux";
 import Pagination from "@mui/material/Pagination";
+import { Link } from "react-router-dom";
 
 const InstructorCourse = () => {
   const [courses, setCourses] = useState([]);
@@ -99,12 +100,12 @@ const InstructorCourse = () => {
                   <hr />
                   <div className="flex justify-between items-center mt-3"></div>
                   <div className="flex justify-between items-center">
-                    <a
-                      href={`/courses/${course.id}`}
+                    <Link
+                      to={`/courseDetails/${course._id}`}
                       className="inline-block px-3 py-1.5 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded "
                     >
                       Details
-                    </a>
+                    </Link>
                     <button
                       disabled={loading}
                       onClick={() => handleCourseDelete(course._id)}

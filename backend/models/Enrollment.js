@@ -5,10 +5,17 @@ const EnrollmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  course: {
+  email: {
     type: String,
-    required: true,
-     
+    required: true,   
+  },
+  courseId: {
+    type: String,
+    required: true,   
+  },
+  courseName: {
+    type: String,
+    required: true,   
   },
 }, { timestamps: true }); 
 

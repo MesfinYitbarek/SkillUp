@@ -5,6 +5,6 @@ import { verifyToken } from "../Utils/verifyUser.js";
 const enrollmentRouter = express.Router();
 
 enrollmentRouter.get("/enrollmentDisplay", enrollmentDisplay);
-enrollmentRouter.post("/enrollment", enrollment);
+enrollmentRouter.post("/enrollment",verifyToken, enrollment);
 
 export default enrollmentRouter;

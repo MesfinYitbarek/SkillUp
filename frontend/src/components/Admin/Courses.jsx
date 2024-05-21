@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
-
+import { Link } from "react-router-dom";
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
@@ -52,9 +52,7 @@ const Courses = () => {
   return (
     <div className=" flex flex-col items-center justify-center text-blue-900 p-3  ml-10">
       <div>
-        <div className=" ml-60 mr-10 p-6 font-bold text-2xl">
-          <h1>All Courses</h1>
-        </div>
+        
         <div className=" ml-60 mr-10 gap-5 grid grid-cols-3">
           {slicedCourses &&
             slicedCourses.length > 0 &&
@@ -86,9 +84,12 @@ const Courses = () => {
                     {" "}
                     <Delete />
                   </button>
-                  <button className=" p-0.5 px-5  text-purple-500 bg-purple-100 ">
-                    Details
-                  </button>
+                  <Link
+                      to={`/courseDetails/${data._id}`}
+                      className="inline-block px-3 py-1.5 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded "
+                    >
+                      Details
+                    </Link>
                 </div>
               </div>
               {error && <p className="text-red-500 font-bold">{error}</p>}{" "}

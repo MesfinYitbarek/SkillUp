@@ -38,9 +38,21 @@ const courseSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  level: {
+    type: String,
+    required: true,
+  },
   userRef: {
     type:String,
     required:true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now, 
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
   },
 }, {timestamps: true});
 

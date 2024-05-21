@@ -27,12 +27,17 @@ const EnrolledStudents = () => {
           </tr>
           <tr className=" bg-blue-400   font-semibold text-white ">
             <td className="p-2">UserName</td>
+            <td>User Email</td>
+            <td>Course Id</td>
             <td>Course Name</td>
+            
           </tr>
           {enrollment.map((data) => (
             <tr className=" even:bg-slate-100 ">
               <td className=" p-1">{data.username}</td>
-              <td>{data.course}</td>
+              <td>{data.email}</td>
+              <td>{data.courseId}</td>
+              <td>{data.courseName}</td>
             </tr>
           ))}
         </table>

@@ -57,14 +57,14 @@ const CreateCatagory = () => {
         
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Catagory Name"
           id="name"
           onChange={handleChange}
           className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
         />
         <input
           type="text"
-          placeholder="Label Name"
+          placeholder="Catgory Name "
           id="labelName"
           onChange={handleChange}
           className=" dark:bg-slate-100 sm:w-[450px] h-10 rounded-lg border border-slate-300 p-3"
