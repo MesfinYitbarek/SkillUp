@@ -22,6 +22,8 @@ import Catagory from "./components/Admin/Catagory";
 import AdminContainer from "./Containers/AdminContainer";
 import CategoryUpdate from "./components/Courses/CatagoryUpdate";
 import AddUsers from "./components/Admin/AddUsers";
+import Quizes from "./components/InstructorDashboard/Quizes";
+
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -43,6 +45,8 @@ const App = () => {
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/catagory" element={<Catagory />} />
+        <Route path="/quiz" element={<Quizes/>}/>
+       
         
         {/* Common Private Routes */}
         <Route element={<PrivateRoute />}>
