@@ -24,6 +24,7 @@ import CategoryUpdate from "./components/CourseCatagory/CatagoryUpdate";
 import AddUsers from "./components/Admin/AddUsers";
 import Test from "./components/Courses/Course Details/CourseDetails";
 import CourseLesson from "./components/Courses/Course Details/Course Lesson";
+import StudentContainer from "./Containers/UserContainers/StudentContainer";
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -56,7 +57,7 @@ const App = () => {
 
         {/* Role-Based Private Routes */}
         <Route element={<PrivateRoute allowedRoles={["student"]} />}>
-          <Route path="/student" element={<Student />} />
+          <Route path="/student" element={<StudentContainer />} />
         </Route>
         <Route element={<PrivateRoute allowedRoles={["instructor"]} />}>
           <Route path="/instructor" element={<Instructor />} />

@@ -2,6 +2,7 @@ import { json } from "express";
 import errorHandler from "../Utils/error.js";
 import Catagory from "../models/Catagory.js";
 import Course from "../models/Course.js";
+import Enrollment from "../models/Enrollment.js";
 
 
 //courses
@@ -16,6 +17,7 @@ export const courses = async (req, res, next) => {
   }
 };
 
+// course detail display
 export const courseDetails = async (req, res) => {
  
   try {
@@ -80,6 +82,28 @@ export const personalcourses = async (req, res, next) => {
   }
 };
 
+// course diplay for enrolled students
+export const enrolledCourses = async (req, res, next) => {
+
+    try {
+      const enroll = await Enrollment.find({ username: req.params.username });
+      if (enroll.length === 0) {
+        return res.status(200).json([]);
+      } else {
+        const courses = [];
+        for (const enrollment of enroll) {
+          const course = await Course.find({ title: enrollment.courseName });
+          courses.push(course[0]); 
+        }
+      res.status(200).json(courses);
+      }
+    } catch (error) {
+      next(error);
+    }
+  
+};
+
+ 
 
 //course delete
 export const deletecourses = async (req, res, next) => {

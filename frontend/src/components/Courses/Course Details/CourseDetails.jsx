@@ -19,20 +19,20 @@ const contentData = {
     "This is the content for button 3. Click any button to see its content displayed below.",
 };
 
-
-
 function Test() {
   const [activeButton, setActiveButton] = useState(null);
 
   const handleClick = (buttonIndex) => {
     setActiveButton(buttonIndex);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const {currentUser} = useSelector(state => state.user)
+  const { currentUser } = useSelector((state) => state.user);
   const { courseId } = useParams();
   const [course, setCourse] = useState([]);
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  console.log(enrolledCourses);
   console.log(course);
   console.log(courseId);
 
@@ -46,19 +46,18 @@ function Test() {
     fetchCourse();
   }, [courseId]);
 
-  const handleEnrollment = async (e) =>{
-    try{
+  const handleEnrollment = async (e) => {
+    try {
       const res = await fetch("/api/enrollment/enrollment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: currentUser.username,
-          email:currentUser.email,
+          email: currentUser.email,
           courseId: courseId,
           courseName: course.title,
         }),
-       
-      })
+      });
       setLoading(false);
       setError(null);
       navigate("/course-lesson");
@@ -67,9 +66,7 @@ function Test() {
       setError(error.message);
       navigate("/sign-in");
     }
-    
-  
-  }
+  };
   return (
     <div className="flex flex-col   ">
       <Header />
@@ -116,12 +113,18 @@ function Test() {
                 </span>
               )}
               {course.isPaid ? (
-                <button  disabled={loading} className=" bg-blue-500 text-white  rounded-md px-3 py-2 ">
-                  {loading ? "Loading..." : "Enroll Now"}
+                <button
+                  disabled={loading}
+                  className=" bg-blue-500 text-white  rounded-md px-3 py-2 "
+                >
+                   Enroll Now
                 </button>
               ) : (
-                <button  onClick={handleEnrollment} className=" bg-blue-500 text-white  rounded-md px-3 py-2 ">
-                  Enroll Now
+                <button
+                  onClick={handleEnrollment}
+                  className=" bg-blue-500 text-white  rounded-md px-3 py-2 "
+                >
+                 {loading ? "Loading..." : "Enroll Now"}
                 </button>
               )}
             </div>

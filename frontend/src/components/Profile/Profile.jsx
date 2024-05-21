@@ -12,7 +12,7 @@ const Profile = () => {
     <div className=" bg-slate-50 ">
       <Header />
       <div>
-        <div className="  text-center mt-4 sm:mt-12 text-2xl sm:text-5xl">
+        <div className="  text-center mt-4 sm:mt- text-2xl sm:text-5xl">
           <h1>
             Hi, <span className=" text-purple-500">{currentUser.username}</span>
           </h1>
@@ -50,7 +50,7 @@ const Profile = () => {
           <div className=" text-7xl p-3   ">
             <div className=" flex flex-col mb-10">
               <Link
-                to={"/student"}
+                to={`/${currentUser.role}`}
                 className=" mt-12 text-lg text-blue-600 font-semibold"
               >
                 <h1 className=" hover:bg-blue-500  hover:text-white border rounded-md border-blue-600 p-1.5 px-4">
