@@ -86,7 +86,7 @@ const Topcourses = () => {
 
                   <div className=" flex justify-between items-center">
                     <a
-                      href={`/courses/${course.id}`}
+                      href={`/courseDetails/${course._id}`}
                       className="inline-block px-3 py-1.5  border-purple-500 border bg-red-50 text-purple-600 font-bold rounded mt-4"
                     >
                       Learn More

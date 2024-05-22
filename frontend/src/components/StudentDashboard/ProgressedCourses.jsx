@@ -35,9 +35,15 @@ const ProgressedCourses = () => {
                 <div className="flex gap-4 items-center ">
                   <h2 className=" bg-slate-100 p-1 px-3">{data.duration}</h2>
 
-                  <h2 className=" bg-slate-100 p-1 px-3">
-                    &#8377; {data.price}
-                  </h2>
+                  {course.isPaid ? (
+                    <span className="text-blue-600 text-xl mb-3 font-bold">
+                      &#8377; {course.price}
+                    </span>
+                  ) : (
+                    <span className="text-green-500 text-xl mb-3 font-bold">
+                      Free
+                    </span>
+                  )}
                 </div>
 
                 <p className=" opacity-75 ">{data.description}</p>

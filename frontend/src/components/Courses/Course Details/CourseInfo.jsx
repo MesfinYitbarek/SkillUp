@@ -1,7 +1,8 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import CheckIcon from '@mui/icons-material/Check';
-
+import CheckIcon from "@mui/icons-material/Check";
+import { useState, useEffect } from "react";
 const courseDescription = [
   {
     description: `If you're an office worker, student, administrator, or just want to become more productive with your computer,
@@ -13,67 +14,62 @@ const courseDescription = [
   },
 ];
 
-const courseMainPoints = [
-  {
-    MainPoints:
-      "Automate tasks on their computer by writing simple Python programs.",
-  },
-  {
-    MainPoints: "Programmatically generate and update Excel spreadsheets.",
-  },
-  {
-    MainPoints: "Crawl web sites and pull information from online sources.",
-  },
-  {
-    MainPoints:
-      "Use Python's debugging tools to quickly figure out bugs in your code.",
-  },
-  {
-    MainPoints: "Write programs that can do text pattern recognition with ",
-  },
-];
-
-const requirements = [
-  {
-    requirement: "No programming experience is required.",
-  },
-  {
-    requirement:
-      "Downloading and installing Python is covered at the start of the course.",
-  },
-  {
-    requirement:
-      "Basic computer skills: surfing websites, running programs, saving and opening documents, etc.",
-  },
-];
-
 const CourseInfo = () => {
+  const [course, setCourse] = useState([]);
+  const { courseId } = useParams();
+  useEffect(() => {
+    const fetchCourse = async () => {
+      const response = await fetch(`/api/courses/courseDetails/${courseId}`);
+      const data = await response.json();
+      setCourse(data);
+    };
+
+    fetchCourse();
+  }, [courseId]);
+
   return (
-    <div className=" flex flex-col gap-7">
-      <div className="p-6  border border-slate-300 ">
-        <h1 className=" text-2xl font-bold py-4">What you'll learn</h1>
-        <div className="sm:grid sm:grid-cols-2 ">
-          {courseMainPoints.map((data) => (
-            <p >
-              <CheckCircleOutlineIcon className="text-blue-600 mr-2" />{" "}
-              {data.MainPoints}
+    <div>
+      {course ? (
+        <div className=" flex flex-col gap-7">
+          <div className="p-6  border border-slate-300 ">
+            <h1 className=" text-2xl font-bold py-4">What you'll learn</h1>
+            <div className="sm:grid sm:grid-cols-2 ">
+              <p>
+                <ul className=" list-none pl-4 ">
+                  {course.learningObjectives?.map((objective, index) => (
+                    <li key={index}>
+                      <CheckCircleOutlineIcon className="text-blue-600 mr-2" />{" "}
+                      {objective}
+                    </li>
+                  ))}
+                </ul>
+              </p>
+            </div>
+          </div>
+          <div className=" flex flex-col">
+            <h1 className=" py-5 flex gap-2  font-bold text-2xl">
+              Requirements
+            </h1>
+            <p>
+              <ul className=" list-none pl-4 ">
+                {course.requirements?.map((objective, index) => (
+                  <li key={index}>
+                    <CheckIcon className="text-blue-600 mr-2" /> {objective}
+                  </li>
+                ))}
+              </ul>
             </p>
-          ))}
+          </div>
+          <div>
+            <h1 className=" py-5  font-bold text-2xl">Description</h1>
+            {courseDescription.map((data) => (
+              <p className=" text-justify">{data.description}</p>
+            ))}
+          </div>
         </div>
-      </div>
-      <div>
-      <h1 className=" py-5  font-bold text-2xl">Requirements</h1>
-        {requirements.map((data) => (
-          <p className=" text-justify"><CheckIcon className=" mr-3"/> {data.requirement}</p>
-        ))}
-      </div>
-      <div>
-        <h1 className=" py-5  font-bold text-2xl">Description</h1>
-        {courseDescription.map((data) => (
-          <p className=" text-justify">{data.description}</p>
-        ))}
-      </div>
-     
+      ) : (
+        <div>data.not found</div>
+      )}
     </div>
   );
 };

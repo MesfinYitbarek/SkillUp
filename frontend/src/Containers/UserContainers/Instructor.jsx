@@ -13,6 +13,7 @@ import SignOut from "../../components/Profile/SignOut";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import EnrolledStudent from "../../components/InstructorDashboard/EnrolledStudent";
 
 const navigationItems = [
   { name: "My Courses", icon: <PlayCircleIcon />, isActive: true },
@@ -86,7 +87,7 @@ const Instructor = () => {
         ) : condtion == "Messages" ? (
           <ContactDisplay />
         ) : condtion == "Enrolled Students" ? (
-          <Catagory />
+          <EnrolledStudent />
         ) : condtion == "Log Out" ? (
           <SignOut />
         ) : (

@@ -43,8 +43,14 @@ export const createCourses = async (req, res, next) => {
     userRef,
     catagory,
     level,
+    instructor,
+    requirements,
+    learningObjectives,
+    reviews,
+    curriculum,
     createdAt,
     updatedAt,
+    
   } = req.body;
   const newCourse = new Course({
     title,
@@ -58,6 +64,11 @@ export const createCourses = async (req, res, next) => {
     userRef,
     catagory,
     level,
+    instructor,
+    requirements,
+    learningObjectives,
+    reviews,
+    curriculum,
     createdAt,
     updatedAt,
   });

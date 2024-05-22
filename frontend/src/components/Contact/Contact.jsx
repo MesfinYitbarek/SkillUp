@@ -155,7 +155,7 @@ const Contact = () => {
             </div>
           </div>
           <div className="">
-            <h2 className="sm:text-4xl   group  font-bold mb-4 sm:mb-8  text-center  py-2 text-sky-900  ">
+            <h2 className="sm:text-4xl   group   mb-4 sm:mb-8  text-center  py-2 text-sky-900  ">
               <span
                 className="  bg-left-bottom bg-gradient-to-r
                     from-purple-600 to-pink-600

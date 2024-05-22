@@ -39,12 +39,12 @@ const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses
             slicedCourses.map((course) => (
             <div
               key={course.id}
-              className="  rounded-2xl border border-slate-300 overflow-hidden  hover:bg-purple-300 shadow-purple-400  p-4 "
+              className=" bg-white  rounded-2xl border border-slate-300 overflow-hidden  hover:bg-purple-300 shadow-purple-400  p-4 "
             >
               <img
                 src={course.imageUrl}
                 alt={course.title}
-                className="w-full h-48 object-cover rounded-md"
+                className="w-full h-40 object-cover rounded-md"
               />
               <div className="px-3 py-4">
                 <div className="flex justify-between items-center mb-2">
@@ -92,6 +92,7 @@ const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses
               </div>
             </div>
           ))}
+          {!slicedCourses && <p>Course  not available.</p>}
         </div>
         <div className="flex justify-center mt-4">
           <Pagination

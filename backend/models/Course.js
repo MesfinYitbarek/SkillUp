@@ -34,6 +34,22 @@ const courseSchema = new mongoose.Schema({
   price: {
     type: Number,
   },
+  instructor: {
+    type: String,
+  },
+  requirements: {
+    type: [String],
+  },
+  learningObjectives: {
+    type: [String],
+  },
+  curriculum: {
+    type: [Object], 
+  },
+  reviews: {
+    type: String,
+    default:"no data" ,
+  },
   rating: {
     type: Number,
     required: true
