@@ -48,7 +48,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/courses", courseRouter);
 app.use("/api/contact", contactRouter)
 app.use("/api/enrollment", enrollmentRouter)
-app.use("/api/routes", router);
+app.use("/api", router);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
