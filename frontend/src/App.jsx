@@ -46,6 +46,9 @@ const App = () => {
         <Route path="/courses" element={<Courses />} />
         <Route path="/catagory" element={<Catagory />} />
         <Route path="/quiz" element={<Quizes/>}/>
+        <Route path="/instructor" element={<Instructor />} />
+          <Route path="/instructor-courses" element={<InstructorCourse />} />
+          <Route path="/create-course" element={<CreateCourse />} />
        
         
         {/* Common Private Routes */}
@@ -59,9 +62,8 @@ const App = () => {
           <Route path="/student" element={<Student />} />
         </Route>
         <Route element={<PrivateRoute allowedRoles={["instructor"]} />}>
-          <Route path="/instructor" element={<Instructor />} />
-          <Route path="/instructor-courses" element={<InstructorCourse />} />
-          <Route path="/create-course" element={<CreateCourse />} />
+          
+          
         </Route>
         <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
           <Route path="/create-catagory" element={<CreateCatagory />} />
