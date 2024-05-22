@@ -4,7 +4,6 @@ import Catagory from "../models/Catagory.js";
 import Course from "../models/Course.js";
 import Enrollment from "../models/Enrollment.js";
 
-
 //courses
 
 //display courses
@@ -19,7 +18,6 @@ export const courses = async (req, res, next) => {
 
 // course detail display
 export const courseDetails = async (req, res) => {
- 
   try {
     const course = await Course.findById(req.params.id);
     if (!course) return res.status(404).json({ message: "Course not found" });
@@ -50,7 +48,6 @@ export const createCourses = async (req, res, next) => {
     curriculum,
     createdAt,
     updatedAt,
-    
   } = req.body;
   const newCourse = new Course({
     title,
@@ -80,8 +77,7 @@ export const createCourses = async (req, res, next) => {
   }
 };
 
-
-//Private course display for 
+//Private course display for
 export const personalcourses = async (req, res, next) => {
   if (req.user.id == req.params.id) {
     try {
@@ -95,26 +91,22 @@ export const personalcourses = async (req, res, next) => {
 
 // course diplay for enrolled students
 export const enrolledCourses = async (req, res, next) => {
-
-    try {
-      const enroll = await Enrollment.find({ username: req.params.username });
-      if (enroll.length === 0) {
-        return res.status(200).json([]);
-      } else {
-        const courses = [];
-        for (const enrollment of enroll) {
-          const course = await Course.find({ title: enrollment.courseName });
-          courses.push(course[0]); 
-        }
-      res.status(200).json(courses);
+  try {
+    const enroll = await Enrollment.find({ username: req.params.username });
+    if (enroll.length === 0) {
+      return res.status(200).json([]);
+    } else {
+      const courses = [];
+      for (const enrollment of enroll) {
+        const course = await Course.find({ title: enrollment.courseName });
+        courses.push(course[0]);
       }
-    } catch (error) {
-      next(error);
+      res.status(200).json(courses);
     }
-  
+  } catch (error) {
+    next(error);
+  }
 };
-
- 
 
 //course delete
 export const deletecourses = async (req, res, next) => {
@@ -151,7 +143,6 @@ export const deletecoursesByAdmin = async (req, res, next) => {
   }
 };
 
-
 // course update
 export const updatecourses = async (req, res, next) => {
   const courses = await Course.findById(req.params.id);
@@ -175,7 +166,6 @@ export const updatecourses = async (req, res, next) => {
   }
 };
 
-
 // Catagory
 
 //catagory display
@@ -188,6 +178,21 @@ export const catagory = async (req, res, next) => {
   }
 };
 
+// catagory display for edit
+export const catagoryEdit = async (req, res, next) => {
+  const { id } = req.params; 
+
+  try {
+    const category = await Catagory.findById(id); 
+    if (!category) {
+      return res.status(404).json({ message: "Category not found" }); 
+    }
+    res.status(200).json(category); 
+  } catch (error) {
+    console.error("Error fetching category:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 //catagory creation
 export const createCatagory = async (req, res, next) => {
@@ -222,7 +227,7 @@ export const deletecatagory = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
 
 // update catagory
 export const updatecatagory = async (req, res, next) => {
@@ -245,4 +250,4 @@ export const updatecatagory = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};

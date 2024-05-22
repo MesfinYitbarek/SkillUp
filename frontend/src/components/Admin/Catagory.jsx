@@ -66,7 +66,7 @@ const Catagory = () => {
                 </button>
               </td>
               <td className=" text-center text-purple-600 ">
-                <button>Edit</button>
+              <Link to={`/update-catagory/${data._id}`}>Edit</Link>
               </td>
             </tr>
           ))}
