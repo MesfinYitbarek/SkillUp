@@ -113,9 +113,7 @@ const InstructorCourse = () => {
                     >
                       {loading ? "Loading..." : "Delete"}
                     </button>
-                    <button className=" px-3 py-1.5  border-blue-500 border bg-blue-50 text-blue-600 font-bold rounded mt-1">
-                      Edit
-                    </button>
+                    <Link to={`/course-edit/${course._id}`}>Edit</Link>
                   </div>
                 </div>
               </div>

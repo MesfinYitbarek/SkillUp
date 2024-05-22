@@ -1,15 +1,16 @@
 import express from "express";
-import { courses, createCourses,deletecourses,enrolledCourses,updatecourses, personalcourses,deletecatagory,updatecatagory, catagory, createCatagory, deletecoursesByAdmin, courseDetails, catagoryEdit } from "../controllers/coursesController.js";
+import { courses, createCourses,deletecourses,enrolledCourses,updatecourses, personalcourses,deletecatagory,updatecatagory, catagory, createCatagory, deletecoursesByAdmin, courseDetails, catagoryEdit, courseEdit } from "../controllers/coursesController.js";
 import { verifyToken } from "../Utils/verifyUser.js";
 const courseRouter = express.Router();
 
 courseRouter.get("/courses", courses);
+courseRouter.get("/courseEdit/:id", courseEdit);
 courseRouter.get("/courseDetails/:id", courseDetails);
 courseRouter.get("/enrolledCourses/:username", enrolledCourses);
 courseRouter.post("/createCourses", verifyToken, createCourses);
 courseRouter.delete("/deletecourses/:id",verifyToken, deletecourses);
 courseRouter.delete("/deletecoursesByAdmin/:id",verifyToken, deletecoursesByAdmin);
-courseRouter.post("/update/:id",verifyToken, updatecourses);
+courseRouter.post("/updatecourses/:id",verifyToken, updatecourses);
 courseRouter.get("/personalcourses/:id",verifyToken, personalcourses);
 courseRouter.post("/createCatagory", createCatagory);
 courseRouter.get("/catagory", catagory);

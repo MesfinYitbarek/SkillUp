@@ -55,6 +55,7 @@ export const users = async (req, res, next) => {
   }
 };
 
+// display users for editing based on there id
 export const userEdit = async (req, res, next) => {
   const { id } = req.params; 
 

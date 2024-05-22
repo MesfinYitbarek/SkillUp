@@ -16,6 +16,23 @@ export const courses = async (req, res, next) => {
   }
 };
 
+//display courses for editing based on there id
+export const courseEdit = async (req, res, next) => {
+  const { id } = req.params; 
+
+  try {
+    const course = await Course.findById(id); 
+    if (!course) {
+      return res.status(404).json({ message: "Course not found" }); 
+    }
+    res.status(200).json(course); 
+  } catch (error) {
+    console.error("Error fetching Course:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+
 // course detail display
 export const courseDetails = async (req, res) => {
   try {
