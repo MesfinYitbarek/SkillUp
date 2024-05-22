@@ -23,6 +23,8 @@ import AdminContainer from "./Containers/AdminContainer";
 import CategoryUpdate from "./components/Courses/CatagoryUpdate";
 import AddUsers from "./components/Admin/AddUsers";
 import Quizes from "./components/InstructorDashboard/Quizes";
+import CreateAssignment from "./components/Courses/CreateAssignment";
+import AddSupplementaries from "./components/Courses/AddSupplementaries";
 
 const App = () => {
   React.useEffect(() => {
@@ -49,6 +51,8 @@ const App = () => {
         <Route path="/instructor" element={<Instructor />} />
           <Route path="/instructor-courses" element={<InstructorCourse />} />
           <Route path="/create-course" element={<CreateCourse />} />
+          <Route path="/create-assignment" element={<CreateAssignment />} />
+          <Route path="/addSupps" element={<AddSupplementaries />} />
        
         
         {/* Common Private Routes */}

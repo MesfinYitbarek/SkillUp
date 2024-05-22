@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors"
 import contactRouter from "./routes/contact.js";
 import enrollmentRouter from "./routes/enrollment.js";
+import router from "./routes/route.js";
 dotenv.config();
 
 // Connect to MongoDB database
@@ -36,13 +37,18 @@ app.listen(PORT, () => {
   console.log(`App is listening to port: ${PORT}`);
 });
 
+app.get("/",(req,res)=>{
+  console.log("api working succesfully");
+});
 
 //Routes
+
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/courses", courseRouter);
 app.use("/api/contact", contactRouter)
 app.use("/api/enrollment", enrollmentRouter)
+app.use("/api/routes", router);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
