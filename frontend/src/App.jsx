@@ -26,6 +26,7 @@ import Test from "./components/Courses/Course Details/CourseDetails";
 import CourseLesson from "./components/Courses/Course Details/Course Lesson";
 import StudentContainer from "./Containers/UserContainers/StudentContainer";
 import EditCategory from "./components/Admin/UpdateCatagory";
+import EditUser from "./components/Admin/UpdateUsers";
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -49,12 +50,11 @@ const App = () => {
         <Route path="/catagory" element={<Catagory />} />
         <Route path={`/courseDetails/:courseId`} element={<Test />} />
         <Route path={`course-lesson`} element={<CourseLesson />} />
-        <Route path="/update-catagory/:id" element={<EditCategory />} />
-        
+
         {/* Common Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/update-profile" element={<UpdateProfile />} />      
+          <Route path="/update-profile" element={<UpdateProfile />} />
         </Route>
 
         {/* Role-Based Private Routes */}
@@ -70,6 +70,8 @@ const App = () => {
           <Route path="/create-catagory" element={<CreateCatagory />} />
           <Route path="/update-catagory" element={<CategoryUpdate />} />
           <Route path="/contact-display" element={<ContactDisplay />} />
+          <Route path="/update-catagory/:id" element={<EditCategory />} />
+          <Route path="/update-user/:id" element={<EditUser />} />
           <Route path="/users" element={<Users />} />
           <Route path="/add-users" element={<AddUsers />} />
           <Route path="/admin" element={<AdminContainer />} />

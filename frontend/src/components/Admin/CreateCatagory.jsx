@@ -45,11 +45,11 @@ const CreateCatagory = () => {
     }
   };
   return (
-    <div className=" flex justify-center items-center h-screen">
+    <div className=" flex justify-center bg-slate-100 items-center h-screen">
       <form
         onSubmit={handleSubmit}
         action=""
-        className=" border-l-8 border-l-blue-500 bg-slate-100 p-24  flex flex-col justify-between items-center gap-6 "
+        className=" rounded-md border-l-8 border-l-blue-500 bg-white  p-24  flex flex-col justify-between items-center gap-6 "
       >
         <Link to={"/admin"}>
         <ArrowBack/>
@@ -74,7 +74,7 @@ const CreateCatagory = () => {
           type="submit"
           className="sm:w-[450px]  font-semibold hover:bg-white hover:text-blue-600 hover:border hover:border-blue-400  p-2 px-6 rounded-lg text-white bg-blue-600"
         >
-          {loading ? "Loading..." : "Create"}
+          {loading ? "Loading..." : "Create Catagory"}
         </button>
       </form>
 

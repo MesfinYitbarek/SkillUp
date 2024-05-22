@@ -89,7 +89,7 @@ const Users = () => {
                 </button>
               </td>
               <td className=" text-center text-purple-600 ">
-                <button>Edit</button>
+              <Link to={`/update-user/${data._id}`}>Edit</Link>
               </td>
             </tr>
           ))}
@@ -133,7 +133,7 @@ const Users = () => {
                 </button>
               </td>
               <td className=" text-center text-purple-600 ">
-                <button>Edit</button>
+              <Link to={`/update-user/${data._id}`}>Edit</Link>
               </td>
             </tr>
           ))}
@@ -177,7 +177,7 @@ const Users = () => {
                 </button>
               </td>
               <td className=" text-center text-purple-600 ">
-                <button>Edit</button>
+              <Link to={`/update-user/${data._id}`}>Edit</Link>
               </td>
             </tr>
           ))}
