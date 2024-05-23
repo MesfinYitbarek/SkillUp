@@ -166,7 +166,7 @@ const Header = () => {
           </div>
           <Link to="/profile" className="flex items-center">
             {currentUser ? (
-              <div className="group mr-20 relative">
+              <div className="group mr-10 relative">
                 <img
                   className=" rounded-full h-9 w-9 object-cover"
                   src={currentUser.avatar}
@@ -187,9 +187,11 @@ const Header = () => {
                 </div>
               </div>
             ) : (
+              <div className=" mr-10">
               <Stack spacing={2} direction="row" className="mt-4 sm:mt-0">
                 <Button variant="contained">Login</Button>
               </Stack>
+              </div>
             )}
           </Link>
           <DarkMode />

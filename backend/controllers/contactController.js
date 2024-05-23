@@ -15,6 +15,7 @@ export const contact = async (req, res, next) => {
       name: req.body.name,
       email: req.body.email,
       message: req.body.message,
+      read: req.body.read,
     });
 
     await newContact.save(); 
@@ -27,6 +28,18 @@ export const contact = async (req, res, next) => {
     res.status(500).json({ message: "Error submitting contact information" });
   }
 };
+
+// displaying number of new messages
+export const newMessageCount =  async (req, res) => {
+  try {
+    const newMessageCount = await Contact.countDocuments({ read: false }); 
+    res.json({ count: newMessageCount });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to get new message count' });
+  }
+}
+
 
 export const deletecontact = async (req, res, next) => {
   const contact = await Contact.findById(req.params.id);
