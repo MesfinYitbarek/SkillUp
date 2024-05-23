@@ -32,7 +32,16 @@ export const courseEdit = async (req, res, next) => {
   }
 };
 
-
+export const courseCatagory = async (req, res) => {
+  try {
+    const categoryName = req.params.categoryName;
+    const courses = await Course.find({ category: categoryName });
+    res.json(courses);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch courses' });
+  }
+}
 // course detail display
 export const courseDetails = async (req, res) => {
   try {

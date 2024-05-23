@@ -1,9 +1,10 @@
 import express from "express";
-import { courses, createCourses,deletecourses,enrolledCourses,updatecourses, personalcourses,deletecatagory,updatecatagory, catagory, createCatagory, deletecoursesByAdmin, courseDetails, catagoryEdit, courseEdit } from "../controllers/coursesController.js";
+import { courses, createCourses,deletecourses,enrolledCourses,updatecourses, personalcourses,deletecatagory,updatecatagory, catagory, createCatagory, deletecoursesByAdmin, courseDetails, catagoryEdit, courseEdit, courseCatagory } from "../controllers/coursesController.js";
 import { verifyToken } from "../Utils/verifyUser.js";
 const courseRouter = express.Router();
 
 courseRouter.get("/courses", courses);
+courseRouter.get("/courseCatagory:categoryName", courseCatagory);
 courseRouter.get("/courseEdit/:id", courseEdit);
 courseRouter.get("/courseDetails/:id", courseDetails);
 courseRouter.get("/enrolledCourses/:username", enrolledCourses);

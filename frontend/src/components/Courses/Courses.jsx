@@ -4,7 +4,7 @@ import Header from "../Common/Header";
 import CourseListing from "./CourseListing";
 import Footer from "../Common/Footer";
 import img from "../../assets/background image/pexels-vlada-karpovich-4050315.jpg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Search from "../Common/Search";
 
 import CourseCatagories from "../CourseCatagory/CourseCatagories";
@@ -14,10 +14,12 @@ export default function Courses() {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [catagorizedCourses, setCatagorizaedCourses] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const { categoryName } = useParams(); // Get the category name from the URL
+
   React.useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("/api/courses/courses");
+        const response = await fetch("/api/courses/courses"); // Fetch all courses
         const data = await response.json();
         setCourses(data);
       } catch (err) {
@@ -26,7 +28,7 @@ export default function Courses() {
     };
 
     fetchCourses();
-  }, [courses]);
+  }, []); // Fetch courses only once on component mount
 
   const handleCheck = (term) => {
     setSelectedCategories(term);
@@ -49,6 +51,11 @@ export default function Courses() {
     });
     setFilteredCourses(filteredCourses);
   };
+
+  // Filter courses based on categoryName from URL
+  const displayedCourses = categoryName
+    ? courses.filter((course) => course.catagory.includes(categoryName))
+    : courses;
 
   return (
     <div className="bg-slate-50">
@@ -80,7 +87,7 @@ export default function Courses() {
               selectedCategories={selectedCategories}
               catagorizedCourses={catagorizedCourses}
               filteredCourses={filteredCourses}
-              courses={courses}
+              courses={displayedCourses} // Display filtered courses based on categoryName
             />
           </div>
         </div>

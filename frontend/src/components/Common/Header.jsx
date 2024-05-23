@@ -5,7 +5,7 @@ import { IoMdSearch } from "react-icons/io";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Menu from "./MenuData";
 import { useSelector } from "react-redux";
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -42,6 +42,7 @@ const Catagories = [
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [showMenu, setShowMenu] = React.useState(false);
+  const navigate = useNavigate(); // Import useNavigate
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -75,6 +76,11 @@ const Header = () => {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, [showMenu]); 
+
+  const handleCategoryClick = (catagoryName) => {
+    // Navigate to the courses page for the selected category
+    navigate(`/courses/${catagoryName}`); 
+  };
 
   return (
     <header className="bg-slate-100 dark:bg-gray-800 py-5 dark:text-white duration-200 relative font-serif shadow-sm">
@@ -141,8 +147,8 @@ const Header = () => {
                 <div className="absolute z-[9999] hidden group-hover:block w-[200px] rounded-md bg-white p-2 text-black shadow-md">
                   <ul className="">
                     {catagory.map((data) => (
-                      <li key={data.id}>
-                        <a href={data.link} className="inline-block w-full rounded-md p-2 hover:bg-gray-200">
+                      <li key={data.id} onClick={() => handleCategoryClick(data.name)}>
+                        <a href="#" className="inline-block w-full rounded-md p-2 hover:bg-gray-200">
                           {data.name}
                         </a>
                       </li>

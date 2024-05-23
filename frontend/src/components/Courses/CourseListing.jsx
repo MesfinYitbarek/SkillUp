@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import Pagination from "@mui/material/Pagination";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom"; // Import useParams
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
@@ -16,6 +16,7 @@ const CourseListing = ({
   const [coursesPerPage] = useState(6);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { categoryName } = useParams(); 
 
   useEffect(() => {
     setTimeout(() => {
@@ -33,7 +34,10 @@ const CourseListing = ({
     setCurrentPage(newPage);
   };
 
-  const displayCourses = searchTerm
+  // Filter courses based on categoryName, searchTerm, or selectedCategories
+  const displayCourses = categoryName
+    ? courses.filter((course) => course.catagory.includes(categoryName))
+    : searchTerm
     ? filteredCourses
     : selectedCategories.length
     ? catagorizedCourses
@@ -51,12 +55,12 @@ const CourseListing = ({
           Explore Our Courses
         </h2>
 
-        {error ? ( // Display error message for network issues
+        {error ? (
           <p className="text-red-500 text-center">
             Error fetching courses. Please check your network connection and try
             again.
           </p>
-        ) : isLoading ? ( // Display progress bar while loading
+        ) : isLoading ? (
           <Box
             sx={{
               display: "flex",
@@ -134,7 +138,7 @@ const CourseListing = ({
             </div>
             <div className="flex justify-center mt-4">
               <Pagination
-                count={Math.ceil(courses.length / coursesPerPage)}
+                count={Math.ceil(displayCourses.length / coursesPerPage)} 
                 page={currentPage}
                 onChange={handlePageChange}
                 color="primary"
