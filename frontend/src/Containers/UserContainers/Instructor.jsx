@@ -37,7 +37,7 @@ const Instructor = () => {
       <div>
         <div>
           <DashboardHeader />
-          <div className=" bg-white h-screen absolute w-[230px] top-0 p-5 text-center flex flex-col gap-4">
+          <div className=" fixed bg-white h-screen  w-[230px] top-0 p-5 text-center flex flex-col gap-4">
             <div className="font-bold  text-blue-500 leading-10  text-lg">
               <Link to={"/"}>
                 <CastForEducationIcon className="text-purple-500 mb-2" />{" "}

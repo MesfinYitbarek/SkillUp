@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ArrowBack } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import ProgressBar from "./ProgressBar"; 
+
 const CreateCourse = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
@@ -131,11 +133,15 @@ const CreateCourse = () => {
     fetchCatagory();
   }, []);
 
+   // Calculate progress based on filled fields
+   const progress = calculateProgress(formData, learningObjectives, prerequisites, modules);
+
   return (
-    <div className=" flex flex-col justify-between   p-10  items-center">
+    <div className=" flex flex-col justify-between bg-slate-100 px-40  p-10  items-center">
+      <ProgressBar progress={progress} />
       <form
         onSubmit={handleSubmit}
-        className=" flex flex-col gap-5 bg-slate-100 border-r-8 border-r-blue-600 border-l-8 border-l-blue-600 py-6 p-10"
+        className=" flex flex-col gap-5 bg-white rounded-lg border-t-8 border-t-blue-600 border-l-8 border-l-blue-600 py-6 p-10"
       >
         <Link className=" text-center" to={"/instructor"}>
           <ArrowBack />
@@ -169,6 +175,7 @@ const CreateCourse = () => {
                 id="catagory"
                 value={formData.catagory}
                 onChange={handleChange}
+                className=" shadow"
               >
                 {catagory.map((catagory) => (
                   <option value={catagory.name}>{catagory.labelName}</option>
@@ -214,7 +221,7 @@ const CreateCourse = () => {
             <select
               id="level"
               onChange={handleChange}
-              className=" dark:bg-slate-100  sm:w-[390px] rounded-lg border border-slate-300 p-2.5 "
+              className=" dark:bg-slate-100 shadow sm:w-[390px] rounded-lg border border-slate-300 p-2.5 "
             >
               <option value={"All Level"}>All Level</option>
               <option value={"Beginner"}>Beginner</option>
@@ -446,6 +453,22 @@ const CreateCourse = () => {
       </form>
     </div>
   );
+};
+
+const calculateProgress = (formData, learningObjectives, prerequisites, modules) => {
+ 
+  const totalFields = 15; 
+
+
+  let filledFields = Object.keys(formData).length;
+  filledFields += learningObjectives.length;
+  filledFields += prerequisites.length;
+  filledFields += modules.length * 2; 
+
+
+  const progress = Math.round((filledFields / totalFields) * 100);
+
+  return progress;
 };
 
 export default CreateCourse;

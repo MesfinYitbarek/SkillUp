@@ -6,6 +6,7 @@ import DarkMode from "./DarkMode";
 import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import MessageIcon from "@mui/icons-material/Message";
+import { Badge, Stack } from "@mui/material";
 const DashboardHeader = () => {
   const { currentUser } = useSelector((state) => state.user);
   return (
@@ -33,12 +34,22 @@ const DashboardHeader = () => {
         </div>
         <div className=" gap-16  flex justify-between items-center">
           <div className=" bg-gray-100 px-2 py-1.5">
-            <Notifications className=" " />
+          <Stack spacing={4} direction="row" sx={{ color: "action.active" }}>
+              <Badge color="secondary" badgeContent={0} showZero>
+              <Notifications className=" " />
+              </Badge>
+            </Stack>
+            
           </div>
           <div className=" bg-gray-100 px-2 py-1.5">
-            <MessageIcon />
+            <Stack spacing={4} direction="row" sx={{ color: "action.active" }}>
+              <Badge color="secondary" badgeContent={0} showZero>
+                <MessageIcon />
+              </Badge>
+            </Stack>
           </div>
-          <Link to={'/profile'}>
+
+          <Link to={"/profile"}>
             <img
               src={currentUser.avatar}
               alt="profile"

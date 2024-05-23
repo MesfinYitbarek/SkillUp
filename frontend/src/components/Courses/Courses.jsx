@@ -51,7 +51,7 @@ export default function Courses() {
   };
 
   return (
-    <div className=" bg-slate-50">
+    <div className="bg-slate-50">
       <div>
         <Header />
         <div
@@ -63,24 +63,26 @@ export default function Courses() {
             width: "100%",
             // filter: "brightness(0.5)",
           }}
-          className=" h-[50px] brightness-50 opacity-100 pl-16 items-center py-10 pb-16"
+          className="h-[50px] brightness-50 opacity-100 pl-16 items-center py-10 pb-16"
         ></div>
 
-        <div className=" absolute top-36 left-20">
-          <h1 className=" lg:text-4xl  text-white font-bold">Courses</h1>
+        <div className="absolute top-36 left-20">
+          <h1 className="lg:text-4xl text-white font-bold text-center">
+            Courses
+          </h1>
         </div>
-        <div>
+        <div className="flex flex-col items-center justify-center mt-10">
           <Search onSearch={handleSearch} />
-        </div>
-        <div className=" flex  ">
-          <CourseCatagories onCategoryChange={handleCheck} />
-          <CourseListing
-            searchTerm={searchTerm}
-            selectedCategories={selectedCategories}
-            catagorizedCourses={catagorizedCourses}
-            filteredCourses={filteredCourses}
-            courses={courses}
-          />
+          <div className="flex flex-col md:flex-row mt-10 w-full">
+            <CourseCatagories onCategoryChange={handleCheck} />
+            <CourseListing
+              searchTerm={searchTerm}
+              selectedCategories={selectedCategories}
+              catagorizedCourses={catagorizedCourses}
+              filteredCourses={filteredCourses}
+              courses={courses}
+            />
+          </div>
         </div>
 
         <Footer />

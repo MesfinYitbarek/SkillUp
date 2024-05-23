@@ -1,26 +1,43 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import Pagination from "@mui/material/Pagination";
 import { Link } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
-const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses,selectedCategories  }) => {
-  
-  useEffect(() => {
-  }, [searchTerm, selectedCategories, catagorizedCourses]);
-
-  const displayCourses = searchTerm ? filteredCourses:selectedCategories.length ? catagorizedCourses : courses 
-
+const CourseListing = ({
+  courses,
+  filteredCourses,
+  searchTerm,
+  catagorizedCourses,
+  selectedCategories,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [coursesPerPage] = useState(6);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  
+  useEffect(() => {
+    setTimeout(() => {
+      try {
+        setIsLoading(false);
+      } catch (error) {
+        setError(
+          "Error fetching courses. Please check your network connection and try again."
+        );
+      }
+    }, 1000);
+  }, [searchTerm, selectedCategories, catagorizedCourses]);
+
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
   };
 
-  
-  // Get the current page courses
+  const displayCourses = searchTerm
+    ? filteredCourses
+    : selectedCategories.length
+    ? catagorizedCourses
+    : courses;
 
   const slicedCourses = displayCourses.slice(
     coursesPerPage * (currentPage - 1),
@@ -33,75 +50,98 @@ const CourseListing = ({ courses,filteredCourses, searchTerm, catagorizedCourses
         <h2 className=" dark:text-white text-3xl text-sky-800 font-semibold sm:mb-24 mb-8 text-center ">
           Explore Our Courses
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {slicedCourses &&
-            slicedCourses.length > 0 &&
-            slicedCourses.map((course) => (
-            <div
-              key={course.id}
-              className=" bg-white  rounded-2xl border border-slate-300 overflow-hidden  hover:bg-purple-300 shadow-purple-400  p-4 "
-            >
-              <img
-                src={course.imageUrl}
-                alt={course.title}
-                className="w-full h-40 object-cover rounded-md"
-              />
-              <div className="px-3 py-4">
-                <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-xl font-bold   py-[3px] rounded">
-                    {course.title}
-                  </h3>
-                  <img
-                    src={course.instructorImage}
-                    alt="Instructor"
-                    className=" relative -top-9 right-1 w-12 h-12 rounded-full p-1 bg-white"
-                  />
-                </div>
-                <p className=" dark:text-white  text-base font-semibold text-blue-950 mb-2">
-                  {course.description}
-                </p>
 
-                <div className="flex justify-between items-center mt-2 mb-3">
-                  <span className="dark:text-white text-gray-700 text-sm">
-                    Duration: {course.duration}
-                  </span>
-
-                  {course.isPaid ? (
-                    <span className="text-blue-600 font-bold">
-                      &#8377; {course.price}
-                    </span>
-                  ) : (
-                    <span className="text-green-500 font-bold">Free</span>
-                  )}
-                </div>
-
-                <hr />
-
-                <div className=" flex justify-between items-center">
-                  <Link
-                    to={`/courseDetails/${course._id}`}
-                    className="inline-block px-3 py-1.5  border-purple-500 border bg-red-50 text-purple-600 font-bold rounded mt-4"
+        {error ? ( // Display error message for network issues
+          <p className="text-red-500 text-center">
+            Error fetching courses. Please check your network connection and try
+            again.
+          </p>
+        ) : isLoading ? ( // Display progress bar while loading
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "300px",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {slicedCourses &&
+                slicedCourses.length > 0 &&
+                slicedCourses.map((course) => (
+                  <div
+                    key={course.id}
+                    className=" bg-white rounded-2xl border border-slate-300 overflow-hidden hover:bg-purple-300 shadow-purple-400 p-4 "
                   >
-                    Details
-                  </Link>
-                  <span>
-                    <StarIcon className=" text-yellow-400" />
-                    <span className="text-gray-700 ml-1">{course.rating}</span>
-                  </span>
-                </div>
-              </div>
+                    <img
+                      src={course.imageUrl}
+                      alt={course.title}
+                      className="w-full h-40 object-cover"
+                    />
+                    <div className="px-3 py-4">
+                      <div className="flex justify-between items-center mb-2">
+                        <h3 className="text-xl font-bold  py-[3px] rounded">
+                          {course.title}
+                        </h3>
+                        <img
+                          src={course.instructorImage}
+                          alt="Instructor"
+                          className=" relative -top-9 right-1 w-12 h-12 rounded-full p-1 bg-white"
+                        />
+                      </div>
+                      <p className=" dark:text-white text-base font-semibold text-blue-950 mb-2">
+                        {course.description}
+                      </p>
+
+                      <div className="flex justify-between items-center mt-2 mb-3">
+                        <span className="dark:text-white text-gray-700 text-sm">
+                          Duration: {course.duration}
+                        </span>
+
+                        {course.isPaid ? (
+                          <span className="text-blue-600 font-bold">
+                            &#8377; {course.price}
+                          </span>
+                        ) : (
+                          <span className="text-green-500 font-bold">Free</span>
+                        )}
+                      </div>
+
+                      <hr />
+
+                      <div className=" flex justify-between items-center">
+                        <Link
+                          to={`/courseDetails/${course._id}`}
+                          className="inline-block px-3 py-1.5 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded mt-4"
+                        >
+                          Details
+                        </Link>
+                        <span>
+                          <StarIcon className=" text-yellow-400" />
+                          <span className="text-gray-700 ml-1">
+                            {course.rating}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              {!slicedCourses && <p>Course not available.</p>}
             </div>
-          ))}
-          {!slicedCourses && <p>Course  not available.</p>}
-        </div>
-        <div className="flex justify-center mt-4">
-          <Pagination
-            count={Math.ceil(courses.length / coursesPerPage)} 
-            page={currentPage}
-            onChange={handlePageChange}
-            color="primary" 
-          />
-        </div>
+            <div className="flex justify-center mt-4">
+              <Pagination
+                count={Math.ceil(courses.length / coursesPerPage)}
+                page={currentPage}
+                onChange={handlePageChange}
+                color="primary"
+              />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

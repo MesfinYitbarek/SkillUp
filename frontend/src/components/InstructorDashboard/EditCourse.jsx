@@ -237,14 +237,17 @@ const EditCourse = () => {
                     <option value={"Advanced"}>Advanced</option>
                   </select>
                 </div>
+                <div className=" flex items-center justify-center">
                 <button
                   type="submit"
-                  className="border bg-blue-600 rounded-md text-white hover:bg-blue-700 hover:text-white border-blue-600 px-4 py-2 mr-1 font-semibold"
+                  className="border mt-16 bg-blue-600 rounded-md text-white hover:bg-blue-700 hover:text-white border-blue-600 px-4 py-2 mr-1 font-semibold"
                 >
                   Update Category
                 </button>
+                </div>
+                
               </div>
-              <div>
+              <div className=" bg-blue-50 rounded-lg px-20 p-10">
                 <div className="mb-4">
                   <label
                     className="block font-bold text-gray-700 mb-2"
