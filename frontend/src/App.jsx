@@ -25,6 +25,8 @@ import AddUsers from "./components/Admin/AddUsers";
 import Quizes from "./components/InstructorDashboard/Quizes";
 import CreateAssignment from "./components/Courses/CreateAssignment";
 import AddSupplementaries from "./components/Courses/AddSupplementaries";
+import QuizDisplay from "./quizPage/App";
+
 
 const App = () => {
   React.useEffect(() => {
@@ -40,42 +42,40 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<Signup />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact-us" element={<Contact />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/catagory" element={<Catagory />} />
-        <Route path="/quiz" element={<Quizes/>}/>
-        <Route path="/instructor" element={<Instructor />} />
-          <Route path="/instructor-courses" element={<InstructorCourse />} />
-          <Route path="/create-course" element={<CreateCourse />} />
-          <Route path="/create-assignment" element={<CreateAssignment />} />
-          <Route path="/addSupps" element={<AddSupplementaries />} />
-       
         
+       <Route path='/' element={<Home />} />
+        <Route path='/sign-in' element={<SignIn />} />
+        <Route path='/sign-up' element={<Signup />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/contact-us' element={<Contact />} />
+        <Route path='/courses' element={<Courses />} />
+        <Route path='/catagory' element={<Catagory />} />
+        {/* //<Route path="/quiz" element={<Quizes/>} */}
+        <Route path='/instructor' element={<Instructor />} />
+        <Route path='/instructor-courses' element={<InstructorCourse />} />
+        <Route path='/create-course' element={<CreateCourse />} />
+        <Route path='/create-assignment' element={<CreateAssignment />} />
+        <Route path='/addSupps' element={<AddSupplementaries />} />
+        <Route path='/quiz' element={<QuizDisplay />} />
+
         {/* Common Private Routes */}
         <Route element={<PrivateRoute />}>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/update-profile" element={<UpdateProfile />} />      
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/update-profile' element={<UpdateProfile />} />
         </Route>
 
         {/* Role-Based Private Routes */}
         <Route element={<PrivateRoute allowedRoles={["student"]} />}>
-          <Route path="/student" element={<Student />} />
+          <Route path='/student' element={<Student />} />
         </Route>
-        <Route element={<PrivateRoute allowedRoles={["instructor"]} />}>
-          
-          
-        </Route>
+        <Route element={<PrivateRoute allowedRoles={["instructor"]} />}></Route>
         <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
-          <Route path="/create-catagory" element={<CreateCatagory />} />
-          <Route path="/update-catagory" element={<CategoryUpdate />} />
-          <Route path="/contact-display" element={<ContactDisplay />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/add-users" element={<AddUsers />} />
-          <Route path="/admin" element={<AdminContainer />} />
+          <Route path='/create-catagory' element={<CreateCatagory />} />
+          <Route path='/update-catagory' element={<CategoryUpdate />} />
+          <Route path='/contact-display' element={<ContactDisplay />} />
+          <Route path='/users' element={<Users />} />
+          <Route path='/add-users' element={<AddUsers />} />
+          <Route path='/admin' element={<AdminContainer />} />
         </Route>
       </Routes>
     </BrowserRouter>
