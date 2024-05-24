@@ -8,6 +8,7 @@ import courseRouter from "./routes/courses.js";
 import Contact from "./models/Contact.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
+import router from "./routes/route.js";
 dotenv.config();
 
 // Connect to MongoDB database
@@ -39,6 +40,7 @@ app.listen(PORT, () => {
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/courses", courseRouter);
+app.use("/api",router)
 app.post("/api/contact", async (req, res) => {
   try {
     const newContact = new Contact({

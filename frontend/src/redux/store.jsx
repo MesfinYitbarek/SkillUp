@@ -3,7 +3,17 @@ import userReducer from "./user/userSlice";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const rootReducer = combineReducers({ user: userReducer });
+/** call reducers */
+import questionReducer from './question_reducer';
+import resultReducer from './result_reducer';
+
+const rootReducer = combineReducers(
+  {
+    
+    user: userReducer ,
+    questions : questionReducer,
+    result : resultReducer
+  });
 
 const persistConfig = {
   key: "root",

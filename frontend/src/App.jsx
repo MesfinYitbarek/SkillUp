@@ -13,6 +13,10 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Student from "./components/StudentDashboard/Student"
 import UpdateProfile from "./components/Profile/updateProfile";
 import Instructor from "./components/InstructorDashboard/Instructor";
+import Qain from "./quiz/Main";
+import Quiz from './quiz/Quiz';
+import Result from './quiz/Result';
+
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -38,6 +42,10 @@ const App = () => {
           <Route path="/Student" element={<Student />} />
           <Route path="/instructor" element={<Instructor/>} />
           <Route path="/update-profile" element={<UpdateProfile />} />
+          <Route path="/app" element={<Qain />} />
+          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/result" element={<Result />} />
+       
         </Route>
       </Routes>
     </BrowserRouter>
