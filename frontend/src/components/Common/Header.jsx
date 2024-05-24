@@ -1,6 +1,6 @@
 import React from "react";
 import DarkMode from "./DarkMode";
-import { FaCaretDown } from "react-icons/fa6";
+import { FaCaretDown, FaPhone } from "react-icons/fa6";
 import { IoMdSearch } from "react-icons/io";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -10,7 +10,12 @@ import Menu from "./MenuData";
 import { useSelector } from "react-redux";
 import LogoutIcon from '@mui/icons-material/Logout';
 import SignOut from "../Profile/SignOut";
-
+import EmailIcon from "@mui/icons-material/Email";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import XIcon from "@mui/icons-material/X";
+import TelegramIcon from "@mui/icons-material/Telegram";
+import PhoneIcon from "@mui/icons-material/Phone";
 const Catagories = [
   {
     id: 1,
@@ -83,7 +88,21 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-slate-100 dark:bg-gray-800 py-5 dark:text-white duration-200 relative font-serif shadow-sm">
+    <header className="">
+      <div>
+        <div className=" hidden text-sm sm:flex justify-between items-center bg-blue-900 py-2 text-white px-16 pr-36">
+          <div className=" items-center flex gap-5">
+            <h1><PhoneIcon fontSize="small"/>+2519-75364420</h1>
+             <h1><EmailIcon fontSize="small"/> skillup@gmail.com</h1>
+          </div>
+          <div className=" flex items-center gap-6 text-[10px]">
+              <FacebookIcon fontSize="small"/>
+              <XIcon fontSize="small"/>
+              <InstagramIcon fontSize="small"/>
+              <TelegramIcon fontSize="small"/>
+          </div>
+        </div>
+       <div className="bg-slate-100 dark:bg-gray-800 py-4 dark:text-white duration-200 relative font-serif ">
       <div className="flex items-center justify-between px-4 py-3 mx-auto max-w-screen-xl sm:px-6 lg:px-8">
         <div className="flex items-center">
           <button onClick={toggleMenu} className="block sm:hidden mr-4">
@@ -202,6 +221,8 @@ const Header = () => {
           </Link>
           <DarkMode />
         </div>
+      </div>
+      </div> 
       </div>
     </header>
   );

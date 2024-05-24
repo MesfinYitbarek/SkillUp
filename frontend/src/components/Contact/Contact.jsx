@@ -77,16 +77,16 @@ const Contact = () => {
               width: "100%",
               opacity: "100%",
             }}
-            className="brightness-50 h-[10px]  text-white"
+            className="brightness-50 h-screen text-white"
           ></div>
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between absolute top-44 items-center">
             <div className="p-4"></div>
             <div className="sm:my-20 sm:mx-20">
               <p
-                data-aos="fade-right"
-                className="dark:text-white text-center sm:text-2xl p-4 font-serif   text-blue-900 "
+                data-aos="zoom-in"
+                className="dark:text-white text-center sm:text-2xl p-4 font-serif   text-white"
               >
-                <h1 className="text-5xl pb-6 text-blue-600">
+                <h1 className="text-5xl pb-6 text-white">
                   We're here to help!
                 </h1>{" "}
                 Whether you have questions about our courses, need assistance
@@ -98,14 +98,10 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="container mx-auto  ">
+      <div className="container my-36 mx-auto  ">
         <div
-          style={{
-            backgroundImage: `url(${image3})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-          className="px-20 py-16  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center "
+          
+          className="px-20 py-16  bg-white   grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center "
         >
           {contactData.map((data) => (
             <motion.div
@@ -123,50 +119,8 @@ const Contact = () => {
             </motion.div>
           ))}
         </div>
-        <div className=" px-20 py-16 h-screen items-center my-20 sm:my-28 sm:flex gap-28">
-          <div
-            data-aos="fade-right"
-            data-aos-once="true"
-            className=" flex flex-col gap-5 my-16 "
-          >
-            <p className=" text-xl sm:text-3xl text-sky-950">
-              Follow us on social media
-            </p>
-            <div className=" flex flex-col  gap-4 text-purple-950 bg-slate-50 border border-slate-300 p-4 ">
-              <Link
-                to={"/"}
-                className=" bg-purple-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110"
-              >
-                <Facebook className="  text-blue-600 hover:text-purple-400" />
-                Facebook
-              </Link>
-              <hr />
-              <Link
-                to={"/"}
-                className=" bg-blue-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110"
-              >
-                <Telegram className=" text-blue-600 hover:text-purple-400" />
-                Telegram
-              </Link>
-              <hr />
-              <Link
-                to={"/"}
-                className=" bg-pink-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110"
-              >
-                <Instagram className=" text-pink-600 hover:text-purple-400" />
-                Instagram
-              </Link>
-              <hr />
-              <Link
-                to={"/"}
-                className=" bg-sky-200 p-2 rounded-lg hover:translate-x-6 hover:scale-110"
-              >
-                <Twitter className=" text-blue-300 hover:text-purple-400" />
-                Twitter
-              </Link>
-              <hr />
-            </div>
-          </div>
+        <div className=" px-20 py-16 h-screen items-center justify-center my-20 sm:my-28 sm:flex gap-28">
+          
           <div className="">
             <h2
               className="sm:text-4xl   group   mb-4 sm:mb-8  text-center  py-2 text-sky-900  "

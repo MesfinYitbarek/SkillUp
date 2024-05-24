@@ -32,10 +32,16 @@ const Topcourses = () => {
   );
 
   return (
-    <div className=" bg-slate-50 px-16 py-40 dark:bg-gray-800">
+    <div className=" bg-slate-50 px-16 py-20 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-8">
-        <h2 className="  dark:text-white text-4xl text-sky-800 font-semibold sm:mb-24 mb-8 text-center ">
-          Top Courses
+      <h2 className="  sm:mb-24 mb-8 text-center ">
+          <div class="flex items-center">
+            <hr class="flex-grow border-gray-400 h-px" />
+            <div class="mx-auto px-4 text-4xl text-blue-500 font-semibold">
+              Top Courses
+            </div>
+            <hr class="flex-grow border-gray-400 h-px" />
+          </div>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {slicedCourses &&
@@ -53,15 +59,15 @@ const Topcourses = () => {
                   alt={course.title}
                   className="w-full h-48 object-cover "
                 />
-                <div className="px-3 py-4">
+                <div className="px-6 py-4">
                   <div className="flex justify-between items-center mb-2">
-                    <h3 className="text-lg font-medium odd:bg-purple-300 even:bg-pink-300 px-2 py-[3px] rounded">
+                    <h3 className="text-lg font-bold   py-[3px] rounded">
                       {course.title}
                     </h3>
                     <img
                       src={course.instructorImage}
                       alt="Instructor"
-                      className=" relative -top-9 right-1 w-12 h-12 rounded-full p-1 bg-white"
+                      className=" relative -top-9 right-1 w-12 h-12 rounded-full p-1 bg-slate-100"
                     />
                   </div>
                   <p className=" dark:text-white  text-base font-semibold text-blue-950 mb-2">

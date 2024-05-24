@@ -14,12 +14,11 @@ export default function Courses() {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [catagorizedCourses, setCatagorizaedCourses] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const { categoryName } = useParams(); // Get the category name from the URL
-
+  const { categoryName } = useParams(); 
   React.useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("/api/courses/courses"); // Fetch all courses
+        const response = await fetch("/api/courses/courses");
         const data = await response.json();
         setCourses(data);
       } catch (err) {
@@ -28,7 +27,7 @@ export default function Courses() {
     };
 
     fetchCourses();
-  }, []); // Fetch courses only once on component mount
+  }, []); 
 
   const handleCheck = (term) => {
     setSelectedCategories(term);

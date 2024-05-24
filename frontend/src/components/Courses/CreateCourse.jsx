@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ArrowBack } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import ProgressBar from "./ProgressBar"; 
+import ProgressBar from "./ProgressBar";
 
 const CreateCourse = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -133,8 +133,13 @@ const CreateCourse = () => {
     fetchCatagory();
   }, []);
 
-   // Calculate progress based on filled fields
-   const progress = calculateProgress(formData, learningObjectives, prerequisites, modules);
+  // Calculate progress based on filled fields
+  const progress = calculateProgress(
+    formData,
+    learningObjectives,
+    prerequisites,
+    modules
+  );
 
   return (
     <div className=" flex flex-col justify-between bg-slate-100 px-40  p-10  items-center">
@@ -146,7 +151,7 @@ const CreateCourse = () => {
         <Link className=" text-center" to={"/instructor"}>
           <ArrowBack />
         </Link>
-        <div className="flex justify-between gap-40 ">
+        <div className="flex flex-col justify-between gap-40 ">
           <div>
             <div className="mb-4">
               <label
@@ -175,7 +180,7 @@ const CreateCourse = () => {
                 id="catagory"
                 value={formData.catagory}
                 onChange={handleChange}
-                className=" shadow"
+                className=" shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
               >
                 {catagory.map((catagory) => (
                   <option value={catagory.name}>{catagory.labelName}</option>
@@ -228,13 +233,6 @@ const CreateCourse = () => {
               <option value={"Intermidate"}>Intermidate</option>
               <option value={"Advanced"}>Advanced</option>
             </select>
-            <button
-              className=" mt-14 bg-blue-600 p-4 py-2 text-white rounded-md"
-              disabled={loading}
-              type="submit"
-            >
-              {loading ? "Loading..." : "Create Course"}
-            </button>
           </div>
           <div>
             <div className="mb-4">
@@ -445,6 +443,13 @@ const CreateCourse = () => {
                   Add Module
                 </button>
               </div>
+              <button
+                className=" mt-14 bg-blue-600 p-4 py-2 text-white rounded-md"
+                disabled={loading}
+                type="submit"
+              >
+                {loading ? "Loading..." : "Create Course"}
+              </button>
             </div>
           </div>
         </div>
@@ -455,16 +460,18 @@ const CreateCourse = () => {
   );
 };
 
-const calculateProgress = (formData, learningObjectives, prerequisites, modules) => {
- 
-  const totalFields = 15; 
-
+const calculateProgress = (
+  formData,
+  learningObjectives,
+  prerequisites,
+  modules
+) => {
+  const totalFields = 15;
 
   let filledFields = Object.keys(formData).length;
   filledFields += learningObjectives.length;
   filledFields += prerequisites.length;
-  filledFields += modules.length * 2; 
-
+  filledFields += modules.length * 2;
 
   const progress = Math.round((filledFields / totalFields) * 100);
 
