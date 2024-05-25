@@ -9,8 +9,21 @@ import Contact from "./models/Contact.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
 import router from "./routes/route.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
+import assignmentRoutes from './routes/assignmentRouter.js';
+import fs from 'fs'; 
 dotenv.config();
 
+// To resolve __dirname in ES6 modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Check if 'uploads' directory exists, and create it if it doesn't
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 // Connect to MongoDB database
 
 const app = express();
@@ -30,11 +43,15 @@ mongoose
 app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
+/// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static(uploadsDir));
 
 app.listen(PORT, () => {
   console.log(`App is listening to port: ${PORT}`);
 });
 
+// Routes
+app.use('/api/assignments', assignmentRoutes);
 
 //Routes
 app.use("/api/user", userRouter);
