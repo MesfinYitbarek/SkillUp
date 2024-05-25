@@ -15,7 +15,7 @@ const StudentCourses = () => {
     setActiveButton(buttonIndex);
   };
   return (
-    <div className=' mt-4 '>
+    <div className=' pt-24 '>
       
       <div className="flex pl-16 text-lg text-sky-950 font-semibold ">
         <button

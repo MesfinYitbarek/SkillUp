@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors"
 import contactRouter from "./routes/contact.js";
 import enrollmentRouter from "./routes/enrollment.js";
+import lessonRouter from "./routes/lesson.js";
 dotenv.config();
 
 // Connect to MongoDB database
@@ -43,6 +44,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/courses", courseRouter);
 app.use("/api/contact", contactRouter)
 app.use("/api/enrollment", enrollmentRouter)
+app.use("/api/lesson", lessonRouter)
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

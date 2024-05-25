@@ -2,10 +2,11 @@ import React from "react";
 import { signoutUserFailure, signoutUserStart, signoutUserSuccess } from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import LogoutIcon from "@mui/icons-material/Logout";
-
+import { useSelector } from "react-redux";
 const SignOut = () => {
 
     const dispatch = useDispatch()
+    const user = useSelector(state => state.user);
 const handleSignout = async () => {
     try {
       dispatch(signoutUserStart());

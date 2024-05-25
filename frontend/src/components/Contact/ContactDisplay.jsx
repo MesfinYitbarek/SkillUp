@@ -36,7 +36,7 @@ const ContactDisplay = () => {
   };
 
   return (
-    <div className="  flex justify-center items-center">
+    <div className="  pt-10 flex justify-center items-center">
       <div className=" bg-white rounded-md mt-12 px-10 py-4">
         <table className="  text-sky-900   border-separate border-spacing-y-2 min-w-[600px]">
           <tr className=" ">

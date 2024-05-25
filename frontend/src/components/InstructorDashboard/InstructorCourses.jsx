@@ -13,7 +13,7 @@ const InstructorCourse = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [coursesPerPage] = useState(6); // 6 courses per page
   const [error, setError] = useState(null);
-
+console.log(courses)
   useEffect(() => {
     setTimeout(() => {
       try {
@@ -24,23 +24,23 @@ const InstructorCourse = () => {
         );
       }
     }, 1000);
-  }, []);
-
-  const fetchCourses = async () => {
-    try {
-      const response = await fetch(
-        `/api/courses/personalcourses/${currentUser._id}`
-      );
-      const data = await response.json();
-      setCourses(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  }, [courses]);
 
   useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch(
+          `/api/courses/personalcourses/${currentUser._id}`
+        );
+        const data = await response.json();
+        setCourses(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     fetchCourses();
-  }, [courses]);
+  }, [currentUser._id]);
 
   const handleCourseDelete = async (courseid) => {
     try {
@@ -73,12 +73,12 @@ const InstructorCourse = () => {
   return (
     <div className=" px-16 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-4">
-        {error ? ( 
+        {error ? (
           <p className="text-red-500 text-center">
             Error fetching courses. Please check your network connection and try
             again.
           </p>
-        ) : isLoading ? ( 
+        ) : isLoading ? (
           <Box
             sx={{
               display: "flex",
@@ -149,6 +149,9 @@ const InstructorCourse = () => {
                         </button>
                         <Link to={`/course-edit/${course._id}`}>Edit</Link>
                       </div>
+                      <div className=" border-blue-600 text-blue-600 border bg-blue-50 p-1 px-3  text-center mt-4 rounded-sm">
+                        <Link to={`/create-lesson/${course._id}`}>Create Lesson</Link>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -158,7 +161,7 @@ const InstructorCourse = () => {
                 count={Math.ceil(courses.length / coursesPerPage)} // Total pages based on courses and per page limit
                 page={currentPage}
                 onChange={handlePageChange}
-                color="primary" // Optional: Set color theme
+                color="primary" 
               />
             </div>
           </>

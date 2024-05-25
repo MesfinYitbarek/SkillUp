@@ -25,7 +25,7 @@ const DashboardHeader = () => {
   }, []);
 
   return (
-    <div className="bg-blue-500 p-6 py-2">
+    <div className="bg-blue-500 p-6 py-2 fixed top-0 left-0 w-full ">
       <div className="bg-white ml-[230px] flex justify-between items-center py-2 px-10">
         <div className="font-bold flex gap-1">
           <CalendarViewDayIcon />

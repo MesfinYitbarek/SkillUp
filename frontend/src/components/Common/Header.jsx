@@ -96,10 +96,10 @@ const Header = () => {
              <h1><EmailIcon fontSize="small"/> skillup@gmail.com</h1>
           </div>
           <div className=" flex items-center gap-6 text-[10px]">
-              <FacebookIcon fontSize="small"/>
-              <XIcon fontSize="small"/>
-              <InstagramIcon fontSize="small"/>
-              <TelegramIcon fontSize="small"/>
+              <FacebookIcon className=" hover:text-purple-500" fontSize="small"/>
+              <XIcon className=" hover:text-purple-500" fontSize="small"/>
+              <InstagramIcon className=" hover:text-purple-500" fontSize="small"/>
+              <TelegramIcon className=" hover:text-purple-500" fontSize="small"/>
           </div>
         </div>
        <div className="bg-slate-100 dark:bg-gray-800 py-4 dark:text-white duration-200 relative font-serif ">

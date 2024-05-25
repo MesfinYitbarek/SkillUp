@@ -48,7 +48,7 @@ const Users = () => {
   };
 
   return (
-    <div className="  flex justify-center items-center ">
+    <div className="  flex justify-center items-center pt-10 ">
       <div className=" flex flex-col gap-6 rounded-md ">
         <table className="  text-sky-900 bg-white  mt-12 px-10 py-4 ml-16 border-separate border-spacing-y-2 min-w-[800px] ">
           <tr className=" ">

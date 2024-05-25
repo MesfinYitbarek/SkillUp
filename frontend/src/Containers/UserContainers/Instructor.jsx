@@ -72,7 +72,7 @@ const Instructor = () => {
           </div>
         </div>
       </div>
-      <div className=" ml-72 mt-6">
+      <div className=" ml-72 pt-24">
         <Stack direction="row" spacing={2}>
           <Link to={"/create-course"}>
             <Button variant="contained" color="primary">

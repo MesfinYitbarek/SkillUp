@@ -19,7 +19,7 @@ const Hero = () => {
           width: "100%",
           filter: "brightness(0.6)",
         }}
-        className=" bg-gradient-to-r h-[600px] sm:h-screen from-slate-100 to-slate-50  "
+        className="  h-[600px] sm:h-screen  "
       ></div>
       <div
         className=" sm:flex justify-between px-16  

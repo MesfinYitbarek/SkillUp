@@ -65,7 +65,7 @@ const Courses = () => {
   );
 
   return (
-    <div className=" flex flex-col items-center justify-center text-blue-900 p-3  ml-10">
+    <div className=" flex flex-col items-center justify-center text-blue-900 p-3 pt-24  ml-10">
       <div>
         {error ? (
           <p className="text-red-500 text-center">

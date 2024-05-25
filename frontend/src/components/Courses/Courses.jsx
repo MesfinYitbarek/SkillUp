@@ -77,7 +77,7 @@ export default function Courses() {
             Courses
           </h1>
         </div>
-        <div className="flex flex-col items-center justify-center mt-10">
+        <div className="flex flex-col items-center justify-center mt-3">
           <Search onSearch={handleSearch} />
           <div className="flex flex-col md:flex-row mt-10 w-full">
             <CourseCatagories onCategoryChange={handleCheck} />

@@ -18,8 +18,8 @@ const EnrolledStudents = () => {
     fetchContact();
   }, [enrollment]);
   return (
-    <div className="  flex justify-center items-center">
-      <div className=" bg-white rounded-md mt-12 px-10 py-4">
+    <div className=" pt-10 pl-28  flex justify-center items-center">
+      <div className=" bg-white rounded-md mt-12 px-5 py-4">
         <table className="  text-sky-900   border-separate border-spacing-y-2 min-w-[600px]">
           <tr className=" ">
             <td className=" text-blue-700 font-bold text-xl ">Enrolled Students</td>

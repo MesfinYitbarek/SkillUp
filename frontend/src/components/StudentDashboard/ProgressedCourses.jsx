@@ -71,7 +71,7 @@ const ProgressedCourses = () => {
           </Box>
         ) : (
           <>
-      <div className=" grid grid-cols-3 gap-5">
+      <div className="  grid grid-cols-3 gap-5">
         {slicedCourses.map((data) => (
           <div>
             <div className=" bg-white rounded-lg shadow-sm  p-5 flex flex-col  gap-5 ">
@@ -106,10 +106,10 @@ const ProgressedCourses = () => {
                     <Delete />
                   </button>
                   <Link
-                    to={`/courseDetails/${data._id}`}
+                    to={`/course-lesson/${data._id}`}
                     className="inline-block px-3 py-1.5 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded "
                   >
-                    Details
+                    Continue
                   </Link>
                 </div>
               </div>

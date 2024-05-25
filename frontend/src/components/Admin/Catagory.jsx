@@ -40,7 +40,7 @@ const Catagory = () => {
   };
 
   return (
-    <div className="  flex justify-center items-center ">
+    <div className="  flex justify-center items-center pt-12 ">
       <div className=" bg-white rounded-md mt-12 px-10 py-4">
         <table className="  text-sky-900   border-separate border-spacing-y-2 w-[600px]">
           <tr className=" ">

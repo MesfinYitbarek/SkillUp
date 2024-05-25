@@ -11,7 +11,7 @@ import Telegram from "@mui/icons-material/Telegram";
 import Footer from "../Common/Footer";
 import image3 from "../../assets/background image/pexels-peter-olexa-2214257-4012966.jpg";
 import img from "../../assets/background image/pexels-buro-millennial-636760-1438081.jpg";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const [name, setName] = useState("");
@@ -99,10 +99,7 @@ const Contact = () => {
       </div>
 
       <div className="container my-36 mx-auto  ">
-        <div
-          
-          className="px-20 py-16  bg-white   grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center "
-        >
+        <div className="px-20 py-16  bg-white   grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center ">
           {contactData.map((data) => (
             <motion.div
               whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
@@ -120,79 +117,53 @@ const Contact = () => {
           ))}
         </div>
         <div className=" px-20 py-16 h-screen items-center justify-center my-20 sm:my-28 sm:flex gap-28">
-          
-          <div className="">
-            <h2
-              className="sm:text-4xl   group   mb-4 sm:mb-8  text-center  py-2 text-sky-900  "
-            >
-              <span
-                className="  bg-left-bottom bg-gradient-to-r
-                    from-purple-600 to-pink-600
-                    bg-[length:0%_2px] bg-no-repeat 
-                    group-hover:bg-[length:100%_2px] 
-                    transition-all duration-500 ease-out"
-              >
-                Send Us a Message
-              </span>
-            </h2>
+          <div className=" flex items-center">
             <form
-              data-aos="fade-left"
+              data-aos="fade-up"
               data-aos-once="true"
               onSubmit={handleSubmit}
-              className="flex flex-col space-y-4 sm:w-[650px]   bg-white shadow-xl p-2 sm:p-20 rounded-xl  border-slate-400"
+              className="flex flex-col space-y-4 sm:w-[650px]   bg-white shadow-xl  p-2 sm:p-20 rounded-xl  border-slate-400"
             >
               <div className="flex  flex-col space-y-2 sm:flex-row ">
-                <label
-                  htmlFor="name"
-                  className="text-gray-700  font-medium sm:w-1/5"
-                >
-                  Name:
-                </label>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="px-4 py-2 border border-slate-400 rounded-md bg-slate-50 focus:outline-sky-600 sm:w-full"
+                  className="px-4 py-2 border-b border-slate-400 focus:border-b-2 focus:border-b-sky-600  focus:outline-none sm:w-full focus:placeholder:text-sky-600"
+                  placeholder="Name"
                   required
                 />
               </div>
               <div className="flex flex-col space-y-2 sm:flex-row ">
-                <label
-                  htmlFor="email"
-                  className="text-gray-700 font-medium sm:w-1/5"
-                >
-                  Email:
-                </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="px-4 py-2 bg-slate-50 border-slate-400 border rounded-md focus:outline-sky-600 sm:w-full"
+                  className="px-4 py-2  border-slate-400 border-b focus:border-b-2 focus:border-b-sky-600 focus:outline-none sm:w-full focus:placeholder:text-sky-600"
+                  placeholder="Email"
                   required
                 />
               </div>
               <div className="flex flex-col space-y-2">
-                <label htmlFor="message" className="text-gray-700 font-medium">
-                  Message:
-                </label>
                 <textarea
                   id="message"
                   name="message"
                   value={message}
-                  onChange={(e) => setMessage(e.target.value)} // Corrected for Tailwind CSS v3 compatibility
-                  className="px-4 py-2 bg-slate-50 border border-slate-400 rounded-md resize-none focus:outline-sky-600 w-full"
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="px-4 py-2  border border-slate-400  resize-none h-[170px] focus:outline-sky-600 w-full focus:placeholder:text-sky-600"
+                  placeholder="Message"
                   required
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="bg-sky-700 hover:bg-white hover:text-sky-700 hover:border hover:border-sky-700 font-semibold  text-white px-4 py-2 rounded-md focus:outline-none mx-auto sm:mx-0"
+                className="bg-sky-700 hover:bg-white hover:text-sky-700 hover:border hover:border-sky-700 font-semibold  text-white px-4 py-3 rounded-sm focus:outline-none w-[30%] mx-auto sm:mx-0"
               >
-                Submit
+                Send Message
               </button>
               {formSubmitted && (
                 <p className="text-green-500 font-medium text-center">

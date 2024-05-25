@@ -60,7 +60,7 @@ function Test() {
       });
       setLoading(false);
       setError(null);
-      navigate("/course-lesson");
+      navigate(`/course-lesson/${courseId}`);
     } catch (error) {
       setLoading(false);
       setError(error.message);

@@ -28,6 +28,7 @@ import StudentContainer from "./Containers/UserContainers/StudentContainer";
 import EditCategory from "./components/Admin/UpdateCatagory";
 import EditUser from "./components/Admin/UpdateUsers";
 import EditCourse from "./components/InstructorDashboard/EditCourse";
+import CreateLesson from "./components/Courses/Course Details/Lesson/CreateLesson";
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -51,7 +52,9 @@ const App = () => {
         <Route path="/courses/:categoryName" element={<Courses />} />
         <Route path="/catagory" element={<Catagory />} />
         <Route path={`/courseDetails/:courseId`} element={<Test />} />
-        <Route path={`course-lesson`} element={<CourseLesson />} />
+        <Route path={`/create-lesson/:courseId`} element={<CreateLesson />} />
+        <Route path={`course-lesson/:courseId`} element={<CourseLesson />} />
+        <Route path={`course-lesson/:courseId/:lessonId`} element={<CourseLesson />} />
         <Route path={`course-edit/:courseId`} element={<EditCourse />} />
 
         {/* Common Private Routes */}
