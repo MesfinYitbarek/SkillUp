@@ -4,10 +4,12 @@ import Header from "../Common/Header";
 import Email from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
-import Facebook from "@mui/icons-material/Facebook";
-import Instagram from "@mui/icons-material/Instagram";
-import { DoubleArrow, Twitter } from "@mui/icons-material";
-import Telegram from "@mui/icons-material/Telegram";
+import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
+import Collapse from "@mui/material/Collapse";
+import Button from "@mui/material/Button";
+import CloseIcon from "@mui/icons-material/Close";
 import Footer from "../Common/Footer";
 import image3 from "../../assets/background image/pexels-peter-olexa-2214257-4012966.jpg";
 import img from "../../assets/background image/pexels-buro-millennial-636760-1438081.jpg";
@@ -60,7 +62,7 @@ const Contact = () => {
       console.log(err);
     }
   };
-
+  const [open, setOpen] = React.useState(true);
   return (
     <div className="bg-slate-50 dark:bg-gray-700 dark:text-white">
       <div className="sm:h-screen">
@@ -167,7 +169,27 @@ const Contact = () => {
               </button>
               {formSubmitted && (
                 <p className="text-green-500 font-medium text-center">
-                  Message submitted successfully!
+                  <Box sx={{ width: "100%" }}>
+                    <Collapse in={open}>
+                      <Alert
+                        action={
+                          <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                              setOpen(false);
+                            }}
+                          >
+                            <CloseIcon fontSize="inherit" />
+                          </IconButton>
+                        }
+                        sx={{ mb: 2 }}
+                      >
+                        Message submitted successfully!
+                      </Alert>
+                    </Collapse>
+                  </Box>
                 </p>
               )}
             </form>

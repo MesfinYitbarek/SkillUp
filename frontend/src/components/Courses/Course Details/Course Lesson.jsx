@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Header from "../../Common/Header";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { useSelector } from "react-redux";
+import Footer from "../../Common/Footer";
 
 const CourseLesson = () => {
   const { currentUser } = useSelector((state) => state.user);
   const { courseId } = useParams();
   const [lessons, setLessons] = useState([]);
-  const [lesson, setLesson] = useState([]);
-  console.log(lessons);
-  console.log(lessons._id);
-  console.log(lesson);
+  const [selectedLesson, setSelectedLesson] = useState(null);
+  const [progress, setProgress] = useState(0);
+
   useEffect(() => {
     const fetchLessons = async () => {
       try {
         const response = await axios.get(`/api/lesson/${courseId}`);
         setLessons(response.data);
-        console.log(lessons[0]._id); // Now logs _id after data is fetched
+        if (response.data.length > 0) {
+          setSelectedLesson(response.data[0]);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -28,97 +29,121 @@ const CourseLesson = () => {
     fetchLessons();
   }, [courseId]);
 
-  useEffect(() => {
-    if (lesson.length > 0) {
-      const fetchSpecificLesson = async () => {
-        try {
-          const response = await axios.get(
-            `/api/lesson/${courseId}/${lessons[0]._id}`
-          );
-          setLesson(response.data);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-
-      fetchSpecificLesson();
+  const handleLessonClick = async (lessonId) => {
+    try {
+      const response = await axios.get(`/api/lesson/${courseId}/${lessonId}`);
+      setSelectedLesson(response.data);
+      setProgress(0); // Reset progress when a new lesson is selected
+    } catch (error) {
+      console.error("Error fetching lesson:", error);
+      if (error.response && error.response.status === 404) {
+        alert("Lesson not found.");
+      } else {
+        alert("An error occurred while fetching the lesson.");
+      }
     }
-  }, [courseId, lesson]);
+  };
+
+  const handleVideoProgress = (event) => {
+    const video = event.target;
+    const percentWatched = (video.currentTime / video.duration) * 100;
+    setProgress(Math.min(100, percentWatched));
+  };
+
+  const handleDocumentScroll = (event) => {
+    const element = event.target;
+    const percentScrolled = (element.scrollTop / (element.scrollHeight - element.clientHeight)) * 100;
+    setProgress(Math.min(100, percentScrolled));
+  };
+
+  const isCompleted = progress >= 100;
 
   if (lessons.length === 0) {
     return <div>No lessons found for this course.</div>;
   }
 
   return (
-    <div className="flex min-h-screen  ">
+    <div className="flex min-h-screen">
       <div className="fixed top-0 left-0 w-full bg-white z-10">
         <Header />
+        <div className="relative bg-blue-900 h-1 z-50"></div>
       </div>
 
-      <div className="fixed top-32 left-0 h-screen w-[200px]  border-gray-300 bg-slate-100 z-10 p-4">
+      <div className="fixed top-[139px] left-0 h-screen w-[200px] border-gray-300 bg-slate-100 z-10 p-4 overflow-y-scroll">
         {lessons.map((lesson, index) => (
-          <Link
+          <button
             key={index}
-            to={`/course-lesson/${courseId}/${lesson._id}`}
-            className={`block py-2 hover:bg-gray-200 ${
-              index === 0 ? "text-blue-500 font-bold" : ""
+            onClick={() => handleLessonClick(lesson._id)}
+            className={`block w-full text-left py-2 px-2 rounded-md hover:bg-gray-200 ${
+              selectedLesson && selectedLesson._id === lesson._id
+                ? "text-white font-bold bg-blue-600"
+                : ""
             }`}
           >
-            <DoneAllIcon className=" mr-1" /> {lesson.title}
-          </Link>
+            <DoneAllIcon className="mr-1" /> {lesson.title}
+          </button>
         ))}
       </div>
 
-      {/* Main content area */}
-      <div className="flex flex-col justify-center items-center mx-auto pt-36">
-        {" "}
-        {/* Adjust padding as needed */}
-        {lessons.map((lesson, index) => (
-          <div key={index} className="mb-6">
-            <div className="flex gap-14 h-screen">
-              {" "}
-              {/* Remove if not needed */}
-              <div className="mt-10 flex flex-col justify-center">
-                <h2 className="text-3xl font-bold mb-4">{lesson.title}</h2>
-                <p className="mb-4">{lesson.description}</p>
+      <div className=" flex flex-col justify-center items-center mx-auto mt-28">
+        {selectedLesson && (
+          <div key={selectedLesson._id} className="mb-6">
+            <div className="flex gap-14">
+              <div className="my-10 flex flex-col justify-center">
+              <div className="my-4">
+                  {isCompleted ? (
+                    <div className="text-green-500 text-xl font-bold">Completed</div>
+                  ) : (
+                    <div className="text-blue-500 rounded-md w-[30%]  p-1 px-4 border-2 border-blue-600 text-xl font-bold">
+                      Progress: {Math.round(progress)}%
+                    </div>
+                  )}
+                </div>
+                <h2 className="text-3xl font-bold mb-4">{selectedLesson.title}</h2>
+                <p className="mb-4">{selectedLesson.description}</p>
 
-                {/* Display the video if available */}
-                <div className=" ">
+                <div>
                   <video
                     className="border h-[360px] w-[640px]"
                     width="640"
                     height="360"
                     controls
+                    onTimeUpdate={handleVideoProgress}
                   >
-                    <source src={lesson.videoUrl} type="video/mp4" />
+                    <source src={selectedLesson.videoUrl} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 </div>
 
-                {/* Display the document content */}
                 <div className="my-4">
-                  <div dangerouslySetInnerHTML={{ __html: lesson.content }} />
+                  <div
+                    className="border p-4 w-[650px]  overflow-y-auto"
+                    onScroll={handleDocumentScroll}
+                    dangerouslySetInnerHTML={{ __html: selectedLesson.content }}
+                  />
                 </div>
-
-                {/* Links to quiz and assignment pages */}
-                <div className="flex ">
+                <div className="flex">
                   <Link
-                    to={`/lessons/${lesson._id}/quiz`} // Use lesson._id for the link
-                    className="bg-purple-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+                    to={`/lessons/${selectedLesson._id}/quiz`}
+                    className=" sticky bg-purple-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
                   >
                     View Quiz
                   </Link>
                   <Link
-                    to={`/lessons/${lesson._id}/assignment`} // Use lesson._id for the link
-                    className="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    to={`/lessons/${selectedLesson._id}/assignment`}
+                    className=" sticky bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   >
                     View Assignment
                   </Link>
                 </div>
               </div>
+              
             </div>
           </div>
-        ))}
+        )}
+        <div className="ml-[200px] mt-28">
+          <Footer />
+        </div>
       </div>
     </div>
   );

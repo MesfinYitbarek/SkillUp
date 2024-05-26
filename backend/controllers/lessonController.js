@@ -36,7 +36,7 @@ export const getLessonBylessonId = async (req, res) => {
   try {
     const courseId = req.params.courseId;
     const lessonId = req.params.lessonId;
-    const lesson = await Lesson.findOne({ _id: lessonId, courseId });
+    const lesson = await Lesson.findOne({ _id: lessonId,course: courseId });
     if (!lesson) {
       return res.status(404).send('Lesson not found');
     }
