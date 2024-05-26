@@ -7,7 +7,8 @@ import authRouter from "./routes/auth.js";
 import courseRouter from "./routes/courses.js";
 import Contact from "./models/Contact.js";
 import cookieParser from "cookie-parser";
-import cors from "cors"
+import cors from "cors";
+import helmet from 'helmet';
 import router from "./routes/route.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -43,8 +44,16 @@ mongoose
 app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
+app.use((req, res, next) => {
+  res.locals.nonce = Buffer.from(Date.now().toString()).toString('base64');
+  next();
+});
+
+app.use(helmet());
+
+
 /// Serve static files from the 'uploads' directory
-app.use('/uploads', express.static(uploadsDir));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.listen(PORT, () => {
   console.log(`App is listening to port: ${PORT}`);

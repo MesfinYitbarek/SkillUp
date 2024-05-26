@@ -16,7 +16,7 @@ import Instructor from "./components/InstructorDashboard/Instructor";
 import Qain from "./quiz/Main";
 import Quiz from './quiz/Quiz';
 import Result from './quiz/Result';
-import CreateAssignment from "./components/Courses/createAssignment";
+import AssignmentManager from "./components/Courses/AssignmentManager";
 
 const App = () => {
   React.useEffect(() => {
@@ -46,7 +46,7 @@ const App = () => {
           <Route path="/app" element={<Qain />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/result" element={<Result />} />
-          <Route path="/create-assigment" element={<CreateAssignment />} />
+          <Route path="/create-assigment" element={<AssignmentManager />} />
        
         </Route>
       </Routes>
