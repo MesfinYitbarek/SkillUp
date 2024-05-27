@@ -16,7 +16,7 @@ const CourseListing = ({
   courses,
   filteredCourses,
   searchTerm,
-  categorizedCourses,
+  catagorizedCourses,
   selectedCategories,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,19 +36,34 @@ const CourseListing = ({
         );
       }
     }, 1000);
-  }, [searchTerm, selectedCategories, categorizedCourses, sortBy]);
+  }, [searchTerm, selectedCategories, catagorizedCourses, sortBy]);
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
   };
 
+   // Filter courses based on categoryName, searchTerm, or selectedCategories
+   const displayCourses = categoryName
+   ? courses.filter((course) => course.catagory.includes(categoryName))
+   : searchTerm
+   ? filteredCourses
+   : selectedCategories.length
+   ? catagorizedCourses
+   : courses;
+
+   
+  const slicedCourses = displayCourses.slice(
+    coursesPerPage * (currentPage - 1),
+    coursesPerPage * currentPage
+  );
+
   const handleSortChange = (event) => {
     setSortBy(event.target.checked ? "createdAt" : null); // Sort by created time if checkbox is checked, otherwise clear sorting
   };
 
-  // Combine filtering logic and sorting
+ {/* // Combine filtering logic and sorting
   const filteredAndSortedCourses = React.useMemo(() => {
-    let displayCourses = categoryName
+    const filteredAndSortedCourses = categoryName
       ? courses.filter((course) => course.category.includes(categoryName))
       : searchTerm
       ? filteredCourses
@@ -77,6 +92,7 @@ const CourseListing = ({
     sortBy,
     categoryName,
   ]);
+*/}
 
   return (
     <div className="pr-4 dark:bg-gray-800">
@@ -120,9 +136,9 @@ const CourseListing = ({
               </FormGroup>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredAndSortedCourses &&
-                filteredAndSortedCourses.length > 0 &&
-                filteredAndSortedCourses.map((course) => (
+              {slicedCourses &&
+                slicedCourses.length > 0 &&
+                slicedCourses.map((course) => (
                   <div
                     key={course.id}
                     className="bg-white rounded-2xl border border-slate-300 overflow-hidden hover:bg-purple-300 shadow-purple-400 p-4 "
@@ -180,7 +196,7 @@ const CourseListing = ({
                     </div>
                   </div>
                 ))}
-              {!filteredAndSortedCourses && <p>Course not available.</p>}
+              {!slicedCourses && <p>Course not available.</p>}
             </div>
             <div className="flex justify-center mt-4">
               <Pagination

@@ -38,3 +38,19 @@ export const enrolledStudents = async (req, res, next) => {
     next(error);
   }
 };
+
+export const isEnrolled = async (req, res) => {
+  const { username, courseId } = req.body;
+
+  if (!username || !courseId) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+
+  try {
+    const isEnrolled = await Enrollment.exists({ username, courseId });
+    res.json({ isEnrolled });
+  } catch (err) {
+    console.error("Error checking enrollment:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
