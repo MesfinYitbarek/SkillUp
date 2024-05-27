@@ -5,6 +5,44 @@ import Header from "../../Common/Header";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { useSelector } from "react-redux";
 import Footer from "../../Common/Footer";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
 
 const CourseLesson = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -12,6 +50,12 @@ const CourseLesson = () => {
   const [lessons, setLessons] = useState([]);
   const [selectedLesson, setSelectedLesson] = useState(null);
   const [progress, setProgress] = useState(0);
+
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   useEffect(() => {
     const fetchLessons = async () => {
@@ -52,7 +96,8 @@ const CourseLesson = () => {
 
   const handleDocumentScroll = (event) => {
     const element = event.target;
-    const percentScrolled = (element.scrollTop / (element.scrollHeight - element.clientHeight)) * 100;
+    const percentScrolled =
+      (element.scrollTop / (element.scrollHeight - element.clientHeight)) * 100;
     setProgress(Math.min(100, percentScrolled));
   };
 
@@ -70,7 +115,9 @@ const CourseLesson = () => {
       </div>
 
       <div className="fixed top-[139px] left-0 h-screen w-[200px] border-gray-300 bg-slate-100 z-10 p-4 overflow-y-scroll">
+      <h1>{}</h1>
         {lessons.map((lesson, index) => (
+          <div>
           <button
             key={index}
             onClick={() => handleLessonClick(lesson._id)}
@@ -82,7 +129,12 @@ const CourseLesson = () => {
           >
             <DoneAllIcon className="mr-1" /> {lesson.title}
           </button>
+          </div>
         ))}
+        <div className=" flex flex-col gap-5  font-bold mt-5">
+          <Link>Grades</Link>
+          <Link>Assesments</Link>
+        </div>
       </div>
 
       <div className=" flex flex-col justify-center items-center mx-auto mt-28">
@@ -90,22 +142,22 @@ const CourseLesson = () => {
           <div key={selectedLesson._id} className="mb-6">
             <div className="flex gap-14">
               <div className="my-10 flex flex-col justify-center">
-              <div className="my-4">
+                <div className="my-4">
                   {isCompleted ? (
-                    <div className="text-green-500 text-xl font-bold">Completed</div>
+                    <div className="text-green-500 text-xl font-bold">
+                      Completed
+                    </div>
                   ) : (
                     <div className="text-blue-500 rounded-md w-[30%]  p-1 px-4 border-2 border-blue-600 text-xl font-bold">
                       Progress: {Math.round(progress)}%
                     </div>
                   )}
                 </div>
-                <h2 className="text-3xl font-bold mb-4">{selectedLesson.title}</h2>
-                <p className="mb-4">{selectedLesson.description}</p>
 
                 <div>
                   <video
-                    className="border h-[360px] w-[640px]"
-                    width="640"
+                    className="border h-[360px] w-[800px]"
+                    width="800"
                     height="360"
                     controls
                     onTimeUpdate={handleVideoProgress}
@@ -114,30 +166,53 @@ const CourseLesson = () => {
                     Your browser does not support the video tag.
                   </video>
                 </div>
-
-                <div className="my-4">
+                <h2 className="text-3xl font-bold my-4">
+                  {selectedLesson.title}
+                </h2>
+                <Box sx={{ width: "100%" }}>
+                  <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                    <Tabs
+                      value={value}
+                      onChange={handleChange}
+                      aria-label="basic tabs example"
+                    >
+                      <Tab label="Note" {...a11yProps(0)} />
+                      <Tab label="Item Two" {...a11yProps(1)} />
+                      <Tab label="  Discuss" {...a11yProps(2)} />
+                    </Tabs>
+                  </Box>
+                  <CustomTabPanel value={value} index={0}>
+                  <div className="my-4">
                   <div
-                    className="border p-4 w-[650px]  overflow-y-auto"
+                    className="border p-4 w-[750px]  overflow-y-auto"
                     onScroll={handleDocumentScroll}
                     dangerouslySetInnerHTML={{ __html: selectedLesson.content }}
                   />
                 </div>
+                  </CustomTabPanel>
+                  <CustomTabPanel value={value} index={1}>
+                    Item Two
+                  </CustomTabPanel>
+                  <CustomTabPanel value={value} index={2}>
+                    Discuss
+                  </CustomTabPanel>
+                </Box>
+                
                 <div className="flex">
                   <Link
                     to={`/lessons/${selectedLesson._id}/quiz`}
                     className=" sticky bg-purple-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
                   >
-                    View Quiz
+                    Quiz
                   </Link>
                   <Link
                     to={`/lessons/${selectedLesson._id}/assignment`}
                     className=" sticky bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   >
-                    View Assignment
+                   Assignment
                   </Link>
                 </div>
               </div>
-              
             </div>
           </div>
         )}

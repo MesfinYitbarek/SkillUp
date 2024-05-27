@@ -31,14 +31,15 @@ export const enrollmentDisplay = async (req, res, next) => {
 //display enrolled students for instructor
 export const enrolledStudents = async (req, res, next) => {
   try {
-    const userId = req.params.userId; // Get the user ID from the URL
-    const enrollments = await Enrollment.find({ courseId: userId }); // Find enrollments for this user
+    const userId = req.params.userId; 
+    const enrollments = await Enrollment.find({ courseId: userId }); 
     res.json(enrollments);
   } catch (error) {
     next(error);
   }
 };
 
+//response true or false for user based on enrollment
 export const isEnrolled = async (req, res) => {
   const { username, courseId } = req.body;
 
