@@ -27,10 +27,10 @@ import CourseLesson from "./components/Courses/Course Details/Course Lesson";
 import StudentContainer from "./Containers/UserContainers/StudentContainer";
 import EditCategory from "./components/Admin/UpdateCatagory";
 import EditUser from "./components/Admin/UpdateUsers";
-import Quiz from "./components/Courses/Course Details/Lesson/Quiz/Quiz";
 import EditCourse from "./components/InstructorDashboard/EditCourse";
 import CreateLesson from "./components/Courses/Course Details/Lesson/CreateLesson";
 import CreateQuiz from "./components/Courses/Course Details/Lesson/Quiz/CreateQuiz";
+import Quiz from "./components/Courses/Course Details/Lesson/Quiz/Quiz";
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -59,6 +59,8 @@ const App = () => {
         <Route path={`/create-lesson/:courseId`} element={<CreateLesson />} />
         {/*<Route path={`course-lesson/:courseId`} element={<CourseLesson />} />
         <Route path={`course-lesson/:courseId/:lessonId`} element={<CourseLesson />} /> */}
+        
+        <Route path="/lessons/:lessonId/quiz" element={<Quiz/>} />
          <Route path="/course-lesson/:courseId/:lessonId?" element={<CourseLesson />} />
         <Route path={`course-edit/:courseId`} element={<EditCourse />} />
 

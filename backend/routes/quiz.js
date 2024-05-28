@@ -5,7 +5,7 @@ import { createQuiz, getQuizByLessonId, submitQuiz } from '../controllers/quizCo
 const quizRouter = express.Router();
 
 quizRouter.post('/create', createQuiz);
-quizRouter.get('/quiz/:lessonId', getQuizByLessonId);
-quizRouter.post('/quiz/:lessonId/submit', submitQuiz);
+quizRouter.get('/:lessonId', getQuizByLessonId);
+quizRouter.post('/:lessonId/submit', submitQuiz);
 
 export default quizRouter;

@@ -7,7 +7,9 @@ const Quiz = () => {
   const [quiz, setQuiz] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
-
+console.log(quiz)
+console.log(answers)
+console.log(result)
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
@@ -43,7 +45,7 @@ const Quiz = () => {
   }
 
   return (
-    <div>
+    <div className=' p-40'>
       <h2>{quiz.lessonId.title} Quiz</h2>
       <form onSubmit={handleSubmit}>
         {quiz.questions.map((question, index) => (

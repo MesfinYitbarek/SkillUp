@@ -36,7 +36,8 @@ export const getQuizByLessonId = async (req, res) => {
 // New method for handling quiz submissions
 export const submitQuiz = async (req, res) => {
     try {
-      const { lessonId, answers } = req.body;
+      const { lessonId } = req.params;
+      const {  answers } = req.body;
       const quiz = await Quiz.findOne({ lessonId });
   
       if (!quiz) {
