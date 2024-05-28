@@ -10,6 +10,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import DiscussionForum from "./Lesson/DiscussionForum";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -115,20 +116,20 @@ const CourseLesson = () => {
       </div>
 
       <div className="fixed top-[139px] left-0 h-screen w-[200px] border-gray-300 bg-slate-100 z-10 p-4 overflow-y-scroll">
-      <h1>{}</h1>
+        <h1>{}</h1>
         {lessons.map((lesson, index) => (
           <div>
-          <button
-            key={index}
-            onClick={() => handleLessonClick(lesson._id)}
-            className={`block w-full text-left py-2 px-2 rounded-md hover:bg-gray-200 ${
-              selectedLesson && selectedLesson._id === lesson._id
-                ? "text-white font-bold bg-blue-600"
-                : ""
-            }`}
-          >
-            <DoneAllIcon className="mr-1" /> {lesson.title}
-          </button>
+            <button
+              key={index}
+              onClick={() => handleLessonClick(lesson._id)}
+              className={`block w-full text-left py-2 px-2 rounded-md hover:bg-gray-200 ${
+                selectedLesson && selectedLesson._id === lesson._id
+                  ? "text-white font-bold bg-blue-600"
+                  : ""
+              }`}
+            >
+              <DoneAllIcon className="mr-1" /> {lesson.title}
+            </button>
           </div>
         ))}
         <div className=" flex flex-col gap-5  font-bold mt-5">
@@ -182,22 +183,24 @@ const CourseLesson = () => {
                     </Tabs>
                   </Box>
                   <CustomTabPanel value={value} index={0}>
-                  <div className="my-4">
-                  <div
-                    className="border p-4 w-[750px]  overflow-y-auto"
-                    onScroll={handleDocumentScroll}
-                    dangerouslySetInnerHTML={{ __html: selectedLesson.content }}
-                  />
-                </div>
+                    <div className="my-4">
+                      <div
+                        className="border p-4 w-[750px]  overflow-y-auto"
+                        onScroll={handleDocumentScroll}
+                        dangerouslySetInnerHTML={{
+                          __html: selectedLesson.content,
+                        }}
+                      />
+                    </div>
                   </CustomTabPanel>
                   <CustomTabPanel value={value} index={1}>
                     Item Two
                   </CustomTabPanel>
                   <CustomTabPanel value={value} index={2}>
-                    Discuss
+                    <DiscussionForum lessonId={selectedLesson._id} />
                   </CustomTabPanel>
                 </Box>
-                
+
                 <div className="flex">
                   <Link
                     to={`/lessons/${selectedLesson._id}/quiz`}
@@ -209,7 +212,7 @@ const CourseLesson = () => {
                     to={`/lessons/${selectedLesson._id}/assignment`}
                     className=" sticky bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   >
-                   Assignment
+                    Assignment
                   </Link>
                 </div>
               </div>
