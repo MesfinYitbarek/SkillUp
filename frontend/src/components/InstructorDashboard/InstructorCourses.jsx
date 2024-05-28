@@ -13,7 +13,7 @@ const InstructorCourse = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [coursesPerPage] = useState(6); // 6 courses per page
   const [error, setError] = useState(null);
-console.log(courses)
+
   useEffect(() => {
     setTimeout(() => {
       try {
@@ -24,7 +24,7 @@ console.log(courses)
         );
       }
     }, 1000);
-  }, [courses]);
+  }, []);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -33,14 +33,22 @@ console.log(courses)
           `/api/courses/personalcourses/${currentUser._id}`
         );
         const data = await response.json();
-        setCourses(data);
+        if (Array.isArray(data)) {
+          setCourses(data);
+        } else {
+          setCourses([]);
+          setError("Unexpected response format.");
+        }
       } catch (err) {
         console.error(err);
+        setError("Error fetching courses. Please try again later.");
       }
     };
 
-    fetchCourses();
-  }, [currentUser._id]);
+    if (currentUser && currentUser._id) {
+      fetchCourses();
+    }
+  }, [currentUser]);
 
   const handleCourseDelete = async (courseid) => {
     try {
@@ -54,7 +62,7 @@ console.log(courses)
         return;
       }
 
-      setCourses((prev) => prev.filter((courses) => courses._id !== courseid));
+      setCourses((prev) => prev.filter((course) => course._id !== courseid));
     } catch (error) {
       console.error(error.message);
     }
@@ -71,12 +79,11 @@ console.log(courses)
   );
 
   return (
-    <div className=" px-16 dark:bg-gray-800">
+    <div className="px-16 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-4">
         {error ? (
           <p className="text-red-500 text-center">
-            Error fetching courses. Please check your network connection and try
-            again.
+            {error}
           </p>
         ) : isLoading ? (
           <Box
@@ -96,8 +103,8 @@ console.log(courses)
                 slicedCourses.length > 0 &&
                 slicedCourses.map((course) => (
                   <div
-                    key={course.id}
-                    className=" bg-white rounded-2xl border border-slate-300 overflow-hidden hover:bg-purple-300 shadow-purple-400 p-4 "
+                    key={course._id}
+                    className="bg-white rounded-2xl border border-slate-300 overflow-hidden hover:bg-purple-300 shadow-purple-400 p-4"
                   >
                     <img
                       src={course.imageUrl}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -10,12 +10,15 @@ import {
 } from "firebase/storage";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { storage } from "../../../../../firebase";
-import { useSelector } from "react-redux";
+import { addLesson, setLessonId } from "../../../../redux/lesson/lesson"; // Import actions
+import { useSelector, useDispatch } from "react-redux";
 import Header from "../../../Common/Header";
 import Footer from "../../../Common/Footer";
 import img from "../../../../assets/background image/vectorstock_24205971.png";
+
 const CreateLesson = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { courseId } = useParams();
   const { loading, error } = useSelector((state) => state.user);
 
@@ -80,37 +83,33 @@ const CreateLesson = () => {
         uploadTask.on(
           "state_changed",
           (snapshot) => {
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            handleLessonChange(
-              lessons.indexOf(lesson),
-              "uploadProgress",
-              progress
-            );
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            handleLessonChange(lessons.indexOf(lesson), "uploadProgress", progress);
           },
           (error) => {
             console.error(error);
           },
           async () => {
             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            handleLessonChange(
-              lessons.indexOf(lesson),
-              "videoUrl",
-              downloadURL
-            );
+            handleLessonChange(lessons.indexOf(lesson), "videoUrl", downloadURL);
 
-            await axios.post("/api/lesson/create", {
+            const response = await axios.post("/api/lesson/create", {
               title: lesson.title,
               description: lesson.description,
               videoUrl: downloadURL,
               content: lesson.documentText,
               course: courseId,
             });
+
+            const lessonId = response.data._id;
+
+            console.log(lessonId);
+            if (lessonId) {
+              navigate(`/courses/${courseId}/${lessonId}/quiz/create`);
+            }
           }
         );
       }
-
-      navigate(`/courses`);
     } catch (error) {
       console.error(error);
       alert("An error occurred while uploading the video. Please try again.");
@@ -122,7 +121,7 @@ const CreateLesson = () => {
       <div className=" fixed top-0 left-0 right-0">
         <Header />
       </div>
-      <div className=" mt-24 flex justify-center items-center">
+      <div className="mt-24 flex justify-center items-center">
         <div
           style={{
             backgroundImage: `url(${img})`,
@@ -130,7 +129,7 @@ const CreateLesson = () => {
             backgroundPosition: "center",
             //filter: "brightness(0.5)",
           }}
-          className=" text-blue-600 container mx-auto p-14 w-[70%] my-12 bg-sky-600 rounded-lg"
+          className="text-blue-600 container mx-auto p-14 w-[70%] my-12 bg-sky-600 rounded-lg"
         >
           <h2 className="text-2xl font-bold mb-4">Create Lesson</h2>
 
@@ -163,7 +162,7 @@ const CreateLesson = () => {
                   Description:
                 </label>
                 <textarea
-                placeholder="Short description about the lesson. Less than 100 words."
+                  placeholder="Short description about the lesson. Less than 100 words."
                   id={`description-${index}`}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   value={lesson.description}
@@ -187,6 +186,19 @@ const CreateLesson = () => {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   onChange={(e) => handleVideoFileChange(index, e)}
                 />
+                {lesson.videoFile && (
+                  <div className="mt-2">
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div
+                        className={`bg-blue-500 h-2 rounded-full`}
+                        style={{ width: `${lesson.uploadProgress}%` }}
+                      ></div>
+                    </div>
+                    <span className="text-gray-500 text-sm">
+                      {lesson.uploadProgress}% Uploaded
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div className="mb-4">
@@ -235,13 +247,13 @@ const CreateLesson = () => {
               {loading ? "Loading..." : "Create Lesson"}
             </button>
             <button
-              onClick={() => navigate(`/courses/${courseId}/quiz/create`)} // Navigate to quiz creation
+              onClick={() => navigate(`/courses/${courseId}/quiz/create`)}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
             >
               Add Quiz
             </button>
             <button
-              onClick={() => navigate(`/courses/${courseId}/assignment/create`)} // Navigate to assignment creation
+              onClick={() => navigate(`/courses/${courseId}/assignment/create`)}
               className="bg-purple-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Add Assignment
@@ -257,3 +269,4 @@ const CreateLesson = () => {
 };
 
 export default CreateLesson;
+

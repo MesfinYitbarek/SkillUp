@@ -1,49 +1,51 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import moment from "moment"; // Import moment.js for date formatting
+import moment from "moment";
+import io from "socket.io-client";
+
+const socket = io('http://localhost:4444');
 
 const DiscussionForum = ({ lessonId }) => {
   const [comments, setComments] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // Track loading state
-  const commentIntervalRef = useRef(null); // Ref to hold interval ID
+  const [isLoading, setIsLoading] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchComments = async () => {
-      setIsLoading(true); // Set loading state to true
+      setIsLoading(true);
       try {
         const response = await axios.get(`/api/discussion/${lessonId}`);
         setComments(response.data[0].comments);
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false); // Set loading state to false after fetching/error
+        setIsLoading(false);
       }
     };
 
     fetchComments();
 
-    // Clear any existing interval before setting a new one
-    clearInterval(commentIntervalRef.current);
+    socket.emit('joinLessonRoom', lessonId);
 
-    // Set interval to fetch comments every 5 seconds
-    commentIntervalRef.current = setInterval(fetchComments, 5000);
+    socket.on('receiveComment', (comment) => {
+      setComments((prevComments) => [...prevComments, comment]);
+    });
 
-    return () => clearInterval(commentIntervalRef.current); // Clear interval on cleanup
+    return () => {
+      socket.off('receiveComment');
+    };
   }, [lessonId]);
-
-  const { currentUser } = useSelector((state) => state.user);
 
   const handleNewComment = async (comment) => {
     const userId = currentUser._id;
-    setComments([...comments, { userId, content: comment }]); // Optimistic update
+    const newComment = { lessonId, userId, content: comment, createdAt: new Date() };
+    
+    setComments((prevComments) => [...prevComments, newComment]); // Optimistic update
 
     try {
-      const response = await axios.post(`/api/discussion/${lessonId}`, {
-        userId,
-        content: comment,
-      });
-      // Update state with actual response data (if needed)
+      await axios.post(`/api/discussion/${lessonId}`, newComment);
+      socket.emit('newComment', newComment);
     } catch (error) {
       console.error(error);
       // Handle errors (optional: remove comment from state)
