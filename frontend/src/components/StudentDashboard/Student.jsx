@@ -1,44 +1,74 @@
-import React, {useState} from 'react'
-import ProgressedCourses from './ProgressedCourses'
-import CompletedCourses from './CompletedCourses'
+import React, { useState } from "react";
+import ProgressedCourses from "./ProgressedCourses";
+import CompletedCourses from "./CompletedCourses";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Footer from "../../components/Common/Footer";
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-const contentData = {
-  content1: <ProgressedCourses/>,
-  content2: <CompletedCourses/>,
- 
-};
-
-const StudentCourses = () => {
-  const [activeButton, setActiveButton] = useState(null);
-
-  const handleClick = (buttonIndex) => {
-    setActiveButton(buttonIndex);
-  };
   return (
-    <div className=' pt-24 '>
-      
-      <div className="flex pl-16 text-lg text-sky-950 font-semibold ">
-        <button
-          onClick={() => handleClick(1)}
-          className=" px-10 py-1 bg-white rounded-lg  focus:bg-blue-500 focus:text-white"
-        >
-          In Progress
-        </button>
-        <button
-          onClick={() => handleClick(2)}
-          className="  px-10 py-1 bg-white rounded-lg  focus:bg-blue-500 focus:text-white"
-        >
-          Completed
-        </button>
-       
-      </div>
-      <div className="my-8 mb-40 px-20">
-        {activeButton && (
-          <h1 variant="body1">{contentData[`content${activeButton}`]}</h1>
-        )}
-      </div>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
     </div>
-  )
+  );
 }
 
-export default StudentCourses
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+const StudentCourses = () => {
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  return (
+    <div className=" pt-24 ">
+      <div className="flex pl-16 text-lg text-sky-950 font-semibold ">
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
+              <Tab label="In Progress" {...a11yProps(0)} />
+              <Tab label="Completed" {...a11yProps(1)} />
+            </Tabs>
+          </Box>
+          <CustomTabPanel value={value} index={0}>
+            <ProgressedCourses />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+            <CompletedCourses />
+          </CustomTabPanel>
+        </Box>
+      </div>
+    </div>
+  );
+};
+
+export default StudentCourses;

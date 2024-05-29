@@ -115,7 +115,7 @@ const CourseLesson = () => {
         <div className="relative bg-blue-900 h-1 z-50"></div>
       </div>
 
-      <div className="fixed top-[139px] left-0 h-screen w-[200px] border-gray-300 bg-slate-100 z-10 p-4 overflow-y-scroll">
+      <div className="fixed top-[139px] left-0 h-full w-[200px] border-gray-300 bg-slate-100 z-10 p-4 overflow-y-scroll">
         <h1>{}</h1>
         {lessons.map((lesson, index) => (
           <div>
@@ -133,7 +133,7 @@ const CourseLesson = () => {
           </div>
         ))}
         <div className=" flex flex-col gap-5  font-bold mt-5">
-          <Link>Grades</Link>
+          <Link to={`/course/${courseId}/grades`}state={{ courseId }}>Grades</Link>
           <Link>Assesments</Link>
         </div>
       </div>
@@ -219,9 +219,6 @@ const CourseLesson = () => {
             </div>
           </div>
         )}
-        <div className="ml-[200px] mt-28">
-          <Footer />
-        </div>
       </div>
     </div>
   );

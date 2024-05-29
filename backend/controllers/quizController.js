@@ -31,33 +31,45 @@ export const getQuizByLessonId = async (req, res) => {
   }
 };
 
+import Score from '../models/Score.js';
 
 
-// New method for handling quiz submissions
 export const submitQuiz = async (req, res) => {
-    try {
-      const { lessonId } = req.params;
-      const {  answers } = req.body;
-      const quiz = await Quiz.findOne({ lessonId });
-  
-      if (!quiz) {
-        return res.status(404).json({ message: 'Quiz not found' });
-      }
-  
-      let score = 0;
-      quiz.questions.forEach((question, index) => {
-        if (question.correctAnswer === answers[index]) {
-          score += 1;
-        }
-      });
-  
-      const result = {
-        score,
-        totalQuestions: quiz.questions.length,
-      };
-  
-      res.status(200).json(result);
-    } catch (error) {
-      res.status(500).json({ message: 'Error submitting quiz', error });
+  try {
+    const { lessonId } = req.params;
+    const { answers, userId } = req.body;
+    const quiz = await Quiz.findOne({ lessonId });
+
+    if (!quiz) {
+      return res.status(404).json({ message: 'Quiz not found' });
     }
-  };
+
+    let score = 0;
+    const correctAnswers = quiz.questions.map((question) => question.correctAnswer);
+
+    quiz.questions.forEach((question, index) => {
+      if (question.correctAnswer.trim().toLowerCase() === (answers[index] || '').trim().toLowerCase()) {
+        score += 1;
+      }
+    });
+
+    const result = {
+      score,
+      totalQuestions: quiz.questions.length,
+      correctAnswers,
+    };
+
+    // Save the score to the database
+    const scoreEntry = new Score({
+      lessonId: quiz.lessonId,
+      userId,
+      score,
+      totalQuestions: quiz.questions.length,
+    });
+    await scoreEntry.save();
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({ message: 'Error submitting quiz', error });
+  }
+};

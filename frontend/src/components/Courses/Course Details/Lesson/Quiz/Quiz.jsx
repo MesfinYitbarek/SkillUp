@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 const Quiz = () => {
   const { lessonId } = useParams();
   const [quiz, setQuiz] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
-console.log(quiz)
-console.log(answers)
-console.log(result)
+  const {currentUser} = useSelector((state)=> state.user)
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
@@ -33,7 +31,7 @@ console.log(result)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/api/quiz/${lessonId}/submit`, { answers });
+      const response = await axios.post(`/api/quiz/${lessonId}/submit`, { answers, userId: currentUser._id });
       setResult(response.data);
     } catch (error) {
       console.error(error);
@@ -45,7 +43,7 @@ console.log(result)
   }
 
   return (
-    <div className=' p-40'>
+    <div className='p-40'>
       <h2>{quiz.lessonId.title} Quiz</h2>
       <form onSubmit={handleSubmit}>
         {quiz.questions.map((question, index) => (
@@ -64,11 +62,17 @@ console.log(result)
             ))}
           </div>
         ))}
-        <button type="submit" className="btn btn-primary">Submit Quiz</button>
+       <button type="submit" className="btn btn-primary">Submit Quiz</button>
       </form>
       {result && (
         <div>
           <h3>Your Score: {result.score} / {result.totalQuestions}</h3>
+          <h4>Correct Answers:</h4>
+          <ul>
+            {result.correctAnswers.map((correctAnswer, index) => (
+              <li key={index}>{index + 1}. {correctAnswer}</li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
