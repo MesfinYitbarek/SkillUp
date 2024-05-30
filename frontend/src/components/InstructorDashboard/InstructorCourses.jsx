@@ -24,7 +24,7 @@ const InstructorCourse = () => {
         );
       }
     }, 1000);
-  }, []);
+  }, [courses]);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -48,7 +48,7 @@ const InstructorCourse = () => {
     if (currentUser && currentUser._id) {
       fetchCourses();
     }
-  }, [currentUser]);
+  }, [currentUser,courses]);
 
   const handleCourseDelete = async (courseid) => {
     try {
