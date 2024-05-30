@@ -55,3 +55,17 @@ export const isEnrolled = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 }
+
+export const deleteEnrolledStudent = async (req, res, next) => {
+  const enrollment = await Enrollment.findById(req.params.id);
+
+  if (!enrollment) {
+    return next(errorHandler(404, "Message not found!"));
+  }
+
+  try {
+    await Enrollment.findByIdAndDelete(req.params.id);
+  } catch (error) {
+    next(error);
+  }
+};
