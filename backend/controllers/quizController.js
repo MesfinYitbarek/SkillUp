@@ -38,7 +38,7 @@ export const submitQuiz = async (req, res) => {
   try {
     const { lessonId } = req.params;
     const { answers, userId } = req.body;
-    const quiz = await Quiz.findOne({ lessonId });
+    const quiz = await Quiz.findOne({ lessonId }).populate('lessonId');
 
     if (!quiz) {
       return res.status(404).json({ message: 'Quiz not found' });
@@ -65,6 +65,7 @@ export const submitQuiz = async (req, res) => {
       userId,
       score,
       totalQuestions: quiz.questions.length,
+      courseId: quiz.lessonId.courseId, 
     });
     await scoreEntry.save();
 

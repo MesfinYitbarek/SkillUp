@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios"; // Assuming you use axios for API calls
 
 const initialState = {
   lessons: [],
@@ -13,16 +14,12 @@ const lessonAndQuizSlice = createSlice({
   reducers: {
     // Lesson Actions
     setLessonId(state, action) {
-      const newLesson = action.payload;
-      newLesson._id = response.data._id;
-      state.lessons = action.payload;
+      state.lessons = [action.payload]; // Assuming lessonId is in the payload
     },
     setLessons(state, action) {
       state.lessons = action.payload;
     },
     addLesson(state, action) {
-        const newLesson = action.payload;
-        newLesson._id = response.data._id;
       state.lessons.push(action.payload);
     },
     removeLesson(state, action) {
@@ -32,10 +29,13 @@ const lessonAndQuizSlice = createSlice({
       state.lessons.splice(index, 1);
     },
     updateLesson(state, action) {
+      const updatedLesson = action.payload;
       const index = state.lessons.findIndex(
-        (lesson) => lesson._id === action.payload.id
+        (lesson) => lesson._id === updatedLesson.id
       );
-      state.lessons[index] = action.payload;
+
+      // Update the lesson object at the found index
+      state.lessons[index] = updatedLesson;
     },
 
     // Quiz Actions
@@ -65,20 +65,62 @@ const lessonAndQuizSlice = createSlice({
     setError(state, action) {
       state.error = action.payload;
     },
+
+    // New Actions
+    getLessonByIdRequest(state, action) {
+      state.loading = true;
+      state.error = null;
+    },
+    getLessonByIdSuccess(state, action) {
+      state.lessons = [action.payload]; // Assuming response has lesson data
+      state.loading = false;
+    },
+    getLessonByIdFailure(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
+
+// **Async Thunks (optional):**
+// These thunks can be used to dispatch the above actions based on API calls
+
+export const getLessonById = (lessonId) => async (dispatch) => {
+  dispatch(getLessonByIdRequest());
+  try {
+    const response = await axios.get(`/api/lesson/${lessonId}`);
+    dispatch(getLessonByIdSuccess(response.data));
+  } catch (error) {
+    dispatch(getLessonByIdFailure(error.toString()));
+  }
+};
+
+export const updateLesson = (updatedLesson) => async (dispatch) => {
+  dispatch(setLoading(true)); // Set loading state before API call
+  try {
+    const response = await axios.put(`/api/lesson/${updatedLesson.id}`, updatedLesson);
+    // Assuming successful update on server
+    dispatch(updateLesson(response.data)); // Update local state
+  } catch (error) {
+    dispatch(setError(error.toString())); // Handle errors
+  } finally {
+    dispatch(setLoading(false)); // Reset loading state after API call
+  }
+};
 
 export const {
   setLessons,
   setLessonId,
   addLesson,
   removeLesson,
-  updateLesson,
   setQuizzes,
   addQuiz,
   removeQuiz,
   updateQuiz,
   setLoading,
   setError,
+  getLessonByIdRequest,
+  getLessonByIdSuccess,
+  getLessonByIdFailure,
 } = lessonAndQuizSlice.actions;
 export default lessonAndQuizSlice.reducer;

@@ -33,6 +33,8 @@ import CreateQuiz from "./components/Courses/Course Details/Lesson/Quiz/CreateQu
 import Quiz from "./components/Courses/Course Details/Lesson/Quiz/Quiz";
 import Grade from "./components/InstructorDashboard/Grade";
 import Grades from "./components/StudentDashboard/Grade";
+import InstructorLesson from "./components/InstructorDashboard/InstructorLesson";
+import UpdateLesson from "./components/Courses/Course Details/Lesson/LessonEdit";
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -67,6 +69,7 @@ const App = () => {
         <Route path="/lessons/:lessonId/quiz" element={<Quiz/>} />
          <Route path="/course-lesson/:courseId/:lessonId?" element={<CourseLesson />} />
         <Route path={`course-edit/:courseId`} element={<EditCourse />} />
+        <Route path={`lesson-edit/:lessonId`} element={<UpdateLesson />} />
 
         {/* Common Private Routes */}
         <Route element={<PrivateRoute />}>
@@ -82,6 +85,7 @@ const App = () => {
           <Route path="/instructor" element={<Instructor />} />
           <Route path="/instructor-courses" element={<InstructorCourse />} />
           <Route path="/create-course" element={<CreateCourse />} />
+          <Route path="/course-lessons/:courseId" element={<InstructorLesson />} />
         </Route>
         <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
           <Route path="/create-catagory" element={<CreateCatagory />} />
