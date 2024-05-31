@@ -13,6 +13,7 @@ const Quiz = () => {
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
   const { currentUser } = useSelector((state) => state.user);
   const [isStarted, setIsStarted] = useState(false);
+  const [timerId, setTimerId] = useState(null);
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -37,6 +38,7 @@ const Quiz = () => {
       const timerId = setInterval(() => {
         setTimeLeft(timeLeft - 1);
       }, 1000);
+      setTimerId(timerId);
       return () => clearInterval(timerId);
     } else if (timeLeft === 0) {
       handleSubmit();
@@ -51,6 +53,9 @@ const Quiz = () => {
 
   const handleSubmit = async (e) => {
     if (e) e.preventDefault();
+
+    // Clear the timer before submitting
+    clearInterval(timerId);
 
     try {
       const response = await axios.post(`/api/quiz/${lessonId}/submit`, {
@@ -68,7 +73,7 @@ const Quiz = () => {
   }
 
   return (
-    <div className="">
+    <div>
       <div>
         <Header />
 
@@ -125,13 +130,16 @@ const Quiz = () => {
             <div className="mt-6 p-4 bg-green-100 border border-green-400 rounded">
               <h3 className="text-xl font-semibold mb-2">Quiz Result</h3>
               <p className="mb-2">Score: {result.score}</p>
-              <p className="mb-2 flex flex-col ">
+              <p className="mb-2 flex flex-col">
                 Correct Answers:{" "}
                 {result.correctAnswers.map((answer, index) => (
-                  <p>
+                  <p key={index}>
                     {index + 1}, {answer}
                   </p>
                 ))}
+              </p>
+              <p>
+                Maximum Attempts: {quiz.maxAttempts}
               </p>
             </div>
           )}

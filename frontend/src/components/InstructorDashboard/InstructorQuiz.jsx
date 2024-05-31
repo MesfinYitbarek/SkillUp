@@ -4,20 +4,20 @@ import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
-const InstructorLesson = () => {
-  const { currentUser } = useSelector((state) => state.user);
-  const { courseId } = useParams();
-  const [lessons, setLessons] = useState([]);
-  const [selectedLesson, setSelectedLesson] = useState(null);
+const InstructorQuiz = () => {
+
+  const { lessonId } = useParams();
+  const [quiz, setQuiz] = useState([]);
+  const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchLessons = async () => {
       try {
-        const response = await axios.get(`/api/lesson/${courseId}`);
-        setLessons(response.data);
+        const response = await axios.get(`/api/quiz/${lessonId}`);
+        setQuiz(response.data);
         if (response.data.length > 0) {
-          setSelectedLesson(response.data[0]);
+          setSelectedQuiz(response.data[0]);
         }
       } catch (error) {
         console.error(error);
@@ -25,20 +25,20 @@ const InstructorLesson = () => {
     };
 
     fetchLessons();
-  }, [courseId,lessons]);
+  }, [lessonId,quiz]);
 
-  const handleDeleteLesson = async (lessonId) => {
+  const handleDeleteQuiz= async (quizId) => {
     try {
-      const response = await axios.delete(`/api/lesson/${lessonId}`);
+      const response = await axios.delete(`/api/quiz/delete/${quizId}`);
 
       if (response.data.success) {
-        setLessons([...lessons.filter((lesson) => lesson._id !== lessonId)]);
+        setQuiz([...quiz.filter((lesson) => quiz._id !== quizId)]);
       } else {
-        setError("Error deleting Lesson ");
+        setError("Error deleting Quiz ");
       }
     } catch (err) {
       console.error(err);
-      setError("Error deleting lesson ");
+      setError("Error deleting Quiz ");
     }
   };
 
@@ -51,31 +51,30 @@ const InstructorLesson = () => {
         <div>
           <div className=" m-10 flex flex-col justify-center items-center">
             <div>
-            <Link to={`/create-lesson/${courseId}`} 
+            <Link to={`/courses/:courseId/${lessonId}/quiz/create`} 
                         className=" border-blue-600 text-blue-600 border bg-blue-50 p-1 px-3  text-center mt-4 rounded-sm"
-                        >Create Lesson</Link>
+                        >Create Quiz</Link>
             </div>
             <table className="  text-sky-900   border-separate border-spacing-y-2 min-w-[800px]">
               <tr className=" ">
                 <td className=" text-blue-700 font-bold text-xl ">
-                 Lessons 
+                 Quiz 
                 </td>
                 <td></td>
               </tr>
               <tr className=" bg-blue-400   font-semibold text-white ">
-                <td className="p-2">Lesson Title</td>
+                <td className="p-2">Quiz Title</td>
                 <td></td>
                 <td></td>
               </tr>
-              {lessons.map((data) => (
+              {quiz && (
                 <tr className=" even:bg-slate-100 ">
-                  <td className=" p-1">{data.title}</td>
-                  <td><Link to={`/lesson-edit/${data._id}`}>Edit</Link></td>
-                  <td><button onClick={() => handleDeleteLesson(data._id)}>Delete</button></td>
-                  <td><Link to={`/quiz/${data._id}`}>Quiz</Link></td>
-                  <td><Link to={`/quiz/${data._id}`}>Assignment</Link></td>
+                  <td className=" p-1">{quiz._id}
+                    </td>
+                  <td><Link to={`/quiz-edit/${quiz._id}`}>Edit</Link></td>
+                  <td><button onClick={() => handleDeleteQuiz(quiz._id)}>Delete</button></td>
                 </tr>
-              ))}
+              )}
             </table>
           </div>
         </div>
@@ -87,4 +86,4 @@ const InstructorLesson = () => {
   );
 };
 
-export default InstructorLesson;
+export default InstructorQuiz;

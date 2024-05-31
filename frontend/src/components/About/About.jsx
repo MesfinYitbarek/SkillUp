@@ -82,7 +82,7 @@ const About = () => {
             alt=" image"
           />
         </div>
-        <div className=" flex flex-col text-white items-center bg-slate-400 p-8 py-16">
+        <div className=" flex flex-col text-white items-center bg-blue-900 p-8 py-16">
           <h2 className=" text-center  font-semibold mb-10  text-3xl ">
             OUR STORY
           </h2>{" "}

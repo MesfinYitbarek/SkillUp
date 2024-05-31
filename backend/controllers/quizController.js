@@ -1,5 +1,6 @@
 import Quiz from '../models/Quiz.js'
 import errorHandler from '../Utils/error.js';
+import Score from '../models/Score.js';
 
 export const createQuiz = async (req, res, next) => {
     try {
@@ -31,7 +32,7 @@ export const getQuizByLessonId = async (req, res) => {
   }
 };
 
-import Score from '../models/Score.js';
+
 
 
 export const submitQuiz = async (req, res) => {
@@ -72,5 +73,19 @@ export const submitQuiz = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({ message: 'Error submitting quiz', error });
+  }
+};
+
+export const deletequiz = async (req, res, next) => {
+  const quiz = await Quiz.findById(req.params.id);
+
+  if (!quiz) {
+    return next(errorHandler(404, "Quiz not found!"));
+  }
+
+  try {
+    await Quiz.findByIdAndDelete(req.params.id);
+  } catch (error) {
+    next(error);
   }
 };
