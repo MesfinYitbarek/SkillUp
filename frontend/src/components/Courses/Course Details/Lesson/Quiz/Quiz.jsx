@@ -1,26 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Header from "../../../../Common/Header";
+import Footer from "../../../../Common/Footer";
+
 const Quiz = () => {
   const { lessonId } = useParams();
   const [quiz, setQuiz] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
-  const {currentUser} = useSelector((state)=> state.user)
+  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
+  const { currentUser } = useSelector((state) => state.user);
+  const [isStarted, setIsStarted] = useState(false);
+
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
         const response = await axios.get(`/api/quiz/${lessonId}`);
         setQuiz(response.data);
-        setAnswers(new Array(response.data.questions.length).fill(''));
+        setTimeLeft(response.data.timeLimit);
+        setAnswers(new Array(response.data.questions.length).fill(""));
       } catch (error) {
         console.error(error);
       }
     };
-
     fetchQuiz();
-  }, [lessonId]);
+  }, [lessonId, currentUser._id]);
+
+  const handleStartQuiz = () => {
+    setIsStarted(true);
+  };
+
+  useEffect(() => {
+    if (isStarted && timeLeft > 0) {
+      const timerId = setInterval(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      return () => clearInterval(timerId);
+    } else if (timeLeft === 0) {
+      handleSubmit();
+    }
+  }, [isStarted, timeLeft]);
 
   const handleAnswerChange = (index, value) => {
     const newAnswers = [...answers];
@@ -29,9 +50,13 @@ const Quiz = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
+
     try {
-      const response = await axios.post(`/api/quiz/${lessonId}/submit`, { answers, userId: currentUser._id });
+      const response = await axios.post(`/api/quiz/${lessonId}/submit`, {
+        answers,
+        userId: currentUser._id,
+      });
       setResult(response.data);
     } catch (error) {
       console.error(error);
@@ -43,38 +68,76 @@ const Quiz = () => {
   }
 
   return (
-    <div className='p-40'>
-      <h2>{quiz.lessonId.title} Quiz</h2>
-      <form onSubmit={handleSubmit}>
-        {quiz.questions.map((question, index) => (
-          <div key={index} className="mb-4">
-            <label>{index + 1}. {question.questionText}</label>
-            {question.options.map((option, oIndex) => (
-              <div key={oIndex}>
-                <input
-                  type="radio"
-                  name={`question-${index}`}
-                  value={option}
-                  onChange={(e) => handleAnswerChange(index, e.target.value)}
-                />
-                {option}
-              </div>
-            ))}
+    <div className="">
+      <div>
+        <Header />
+
+        <div className="p-8 max-w-2xl mx-auto bg-white shadow-md rounded-lg">
+          <h2 className="text-2xl font-bold mb-6">
+            {quiz.lessonId.title} Quiz
+          </h2>
+          <div className="mb-4 text-red-500">
+            Time Left: {Math.floor(timeLeft / 60)}:
+            {String(timeLeft % 60).padStart(2, "0")}
           </div>
-        ))}
-       <button type="submit" className="btn btn-primary">Submit Quiz</button>
-      </form>
-      {result && (
-        <div>
-          <h3>Your Score: {result.score} / {result.totalQuestions}</h3>
-          <h4>Correct Answers:</h4>
-          <ul>
-            {result.correctAnswers.map((correctAnswer, index) => (
-              <li key={index}>{index + 1}. {correctAnswer}</li>
-            ))}
-          </ul>
+          {!isStarted && (
+            <button
+              onClick={handleStartQuiz}
+              className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+            >
+              Start Quiz
+            </button>
+          )}
+          {isStarted && (
+            <form onSubmit={handleSubmit}>
+              {quiz.questions.map((question, index) => (
+                <div key={index} className="mb-6">
+                  <label className="block text-lg font-medium mb-2">
+                    {index + 1}. {question.questionText}
+                  </label>
+                  {question.options.map((option, oIndex) => (
+                    <div key={oIndex} className="mb-2">
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          name={`question-${index}`}
+                          value={option}
+                          onChange={(e) =>
+                            handleAnswerChange(index, e.target.value)
+                          }
+                          className="form-radio"
+                        />
+                        <span className="ml-2">{option}</span>
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              ))}
+              <button
+                type="submit"
+                className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+              >
+                Submit Quiz
+              </button>
+            </form>
+          )}
+          {result && (
+            <div className="mt-6 p-4 bg-green-100 border border-green-400 rounded">
+              <h3 className="text-xl font-semibold mb-2">Quiz Result</h3>
+              <p className="mb-2">Score: {result.score}</p>
+              <p className="mb-2 flex flex-col ">
+                Correct Answers:{" "}
+                {result.correctAnswers.map((answer, index) => (
+                  <p>
+                    {index + 1}, {answer}
+                  </p>
+                ))}
+              </p>
+            </div>
+          )}
         </div>
-      )}
+      </div>
+      <Footer />
     </div>
   );
 };

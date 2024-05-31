@@ -3,8 +3,8 @@ import errorHandler from '../Utils/error.js';
 
 export const createQuiz = async (req, res, next) => {
     try {
-      const { lessonId, questions } = req.body;
-      const quiz = new Quiz({ lessonId, questions });
+      const { lessonId, questions, maxAttempts, timeLimit } = req.body;
+      const quiz = new Quiz({ lessonId, questions, maxAttempts, timeLimit });
       await quiz.save();
       res.status(201).json(quiz);
     } catch (error) {

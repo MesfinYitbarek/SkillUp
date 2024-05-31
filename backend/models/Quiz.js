@@ -7,8 +7,11 @@ const quizSchema = new mongoose.Schema({
       questionText: { type: String, required: true },
       options: [{ type: String, required: true }],
       correctAnswer: { type: String, required: true },
+     
     },
   ],
+  maxAttempts: { type: Number, required: true },
+  timeLimit: { type: Number, required: true },
 });
 
 const Quiz = mongoose.model('Quiz', quizSchema);
