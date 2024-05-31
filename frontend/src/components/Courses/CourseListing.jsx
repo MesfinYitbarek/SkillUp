@@ -9,6 +9,10 @@ import {
   FormGroup,
   Checkbox,
   IconButton,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
 } from "@mui/material";
 import SortIcon from "@mui/icons-material/Sort";
 
@@ -24,7 +28,8 @@ const CourseListing = ({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { categoryName } = useParams();
-  const [sortBy, setSortBy] = useState(null); // State to track sorting preference
+  const [sortBy, setSortBy] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
     setTimeout(() => {
@@ -36,63 +41,43 @@ const CourseListing = ({
         );
       }
     }, 1000);
-  }, [searchTerm, selectedCategories, catagorizedCourses, sortBy]);
+  }, [searchTerm, selectedCategories, catagorizedCourses, sortBy, sortOrder]);
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
   };
 
-   // Filter courses based on categoryName, searchTerm, or selectedCategories
-   const displayCourses = categoryName
-   ? courses.filter((course) => course.catagory.includes(categoryName))
-   : searchTerm
-   ? filteredCourses
-   : selectedCategories.length
-   ? catagorizedCourses
-   : courses;
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
+  };
 
-   
-  const slicedCourses = displayCourses.slice(
+  const handleSortOrderChange = (event) => {
+    setSortOrder(event.target.value);
+  };
+
+  // Filter courses based on categoryName, searchTerm, or selectedCategories
+  const displayCourses = categoryName
+    ? courses.filter((course) => course.catagory.includes(categoryName))
+    : searchTerm
+    ? filteredCourses
+    : selectedCategories.length
+    ? catagorizedCourses
+    : courses;
+
+  // Sort courses based on sortBy and sortOrder
+  const sortedCourses = [...displayCourses].sort((a, b) => {
+    if (sortBy === "") return 0;
+    if (sortOrder === "asc") {
+      return a[sortBy] > b[sortBy] ? 1 : -1;
+    } else {
+      return a[sortBy] < b[sortBy] ? 1 : -1;
+    }
+  });
+
+  const slicedCourses = sortedCourses.slice(
     coursesPerPage * (currentPage - 1),
     coursesPerPage * currentPage
   );
-
-  const handleSortChange = (event) => {
-    setSortBy(event.target.checked ? "createdAt" : null); // Sort by created time if checkbox is checked, otherwise clear sorting
-  };
-
- {/* // Combine filtering logic and sorting
-  const filteredAndSortedCourses = React.useMemo(() => {
-    const filteredAndSortedCourses = categoryName
-      ? courses.filter((course) => course.category.includes(categoryName))
-      : searchTerm
-      ? filteredCourses
-      : selectedCategories.length
-      ? categorizedCourses
-      : courses;
-
-    // Apply sorting only if sortBy is set
-    if (sortBy === "createdAt") {
-      displayCourses = [...displayCourses].sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      ); // Sort by created time descending
-    }
-
-    return displayCourses.slice(
-      coursesPerPage * (currentPage - 1),
-      coursesPerPage * currentPage
-    );
-  }, [
-    searchTerm,
-    selectedCategories,
-    categorizedCourses,
-    courses,
-    currentPage,
-    coursesPerPage,
-    sortBy,
-    categoryName,
-  ]);
-*/}
 
   return (
     <div className="pr-4 dark:bg-gray-800">
@@ -103,8 +88,7 @@ const CourseListing = ({
 
         {error ? (
           <p className="text-red-500 text-center">
-            Error fetching courses. Please check your network connection and try
-            again.
+            Error fetching courses. Please check your network connection and try again.
           </p>
         ) : isLoading ? (
           <Box
@@ -120,50 +104,56 @@ const CourseListing = ({
         ) : (
           <>
             <div className="flex justify-between items-center mb-4">
-              <IconButton onClick={() => setSortBy(!sortBy)}>
-                <SortIcon className="text-gray-700 hover:text-blue-500" />
-              </IconButton>
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={sortBy === "createdAt"}
-                      onChange={handleSortChange}
-                    />
-                  }
-                  label="Sort by Newest"
-                />
-              </FormGroup>
+              <FormControl variant="outlined" className="mr-4">
+                <InputLabel>Sort By</InputLabel>
+                <Select
+                  value={sortBy}
+                  onChange={handleSortChange}
+                  label="Sort By"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value="title">Title</MenuItem>
+                  <MenuItem value="rating">Rating</MenuItem>
+                  <MenuItem value="createdAt">Newest</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl variant="outlined">
+                <InputLabel>Order</InputLabel>
+                <Select
+                  value={sortOrder}
+                  onChange={handleSortOrderChange}
+                  label="Order" >
+                  <MenuItem value="asc">Ascending</MenuItem>
+                  <MenuItem value="desc">Descending</MenuItem>
+                </Select>
+              </FormControl>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {slicedCourses &&
-                slicedCourses.length > 0 &&
-                slicedCourses.map((course) => (
-                  <div
-                    key={course.id}
-                    className="bg-white rounded-2xl border border-slate-300 overflow-hidden hover:bg-purple-300 shadow-purple-400 p-4 "
-                  >
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
+              {slicedCourses.map((course) => (
+                <div
+                  key={course._id}
+                  className="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden"
+                >
+                  <Link to={`/courseDetails/${course._id}`}>
                     <img
                       src={course.imageUrl}
                       alt={course.title}
-                      className="w-full h-40 object-cover"
+                      className="w-full h-48 object-cover"
                     />
-                    <div className="px-3 py-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <h3 className="text-xl font-bold  py-[3px] rounded">
-                          {course.title}
-                        </h3>
-                        <img
-                          src={course.instructorImage}
-                          alt="Instructor"
-                          className="relative -top-9 right-1 w-12 h-12 rounded-full p-1 bg-white"
-                        />
-                      </div>
-                      <p className="dark:text-white text-base font-semibold text-blue-950 mb-2">
-                        {course.description}
-                      </p>
-
-                      <div className="flex justify-between items-center mt-2 mb-3">
+                  </Link>
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold dark:text-white  mb-2">
+                      {course.title}
+                    </h3>
+                
+                    
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      {course.description}
+                    </p>
+                    <div className="flex justify-between items-center mt-2 mb-3">
                         <span className="dark:text-white text-gray-700 text-sm">
                           Duration: {course.duration}
                         </span>
@@ -178,7 +168,6 @@ const CourseListing = ({
                       </div>
 
                       <hr />
-
                       <div className=" flex justify-between items-center">
                         <Link
                           to={`/courseDetails/${course._id}`}
@@ -187,26 +176,25 @@ const CourseListing = ({
                           Details
                         </Link>
                         <span>
-                          <StarIcon className=" text-yellow-400" />
-                          <span className="text-gray-700 ml-1">
-                            {course.rating}
-                          </span>
+                        <StarIcon className="text-yellow-500" />
+                      <span className="ml-2 text-gray-600 dark:text-gray-300">
+                        {course.rating} ({course.reviewCount} reviews)
+                      </span>
                         </span>
                       </div>
-                    </div>
+                    
                   </div>
-                ))}
-              {!slicedCourses && <p>Course not available.</p>}
+                </div>
+              ))}
             </div>
-            <div className="flex justify-center mt-4">
+
+            <div className="flex justify-center mt-8">
               <Pagination
-                count={Math.ceil(
-                  (searchTerm ? filteredCourses : courses).length /
-                    coursesPerPage
-                )}
+                count={Math.ceil(displayCourses.length / coursesPerPage)}
                 page={currentPage}
                 onChange={handlePageChange}
-                color="primary"
+                variant="outlined"
+                shape="rounded"
               />
             </div>
           </>
