@@ -23,7 +23,7 @@ const review = () => {
               <img
                 src={instructor.image}
                 alt={instructor.name}
-                className="w-full rounded-full h-60 object-cover "
+                className="w-60 rounded-full h-60 object-cover "
               />
               <div className="px-3  text-blue-950   py-4 flex  justify-center items-center">
                 <div className=" text-center">

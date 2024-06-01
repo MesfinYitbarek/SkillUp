@@ -6,7 +6,7 @@ import Header from "../../../../Common/Header";
 import Footer from "../../../../Common/Footer";
 
 const Quiz = () => {
-  const { lessonId } = useParams();
+  const { lessonId , courseId} = useParams();
   const [quiz, setQuiz] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
@@ -14,13 +14,14 @@ const Quiz = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [isStarted, setIsStarted] = useState(false);
   const [timerId, setTimerId] = useState(null);
-
+  console.log(lessonId)
+  console.log(courseId)
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
         const response = await axios.get(`/api/quiz/${lessonId}`);
         setQuiz(response.data);
-        setTimeLeft(response.data.timeLimit);
+        setTimeLeft(response.data.timeLimit * 60);
         setAnswers(new Array(response.data.questions.length).fill(""));
       } catch (error) {
         console.error(error);
@@ -59,6 +60,7 @@ const Quiz = () => {
 
     try {
       const response = await axios.post(`/api/quiz/${lessonId}/submit`, {
+        courseId,
         answers,
         userId: currentUser._id,
       });

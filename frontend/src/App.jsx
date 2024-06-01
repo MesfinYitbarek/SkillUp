@@ -59,17 +59,21 @@ const App = () => {
         <Route path="/courses/:categoryName" element={<Courses />} />
         <Route path="/catagory" element={<Catagory />} />
         <Route path="/:lessonId/quiz" component={Quiz} />
-        <Route path="/courses/:courseId/:lessonId?/quiz/create" element={<CreateQuiz />} />
+        <Route
+          path="/courses/:courseId/:lessonId?/quiz/create"
+          element={<CreateQuiz />}
+        />
         <Route path={`/courseDetails/:courseId`} element={<Test />} />
         <Route path={`/create-lesson/:courseId`} element={<CreateLesson />} />
         <Route path={`scores`} element={<Grade />} />
         <Route path="/course/:courseId/grades" element={<Grades />} />
-        {/*<Route path={`course-lesson/:courseId`} element={<CourseLesson />} />
-        <Route path={`course-lesson/:courseId/:lessonId`} element={<CourseLesson />} /> */}
-                <Route path="/quiz/:lessonId" element={<InstructorQuiz/>} />
-        
-        <Route path="/lessons/:lessonId/quiz" element={<Quiz/>} />
-         <Route path="/course-lesson/:courseId/:lessonId?" element={<CourseLesson />} />
+        <Route path="/quiz/:lessonId" element={<InstructorQuiz />} />
+
+        <Route path="/lessons/:courseId/:lessonId/quiz" element={<Quiz />} />
+        <Route
+          path="/course-lesson/:courseId/:lessonId?"
+          element={<CourseLesson />}
+        />
         <Route path={`course-edit/:courseId`} element={<EditCourse />} />
         <Route path={`lesson-edit/:lessonId`} element={<UpdateLesson />} />
 
@@ -87,7 +91,10 @@ const App = () => {
           <Route path="/instructor" element={<Instructor />} />
           <Route path="/instructor-courses" element={<InstructorCourse />} />
           <Route path="/create-course" element={<CreateCourse />} />
-          <Route path="/course-lessons/:courseId" element={<InstructorLesson />} />
+          <Route
+            path="/course-lessons/:courseId"
+            element={<InstructorLesson />}
+          />
         </Route>
         <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
           <Route path="/create-catagory" element={<CreateCatagory />} />

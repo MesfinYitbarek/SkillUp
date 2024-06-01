@@ -49,6 +49,10 @@ io.on("connection", (socket) => {
     io.to(data.lessonId).emit("receiveComment", data);
   });
 
+  socket.on('newReply', (reply) => {
+    io.to(reply.parentId).emit('receiveReply', reply);
+  });
+  
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });

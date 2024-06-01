@@ -122,7 +122,7 @@ const CourseLesson = () => {
             <button
               key={index}
               onClick={() => handleLessonClick(lesson._id)}
-              className={`block w-full text-left py-2 px-2 rounded-md hover:bg-gray-200 ${
+              className={`block w-full text-left py-2 px-2 text-sm rounded-md hover:bg-gray-200 ${
                 selectedLesson && selectedLesson._id === lesson._id
                   ? "text-white font-bold bg-blue-600"
                   : ""
@@ -133,7 +133,7 @@ const CourseLesson = () => {
           </div>
         ))}
         <div className=" flex flex-col gap-5  font-bold mt-5">
-          <Link to={`/course/${courseId}/grades`}state={{ courseId }}>Grades</Link>
+          <Link to={`/course/${courseId}/grades`} >Grades</Link>
           <Link>Assesments</Link>
         </div>
       </div>
@@ -157,7 +157,7 @@ const CourseLesson = () => {
 
                 <div>
                   <video
-                    className="border h-[360px] w-[800px]"
+                    className=" h-[360px] w-[800px]"
                     width="800"
                     height="360"
                     controls
@@ -203,7 +203,7 @@ const CourseLesson = () => {
 
                 <div className="flex">
                   <Link
-                    to={`/lessons/${selectedLesson._id}/quiz`}
+                    to={`/lessons/${courseId}/${selectedLesson._id}/quiz`} 
                     className=" sticky bg-purple-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
                   >
                     Quiz

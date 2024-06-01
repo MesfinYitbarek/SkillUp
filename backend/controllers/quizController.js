@@ -38,7 +38,7 @@ export const getQuizByLessonId = async (req, res) => {
 export const submitQuiz = async (req, res) => {
   try {
     const { lessonId } = req.params;
-    const { answers, userId } = req.body;
+    const {courseId, answers, userId } = req.body;
     const quiz = await Quiz.findOne({ lessonId }).populate('lessonId');
 
     if (!quiz) {
@@ -66,7 +66,7 @@ export const submitQuiz = async (req, res) => {
       userId,
       score,
       totalQuestions: quiz.questions.length,
-      courseId: quiz.lessonId.courseId, 
+      courseId,
     });
     await scoreEntry.save();
 

@@ -16,9 +16,6 @@ export const getScoresByUserId = async (req, res) => {
       const { userId, courseId } = req.query;
   
       const filter = {};
-      if (userId) {
-        filter.userId = userId;
-      }
       if (courseId) {
         filter.courseId = courseId;
       }
