@@ -36,6 +36,8 @@ import Grades from "./components/StudentDashboard/Grade";
 import InstructorLesson from "./components/InstructorDashboard/InstructorLesson";
 import UpdateLesson from "./components/Courses/Course Details/Lesson/LessonEdit";
 import InstructorQuiz from "./components/InstructorDashboard/InstructorQuiz";
+import ChangePassword from "./components/Authentication/ChangePassword";
+
 const App = () => {
   React.useEffect(() => {
     AOS.init({
@@ -81,6 +83,7 @@ const App = () => {
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/update-profile" element={<UpdateProfile />} />
+          <Route path="/change-password" element={<ChangePassword />} />
         </Route>
 
         {/* Role-Based Private Routes */}

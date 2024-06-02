@@ -129,7 +129,7 @@ const CreateLesson = () => {
             backgroundPosition: "center",
             //filter: "brightness(0.5)",
           }}
-          className="text-blue-600 container mx-auto p-14 w-[70%] my-12 bg-sky-600 rounded-lg"
+          className="text-blue-600 container mx-auto p-14 w-[70%] my-12 bg-white rounded-lg"
         >
           <h2 className="text-2xl font-bold mb-4">Create Lesson</h2>
 
@@ -206,7 +206,7 @@ const CreateLesson = () => {
                   htmlFor={`documentText-${index}`}
                   className="block text-gray-700 font-bold mb-2"
                 >
-                  Document:
+                  Note:
                 </label>
                 <textarea
                   id={`documentText-${index}`}
@@ -246,18 +246,7 @@ const CreateLesson = () => {
             >
               {loading ? "Loading..." : "Create Lesson"}
             </button>
-            <button
-              onClick={() => navigate(`/courses/${courseId}/quiz/create`)}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
-            >
-              Add Quiz
-            </button>
-            <button
-              onClick={() => navigate(`/courses/${courseId}/assignment/create`)}
-              className="bg-purple-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Add Assignment
-            </button>
+           
           </div>
         </div>
       </div>

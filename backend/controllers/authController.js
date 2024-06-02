@@ -26,18 +26,18 @@ export const signin = async (req, res, next) => {
   try {
     // Find user by username
     const validUser = await User.findOne({ username });
-    if (!validUser) return next(errorHandler(404, "User not found!"));
+    if (!validUser) return next(errorHandler(404, 'User not found!'));
 
-    //Validate Password
+    // Validate Password
     const validPassword = bcryptjs.compareSync(password, validUser.password);
-    if (!validPassword) return next(errorHandler(401, "Invalid password!"));
+    if (!validPassword) return next(errorHandler(401, 'Invalid password!'));
 
     // Generate JWT token
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
     const { password: pass, ...rest } = validUser._doc;
     res
-      .cookie("access_token", token, { httpOnly: true })
+      .cookie('access_token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production' })
       .status(200)
       .json(rest);
   } catch (error) {
@@ -86,5 +86,38 @@ export const signout = async (req, res, next) => {
     res.status(200).json("User has been logged out!");
   } catch (error) {
     next(error);
+  }
+};
+
+
+export const changePassword = async (req, res) => {
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+  const userId = req.params.userId;
+
+  if (newPassword !== confirmPassword) {
+    return res.status(400).json({ message: 'New Password and Confirm Password do not match' });
+  }
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const isMatch = await bcryptjs.compare(oldPassword, user.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Old Password is incorrect' });
+    }
+
+    const salt = await bcryptjs.genSalt(10);
+    user.password = await bcryptjs.hash(newPassword, salt);
+
+    await user.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
   }
 };

@@ -126,7 +126,7 @@ const Users = () => {
               </td>
               <td className=" p-1">{data.email}</td>
               <td className=" p-1">{data.role}</td>
-
+              
               <td className="    text-red-600    text-center">
                 <button onClick={() => handleDeleteUser(data._id)}>
                   Delete

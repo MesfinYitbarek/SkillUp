@@ -17,6 +17,9 @@ const review = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {Instructor.map((instructor) => (
             <div
+              data-aos="fade-up"
+              data-aos-delay="300"
+              data-aos-once="true"
               key={instructor.id}
               className=" group  border-slate-300 overflow-hidden   "
             >
