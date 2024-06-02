@@ -7,24 +7,30 @@ const About = () => {
     <div>
       <div className=" h-screen px-14 sm:px-20 flex gap-24  justify-between items-center  ">
         <img
+          data-aos="fade-up"
+          data-aos-delay="300"
           data-aos-once="true"
           className=" scale-90 mt-10 md:flex  hidden max-w-[500px]"
           src={image3}
           alt=" image"
         />
-        <div className="  pt-10">
-          
-          <h5
-            
-            className="  mb-5 font-semibold text-5xl "
-          >
+        <div
+          data-aos="fade-up"
+          data-aos-delay="300"
+          data-aos-once="true"
+          className="  pt-10"
+        >
+          <h5 className="  mb-5 font-semibold text-5xl ">
             {" "}
-            Take the next step toward your personal and professional goals with SkillUp.
+            Take the next step toward your personal and professional goals with
+            SkillUp.
           </h5>
           <p>Empowering Lifelong Learners.</p>
-          <Link to={'/sign-in'}>
-              <button className=' p-3 px-5 bg-blue-600 text-xl my-7 rounded-lg hover:bg-transparent hover:border-2 text-white hover:text-blue-600 hover:border-blue-600 '>Join For Free <ArrowForward/></button>
-            </Link>
+          <Link to={"/sign-in"}>
+            <button className=" p-3 px-5 bg-blue-600 text-xl my-7 rounded-lg hover:bg-transparent hover:border-2 text-white hover:text-blue-600 hover:border-blue-600 ">
+              Join For Free <ArrowForward />
+            </button>
+          </Link>
         </div>
       </div>
     </div>

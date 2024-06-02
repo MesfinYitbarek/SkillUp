@@ -23,7 +23,7 @@ const contentData = {
 function Test() {
   const [activeButton, setActiveButton] = useState(null);
   const [isUserEnrolled, setIsUserEnrolled] = useState(false);
-
+console.log(isUserEnrolled)
   const handleClick = (buttonIndex) => {
     setActiveButton(buttonIndex);
   };
@@ -41,7 +41,6 @@ function Test() {
       const data = await response.json();
       setCourse(data);
 
-      // Check if user is enrolled (replace with your API call)
       const isEnrolledResponse = await fetch(`/api/enrollment/isEnrolled`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -51,6 +50,7 @@ function Test() {
         }),
       });
       const isEnrolledData = await isEnrolledResponse.json();
+      console.log(isEnrolledData)
       setIsUserEnrolled(isEnrolledData.isEnrolled);
     };
 
@@ -65,7 +65,7 @@ function Test() {
         body: JSON.stringify({
           username: currentUser.username,
           email: currentUser.email,
-          courseId: course.userRef,
+          courseId,
           courseName: course.title,
         }),
       });
@@ -100,10 +100,11 @@ function Test() {
                   className=" h-[40px] w-[40px] object-cover rounded-full"
                 />
               </div>
+              <span>{course.instructor}</span>
 
               <h1 className=" flex items-center">
-              <FaClock className=" mr-3" />
-              {course.duration}
+                <FaClock className=" mr-2" />
+                {course.duration}
               </h1>
               <h1>
                 <SchoolIcon className=" mr-3" />
@@ -116,29 +117,50 @@ function Test() {
             <div className=" rounded-md text-sky-900 absolute top-72 right-12 p-9 min-w-[260px] bg-slate-100 ">
               <div className=" py-3 flex flex-col font-bold bg-slate-100 gap-3">
                 {course.isPaid ? (
-                  <span className="text-blue-600 text-xl mb-3 font-bold">
-                    &#8377; {course.price}
-                  </span>
+                  <div className=" flex flex-col">
+                    <span className="text-blue-600 text-xl mb-3 font-bold">
+                      &#8377; {course.price}
+                    </span>
+                    {isUserEnrolled ? (
+                      <button
+                        className=" bg-blue-500 text-white rounded-md px-3 py-2 "
+                        onClick={() => navigate(`/course-lesson/${courseId}`)}
+                      >
+                        Continue
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => alert("Not available for now!")}
+                        className=" bg-blue-500 text-white rounded-md px-3 py-2 "
+                        disabled={loading}
+                      >
+                        {loading ? "Loading..." : "Enroll Now"}
+                      </button>
+                    )}
+                  </div>
                 ) : (
-                  <span className="text-green-500 text-xl mb-3 font-bold">
-                    Free
-                  </span>
-                )}
-                {isUserEnrolled ? (
-                  <button
-                    className=" bg-blue-500 text-white rounded-md px-3 py-2 "
-                    onClick={() => navigate(`/course-lesson/${courseId}`)}
-                  >
-                    Continue
-                  </button>
-                ) : (
-                  <button
-                    onClick={handleEnrollment}
-                    className=" bg-blue-500 text-white rounded-md px-3 py-2 "
-                    disabled={loading}
-                  >
-                    {loading ? "Loading..." : "Enroll Now"}
-                  </button>
+                  <div className=" flex flex-col">
+                    <span className="text-green-500 text-xl mb-3 font-bold">
+                      Free
+                    </span>
+
+                    {isUserEnrolled ? (
+                      <button
+                        className=" bg-blue-500 text-white rounded-md px-3 py-2 "
+                        onClick={() => navigate(`/course-lesson/${courseId}`)}
+                      >
+                        Continue
+                      </button>
+                    ) : (
+                      <button
+                        onClick={handleEnrollment}
+                        className=" bg-blue-500 text-white rounded-md px-3 py-2 "
+                        disabled={loading}
+                      >
+                        {loading ? "Loading..." : "Enroll Now"}
+                      </button>
+                    )}
+                  </div>
                 )}
               </div>
               <hr />
@@ -172,7 +194,11 @@ function Test() {
             </div>
           </div>
           <div>
-            <img src={img} className=" w-[70%] h-[500px] pl-16 pt-9 " alt="image" />
+            <img
+              src={course.imageUrl}
+              className=" w-[70%] h-[500px] pl-16 pt-9 "
+              alt="image"
+            />
           </div>
 
           <div className="flex pl-16 text-2xl text-sky-950 font-semibold ">
@@ -210,4 +236,3 @@ function Test() {
 }
 
 export default Test;
-
