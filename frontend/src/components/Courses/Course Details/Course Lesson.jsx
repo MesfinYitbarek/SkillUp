@@ -105,7 +105,7 @@ const CourseLesson = () => {
   const isCompleted = progress >= 100;
 
   if (lessons.length === 0) {
-    return <div>No lessons found for this course.</div>;
+    return <div className=" h-screen flex justify-center items-center   text-red-500 text-2xl "><h1 className=" shadow-md bg-slate-100 p-40">No lessons found for this course.</h1></div>;
   }
 
   return (

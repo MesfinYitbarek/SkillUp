@@ -13,14 +13,9 @@ export const getScores = async (req, res) => {
 
 export const getScoresByUserId = async (req, res) => {
     try {
-      const { userId, courseId } = req.query;
-  
-      const filter = {};
-      if (courseId) {
-        filter.courseId = courseId;
-      }
-  
-      const scores = await Score.find(filter).populate('lessonId').populate('userId');
+      const { userId } = req.query;
+  const {courseId} = req.params.courseId
+      const scores = await Score.find({userId, courseId}).populate('lessonId').populate('userId');
       res.status(200).json(scores);
     } catch (error) {
       res.status(500).json({ message: 'Error fetching scores', error });

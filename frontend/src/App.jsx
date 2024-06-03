@@ -37,6 +37,8 @@ import InstructorLesson from "./components/InstructorDashboard/InstructorLesson"
 import UpdateLesson from "./components/Courses/Course Details/Lesson/LessonEdit";
 import InstructorQuiz from "./components/InstructorDashboard/InstructorQuiz";
 import ChangePassword from "./components/Authentication/ChangePassword";
+import CreateAssignment from "./components/Courses/Course Details/Lesson/Assignment/CreateAssignment";
+import Assignment from "./components/Courses/Course Details/Lesson/Assignment/Assignment";
 
 const App = () => {
   React.useEffect(() => {
@@ -60,37 +62,49 @@ const App = () => {
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:categoryName" element={<Courses />} />
         <Route path="/catagory" element={<Catagory />} />
-        <Route path="/:lessonId/quiz" component={Quiz} />
-        <Route
-          path="/courses/:courseId/:lessonId?/quiz/create"
-          element={<CreateQuiz />}
-        />
         <Route path={`/courseDetails/:courseId`} element={<Test />} />
-        <Route path={`/create-lesson/:courseId`} element={<CreateLesson />} />
-        <Route path={`scores`} element={<Grade />} />
-        <Route path="/course/:courseId/grades" element={<Grades />} />
-        <Route path="/quiz/:lessonId" element={<InstructorQuiz />} />
-
-        <Route path="/lessons/:courseId/:lessonId/quiz" element={<Quiz />} />
-        <Route
-          path="/course-lesson/:courseId/:lessonId?"
-          element={<CourseLesson />}
-        />
-        <Route path={`course-edit/:courseId`} element={<EditCourse />} />
-        <Route path={`lesson-edit/:lessonId`} element={<UpdateLesson />} />
 
         {/* Common Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/update-profile" element={<UpdateProfile />} />
           <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/:lessonId/quiz" component={Quiz} />
+          <Route path="/lessons/:courseId/:lessonId/quiz" element={<Quiz />} />
+          <Route path={`/create-lesson/:courseId`} element={<CreateLesson />} />
+
+          <Route path="/course/:courseId/grades" element={<Grades />} />
+          <Route
+            path="/course-lesson/:courseId/:lessonId?"
+            element={<CourseLesson />}
+          />
+
+          <Route
+            path="/lessons/:lessonId/assignment"
+            element={<Assignment />}
+          />
         </Route>
+
 
         {/* Role-Based Private Routes */}
         <Route element={<PrivateRoute allowedRoles={["student"]} />}>
           <Route path="/student" element={<StudentContainer />} />
         </Route>
+
+
         <Route element={<PrivateRoute allowedRoles={["instructor"]} />}>
+          <Route
+            path="/create-assignment/:lessonId"
+            element={<CreateAssignment />}
+          />
+          <Route path={`scores`} element={<Grade />} />
+          <Route path="/quiz/:lessonId" element={<InstructorQuiz />} />
+          <Route path={`course-edit/:courseId`} element={<EditCourse />} />
+          <Route path={`lesson-edit/:lessonId`} element={<UpdateLesson />} />
+          <Route
+            path="/courses/:courseId/:lessonId?/quiz/create"
+            element={<CreateQuiz />}
+          />
           <Route path="/instructor" element={<Instructor />} />
           <Route path="/instructor-courses" element={<InstructorCourse />} />
           <Route path="/create-course" element={<CreateCourse />} />
@@ -99,6 +113,8 @@ const App = () => {
             element={<InstructorLesson />}
           />
         </Route>
+
+        
         <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
           <Route path="/create-catagory" element={<CreateCatagory />} />
           <Route path="/update-catagory" element={<CategoryUpdate />} />

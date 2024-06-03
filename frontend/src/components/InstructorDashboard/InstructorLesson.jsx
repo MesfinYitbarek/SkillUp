@@ -73,7 +73,7 @@ const InstructorLesson = () => {
                   <td><Link to={`/lesson-edit/${data._id}`}>Edit</Link></td>
                   <td><button onClick={() => handleDeleteLesson(data._id)}>Delete</button></td>
                   <td><Link to={`/quiz/${data._id}`}>Quiz</Link></td>
-                  <td><Link to={`/quiz/${data._id}`}>Assignment</Link></td>
+                  <td><Link to={`/create-assignment/${data._id}`}>Assignment</Link></td>
                 </tr>
               ))}
             </table>

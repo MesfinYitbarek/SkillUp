@@ -16,6 +16,7 @@ import { Server as SocketIOServer } from "socket.io";
 import http from "http";
 import quizRouter from "./routes/quiz.js";
 import scoreRouter from "./routes/score.js";
+import assignmentRouter from "./routes/assignment.js";
 
 dotenv.config();
 
@@ -72,6 +73,7 @@ app.use("/api/enrollment", enrollmentRouter);
 app.use("/api/lesson", lessonRouter);
 app.use("/api/discussion", discussionRouter);
 app.use("/api/quiz", quizRouter);
+app.use("/api/assignment", assignmentRouter);
 app.use('/api/scores', scoreRouter);
 
 app.use((err, req, res, next) => {

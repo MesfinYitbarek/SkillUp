@@ -6,7 +6,7 @@ import Header from "../../../../Common/Header";
 import Footer from "../../../../Common/Footer";
 
 const Quiz = () => {
-  const { lessonId , courseId} = useParams();
+  const { lessonId, courseId } = useParams();
   const [quiz, setQuiz] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [result, setResult] = useState(null);
@@ -14,8 +14,8 @@ const Quiz = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [isStarted, setIsStarted] = useState(false);
   const [timerId, setTimerId] = useState(null);
-  console.log(lessonId)
-  console.log(courseId)
+  console.log(lessonId);
+  console.log(courseId);
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
@@ -70,31 +70,34 @@ const Quiz = () => {
     }
   };
 
-  if (!quiz) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
       <div>
         <Header />
 
         <div className="p-8 max-w-2xl mx-auto bg-white shadow-md rounded-lg">
-          <h2 className="text-2xl font-bold mb-6">
-            {quiz.lessonId.title} Quiz
-          </h2>
-          <div className="mb-4 text-red-500">
-            Time Left: {Math.floor(timeLeft / 60)}:
-            {String(timeLeft % 60).padStart(2, "0")}
-          </div>
-          {!isStarted && (
-            <button
-              onClick={handleStartQuiz}
-              className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-            >
-              Start Quiz
-            </button>
+          {quiz ? (
+            <div>
+              <h2 className="text-2xl font-bold mb-6">
+                {quiz.lessonId.title} Quiz
+              </h2>
+              <div className="mb-4 text-red-500">
+                Time Left: {Math.floor(timeLeft / 60)}:
+                {String(timeLeft % 60).padStart(2, "0")}
+              </div>
+              {!isStarted && (
+                <button
+                  onClick={handleStartQuiz}
+                  className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+                >
+                  Start Quiz
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className=" p-10 m-10  text-2xl text-red-500 bg-slate-50">Quiz not found</div>
           )}
+
           {isStarted && (
             <form onSubmit={handleSubmit}>
               {quiz.questions.map((question, index) => (
@@ -140,9 +143,7 @@ const Quiz = () => {
                   </p>
                 ))}
               </p>
-              <p>
-                Maximum Attempts: {quiz.maxAttempts}
-              </p>
+              <p>Maximum Attempts: {quiz.maxAttempts}</p>
             </div>
           )}
         </div>

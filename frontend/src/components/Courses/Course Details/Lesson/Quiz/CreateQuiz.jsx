@@ -192,7 +192,7 @@ const CreateQuiz = () => {
             <div className="flex gap-7 font-bold px-10 justify-between">
               <Link to={`/create-lesson/${courseId}`}>Back </Link>
               <div className="flex gap-6">
-                <Link>
+                <Link to={`/create-assignment/${lessonId}`}>
                   <h1>Skip <NavigateNextIcon /></h1>
                 </Link>
                 <Link to={"/instructor"}>Finish </Link>
