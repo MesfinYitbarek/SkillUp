@@ -7,7 +7,7 @@ const EditUser = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
-
+  console.log(user)
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -81,7 +81,7 @@ const EditUser = () => {
               className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
               type="password"
               name="password"
-              value={""} 
+              
               onChange={handleChange}
               
             />

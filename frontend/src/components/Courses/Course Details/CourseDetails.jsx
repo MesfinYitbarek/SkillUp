@@ -34,7 +34,7 @@ console.log(isUserEnrolled)
   const { currentUser } = useSelector((state) => state.user);
   const { courseId } = useParams();
   const [course, setCourse] = useState([]);
-
+  console.log()
   useEffect(() => {
     const fetchCourse = async () => {
       const response = await fetch(`/api/courses/courseDetails/${courseId}`);
@@ -66,6 +66,7 @@ console.log(isUserEnrolled)
           username: currentUser.username,
           email: currentUser.email,
           courseId,
+          instructor: course.instructor,
           courseName: course.title,
         }),
       });

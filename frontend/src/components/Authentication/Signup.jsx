@@ -47,15 +47,7 @@ const Signup = () => {
     <div  className=" dark:bg-gray-800 bg-slate-50 ">
       <Header />
       <div className=" hidden lg:flex h-screen px-20  py-7"
-        style={{
-          backgroundImage: `url(${img})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "screen",
-          width: "100%",
-          filter: "brightness(0.5)"
-          
-        }}>
+       >
 
       </div>
       <div  className="  lg:absolute top-32 left-72 flex justify-center items-center">

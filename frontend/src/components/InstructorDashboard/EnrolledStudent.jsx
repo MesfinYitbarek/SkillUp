@@ -11,7 +11,7 @@ const EnrolledStudent = () => {
     const fetchContact = async () => {
       try {
         const response = await fetch(
-          `/api/enrollment/enrolledStudents/${currentUser._id}`
+          `/api/enrollment/enrolledStudents/${currentUser.username}`
         );
         const data = await response.json();
         setEnrollment(data);

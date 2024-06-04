@@ -88,8 +88,8 @@ export const deleteAdmin = async (req, res, next) => {
 
 export const updateAdmin = async (req, res, next) => {
   try {
-    if (req.body.passowrd) {
-      req.body.password = bcryptjs.hashSync(req.body.passowrd, 10);
+    if (req.body.password) {
+      req.body.password = bcryptjs.hashSync(req.body.password, 10);
     }
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
@@ -97,7 +97,7 @@ export const updateAdmin = async (req, res, next) => {
         $set: {
           username: req.body.username,
           email: req.body.email,
-          passowrd: req.body.passowrd,
+          password: req.body.password,
           avatar: req.body.avatar,
           role: req.body.role,
         },

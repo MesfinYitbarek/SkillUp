@@ -13,6 +13,10 @@ const EnrollmentSchema = new mongoose.Schema({
     type: String,
     required: true,   
   },
+  instructor: {
+    type: String,
+    required: true,   
+  },
   courseName: {
     type: String,
     required: true,   

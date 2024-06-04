@@ -3,16 +3,7 @@ import { useParams } from "react-router-dom";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckIcon from "@mui/icons-material/Check";
 import { useState, useEffect } from "react";
-const courseDescription = [
-  {
-    description: `If you're an office worker, student, administrator, or just want to become more productive with your computer,
-     programming will allow you write code that can automate tedious tasks. 
-      This course follows the popular (and free!) book, Automate the Boring Stuff with Python.
-      Automate the Boring Stuff with Python was written for people who want to get up to speed writing small programs that do 
-      practical tasks as soon as possible. You don't need to know sorting algorithms or object-oriented programming, so this 
-      course skips all the computer science and concentrates on writing code that gets stuff done.`,
-  },
-];
+
 
 const CourseInfo = () => {
   const [course, setCourse] = useState([]);
@@ -59,12 +50,6 @@ const CourseInfo = () => {
                 ))}
               </ul>
             </p>
-          </div>
-          <div>
-            <h1 className=" py-5  font-bold text-2xl">Description</h1>
-            {courseDescription.map((data) => (
-              <p className=" text-justify">{data.description}</p>
-            ))}
           </div>
         </div>
       ) : (

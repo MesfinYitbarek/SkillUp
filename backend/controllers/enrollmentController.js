@@ -7,6 +7,7 @@ export const enrollment = async (req, res, next) => {
       username: req.body.username,
       email: req.body.email,
       courseId: req.body.courseId,
+      instructor: req.body.instructor,
       courseName: req.body.courseName,
     });
 
@@ -31,8 +32,8 @@ export const enrollmentDisplay = async (req, res, next) => {
 //display enrolled students for instructor
 export const enrolledStudents = async (req, res, next) => {
   try {
-    const userId = req.params.userId; 
-    const enrollments = await Enrollment.find({ courseId: userId }); 
+    const instructor = req.params.instructor; 
+    const enrollments = await Enrollment.find({ instructor: instructor }); 
     res.json(enrollments);
   } catch (error) {
     next(error);
