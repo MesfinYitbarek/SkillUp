@@ -9,17 +9,23 @@ const assignmentSchema = new mongoose.Schema({
   },
   assignmentTitle: {
     type: String,
-    required: true,
   },
   description: {
     type: String,
-    required: true,
+  },
+  fileUrl: {
+    type: String,
+  },
+  StudentId: {
+    type: String,
+  },
+  StudentName: {
+    type: String,
   },
   dueDate: {
     type: Date,
-    required: true,
   },
 });
 
-const Assignment= mongoose.model("Assignment", assignmentSchema);
-export default Assignment
+const Assignment = mongoose.model("Assignment", assignmentSchema);
+export default Assignment;
