@@ -40,7 +40,7 @@ const unique = [
 
 const About = () => {
   return (
-    <div className=" ">
+    <div className=" dark:text-white dark:bg-gray-800 ">
       <Header />
       <div
             style={{
@@ -54,7 +54,7 @@ const About = () => {
             className="  brightness-50 h-[5px]  "
           ></div>
       
-      <div className=" bg-slate-50 flex flex-col gap-20">
+      <div className=" dark:bg-gray-800 dark:text-white bg-slate-50 flex flex-col gap-20">
         <div className=" px-14 sm:px-20 flex gap-24  justify-between items-center  ">
           <div className="  pt-10">
             <h1 className=" text-red-400 font-bold mb-4">How It Started</h1>
@@ -82,7 +82,7 @@ const About = () => {
             alt=" image"
           />
         </div>
-        <div className=" flex flex-col text-white items-center bg-blue-900 p-8 py-16">
+        <div className="  flex flex-col text-white items-center bg-blue-900 p-8 py-16">
           <h2 className=" text-center  font-semibold mb-10  text-3xl ">
             OUR STORY
           </h2>{" "}
@@ -95,7 +95,7 @@ const About = () => {
             comfort of your home.
           </p>
         </div>
-        <div className=" flex flex-col items-center mx-10  text-slate-900   p-8 py-20">
+        <div className=" flex flex-col items-center mx-10 dark:text-white  text-slate-900   p-8 py-20">
           <h2 className=" font-semibold mb-5  text-3xl ">OUR MISSION</h2>{" "}
           <hr
             data-aos="fade-right"
@@ -109,14 +109,14 @@ const About = () => {
           </p>
         </div>
         <div className=" mx-14 sm:mx-20  my-20 flex flex-col">
-          <h2 className="  text-3xl font-bold text-sky-800">
+          <h2 className=" dark:text-white text-3xl font-bold text-sky-800">
             What Makes Us Unique?
           </h2>
           <div className=" mt-8 text-justify   grid grid-cols-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4  gap-3  sm:gap-5 justify-between  items-center">
             {unique.map((data) => (
               <div
                 key={data.id}
-                className=" group  text-sky-800 hover:scale-110 gap-2 flex flex-col text-center items-center pt-7 bg-white hover:bg-gradient-to-r from-purple-500 to-blue-500 hover:text-white shadow-lg  p-3 "
+                className=" group dark:text-white dark:bg-gray-600  text-sky-800 hover:scale-110 gap-2 flex flex-col text-center items-center pt-7 bg-white hover:bg-gradient-to-r from-purple-500 to-blue-500 hover:text-white shadow-lg  p-3 "
               >
                 <h2 className=" text-center mb-2   font-bold text-lg">
                   {data.title}
@@ -133,8 +133,8 @@ const About = () => {
             ))}
           </div>
         </div>
-        <div className=" bg-slate-300 px-10 sm:px-20 py-16">
-          <h2 className=" mb-5  text-2xl text-blue-800">
+        <div className=" dark:bg-gray-700 bg-slate-300 px-10 sm:px-20 py-16">
+          <h2 className=" mb-5 dark:text-white text-2xl text-blue-800">
             Join the SkillUp Community
           </h2>
           <p>
@@ -160,7 +160,7 @@ const About = () => {
           </div>
         </div>
 
-        <div className=" px-10 sm:px-20 text-xl sm:text-4xl py-6 text-sky-800 pb-12 font-bold">
+        <div className=" dark:text-white px-10 sm:px-20 text-xl sm:text-4xl py-6 text-sky-800 pb-12 font-bold">
           <h1>We're excited to be part of your learning journey!</h1>
         </div>
       </div>

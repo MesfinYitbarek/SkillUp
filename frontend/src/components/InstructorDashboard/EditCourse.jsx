@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { getStorage } from "firebase/storage";  
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const EditCourse = () => {
   const { courseId } = useParams();
   const [course, setCourse] = useState({});
   const [error, setError] = useState(null);
   const { loading } = useSelector((state) => state.user);
+  const [courseImageFile, setCourseImageFile] = useState(null);
+  const [instructorImageFile, setInstructorImageFile] = useState(null);
 
   // Learning Objectives & Prerequisites
   const [learningObjectives, setLearningObjectives] = useState([]);
@@ -108,12 +112,36 @@ const EditCourse = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
     try {
+      const storage = getStorage();
+    
+    if (courseImageFile) {
+      const courseImageRef = ref(
+        storage,
+        `courseImages/${courseImageFile.name}`
+      );
+      await uploadBytes(courseImageRef, courseImageFile);
+      const courseImageUrl = await getDownloadURL(courseImageRef);
+      course.imageUrl = courseImageUrl;
+    }
+
+    if (instructorImageFile) {
+      const instructorImageRef = ref(
+        storage,
+        `instructorImages/${instructorImageFile.name}`
+      );
+      await uploadBytes(instructorImageRef, instructorImageFile);
+      const instructorImageUrl = await getDownloadURL(instructorImageRef);
+      course.instructorImage = instructorImageUrl;
+    }
+
       const updatedCourse = {
         ...course,
         learningObjectives: learningObjectives,
         requirements: prerequisites,
         curriculum: modules,
+        
       };
 
       const response = await axios.post(
@@ -129,6 +157,10 @@ const EditCourse = () => {
       console.error(err);
       setError("Error updating course. Please try again.");
     }
+  };
+
+  const handleFileChange = (e, setImageFile) => {
+    setImageFile(e.target.files[0]);
   };
 
   const [catagory, setCatagory] = React.useState([]);
@@ -194,14 +226,14 @@ const EditCourse = () => {
                     className="block font-bold text-gray-700 mb-2"
                     htmlFor="imageUrl"
                   >
-                    Course Image URL
+                    Course Image 
                   </label>
                   <input
                     className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
-                    type="url"
+                    type="file"
                     name="imageUrl"
-                    value={course.imageUrl || ""}
-                    onChange={handleChange}
+                   
+                    onChange={(e) => handleFileChange(e, setCourseImageFile)}
                     required
                   />
                 </div>
@@ -214,10 +246,10 @@ const EditCourse = () => {
                   </label>
                   <input
                     className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
-                    type="url"
+                    type="file"
                     name="instructorImage"
-                    value={course.instructorImage || ""}
-                    onChange={handleChange}
+                  
+                    onChange={(e) => handleFileChange(e, setCourseImageFile)}
                     required
                   />
                 </div>

@@ -49,18 +49,18 @@ const EnrolledStudent = () => {
             <td></td>
           </tr>
           <tr className=" bg-blue-400   font-semibold text-white ">
-            <td className="p-2">UserName</td>
-            <td>User Email</td>
-            <td>Course Name</td>
+            <td className="p-2">Student Name</td>
+            <td className=" px-10">Student Email</td>
+            <td className=" px-10">Course Name</td>
             <td></td>
           </tr>
           {enrollment.map((data) => (
             <tr className=" even:bg-slate-100 ">
               <td className=" p-1">{data.username}</td>
-              <td>{data.email}</td>
-              <td>{data.courseName}</td>
+              <td className=" px-10" >{data.email}</td>
+              <td className=" px-10">{data.courseName}</td>
               <td className="    text-red-600    text-center">
-                <button onClick={() => handleDeleteEnrollment(data._id)}>Delete</button>
+                <button onClick={() => handleDeleteEnrollment(data._id)} className=" px-10">Delete</button>
               </td>
             </tr>
           ))}

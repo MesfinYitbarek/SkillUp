@@ -34,7 +34,24 @@ console.log(isUserEnrolled)
   const { currentUser } = useSelector((state) => state.user);
   const { courseId } = useParams();
   const [course, setCourse] = useState([]);
+  const [enrollment, setEnrollment] = useState([]);
   console.log()
+
+  // number of enrolled students
+  useEffect(() => {
+    const fetchContact = async () => {
+      try {
+        const response = await fetch(`/api/enrollment/${courseId}`);
+        const data = await response.json();
+        setEnrollment(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchContact();
+  }, [enrollment]);
+
   useEffect(() => {
     const fetchCourse = async () => {
       const response = await fetch(`/api/courses/courseDetails/${courseId}`);
@@ -109,7 +126,7 @@ console.log(isUserEnrolled)
               </h1>
               <h1>
                 <SchoolIcon className=" mr-3" />
-                Enrolled student no
+                {enrollment.length} Students
               </h1>
               <h1>
                 <Star className="text-yellow-400" /> {course.rating}
@@ -171,7 +188,7 @@ console.log(isUserEnrolled)
                   {course.level}
                 </h1>
                 <h1>
-                  <SchoolIcon className=" mr-2" /> 11 Total Enrolled
+                  <SchoolIcon className=" mr-2" /> {enrollment.length} Students
                 </h1>
                 <h1 className=" flex items-center">
                   <FaClock className=" mr-3" />
@@ -197,7 +214,7 @@ console.log(isUserEnrolled)
           <div>
             <img
               src={course.imageUrl}
-              className=" w-[70%] h-[500px] pl-16 pt-9 "
+              className=" w-[70%] h-[500px] object-cover pl-16 pt-9 "
               alt="image"
             />
           </div>

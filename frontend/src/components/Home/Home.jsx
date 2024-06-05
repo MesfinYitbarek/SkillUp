@@ -9,7 +9,7 @@ import GetStarted from "./GetStarted";
 import Review from "./review";
 const Home = () => {
   return (
-    <div>
+    <div className=" dark:bg-gray-500 ">
       <Header />
       <Hero />
       <TopCourses/>

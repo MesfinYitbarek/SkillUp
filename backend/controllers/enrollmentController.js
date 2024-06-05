@@ -40,6 +40,17 @@ export const enrolledStudents = async (req, res, next) => {
   }
 };
 
+//display enrolled students based on courseId
+export const enrolledStudentsByCourseId = async (req, res, next) => {
+  try {
+    const courseId = req.params.courseId; 
+    const enrollments = await Enrollment.find({ courseId: courseId }); 
+    res.json(enrollments);
+  } catch (error) {
+    next(error);
+  }
+};
+
 //response true or false for user based on enrollment
 export const isEnrolled = async (req, res) => {
   const { username, courseId } = req.body;

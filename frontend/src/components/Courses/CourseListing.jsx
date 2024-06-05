@@ -105,13 +105,14 @@ const CourseListing = ({
           </Box>
         ) : (
           <>
-            <div className="flex justify-between items-center mb-4">
-              <FormControl variant="outlined" className="mr-4">
-                <InputLabel>Sort By</InputLabel>
+            <div className=" dark:text-white flex justify-between items-center mb-4">
+              <FormControl variant="outlined" className="  w-20 mr-4">
+                <InputLabel className=" dark:text-white">Sort By</InputLabel>
                 <Select
                   value={sortBy}
                   onChange={handleSortChange}
                   label="Sort By"
+                  className=" dark:text-white"
                 >
                   <MenuItem value="">
                     <em>None</em>
@@ -121,12 +122,12 @@ const CourseListing = ({
                   <MenuItem value="createdAt">Newest</MenuItem>
                 </Select>
               </FormControl>
-              <FormControl variant="outlined">
-                <InputLabel>Order</InputLabel>
+              <FormControl   variant="outlined">
+                <InputLabel className="dark:text-white">Order</InputLabel>
                 <Select
                   value={sortOrder}
                   onChange={handleSortOrderChange}
-                  label="Order" >
+                  label="Order" className=" dark:text-white " >
                   <MenuItem value="asc">Ascending</MenuItem>
                   <MenuItem value="desc">Descending</MenuItem>
                 </Select>

@@ -109,13 +109,13 @@ const CourseLesson = () => {
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className=" dark:bg-gray-800 dark:text-white flex min-h-screen">
       <div className="fixed top-0 left-0 w-full bg-white z-10">
         <Header />
         <div className="relative bg-blue-900 h-1 z-50"></div>
       </div>
 
-      <div className="fixed top-[139px] left-0 h-full w-[200px] border-gray-300 bg-slate-100 z-10 p-4 overflow-y-scroll">
+      <div className="fixed top-[139px] left-0 h-full w-[200px] border-gray-300 bg-slate-100 z-10 p-4 dark:bg-gray-500 dark:text-white overflow-y-scroll">
         <h1>{}</h1>
         {lessons.map((lesson, index) => (
           <div>

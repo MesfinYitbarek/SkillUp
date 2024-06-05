@@ -1,4 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Menu from "./MenuData";
 import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -11,37 +13,65 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/X";
 import TelegramIcon from "@mui/icons-material/Telegram";
 
-const Catagories = [
+const SocialMedia = [
   {
     id: 1,
-    name: "Computer Science",
+    name: <FacebookIcon />,
     link: "/#",
   },
   {
     id: 2,
-    name: "Business",
+    name:<InstagramIcon />,
     link: "/#",
   },
   {
     id: 3,
-    name: "History",
+    name: <XIcon />,
     link: "/#",
   },
   {
     id: 4,
-    name: "Business",
-    link: "/#",
-  },
-  ,
-  {
-    id: 5,
-    name: "Business",
+    name: <TelegramIcon />,
     link: "/#",
   },
 ];
 
 const Footer = () => {
   const date = new Date().getFullYear();
+  const { currentUser } = useSelector((state) => state.user);
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate(); // Import useNavigate
+
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      onSearch(searchTerm.trim());
+    }
+    navigate(`/courses/${searchTerm}`); 
+  };
+
+  const [catagory, setCatagory] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchCatagory = async () => {
+      try {
+        const response = await fetch("/api/courses/catagory");
+        const data = await response.json();
+        setCatagory(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchCatagory();
+  }, []);
+
+
+  const handleCategoryClick = (catagoryName) => {
+    // Navigate to the courses page for the selected category
+    navigate(`/courses/${catagoryName}`); 
+  };
   return (
     <div className="bg-sky-950 w-full text-white flex flex-col justify-between items-center p-8 gap-3">
       <div className=" pb-2  sm:flex justify-between pt-6  gap-20 text-white">
@@ -81,7 +111,7 @@ const Footer = () => {
               {Menu.map((data) => (
                 <li key={data.id}>
                   <Link
-                    href={data.link}
+                    to={data.link}
                     className="hover:text-blue-600 group font-mono"
                   >
                     <span
@@ -104,16 +134,13 @@ const Footer = () => {
             Catagories
           </h1>
           <ul>
-            {Catagories.map((data) => (
-              <li key={data.id}>
-                <a
-                  href={data.link}
-                  className="inline-block w-full rounded-md p-2 hover:bg-sky-600"
-                >
-                  {data.name}
-                </a>
-              </li>
-            ))}
+          {catagory.map((data) => (
+                      <li key={data.id} onClick={() => handleCategoryClick(data.name)}>
+                        <a href="#" className="inline-block w-full rounded-md p-2 hover:bg-blue-500">
+                          {data.name}
+                        </a>
+                      </li>
+                    ))}
           </ul>
         </div>
         <div className="">
@@ -131,20 +158,16 @@ const Footer = () => {
             <p>
               <EmailIcon className=" mr-3 mb-4" /> contactskillup@gmail.com
             </p>
-            <p className="">
-              {" "}
-              <Link>
-                <FacebookIcon />
-              </Link>{" "}
-              <Link>
-                <InstagramIcon />
-              </Link>{" "}
-              <Link>
-                <XIcon />
-              </Link>{" "}
-              <Link>
-                <TelegramIcon />
-              </Link>{" "}
+            <p className=" flex gap-4">
+              
+              {
+                SocialMedia.map((data)=> (
+                  <Link key={data.id} className="hover:text-purple-500">
+                  {data.name}
+                </Link>
+                ))
+              }
+              
             </p>
           </div>
         </div>

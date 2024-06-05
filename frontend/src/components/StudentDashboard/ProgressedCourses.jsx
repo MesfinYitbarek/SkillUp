@@ -51,6 +51,9 @@ const ProgressedCourses = () => {
     coursesPerPage * currentPage
   );
 
+  if(!slicedCourses){
+    return <div className=" flex justify-center items-center"><h1>No course found!</h1></div>
+  }
   return (
     <div>
       {error ? ( 
@@ -101,10 +104,10 @@ const ProgressedCourses = () => {
 
                 <p className=" opacity-75 ">{data.description}</p>
                 <div className=" flex justify-between items-center">
-                  <button className=" p-0.5 px-5  text-red-500 bg-red-100 ">
+                 {/* <button className=" p-0.5 px-5  text-red-500 bg-red-100 ">
                     {" "}
                     <Delete />
-                  </button>
+                </button>*/}
                   <Link
                     to={`/course-lesson/${data._id}`}
                     className="inline-block px-3 py-1.5 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded "

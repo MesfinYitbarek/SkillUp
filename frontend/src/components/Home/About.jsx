@@ -5,7 +5,7 @@ import { ArrowForward } from "@mui/icons-material";
 const About = () => {
   return (
     <div>
-      <div className=" h-screen px-14 sm:px-20 flex gap-24  justify-between items-center  ">
+      <div className="dark:bg-gray-800 dark:text-white h-screen px-14 sm:px-20 flex gap-24  justify-between items-center  ">
         <img
           data-aos="zoom-in"
           data-aos-delay="200"

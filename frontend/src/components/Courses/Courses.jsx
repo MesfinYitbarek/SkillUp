@@ -72,7 +72,7 @@ export default function Courses() {
     : courses;
 
   return (
-    <div className="bg-slate-50">
+    <div className=" dark:bg-gray-600 bg-slate-50">
       <div>
         <Header onSearch={handleSearchHeader} />
         <div

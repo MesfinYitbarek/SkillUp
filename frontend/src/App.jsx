@@ -39,6 +39,7 @@ import InstructorQuiz from "./components/InstructorDashboard/InstructorQuiz";
 import ChangePassword from "./components/Authentication/ChangePassword";
 import CreateAssignment from "./components/Courses/Course Details/Lesson/Assignment/CreateAssignment";
 import Assignment from "./components/Courses/Course Details/Lesson/Assignment/Assignment";
+import Students from "./components/InstructorDashboard/Students";
 
 const App = () => {
   React.useEffect(() => {
@@ -100,6 +101,7 @@ const App = () => {
           <Route path={`scores`} element={<Grade />} />
           <Route path="/quiz/:lessonId" element={<InstructorQuiz />} />
           <Route path={`course-edit/:courseId`} element={<EditCourse />} />
+          <Route path={`students/:courseId`} element={<Students />} />
           <Route path={`lesson-edit/:lessonId`} element={<UpdateLesson />} />
           <Route
             path="/courses/:courseId/:lessonId?/quiz/create"

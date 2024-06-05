@@ -156,7 +156,7 @@ const InstructorCourse = () => {
                         </button>
                         <Link to={`/course-edit/${course._id}`}>Edit</Link>
                       </div>
-                      <div  className=" flex justify-between items-center">
+                      <div  className=" mt-4 flex  gap-6 items-center">
         
                       
                       <Link
@@ -164,6 +164,12 @@ const InstructorCourse = () => {
                           className="  px-3 py-1 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded "
                         >
                           Lesson
+                        </Link>
+                        <Link
+                          to={`/students/${course._id}`} state={course.title}
+                          className="  px-3 py-1 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded "
+                        >
+                          Students
                         </Link>
                         </div>
                     </div>

@@ -6,12 +6,17 @@ import { Link } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
+import { getStorage } from "firebase/storage";  
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const CreateCourse = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [courseImageFile, setCourseImageFile] = useState(null);
+  const [instructorImageFile, setInstructorImageFile] = useState(null);
+
   const navigate = useNavigate();
 
   // Learning Objectives & Prerequisites
@@ -87,6 +92,7 @@ const CreateCourse = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // Include learningObjectives, prerequisites, and modules in formData
     formData.learningObjectives = learningObjectives;
@@ -95,6 +101,28 @@ const CreateCourse = () => {
 
     formData.userRef = currentUser._id;
     formData.instructor = currentUser.username;
+
+    const storage = getStorage();
+    
+    if (courseImageFile) {
+      const courseImageRef = ref(
+        storage,
+        `courseImages/${courseImageFile.name}`
+      );
+      await uploadBytes(courseImageRef, courseImageFile);
+      const courseImageUrl = await getDownloadURL(courseImageRef);
+      formData.imageUrl = courseImageUrl;
+    }
+
+    if (instructorImageFile) {
+      const instructorImageRef = ref(
+        storage,
+        `instructorImages/${instructorImageFile.name}`
+      );
+      await uploadBytes(instructorImageRef, instructorImageFile);
+      const instructorImageUrl = await getDownloadURL(instructorImageRef);
+      formData.instructorImage = instructorImageUrl;
+    }
 
     try {
       setLoading(true);
@@ -117,6 +145,10 @@ const CreateCourse = () => {
       setLoading(false);
       setError(error.message);
     }
+  };
+
+  const handleFileChange = (e, setImageFile) => {
+    setImageFile(e.target.files[0]);
   };
 
   const [catagory, setCatagory] = React.useState([]);
@@ -145,19 +177,16 @@ const CreateCourse = () => {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <div className="bg-slate-100 ">
         <div className="  flex flex-col justify-between  px-40  p-10  items-center">
           {/*<ProgressBar progress={progress} />*/}
           <form
             onSubmit={handleSubmit}
-            className=" flex flex-col gap-5 bg-white rounded-lg border-t-8 border-t-blue-600 border-l-8 border-l-blue-600 py-6 p-10"
+            className=" flex flex-col gap-5 bg-white rounded-lg border-l-8 border-l-blue-600 py-6 p-10"
           >
-            <Link className=" text-center" to={"/instructor"}>
-              <ArrowBack />
-            </Link>
-            <div className="flex flex-col justify-between gap-40 ">
-              <div>
+            <div className="flex  justify-between gap-20 ">
+              <div className=" w-[50%]">
                 <div className="mb-4">
                   <label
                     htmlFor="title"
@@ -200,13 +229,12 @@ const CreateCourse = () => {
                     htmlFor="imageUrl"
                     className="block text-gray-700 font-bold mb-2"
                   >
-                    Course Image URL
+                    Course Image
                   </label>
                   <input
-                    type="url"
+                    type="file"
                     id="imageUrl"
-                    value={formData.imageUrl}
-                    onChange={handleChange}
+                    onChange={(e) => handleFileChange(e, setCourseImageFile)}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
                     required
                   />
@@ -216,13 +244,14 @@ const CreateCourse = () => {
                     htmlFor="instructorImage"
                     className="block text-gray-700 font-bold mb-2"
                   >
-                    Instructor Image URL
+                    Instructor Image
                   </label>
                   <input
-                    type="url"
+                    type="file"
                     id="instructorImage"
-                    value={formData.instructorImage}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleFileChange(e, setInstructorImageFile)
+                    }
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
                     required
                   />
@@ -465,7 +494,7 @@ const CreateCourse = () => {
           </form>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

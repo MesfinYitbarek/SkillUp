@@ -9,7 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import img from "../../assets/background image/pexels-vlada-karpovich-4050315.jpg";
 const Hero = () => {
   return (
-    <div>
+    <div className="dark:bg-gray-800 ">
       <div
         style={{
           backgroundImage: `url(${img})`,
@@ -49,7 +49,7 @@ const Hero = () => {
           </button>
         </div>
       </div>
-      <div className=" flex mt-10 mb-5 pb-10 justify-between text-center text-blue-950 font-bold text-lg   items-center px-2 sm:px-32 h-[200px] shadow-xl ">
+      <div className=" dark:bg-gray-800 flex mt-10 mb-5 pb-10 justify-between text-center text-blue-950 font-bold text-lg   items-center px-2 sm:px-32 h-[200px] shadow-xl ">
         <div className=" flex flex-col items-center sm:w-[170px] text-center gap-4  rounded-lg bg-slate-200 p-7">
           <div className=" bg-slate-100 text-blue-500  p-2 rounded-full h-[50px] w-[50px]">
             <PlayCircleIcon fontSize="large" />

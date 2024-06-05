@@ -52,7 +52,7 @@ const Topcourses = () => {
                 data-aos-delay="300"
                 data-aos-once="true"
                 key={course.id}
-                className="  dark:bg-purple-950 bg-white shadow-lg rounded-md  overflow-hidden  hover:bg-purple-300   "
+                className="  dark:bg-purple-950 dark:text-white  bg-white shadow-lg rounded-md  overflow-hidden  hover:bg-purple-300   "
               >
                 <img
                   src={course.imageUrl}

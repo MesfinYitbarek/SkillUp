@@ -65,7 +65,7 @@ const Profile = () => {
                   className=" mt-12 text-lg text-blue-600 font-semibold"
                 >
                   <h1 className=" hover:bg-blue-500  hover:text-white border rounded-md border-blue-600 p-1.5 px-4">
-                    My Courses <DoubleArrowIcon className=" ml-14" />
+                    My Courses <DoubleArrowIcon className=" ml-1" />
                   </h1>
                 </Link>
                 <button

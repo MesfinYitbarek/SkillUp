@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { getStorage } from "firebase/storage";  // Adjust the import path accordingly
+import { getStorage } from "firebase/storage";
 import Header from "../../../../Common/Header";
 import Footer from "../../../../Common/Footer";
 import { useSelector } from "react-redux";
