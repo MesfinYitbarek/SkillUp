@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Notifications, SearchOutlined } from "@mui/icons-material";
 import DarkMode from "./DarkMode";
@@ -7,22 +7,34 @@ import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import MessageIcon from "@mui/icons-material/Message";
 import { Badge, Stack } from "@mui/material";
-import { useState, useEffect } from "react";
+import { io } from "socket.io-client";
 
 const DashboardHeader = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [newMessageCount, setNewMessageCount] = useState(0);
 
   useEffect(() => {
-   
-    const intervalId = setInterval(() => {
-      fetch('/api/contact/newMessageCount')
-        .then(response => response.json())
-        .then(data => setNewMessageCount(data.count));
-    }, 1000); 
+    // Fetch initial message count
+    fetch('/api/contact/newMessageCount')
+      .then(response => response.json())
+      .then(data => setNewMessageCount(data.count))
+      .catch(error => console.error('Error fetching message count:', error));
 
-    return () => clearInterval(intervalId); 
-  }, []);
+    // Setup Socket.IO
+    const socket = io("http://localhost:4444"); // Replace with your server URL
+
+    socket.on("connect", () => {
+      console.log("Connected to socket server");
+    });
+
+    socket.on("updateMessageCount", (data) => {
+      setNewMessageCount(data.count);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [newMessageCount, currentUser._id]);
 
   return (
     <div className="bg-blue-500 p-6 py-2 fixed top-0 left-0 w-full ">
@@ -49,13 +61,6 @@ const DashboardHeader = () => {
         </div>
         <div className="gap-16 flex justify-between items-center">
           <div className="bg-gray-100 px-2 py-1.5">
-            <Stack spacing={4} direction="row" sx={{ color: "action.active" }}>
-              <Badge color="secondary" badgeContent={0} showZero>
-                <Notifications className=" " />
-              </Badge>
-            </Stack>
-          </div>
-          <div  className={`bg-gray-100 ${currentUser.role == 'admin'? 'flex' : 'hidden'} px-2 py-1.5`}>
             <Stack spacing={4} direction="row" sx={{ color: "action.active" }}>
               <Badge color="secondary" badgeContent={newMessageCount} showZero>
                 <MessageIcon />

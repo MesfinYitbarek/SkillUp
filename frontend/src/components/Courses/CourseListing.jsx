@@ -17,6 +17,8 @@ import {
 import SortIcon from "@mui/icons-material/Sort";
 
 const CourseListing = ({
+  search,
+  filtered,
   courses,
   filteredCourses,
   searchTerm,
@@ -41,7 +43,7 @@ const CourseListing = ({
         );
       }
     }, 1000);
-  }, [searchTerm, selectedCategories, catagorizedCourses, sortBy, sortOrder]);
+  }, [searchTerm,search,filtered, selectedCategories, catagorizedCourses, sortBy, sortOrder]);
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
@@ -56,7 +58,7 @@ const CourseListing = ({
   };
 
   // Filter courses based on categoryName, searchTerm, or selectedCategories
-  const displayCourses = categoryName
+  const displayCourses = search ? filtered : categoryName
     ? courses.filter((course) => course.catagory.includes(categoryName))
     : searchTerm
     ? filteredCourses

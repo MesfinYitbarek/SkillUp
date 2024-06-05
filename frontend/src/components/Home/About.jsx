@@ -7,16 +7,16 @@ const About = () => {
     <div>
       <div className=" h-screen px-14 sm:px-20 flex gap-24  justify-between items-center  ">
         <img
-          data-aos="fade-up"
-          data-aos-delay="300"
+          data-aos="zoom-in"
+          data-aos-delay="200"
           data-aos-once="true"
-          className=" scale-90 mt-10 md:flex  hidden max-w-[500px]"
+          className=" mt-10 md:flex  hidden max-w-[500px]"
           src={image3}
           alt=" image"
         />
         <div
-          data-aos="fade-up"
-          data-aos-delay="300"
+          data-aos="zoom-in"
+          data-aos-delay="200"
           data-aos-once="true"
           className="  pt-10"
         >

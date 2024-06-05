@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import DarkMode from "./DarkMode";
 import { FaCaretDown, FaPhone } from "react-icons/fa6";
 import { IoMdSearch } from "react-icons/io";
@@ -16,41 +16,24 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/X";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import PhoneIcon from "@mui/icons-material/Phone";
-const Catagories = [
-  {
-    id: 1,
-    name: "Computer Science",
-    link: "/#",
-  },
-  {
-    id: 2,
-    name: "Business",
-    link: "/#",
-  },
-  {
-    id: 3,
-    name: "History",
-    link: "/#",
-  },
-  {
-    id: 4,
-    name: "Business",
-    link: "/#",
-  },
-  {
-    id: 5,
-    name: "Business",
-    link: "/#",
-  },
-];
+
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [showMenu, setShowMenu] = React.useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate(); // Import useNavigate
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      onSearch(searchTerm.trim());
+    }
+    navigate(`/courses/${searchTerm}`); 
   };
 
   const [catagory, setCatagory] = React.useState([]);
@@ -180,14 +163,20 @@ const Header = () => {
 
           {/*Search bar */}
           <div className="relative group hidden sm:block">
+          <form onSubmit={handleSearch} >
             <input
               type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search For Courses"
               className="sm:w-[200px] sm:group-hover:w-[300px] transtion-all duration-300  border-2 border-gray-300 px-2 py-1 focus:outline-none focus:border-1 focus:border-primary dark:border-gray-500 dark:bg-gray-800"
             />
+            <button type="submit" >
             <IoMdSearch
               className="text-gray-500 group-hover:primary absolute top-1/2 -translate-y-1/2 right-3"
             />
+            </button>
+            </form>
           </div>
           <Link to="/profile" className="flex items-center">
             {currentUser ? (

@@ -85,32 +85,38 @@ const Courses = () => {
           </Box>
         ) : (
           <>
-            <div className=" ml-60 mr-10 gap-5 grid grid-cols-3">
+            <div className=" ml-60 mr-10 gap-20 grid grid-cols-3">
               {slicedCourses &&
                 slicedCourses.length > 0 &&
                 slicedCourses.map((data) => (
-                  <div className=" bg-white rounded-sm shadow-sm p-5 flex gap-5 items-center">
+                  <div className=" bg-white shadow-sm p-5 rounded-lg  flex flex-col gap-5">
                     <div>
                       <img
                         src={data.imageUrl}
-                        className=" object-cover w-[120px] h-[130px]"
+                        className=" object-cover w-full h-[130px]"
                         alt=""
                       />
                     </div>
                     <div className="  flex flex-col gap-2">
                       <h1 className="font-bold">{data.title}</h1>
-                      <div className="flex gap-4 items-center ">
+                      <div className="flex gap-4 justify-between items-center ">
                         <h2 className=" bg-slate-100 p-1 px-3">
                           {data.duration}
                         </h2>
 
                         <h2 className=" bg-slate-100 p-1 px-3">
-                          &#8377; {data.price}
+                        {data.isPaid ? (
+                          <span className="text-blue-600 font-bold">
+                            &#8377; {data.price}
+                          </span>
+                        ) : (
+                          <span className="text-green-500 font-bold">Free</span>
+                        )}
                         </h2>
                       </div>
-
+                      <hr className=" mt-4"/>
                       <p className=" opacity-75 ">{data.description}</p>
-                      <div className=" flex items-center gap-4">
+                      <div className=" flex justify-between items-center gap-4">
                         <button
                           onClick={() => handleDeleteCourse(data._id)}
                           className=" p-0.5 px-5  text-red-500 bg-red-100 "

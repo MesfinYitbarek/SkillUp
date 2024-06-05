@@ -86,7 +86,7 @@ const ProgressedCourses = () => {
               <div className="  p-2   flex flex-col gap-2">
                 <h1 className="font-bold">{data.title}</h1>
                 <div className="flex justify-between items-center ">
-                  <h2 className=" bg-slate-100 p-1 px-3">{data.duration}</h2>
+                  <h2 className=" bg-slate-100 p-1 px-3">{data.duration}</h2> 
 
                   {course.isPaid ? (
                     <span className="text-blue-600 text-xl mb-3 font-bold">

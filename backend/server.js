@@ -54,6 +54,11 @@ io.on("connection", (socket) => {
     io.to(reply.parentId).emit('receiveReply', reply);
   });
   
+  socket.on("newMessage", async (message) => {
+    const messageCount = await Contact.countDocuments({ status: 'new' });
+    io.emit("updateMessageCount", { count: messageCount });
+  });
+
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });

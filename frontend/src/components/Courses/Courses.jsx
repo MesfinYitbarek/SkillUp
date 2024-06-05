@@ -10,11 +10,26 @@ import Search from "../Common/Search";
 import CourseCatagories from "../CourseCatagory/CourseCatagories";
 export default function Courses() {
   const [courses, setCourses] = useState([]);
+  const [search, setSearch] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCourses, setFilteredCourses] = useState([]);
+  const [filtered, setFiltered] = useState([]);
   const [catagorizedCourses, setCatagorizaedCourses] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const { categoryName } = useParams(); 
+  
+  const handleSearchHeader = (term) => {
+    setSearch(term);
+    const filtered = courses.filter((course) => {
+      return (
+        course.title.toLowerCase().includes(term.toLowerCase()) ||
+        course.description.toLowerCase().includes(term.toLowerCase()) ||
+        course.catagory.toLowerCase().includes(term.toLowerCase())
+      );
+    });
+    setFiltered(filtered);
+  };
+
   React.useEffect(() => {
     const fetchCourses = async () => {
       try {
@@ -59,7 +74,7 @@ export default function Courses() {
   return (
     <div className="bg-slate-50">
       <div>
-        <Header />
+        <Header onSearch={handleSearchHeader} />
         <div
           style={{
             backgroundImage: `url(${img})`,
@@ -79,9 +94,12 @@ export default function Courses() {
         </div>
         <div className="flex flex-col   mt-3">
           <Search onSearch={handleSearch} />
+          
           <div className="flex flex-col md:flex-row  w-full">
             <CourseCatagories onCategoryChange={handleCheck} />
             <CourseListing
+              search={search}
+              filtered={filtered}
               searchTerm={searchTerm}
               selectedCategories={selectedCategories}
               catagorizedCourses={catagorizedCourses}

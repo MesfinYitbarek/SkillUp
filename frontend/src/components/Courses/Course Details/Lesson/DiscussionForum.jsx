@@ -64,7 +64,7 @@ const DiscussionForum = ({ lessonId }) => {
       socket.emit("newComment", newComment);
     } catch (error) {
       console.error(error);
-      // Handle errors (optional: remove comment from state)
+      
     }
   };
 
