@@ -4,8 +4,8 @@ import { verifyToken } from "../Utils/verifyUser.js";
 
 const enrollmentRouter = express.Router();
 
-enrollmentRouter.get("/enrollmentDisplay",verifyToken, enrollmentDisplay);
-enrollmentRouter.get("/:courseId",verifyToken, enrolledStudentsByCourseId);
+enrollmentRouter.get("/enrollmentDisplay", enrollmentDisplay);
+enrollmentRouter.get("/:courseId", enrolledStudentsByCourseId);
 enrollmentRouter.post("/enrollment",verifyToken, enrollment);
 enrollmentRouter.get("/enrolledStudents/:userId",verifyToken, enrolledStudents);
 enrollmentRouter.post("/isEnrolled", isEnrolled);

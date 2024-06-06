@@ -35,7 +35,7 @@ console.log(isUserEnrolled)
   const { courseId } = useParams();
   const [course, setCourse] = useState([]);
   const [enrollment, setEnrollment] = useState([]);
-  console.log()
+  console.log(enrollment.length)
 
   // number of enrolled students
   useEffect(() => {

@@ -59,7 +59,7 @@ const DashboardHeader = () => {
             className="px-2 py-1.5 bg-gray-100 border-gray-400"
           />
         </div>
-        <div className="gap-16 flex justify-between items-center">
+        <div className={` ${currentUser.role == "instructor" ? "hidden" : currentUser.role == "student" ? "hidden" : "flex" } gap-16 flex justify-between items-center`}>
           <div className="bg-gray-100 px-2 py-1.5">
             <Stack spacing={4} direction="row" sx={{ color: "action.active" }}>
               <Badge color="secondary" badgeContent={newMessageCount} showZero>
