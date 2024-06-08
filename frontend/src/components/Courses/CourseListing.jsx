@@ -32,6 +32,7 @@ const CourseListing = ({
   const { categoryName } = useParams();
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [expandedCourse, setExpandedCourse] = useState(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -75,6 +76,10 @@ const CourseListing = ({
       return a[sortBy] < b[sortBy] ? 1 : -1;
     }
   });
+
+  const handleToggleDescription = (courseId) => {
+    setExpandedCourse((prev) => (prev === courseId ? null : courseId));
+  };
 
   const slicedCourses = sortedCourses.slice(
     coursesPerPage * (currentPage - 1),
@@ -153,8 +158,24 @@ const CourseListing = ({
                     </h3>
                 
                     
-                    <p className="text-gray-600 dark:text-gray-300 mb-4">
-                      {course.description}
+                    <p className="text-gray-600 cursor-pointer dark:text-gray-300 mb-4">
+                    {expandedCourse === course._id ? (
+                      <span onClick={() => handleToggleDescription(course._id)}>
+                        {course.description}
+                      </span>
+                    ) : (
+                      <span
+                        className="line-clamp-2"
+                        onClick={() => handleToggleDescription(course._id)}
+                      >
+                        {course.description}
+                        {course.description.length > 100 && (
+                          <span className="text-blue-500 cursor-pointer">
+                            ...Read more
+                          </span>
+                        )}
+                      </span>
+                    )}
                     </p>
                     <div className="flex justify-between items-center mt-2 mb-3">
                         <span className="dark:text-white text-gray-700 text-sm">
@@ -174,7 +195,7 @@ const CourseListing = ({
                       <div className=" flex justify-between items-center">
                         <Link
                           to={`/courseDetails/${course._id}`}
-                          className="inline-block px-3 py-1.5 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded mt-4"
+                          className="inline-block px-3 py-1.5 border-blue-500 border  text-blue-600 font-bold rounded mt-4"
                         >
                           Details
                         </Link>

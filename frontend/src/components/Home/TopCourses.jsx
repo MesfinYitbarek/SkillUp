@@ -6,6 +6,7 @@ const Topcourses = () => {
   const [courses, setCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [coursesPerPage] = useState(6);
+  const [expandedCourse, setExpandedCourse] = useState(null);
 
   React.useEffect(() => {
     const fetchCourses = async () => {
@@ -20,10 +21,14 @@ const Topcourses = () => {
     };
 
     fetchCourses();
-  }, [courses]);
+  }, []);
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
+  };
+
+  const handleToggleDescription = (courseId) => {
+    setExpandedCourse((prev) => (prev === courseId ? null : courseId));
   };
 
   const slicedCourses = courses.slice(
@@ -32,15 +37,15 @@ const Topcourses = () => {
   );
 
   return (
-    <div className=" bg-slate-50 px-16 py-20 dark:bg-gray-800">
+    <div className="bg-slate-50 px-16 py-20 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-8">
-      <h2 className="  sm:mb-24 mb-8 text-center ">
-          <div class="flex items-center">
-            <hr class="flex-grow border-gray-400 h-px" />
-            <div class="mx-auto px-4 text-4xl text-blue-500 font-semibold">
+        <h2 className="sm:mb-24 mb-8 text-center">
+          <div className="flex items-center">
+            <hr className="flex-grow border-gray-400 h-px" />
+            <div className="mx-auto px-4 text-4xl text-blue-500 font-semibold">
               Top Courses
             </div>
-            <hr class="flex-grow border-gray-400 h-px" />
+            <hr className="flex-grow border-gray-400 h-px" />
           </div>
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -52,26 +57,42 @@ const Topcourses = () => {
                 data-aos-delay="300"
                 data-aos-once="true"
                 key={course.id}
-                className="  dark:bg-purple-950 dark:text-white  bg-white shadow-lg rounded-md  overflow-hidden  hover:bg-purple-300   "
+                className="dark:bg-purple-950 dark:text-white bg-white shadow-lg rounded-md overflow-hidden"
               >
                 <img
                   src={course.imageUrl}
                   alt={course.title}
-                  className="w-full h-48 object-cover "
+                  className="w-full h-48 object-cover"
                 />
                 <div className="px-6 py-4">
                   <div className="flex justify-between items-center mb-2">
-                    <h3 className="text-lg font-bold   py-[3px] rounded">
+                    <h3 className="text-lg font-bold py-[3px] rounded">
                       {course.title}
                     </h3>
                     <img
                       src={course.instructorImage}
                       alt="Instructor"
-                      className=" relative -top-9 right-1 w-12 h-12 rounded-full p-1 bg-slate-100"
+                      className="relative -top-9 right-1 w-12 h-12 rounded-full p-1 bg-slate-100"
                     />
                   </div>
-                  <p className=" dark:text-white  text-base font-semibold text-blue-950 mb-2">
-                    {course.description}
+                  <p className="dark:text-white cursor-pointer text-base font-semibold text-blue-950 mb-2">
+                    {expandedCourse === course._id ? (
+                      <span onClick={() => handleToggleDescription(course._id)}>
+                        {course.description}
+                      </span>
+                    ) : (
+                      <span
+                        className="line-clamp-2 "
+                        onClick={() => handleToggleDescription(course._id)}
+                      >
+                        {course.description}
+                        {course.description.length > 100 && (
+                          <span className="text-blue-500 cursor-pointer">
+                            ...Read more
+                          </span>
+                        )}
+                      </span>
+                    )}
                   </p>
 
                   <div className="flex justify-between items-center mt-2 mb-3">
@@ -90,15 +111,15 @@ const Topcourses = () => {
 
                   <hr />
 
-                  <div className=" flex justify-between items-center">
+                  <div className="flex justify-between items-center">
                     <a
                       href={`/courseDetails/${course._id}`}
-                      className="inline-block px-3 py-1.5  border-purple-500 border bg-red-50 text-purple-600 font-bold rounded mt-4"
+                      className="inline-block px-3 py-1.5 border-blue-500 border text-blue-600 font-bold rounded mt-4"
                     >
                       Learn More
-                    </a>
+                      </a>
                     <span>
-                      <StarIcon className=" text-yellow-400" />
+                      <StarIcon className="text-yellow-400" />
                       <span className="text-gray-700 ml-1">
                         {course.rating}
                       </span>
@@ -109,7 +130,7 @@ const Topcourses = () => {
             ))}
         </div>
       </div>
-      <div className=" flex justify-center items-center text-center">
+      <div className="flex justify-center items-center text-center">
         <Pagination
           count={Math.ceil(courses.length / coursesPerPage)}
           page={currentPage}
