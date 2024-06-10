@@ -7,6 +7,28 @@ import { useState } from "react";
 
 const Home = () => {
   const [courses, setCourses] = useState([]);
+  const [users, setUsers] = React.useState([]);
+  const [error, setError] = useState(null);
+  const [student, setStudent] = useState([])
+  const [instructor, setInstructor] = useState([])
+
+  React.useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("/api/user/users");
+        const data = await response.json();
+        const filteredStudent = data.filter((course) => course.role == 'student');
+        const filteredInstructor = data.filter((course) => course.role == 'instructor');
+        setStudent(filteredStudent)
+        setInstructor(filteredInstructor)
+        setUsers(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUsers();
+  }, [users]);
 
   React.useEffect(() => {
     const fetchCourses = async () => {
@@ -30,19 +52,15 @@ const Home = () => {
     },
     {
       title: "Instrucors",
-      number: 100,
+      number: instructor.length,
       icon: <GroupIcon />,
     },
     {
       title: "Students",
-      number: 80,
+      number: student.length,
       icon: <SchoolIcon />,
     },
-    {
-      title: "Enrolled",
-      number: 27,
-      icon: <AccountCircleIcon />,
-    },
+    
   ];
 
   return (

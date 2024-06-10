@@ -1,11 +1,12 @@
 import { Delete, Star } from "@mui/icons-material";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
 import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Box } from "@mui/material";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
@@ -84,59 +85,41 @@ const Courses = () => {
             <CircularProgress />
           </Box>
         ) : (
-          <>
-            <div className=" ml-60 mr-10 gap-20 grid grid-cols-3">
-              {slicedCourses &&
-                slicedCourses.length > 0 &&
-                slicedCourses.map((data) => (
-                  <div className=" bg-white shadow-sm p-5 rounded-lg  flex flex-col gap-5">
-                    <div>
-                      <img
-                        src={data.imageUrl}
-                        className=" object-cover w-full h-[130px]"
-                        alt=""
-                      />
-                    </div>
-                    <div className="  flex flex-col gap-2">
-                      <h1 className="font-bold">{data.title}</h1>
-                      <div className="flex gap-4 justify-between items-center ">
-                        <h2 className=" bg-slate-100 p-1 px-3">
-                          {data.duration}
-                        </h2>
-
-                        <h2 className=" bg-slate-100 p-1 px-3">
-                        {data.isPaid ? (
-                          <span className="text-blue-600 font-bold">
-                            &#8377; {data.price}
-                          </span>
-                        ) : (
-                          <span className="text-green-500 font-bold">Free</span>
-                        )}
-                        </h2>
-                      </div>
-                      <hr className=" mt-4"/>
-                      <p className=" opacity-75 ">{data.description}</p>
-                      <div className=" flex justify-between items-center gap-4">
-                        <button
-                          onClick={() => handleDeleteCourse(data._id)}
-                          className=" p-0.5 px-5  text-red-500 bg-red-100 "
-                        >
-                          {" "}
-                          <Delete />
-                        </button>
+          <div className=" bg-white px-6 py-1 mb-6">
+          
+            <div className=" mt-14  ">
+              <table className=" ">
+                <tr className=" font-bold">
+                  <td></td>
+                  <td className=" pr-20">Course Name</td>
+                  <td className=" px-20">Instructor Name</td>
+                  <td></td>
+                </tr>
+                {slicedCourses &&
+                  slicedCourses.length > 0 &&
+                  slicedCourses.map((data) => (
+                    <tr className="">
+                      <td>
+                        <CheckBoxOutlineBlankIcon />
+                      </td>
+                      <td className=" pr-20">
+                        <img src={data.instructorImg} alt="" />
+                        {data.title}
+                      </td>
+                      <td className=" px-20">{data.instructor}</td>
+                      <td>
                         <Link
                           to={`/courseDetails/${data._id}`}
-                          className="inline-block px-3 py-1.5 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded "
+                          className="inline-block px-3 py-1.5 border-blue-500 border  text-blue-600 font-bold rounded "
                         >
                           Details
                         </Link>
-                      </div>
-                    </div>
-                    {error && <p className="text-red-500 font-bold">{error}</p>}{" "}
-                  </div>
-                ))}
+                      </td>
+                    </tr>
+                  ))}
+              </table>
             </div>
-          </>
+          </div>
         )}
       </div>
       <Pagination

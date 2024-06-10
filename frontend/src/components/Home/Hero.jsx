@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import image from "../../assets/pngwing.com.png";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -8,6 +8,45 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import img from "../../assets/background image/pexels-vlada-karpovich-4050315.jpg";
 const Hero = () => {
+  const [courses, setCourses] = useState({})
+  const [users, setUsers] = React.useState([]);
+  const [error, setError] = useState(null);
+  const [student, setStudent] = useState([])
+  const [instructor, setInstructor] = useState([])
+
+  React.useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("/api/user/users");
+        const data = await response.json();
+        const filteredStudent = data.filter((course) => course.role == 'student');
+        const filteredInstructor = data.filter((course) => course.role == 'instructor');
+        setStudent(filteredStudent)
+        setInstructor(filteredInstructor)
+        setUsers(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUsers();
+  }, [users]);
+
+
+  React.useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch("/api/courses/courses");
+        const data = await response.json();
+        setCourses(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchCourses();
+  }, [courses]);
+
   return (
     <div className="dark:bg-gray-800 ">
       <div
@@ -56,7 +95,7 @@ const Hero = () => {
           </div>
           <div>
             <h1>Courses</h1>
-            <h1>10</h1>
+            <h1>{courses.length}</h1>
           </div>
         </div>
         <div className="flex flex-col items-center w-[170px] text-center gap-4  rounded-lg bg-slate-200 p-7">
@@ -65,7 +104,7 @@ const Hero = () => {
           </div>
           <div>
             <h1>Students</h1>
-            <h1>10</h1>
+            <h1>{student.length}</h1>
           </div>
         </div>
         <div className="flex flex-col items-center w-[170px] text-center gap-4  rounded-lg bg-slate-200 p-7">
@@ -74,7 +113,7 @@ const Hero = () => {
           </div>
           <div>
             <h1>Instructors</h1>
-            <h1>10</h1>
+            <h1>{instructor.length}</h1>
           </div>
         </div>
       </div>
