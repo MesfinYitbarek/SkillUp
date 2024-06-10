@@ -95,7 +95,7 @@ const Quiz = () => {
               )}
             </div>
           ) : (
-            <div className=" p-10 m-10  text-2xl text-red-500 bg-slate-50">Quiz not found</div>
+            <div className=" p-10 m-10  text-2xl text-blue-600 font-bold bg-slate-50">Quiz not found</div>
           )}
 
           {isStarted && (

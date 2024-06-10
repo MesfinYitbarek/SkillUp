@@ -102,7 +102,7 @@ console.log(isUserEnrolled)
       <Header />
       {course ? (
         <div>
-          <div className=" flex flex-col gap-4 h-[300px] justify-center pl-20 bg-sky-950 text-white">
+          <div className=" flex flex-col gap-4  py-14 justify-center pl-20 bg-sky-950 text-white">
             <div>
               <button className=" bg-green-500 text-white px-5 rounded-2xl py-0.5 mb-2">
                 {course.catagory}

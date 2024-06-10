@@ -26,7 +26,7 @@ const handleSignout = async () => {
     <div>
       <span
         onClick={handleSignout}
-        className=" cursor-pointer font-bold text-purple-500"
+        className=" cursor-pointer  "
       >
         Log Out <LogoutIcon />{" "}
       </span>

@@ -52,12 +52,12 @@ const InstructorLesson = () => {
           <div className=" m-10 flex flex-col justify-center items-center">
             <div>
             <Link to={`/create-lesson/${courseId}`} 
-                        className=" border-blue-600 text-blue-600 border bg-blue-50 p-1 px-3  text-center mt-4 rounded-sm"
+                        className=" border-blue-600 text-blue-600 border p-1 px-3  text-center mt-4 rounded-sm"
                         >Create Lesson</Link>
             </div>
             <table className="  text-sky-900   border-separate border-spacing-y-2 min-w-[800px]">
               <tr className=" ">
-                <td className=" text-blue-700 font-bold text-xl ">
+                <td className=" text-blue-600 font-bold text-xl ">
                  Lessons 
                 </td>
                 <td></td>

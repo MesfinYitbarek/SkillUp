@@ -40,7 +40,6 @@ const SignIn = () => {
       }
       dispatch(signInSuccess(data));
       navigate("/");
-    
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
@@ -50,7 +49,7 @@ const SignIn = () => {
     <div className=" dark:bg-gray-800 bg-slate-50">
       <Header />
       <div className=" flex justify-center items-center">
-        <div className="  shadow-sm  dark:bg-gray-400  p-[2%] rounded-2xl sm:w-[650px] bg-slate-50  border border-slate-300  m-[3%]">
+        <div className="  shadow-sm flex flex-col justify-center items-center dark:bg-gray-400  p-[2%] rounded-2xl sm:w-[650px] bg-slate-50  border border-slate-300  m-[3%]">
           <h1 className=" m-3  font-serif sm:text-[22px] text-sky-900">
             Hi, Welcome back!
           </h1>
@@ -83,7 +82,7 @@ const SignIn = () => {
             >
               {loading ? "Loading..." : "Sign In"}
             </button>
-            <GAuth/>
+            <GAuth />
           </form>
           <div className=" flex gap-2 sm:text-[17px] justify-center mt-2">
             <p>Dont have an account?</p>
@@ -91,7 +90,7 @@ const SignIn = () => {
               <span className=" text-blue-600 underline">Sign Up</span>
             </Link>
           </div>
-          {error && <p className=" text-red-500 mt-5">{error}</p>}
+          <div className=" bg-rose-50 pl-10 py-1 w-[75%] mt-4  border rounded-md border-red-500">{error && <p className=" text-red-500 ">{error}</p>}</div>
         </div>
       </div>
       <Footer />

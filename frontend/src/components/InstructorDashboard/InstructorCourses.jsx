@@ -13,7 +13,7 @@ const InstructorCourse = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [coursesPerPage] = useState(6); // 6 courses per page
   const [error, setError] = useState(null);
-
+  const [expandedCourse, setExpandedCourse] = useState(null);
   useEffect(() => {
     setTimeout(() => {
       try {
@@ -48,7 +48,7 @@ const InstructorCourse = () => {
     if (currentUser && currentUser._id) {
       fetchCourses();
     }
-  }, [currentUser,courses]);
+  }, [currentUser, courses]);
 
   const handleCourseDelete = async (courseid) => {
     try {
@@ -72,6 +72,10 @@ const InstructorCourse = () => {
     setCurrentPage(newPage);
   };
 
+  const handleToggleDescription = (courseId) => {
+    setExpandedCourse((prev) => (prev === courseId ? null : courseId));
+  };
+
   // Get the current page courses
   const slicedCourses = courses.slice(
     coursesPerPage * (currentPage - 1),
@@ -82,9 +86,7 @@ const InstructorCourse = () => {
     <div className="px-16 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-4">
         {error ? (
-          <p className="text-red-500 text-center">
-            {error}
-          </p>
+          <p className="text-red-500 text-center">{error}</p>
         ) : isLoading ? (
           <Box
             sx={{
@@ -104,7 +106,7 @@ const InstructorCourse = () => {
                 slicedCourses.map((course) => (
                   <div
                     key={course._id}
-                    className="bg-white rounded-2xl border border-slate-300 overflow-hidden hover:bg-purple-300 shadow-purple-400 p-4"
+                    className="bg-white rounded-2xl border border-slate-300 overflow-hidden  p-4"
                   >
                     <img
                       src={course.imageUrl}
@@ -117,8 +119,26 @@ const InstructorCourse = () => {
                           {course.title}
                         </h3>
                       </div>
-                      <p className="dark:text-white font-semibold text-blue-950 mb-2">
-                        {course.description}
+                      <p className="dark:text-white cursor-pointer font-semibold text-blue-950 mb-2">
+                        {expandedCourse === course._id ? (
+                          <span
+                            onClick={() => handleToggleDescription(course._id)}
+                          >
+                            {course.description}
+                          </span>
+                        ) : (
+                          <span
+                            className="line-clamp-2"
+                            onClick={() => handleToggleDescription(course._id)}
+                          >
+                            {course.description}
+                            {course.description.length > 100 && (
+                              <span className="text-blue-500 cursor-pointer">
+                                ...Read more
+                              </span>
+                            )}
+                          </span>
+                        )}
                       </p>
                       <div className="flex justify-between items-center mt-2 mb-3">
                         <span className="dark:text-white text-gray-700 text-sm">
@@ -143,35 +163,35 @@ const InstructorCourse = () => {
                       <div className="flex justify-between items-center">
                         <Link
                           to={`/courseDetails/${course._id}`}
-                          className="inline-block px-3 py-1.5 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded "
+                          className="inline-block px-3 py-1 border-blue-800 border  text-blue-800  font-bold rounded "
                         >
                           Details
                         </Link>
                         <button
                           disabled={loading}
                           onClick={() => handleCourseDelete(course._id)}
-                          className="px-3 py-1.5 border-red-500 border bg-red-50 text-red-600 font-bold rounded mt-1"
+                          className="px-3 py-1 border-red-500 border  text-red-600 font-bold rounded mt-1"
                         >
                           {loading ? "Loading..." : "Delete"}
                         </button>
                         <Link to={`/course-edit/${course._id}`}>Edit</Link>
                       </div>
-                      <div  className=" mt-4 flex  gap-6 items-center">
-        
-                      
-                      <Link
-                          to={`/course-lessons/${course._id}`} state={course.title}
-                          className="  px-3 py-1 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded "
+                      <div className=" mt-4 flex  gap-6 items-center">
+                        <Link
+                          to={`/course-lessons/${course._id}`}
+                          state={course.title}
+                          className="  px-3 py-1 border-blue-800 0 border  text-blue-800  font-bold rounded "
                         >
                           Lesson
                         </Link>
                         <Link
-                          to={`/students/${course._id}`} state={course.title}
-                          className="  px-3 py-1 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded "
+                          to={`/students/${course._id}`}
+                          state={course.title}
+                          className="  px-3 py-1 border-blue-800  border  text-blue-800  font-bold rounded "
                         >
                           Students
                         </Link>
-                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -181,7 +201,7 @@ const InstructorCourse = () => {
                 count={Math.ceil(courses.length / coursesPerPage)} // Total pages based on courses and per page limit
                 page={currentPage}
                 onChange={handlePageChange}
-                color="primary" 
+                color="primary"
               />
             </div>
           </>

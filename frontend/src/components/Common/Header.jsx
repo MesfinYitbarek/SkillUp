@@ -104,7 +104,7 @@ const Header = () => {
               />
             </svg>
           </button>
-          <Link to={"/"} className="flex items-center gap-2 text-sky-600 font-bold text-2xl sm:text-3xl">
+          <Link to={"/"} className="flex items-center gap-2 text-sky-600 font-extrabold text-2xl sm:text-3xl">
             <span className=" -mr-2 text-4xl ml-8">S</span>kill
             <span className="text-black dark:text-white -ml-2">Up.</span>
           </Link>

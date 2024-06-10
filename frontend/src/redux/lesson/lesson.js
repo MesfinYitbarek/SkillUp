@@ -12,9 +12,9 @@ const lessonAndQuizSlice = createSlice({
   name: "lessonAndQuiz",
   initialState,
   reducers: {
-    // Lesson Actions
+    
     setLessonId(state, action) {
-      state.lessons = [action.payload]; // Assuming lessonId is in the payload
+      state.lessons = [action.payload]; 
     },
     setLessons(state, action) {
       state.lessons = action.payload;

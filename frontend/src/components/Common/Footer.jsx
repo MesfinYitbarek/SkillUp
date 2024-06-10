@@ -73,7 +73,7 @@ const Footer = () => {
     navigate(`/courses/${catagoryName}`); 
   };
   return (
-    <div className="bg-sky-950 w-full text-white flex flex-col justify-between items-center p-8 gap-3">
+    <div className="bg-sky-950  w-full text-white flex flex-col justify-between items-center p-8 gap-3">
       <div className=" pb-2  sm:flex justify-between pt-6  gap-20 text-white">
         <div className="sm:w-auto pb-2 lg:w-[400px]  ">
           <Link

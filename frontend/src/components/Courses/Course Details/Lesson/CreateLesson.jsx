@@ -121,17 +121,11 @@ const CreateLesson = () => {
       <div className=" fixed top-0 left-0 right-0">
         <Header />
       </div>
-      <div className="mt-24 flex justify-center items-center">
+      <div className="mt-32 flex justify-center items-center">
         <div
-          style={{
-            backgroundImage: `url(${img})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            //filter: "brightness(0.5)",
-          }}
-          className="text-blue-600 container mx-auto p-14 w-[70%] my-12 bg-white rounded-lg"
+         
+          className="text-blue-600 container mx-auto p-14 w-[50%] my-12 bg-white shadow-md rounded-lg"
         >
-          <h2 className="text-2xl font-bold mb-4">Create Lesson</h2>
 
           {lessons.map((lesson, index) => (
             <div key={index} className="mb-6 p-4 border rounded-lg">
@@ -140,12 +134,12 @@ const CreateLesson = () => {
                   htmlFor={`title-${index}`}
                   className="block text-gray-700 font-bold mb-2"
                 >
-                  Title:
+                 Lesson title:
                 </label>
                 <input
                   type="text"
                   id={`title-${index}`}
-                  placeholder="Lesson title"
+
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   value={lesson.title}
                   onChange={(e) =>
@@ -162,7 +156,7 @@ const CreateLesson = () => {
                   Description:
                 </label>
                 <textarea
-                  placeholder="Short description about the lesson. Less than 100 words."
+
                   id={`description-${index}`}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   value={lesson.description}

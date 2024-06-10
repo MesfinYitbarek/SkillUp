@@ -25,15 +25,16 @@ const Profile = () => {
       >
         <Header />
         <div>
-          <div className="  text-center mt-4 sm:mt- text-2xl sm:text-5xl">
+          <div className="  ml-24 mt-3 font-extrabold sm:mt- text-2xl sm:text-3xl">
             <h1>
               Hi,{" "}
-              <span className=" text-purple-500">{currentUser.username}</span>
+              <span className=" text-blue-500">{currentUser.username}</span>
             </h1>
           </div>
 
           <div className=" sm:flex flex flex-col sm:flex-row sm:mb-8 items-center sm:gap-6 lg:gap-64">
-            <div className=" bg-white px-5 mt-10  py-6 text-center rounded-lg sm:ml-36 border border-slate-300 shadow-md w-[260px] sm:w-[350px]  sm:h-[400px] ">
+            
+            <div className=" bg-white px-5 mt-5  py-6 text-center rounded-lg sm:ml-36 border border-slate-300 shadow-md w-[260px] sm:w-[350px]  ">
               <div className=" mb-4 font-semibold text-xl text-blue-800">
                 <h1>Personal Details</h1>
               </div>
@@ -46,7 +47,7 @@ const Profile = () => {
                 <h2 className=" text-3xl font-bold">{currentUser.username}</h2>
               </div>
               <hr />
-              <div className=" mt-12 text-lg text-blue-600 font-semibold">
+              <div className=" mt-5 text-lg text-blue-600 font-semibold">
                 <Link
                   to={"/update-profile"}
                   className="   hover:bg-blue-500 hover:text-white border rounded-md border-blue-600  p-1.5 px-4"

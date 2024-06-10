@@ -111,7 +111,7 @@ const CourseListing = ({
         ) : (
           <>
             <div className=" dark:text-white flex justify-between items-center mb-4">
-              <FormControl variant="outlined" className="  w-20 mr-4">
+              <FormControl variant="outlined" className="  w-24 mr-4">
                 <InputLabel className=" dark:text-white">Sort By</InputLabel>
                 <Select
                   value={sortBy}

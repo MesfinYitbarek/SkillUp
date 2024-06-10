@@ -122,7 +122,7 @@ const DiscussionForum = ({ lessonId }) => {
                     </div>
                   </div>
                 </div>
-                <ul className=" mt-2 ml-12 text-sm">
+                <ul className=" flex flex-col gap-2 mt-2 ml-12 text-sm">
                   {comment.replies &&
                     comment.replies.map((reply) => (
                       <li key={reply._id} className="flex gap-2 items-center">
