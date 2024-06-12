@@ -103,7 +103,7 @@ const Courses = () => {
                         <CheckBoxOutlineBlankIcon />
                       </td>
                       <td className=" pr-20">
-                        <img src={data.instructorImg} alt="" />
+                        <img src={data.instructorImg} alt="0mq a9s2" />
                         {data.title}
                       </td>
                       <td className=" px-20">{data.instructor}</td>
