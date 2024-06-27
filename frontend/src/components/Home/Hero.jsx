@@ -58,7 +58,7 @@ const Hero = () => {
           backgroundPosition: "center",
           height: "screen",
           width: "100%",
-          filter: "brightness(0.6)",
+          filter: "brightness(0.7)",
         }}
         className="h-[600px] sm:h-screen "
       ></div>
@@ -68,10 +68,10 @@ const Hero = () => {
             data-aos="zoom-in"
             data-aos-duration="500"
             data-aos-once="true"
-            className="text-5xl w-[60%] sm:text-7xl font-bold text-white dark:text-white"
+            className="text-5xl mb-6 w-[60%] sm:text-7xl font-bold text-white dark:text-white"
           >
-            The Future of{" "}
-            <span className="text-blue-600">Online Learning</span> is Here.
+            The <span className=" text-blue-00"> Future</span> of{" "}
+            <span className=" text-blue-00 ">Online Learning</span> is <span className=" "> Here.</span>
           </h1>
 
           <button
@@ -79,7 +79,7 @@ const Hero = () => {
             data-aos-delay="300"
             className="hover:bg-white hover:text-sky-950 hover:border-2
                       hover:border-sky-800 font-semibold dark:bg-white dark:text-blue-900  
-                      bg-blue-600 mt-9 text-white p-2 px-4 rounded-md"
+                      bg-blue-800 mt-9 text-white p-2 px-4 rounded-md"
           >
             <Link to={"/courses"}>
               Explore Courses <ArrowForwardIcon />
@@ -87,9 +87,9 @@ const Hero = () => {
           </button>
         </div>
       </div>
-      <div className="dark:bg-gray-800 flex mt-10 mb-5 pb-10 justify-between text-center text-blue-950 font-bold text-lg items-center px-2 sm:px-32 h-[200px]  shadow-xl">
+      <div className="dark:bg-gray-800 flex mt-10 mb-5 pb-10 justify-between text-center text-blue-800 font-bold text-lg items-center px-2 sm:px-32 h-[200px]  shadow-xl">
         <div ref={coursesRef} className="flex flex-col items-center sm:w-[170px] text-center gap-4 rounded-lg bg-slate-200 p-7">
-          <div className="bg-slate-100 text-blue-500 p-2 rounded-full h-[50px] w-[50px]">
+          <div className="bg-slate-100 text-blue-800 p-2 rounded-full h-[50px] w-[50px]">
             <PlayCircleIcon fontSize="large" />
           </div>
           <div>
@@ -99,8 +99,9 @@ const Hero = () => {
             </h1>
           </div>
         </div>
+        
         <div ref={studentsRef} className="flex flex-col items-center w-[170px] text-center gap-4 rounded-lg bg-slate-200 p-7">
-          <div className="bg-slate-100 text-blue-500 p-2 rounded-full h-[50px] w-[50px]">
+          <div className="bg-slate-100 text-blue-800 p-2 rounded-full h-[50px] w-[50px]">
             <SchoolIcon />
           </div>
           <div>
@@ -111,7 +112,7 @@ const Hero = () => {
           </div>
         </div>
         <div ref={instructorsRef} className="flex flex-col items-center w-[170px] text-center gap-4 rounded-lg bg-slate-200 p-7">
-          <div className="bg-slate-100 text-blue-500 p-2 rounded-full h-[50px] w-[50px]">
+          <div className="bg-slate-100 text-blue-800 p-2 rounded-full h-[50px] w-[50px]">
             <GroupIcon fontSize="large" />
           </div>
           <div>

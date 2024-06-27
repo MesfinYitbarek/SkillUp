@@ -89,7 +89,7 @@ const CourseListing = ({
   return (
     <div className="pr-4 dark:bg-gray-800">
       <div className="container mx-auto px-4 pb-8">
-        <h2 className="dark:text-white text-3xl text-sky-800 font-semibold sm:mb-24 mb-8 text-center">
+        <h2 className="dark:text-white text-3xl text-blue-800 font-semibold sm:mb-24 mb-8 text-center">
           Explore Our Courses
         </h2>
 
@@ -195,7 +195,7 @@ const CourseListing = ({
                       <div className=" flex justify-between items-center">
                         <Link
                           to={`/courseDetails/${course._id}`}
-                          className="inline-block px-3 py-1.5 border-blue-500 border  text-blue-600 font-bold rounded mt-4"
+                          className="inline-block px-3 py-1.5 border-blue-800 border  text-blue-800 font-bold rounded mt-4"
                         >
                           Details
                         </Link>

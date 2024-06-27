@@ -38,21 +38,21 @@ const ContactDisplay = () => {
   return (
     <div className="  pt-10 flex justify-center items-center">
       <div className=" bg-white rounded-md mt-12 px-10 py-4">
-        <table className="  text-sky-900   border-separate border-spacing-y-2 min-w-[600px]">
+        <table className="  text-blue-800   border-separate border-spacing-y-2 min-w-[600px]">
           <tr className=" ">
-            <td className=" text-blue-700 font-bold text-xl ">Messsages</td>
+            <td className=" text-blue-800 font-bold text-xl ">Messsages</td>
             <td></td>
             <td ></td>
             <td></td>
           </tr>
-          <tr className=" bg-blue-400   font-semibold text-white ">
+          <tr className=" bg-blue-800   font-semibold text-white ">
             <td className="p-2">Name</td>
             <td>Email</td>
             <td>Message</td>
             <td></td>
           </tr>
           {contact.map((data) => (
-            <tr className=" even:bg-slate-100 ">
+            <tr className=" hover:bg-gray-200 ">
               <td className=" p-1">{data.name}</td>
               <td>{data.email}</td>
               <td>{data.message}</td>

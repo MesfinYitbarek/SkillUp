@@ -41,10 +41,10 @@ const EditCategory = () => {
 
   return (
     <div className="bg-slate-100 flex justify-center min-h-screen items-center">
-      <div className=" bg-white border-l-8 border-l-blue-600 rounded-md mt-12 px-10 py-4">
+      <div className=" bg-white border-l-8 border-l-blue-800 rounded-md mt-12 px-10 py-4">
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleSubmit}>
-          <h2 className="text-blue-700 font-bold text-xl mb-4">Edit Category</h2>
+          <h2 className="text-blue-800 font-bold text-xl mb-4">Edit Category</h2>
           <div className="mb-4">
             <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
               Name:
@@ -73,7 +73,7 @@ const EditCategory = () => {
           </div>
           <button
             type="submit"
-            className="border text-blue-600 hover:bg-blue-500 hover:text-white border-blue-600 px-4 py-1 mr-1 font-semibold"
+            className="border text-blue-800 hover:bg-blue-500 hover:text-white border-blue-800 px-4 py-1 mr-1 font-semibold"
           >
             Update Category
           </button>

@@ -8,7 +8,7 @@ const review = () => {
         <h2 className="  sm:mb-24 mb-8 text-center ">
           <div class="flex items-center">
             <hr class="flex-grow border-gray-400 h-px" />
-            <div class="mx-auto px-4 text-4xl text-blue-500 font-semibold">
+            <div class="mx-auto px-4 text-4xl text-blue-800 font-semibold">
               From the SkillUp community
             </div>
             <hr class="flex-grow border-gray-400 h-px" />

@@ -39,7 +39,7 @@ const Search = ({onSearch}) => {
                              dark:bg-gray-800"
           />
         </div>
-        <button type="submit" className=" bg-blue-500 text-white text-2xl  p-3 border-2 border-blue-500">
+        <button type="submit" className=" bg-blue-800 text-white text-2xl  p-3 border-2 border-blue-800">
           <IoMdSearch
             className="
            group-hover:primary

@@ -49,7 +49,7 @@ const CreateCatagory = () => {
       <form
         onSubmit={handleSubmit}
         action=""
-        className=" rounded-md border-l-8 border-l-blue-500 bg-white  p-24  flex flex-col justify-between items-center gap-6 "
+        className=" rounded-md border-l-8 border-l-blue-800 bg-white  p-24  flex flex-col justify-between items-center gap-6 "
       >
         <Link to={"/admin"}>
         <ArrowBack/>
@@ -72,7 +72,7 @@ const CreateCatagory = () => {
         <button
           disabled={loading}
           type="submit"
-          className="sm:w-[450px]  font-semibold hover:bg-white hover:text-blue-600 hover:border hover:border-blue-400  p-2 px-6 rounded-lg text-white bg-blue-600"
+          className="sm:w-[450px]  font-semibold hover:bg-white hover:text-blue-800 hover:border hover:border-blue-800  p-2 px-6 rounded-lg text-white bg-blue-800"
         >
           {loading ? "Loading..." : "Create Catagory"}
         </button>

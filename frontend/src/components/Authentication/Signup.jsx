@@ -97,7 +97,7 @@ const Signup = () => {
           <div className=" flex gap-2 sm:text-[17px] justify-center mt-2">
             <p>Already have an account?</p>
             <Link to={"/sign-in"}>
-              <span className=" text-blue-600 underline">Sign In</span>
+              <span className=" text-blue-800 underline">Sign In</span>
             </Link>
           </div>
           {error && <p className=" text-red-500 mt-5">{error}</p>}

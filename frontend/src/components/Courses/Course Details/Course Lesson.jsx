@@ -109,13 +109,13 @@ const CourseLesson = () => {
   }
 
   return (
-    <div className=" dark:bg-gray-800 dark:text-white flex min-h-screen">
-      <div className="fixed top-0 left-0 w-full bg-white z-10">
+    <div className=" dark:bg-gray-800 dark:text-white  min-h-screen">
+      <div className="  top-0 left-0 w-full bg-white z-10">
         <Header />
-        <div className="relative bg-blue-900 h-1 z-50"></div>
+        <div className="relative bg-blue-800 h-1 z-50"></div>
       </div>
-
-      <div className="fixed top-[139px] left-0 h-full w-[200px] border-gray-300 bg-slate-100 z-10 p-4 dark:bg-gray-500 dark:text-white overflow-y-scroll">
+  <div className=" flex gap-3">
+      <div className=" border-gray-300 bg-slate-100 z-10 p-4 dark:bg-gray-500 dark:text-white overflow-y-scroll">
         <h1>{}</h1>
         {lessons.map((lesson, index) => (
           <div>
@@ -124,7 +124,7 @@ const CourseLesson = () => {
               onClick={() => handleLessonClick(lesson._id)}
               className={`block w-full text-left py-2 px-2 text-sm rounded-md hover:bg-gray-200 ${
                 selectedLesson && selectedLesson._id === lesson._id
-                  ? "text-white font-bold bg-blue-600"
+                  ? "text-white font-bold bg-blue-800 hover:bg-blue-900"
                   : ""
               }`}
             >
@@ -133,12 +133,12 @@ const CourseLesson = () => {
           </div>
         ))}
         <div className=" flex flex-col gap-5  font-bold mt-5">
-          <Link to={`/course/${courseId}/grades`} >Grades</Link>
-          <Link>Assesments</Link>
+          <Link to={`/course/${courseId}/grades`} className=" bg-blue-800 p-1 rounded-md text-white text-center" >Grade</Link>
+          <Link className=" bg-blue-800 p-1 rounded-md text-white text-center ">Assesment</Link>
         </div>
       </div>
 
-      <div className=" flex flex-col justify-center items-center mx-auto mt-28">
+      <div className=" flex flex-col justify-center items-center mx-auto ">
         {selectedLesson && (
           <div key={selectedLesson._id} className="mb-6">
             <div className="flex gap-14">
@@ -149,7 +149,7 @@ const CourseLesson = () => {
                       Completed
                     </div>
                   ) : (
-                    <div className="text-blue-500 rounded-md w-[30%]  p-1 px-4 border-2 border-blue-600 text-xl font-bold">
+                    <div className="text-blue-800 rounded-md w-[30%]  p-1 px-4 border-2 border-blue-800 text-xl font-bold">
                       Progress: {Math.round(progress)}%
                     </div>
                   )}
@@ -210,7 +210,7 @@ const CourseLesson = () => {
                   </Link>
                   <Link
                     to={`/lessons/${selectedLesson._id}/assignment`}
-                    className=" sticky bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className=" sticky bg-blue-800 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   >
                     Assignment
                   </Link>
@@ -219,6 +219,7 @@ const CourseLesson = () => {
             </div>
           </div>
         )}
+      </div>
       </div>
     </div>
   );

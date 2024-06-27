@@ -4,6 +4,9 @@ import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
+import { Check, PlusOne } from "@mui/icons-material";
+import { FaPlus } from "react-icons/fa6";
+import { Checkbox } from "@mui/material";
 const InstructorLesson = () => {
   const { currentUser } = useSelector((state) => state.user);
   const { courseId } = useParams();
@@ -50,26 +53,26 @@ const InstructorLesson = () => {
         </div>
         <div>
           <div className=" m-10 flex flex-col justify-center items-center">
-            <div>
+            <div className=" ">
             <Link to={`/create-lesson/${courseId}`} 
-                        className=" border-blue-600 text-blue-600 border p-1 px-3  text-center mt-4 rounded-sm"
-                        >Create Lesson</Link>
+                        className=" flex justify-center items-center gap-2 font-bold border-blue-800 text-blue-800 border p-1 px-3  text-center mt-4 rounded-sm"
+                        ><FaPlus/> Create Lesson</Link>
             </div>
-            <table className="  text-sky-900   border-separate border-spacing-y-2 min-w-[800px]">
+            <table className="  text-blue-800   border-separate border-spacing-y-2 min-w-[800px]">
               <tr className=" ">
-                <td className=" text-blue-600 font-bold text-xl ">
-                 Lessons 
-                </td>
+                
                 <td></td>
               </tr>
-              <tr className=" bg-blue-400   font-semibold text-white ">
-                <td className="p-2">Lesson Title</td>
+              <tr className=" bg-blue-800   font-semibold text-white ">
+                <td className="p-3 font-semibold">Lesson Title</td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
               </tr>
               {lessons.map((data) => (
-                <tr className=" even:bg-slate-100 ">
-                  <td className=" p-1">{data.title}</td>
+                <tr className=" font-semibold hover:bg-gray-200 ">
+                  <td className=" py-1"> <Checkbox/>{data.title}</td>
                   <td><Link to={`/lesson-edit/${data._id}`}>Edit</Link></td>
                   <td><button onClick={() => handleDeleteLesson(data._id)}>Delete</button></td>
                   <td><Link to={`/quiz/${data._id}`}>Quiz</Link></td>

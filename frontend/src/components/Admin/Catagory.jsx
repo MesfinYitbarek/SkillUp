@@ -42,30 +42,30 @@ const Catagory = () => {
   return (
     <div className="  flex justify-center items-center pt-12 ">
       <div className=" bg-white rounded-md mt-12 px-10 py-4">
-        <table className="  text-sky-900   border-separate border-spacing-y-2 w-[600px]">
+        <table className="  text-blue-800   border-separate border-spacing-y-2 w-[600px]">
           <tr className=" ">
-            <td className=" text-blue-700 font-bold text-xl ">Catagories</td>
+            <td className=" text-blue-800 font-bold text-xl ">Catagories</td>
             <td></td>
             <td className=" text-center">
-              <Link to="/create-catagory" className=" border  text-purple-600 hover:bg-purple-500 hover:text-white border-purple-600 px-4 py-1 mr-1 font-semibold">
+              <Link to="/create-catagory" className=" border  text-blue-800 hover:bg-blue-900 hover:text-white border-blue-800 px-4 py-1 mr-1 font-semibold">
                 Add <ArrowRight />
               </Link>
             </td>
           </tr>
-          <tr className=" bg-blue-400   font-semibold text-white ">
+          <tr className=" bg-blue-800   font-semibold text-white ">
             <td className="p-2">Name</td>
             <td></td>
             <td></td>
           </tr>
           {catagory.map((data) => (
-            <tr className=" even:bg-slate-100 ">
+            <tr className=" hover:bg-gray-200 ">
               <td className=" p-1">{data.name}</td>
               <td className="    text-red-600    text-center">
                 <button onClick={() => handleDeleteCatagory(data._id)}>
                   Delete
                 </button>
               </td>
-              <td className=" text-center text-purple-600 ">
+              <td className=" text-center text-blue-800 ">
               <Link to={`/update-catagory/${data._id}`}>Edit</Link>
               </td>
             </tr>

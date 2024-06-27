@@ -108,7 +108,7 @@ const Contact = () => {
               whileTap={{ scale: 0.95 }}
               className="group dark:bg-sky-900 flex flex-col items-center dark:text-white text-sky-800 gap-6 pt-8 shadow-xl rounded-sm  hover:text-white hover:scale-110 hover:bg-gradient-to-r from-purple-500 to-blue-500 p-3 text-center h-[220px] w-[300px]   bg-white"
             >
-              <div className="border-2 dark:text-white text-purple-800 group-hover:border-white  group-hover:text-white  border-purple-800 p-2 h-[45px] w-[45px] rounded-full ">
+              <div className="border-2 dark:text-white text-blue-800 group-hover:border-white  group-hover:text-white  border-blue-800 p-2 h-[45px] w-[45px] rounded-full ">
                 <div className="">{data.icon}</div>
               </div>
               <div className="  font-semibold">
@@ -163,7 +163,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="bg-sky-700 hover:bg-white hover:text-sky-700 hover:border hover:border-sky-700 font-semibold  text-white px-4 py-3 rounded-sm focus:outline-none sm:w-[30%] mx-auto sm:mx-0"
+                className="bg-blue-800 hover:bg-white hover:text-blue-800 hover:border hover:border-blue-800 font-semibold  text-white px-4 py-3 rounded-sm focus:outline-none sm:w-[30%] mx-auto sm:mx-0"
               >
                 Send Message
               </button>

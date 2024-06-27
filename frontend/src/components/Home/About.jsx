@@ -5,10 +5,10 @@ import { ArrowForward } from "@mui/icons-material";
 const About = () => {
   return (
     <div>
-      <div className="dark:bg-gray-800 dark:text-white h-screen px-14 sm:px-20 flex gap-24  justify-between items-center  ">
+      <div className="dark:bg-gray-800 bg-gray-50 rounded-xl m-10 dark:text-white h-screen px-14 sm:px-20 flex gap-24  justify-between items-center  ">
         <img
           data-aos="zoom-in"
-          data-aos-delay="200"
+          data-aos-delay="50"
           data-aos-once="true"
           className=" mt-10 md:flex  hidden max-w-[500px]"
           src={image3}
@@ -27,7 +27,7 @@ const About = () => {
           </h5>
           <p>Empowering Lifelong Learners.</p>
           <Link to={"/sign-in"}>
-            <button className=" p-3 px-5 bg-blue-600 text-xl my-7 rounded-lg hover:bg-transparent hover:border-2 text-white hover:text-blue-600 hover:border-blue-600 ">
+            <button className=" p-3 px-5 bg-blue-800 text-xl my-7 rounded-lg hover:bg-transparent hover:border-2 text-white hover:text-blue-800 hover:border-blue-800 ">
               Join For Free <ArrowForward />
             </button>
           </Link>

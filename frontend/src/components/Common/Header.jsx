@@ -73,7 +73,7 @@ const Header = () => {
   return (
     <header className="">
       <div>
-        <div className=" hidden text-sm sm:flex justify-between items-center bg-blue-900 py-2 text-white px-16 pr-36">
+        <div className=" hidden text-sm sm:flex justify-between items-center dark:bg-gray-700  bg-blue-800 py-2 text-white px-16 pr-36">
           <div className=" items-center flex gap-5">
             <h1><PhoneIcon fontSize="small"/>+2519-75364420</h1>
              <h1><EmailIcon fontSize="small"/> skillup@gmail.com</h1>
@@ -104,7 +104,7 @@ const Header = () => {
               />
             </svg>
           </button>
-          <Link to={"/"} className="flex items-center gap-2 text-blue-600 font-extrabold text-2xl sm:text-3xl">
+          <Link to={"/"} className="flex items-center gap-2 text-blue-800 font-extrabold italic text-2xl sm:text-3xl">
             <span className=" -mr-2 text-4xl ml-8">S</span>kill
             <span className="text-black dark:text-white -ml-2">Up.</span>
           </Link>
@@ -113,10 +113,10 @@ const Header = () => {
         <div className="flex items-center gap-4">
           {/* Mobile Menu */}
           <div className={`sm:hidden fixed top-0 left-0 z-50 bg-white dark:bg-gray-800 p-4 shadow-md w-[30%] h-screen overflow-y-auto ${showMenu ? 'block' : 'hidden'}`}>
-            <ul className="flex flex-col gap-4 text-sky-900 dark:text-white">
+            <ul className="flex flex-col gap-4 text-blue-800 dark:text-white">
               {Menu.map((data) => (
                 <li key={data.id} className="hover:bg-slate-200">
-                  <Link to={data.link} className="hover:text-blue-600 group font-mono" onClick={toggleMenu}>
+                  <Link to={data.link} className="hover:text-blue-800 group font-mono" onClick={toggleMenu}>
                     <span className="bg-left-bottom bg-gradient-to-r from-sky-500 to-sky-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                       {data.name}
                     </span>
@@ -131,7 +131,7 @@ const Header = () => {
             <ul className="flex flex-row sm:gap-10 items-center text-sky-900 dark:text-white">
               {Menu.map((data) => (
                 <li key={data.id} className="hover:bg-slate-100">
-                  <Link to={data.link} className="hover:text-blue-600 group font-mono">
+                  <Link to={data.link} className="hover:text-blue-800 group font-mono">
                     <span className="bg-left-bottom bg-gradient-to-r from-sky-500 to-sky-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                       {data.name}
                     </span>
@@ -140,7 +140,7 @@ const Header = () => {
               ))}
               <li className="group relative bg-white dark:bg-gray-600 cursor-pointer border-2 py-1/2 px-9">
                 <a href="#" className="object-cover flex items-center gap-[2px] py-1">
-                  <DashboardIcon className="-ml-4 mr-1 text-blue-600" />
+                  <DashboardIcon className="-ml-4 mr-1 text-blue-800" />
                   Catagories
                   <span>
                     <FaCaretDown className="transition-all duration-200 group-hover:rotate-180 ml-3" />
@@ -203,7 +203,7 @@ const Header = () => {
             ) : (
               <div className=" mr-10">
               <Stack spacing={2} direction="row" className="mt-4 sm:mt-0">
-                <Button variant="contained">Login</Button>
+                <Button variant="contained" >Login</Button>
               </Stack>
               </div>
             )}

@@ -102,7 +102,7 @@ console.log(isUserEnrolled)
       <Header />
       {course ? (
         <div>
-          <div className=" flex flex-col gap-4  py-14 justify-center pl-20 bg-sky-950 text-white">
+          <div className=" flex flex-col gap-4  py-14 justify-center pl-20 bg-blue-900 text-white">
             <div>
               <button className=" bg-green-500 text-white px-5 rounded-2xl py-0.5 mb-2">
                 {course.catagory}
@@ -132,16 +132,16 @@ console.log(isUserEnrolled)
                 <Star className="text-yellow-400" /> {course.rating}
               </h1>
             </div>
-            <div className=" rounded-md text-sky-900 absolute top-72 right-12 p-9 min-w-[260px] bg-slate-100 ">
+            <div className=" rounded-md text-blue-800 absolute top-72 right-12 p-9 min-w-[260px] bg-slate-100 ">
               <div className=" py-3 flex flex-col font-bold bg-slate-100 gap-3">
                 {course.isPaid ? (
                   <div className=" flex flex-col">
-                    <span className="text-blue-600 text-xl mb-3 font-bold">
+                    <span className="text-blue-800 text-xl mb-3 font-bold">
                       &#8377; {course.price}
                     </span>
                     {isUserEnrolled ? (
                       <button
-                        className=" bg-blue-500 text-white rounded-md px-3 py-2 "
+                        className=" bg-blue-800 text-white rounded-md px-3 py-2 "
                         onClick={() => navigate(`/course-lesson/${courseId}`)}
                       >
                         Continue
@@ -149,7 +149,7 @@ console.log(isUserEnrolled)
                     ) : (
                       <button
                         onClick={() => alert("Not available for now!")}
-                        className=" bg-blue-500 text-white rounded-md px-3 py-2 "
+                        className=" bg-blue-800 text-white rounded-md px-3 py-2 "
                         disabled={loading}
                       >
                         {loading ? "Loading..." : "Enroll Now"}
@@ -164,7 +164,7 @@ console.log(isUserEnrolled)
 
                     {isUserEnrolled ? (
                       <button
-                        className=" bg-blue-500 text-white rounded-md px-3 py-2 "
+                        className=" bg-blue-800 text-white rounded-md px-3 py-2 "
                         onClick={() => navigate(`/course-lesson/${courseId}`)}
                       >
                         Continue
@@ -172,7 +172,7 @@ console.log(isUserEnrolled)
                     ) : (
                       <button
                         onClick={handleEnrollment}
-                        className=" bg-blue-500 text-white rounded-md px-3 py-2 "
+                        className=" bg-blue-800 text-white rounded-md px-3 py-2 "
                         disabled={loading}
                       >
                         {loading ? "Loading..." : "Enroll Now"}
@@ -222,19 +222,19 @@ console.log(isUserEnrolled)
           <div className="flex pl-16 text-2xl text-sky-950 font-semibold ">
             <button
               onClick={() => handleClick(1)}
-              className=" px-20 focus:border-b-blue-600 focus:text-blue-700 border-b-4 "
+              className=" px-20 focus:border-b-blue-600 focus:text-blue-800 border-b-4 "
             >
               Course Info
             </button>
             <button
               onClick={() => handleClick(2)}
-              className=" px-20 focus:border-b-blue-600 focus:text-blue-700 border-b-4 "
+              className=" px-20 focus:border-b-blue-600 focus:text-blue-800 border-b-4 "
             >
               Curriculam
             </button>
             <button
               onClick={() => handleClick(3)}
-              className=" h-16 px-20 focus:border-b-blue-600 focus:text-blue-700 border-b-4"
+              className=" h-16 px-20 focus:border-b-blue-600 focus:text-blue-800 border-b-4"
             >
               Reviews
             </button>

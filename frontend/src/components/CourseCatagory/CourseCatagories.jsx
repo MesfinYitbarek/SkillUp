@@ -45,8 +45,8 @@ const CourseCatagories = ({onCategoryChange}) => {
 
   return (
     <div className="  sm:mt-26  px-16 py-20">
-      <div className=" dark:bg-gray-700 dark:text-white bg-white shadow-md border-t-4 border-blue-600 container mx-auto px-6 p-10 min-w-[250px]">
-        <h1 className="  dark:text-white text-2xl text-sky-800 font-semibold sm:mb-6 mb-28 ">
+      <div className=" dark:bg-gray-700 dark:text-white bg-white shadow-md border-t-4 border-blue-800 container mx-auto px-6 p-10 min-w-[250px]">
+        <h1 className="  dark:text-white text-2xl text-blue-800 font-semibold sm:mb-6 mb-28 ">
           Catagory
         </h1>
         <div>

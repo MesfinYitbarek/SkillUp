@@ -108,9 +108,9 @@ const UpdateProfile = () => {
   return (
     <div className=" bg-slate-50">
       <Header />
-      <div className=" sm:p-20 p-10 py-12">
+      <div className=" sm:p-20 sm:py-7 p-10 py-12">
         <div className=" mb-5 sm:mb-10 gap-5 flex flex-col ">
-          <h1 className="sm:text-3xl  text-2xl font-semibold text-sky-700">
+          <h1 className="sm:text-3xl  text-2xl font-semibold text-blue-800">
             Personal details
           </h1>
           <p className=" sm:text-xl font-mono opacity-70">
@@ -151,14 +151,14 @@ const UpdateProfile = () => {
 
             <button
               onClick={() => fileRef.current.click()}
-              className=" bg-blue-600 p-1 px-3 rounded-md hover:bg-white hover:border hover:border-blue-600 font-semibold hover:text-blue-600  text-white"
+              className=" bg-blue-800 p-1 px-3 rounded-md hover:bg-white hover:border hover:border-blue-600 font-semibold hover:text-blue-600  text-white"
             >
               Change Photo
             </button>
             <div className=" mt-4 flex flex-col gap-3">
               <button
                 onClick={handleDeleteUser}
-                className=" bg-white-600 p-1 px-3 rounded-md border border-blue-600 hover:bg-blue-700 hover:text-white max-w-44  font-semibold  text-blue-600"
+                className=" bg-white-600 p-1 px-3 rounded-md border border-blue-800 hover:bg-blue-800 hover:text-white max-w-44  font-semibold  text-blue-800"
               >
                 <DeleteIcon /> Delete account{" "}
               </button>
@@ -166,14 +166,14 @@ const UpdateProfile = () => {
             </div>
           </div>
 
-          <div className=" flex flex-col gap-5 lg:w-[500px] bg-blue-100 border border-blue-500 rounded-lg p-8">
+          <div className=" flex flex-col gap-5 lg:w-[500px] bg- shadow-md border border-blue-800 rounded-lg p-8">
             <input
               type="text"
               defaultValue={currentUser.username}
               placeholder="Username"
               id="username"
               onChange={handleChange}
-              className=" focus:outline-none border text-blue-600 rounded-md border-blue-600 p-1.5 px-4"
+              className=" focus:outline-none border text-blue-800 rounded-md border-blue-800 p-1.5 px-4"
             />
             <input
               type="email"
@@ -181,20 +181,20 @@ const UpdateProfile = () => {
               placeholder="Email"
               id="email"
               onChange={handleChange}
-              className=" focus:outline-none  border text-blue-600 rounded-md border-blue-600 p-1.5 px-4"
+              className=" focus:outline-none  border text-blue-800 rounded-md border-blue-800 p-1.5 px-4"
             />
             <input
               type="password"
               placeholder="Password"
               id="password"
               onChange={handleChange}
-              className=" focus:outline-none  border text-blue-600 rounded-md border-blue-600 p-1.5 px-4"
+              className=" focus:outline-none  border text-blue-800 rounded-md border-blue-800 p-1.5 px-4"
             />
             <button
               disabled={loading}
               onClick={handleSubmit}
               type="submit"
-              className=" bg-blue-600 p-1 px-3 rounded-md hover:bg-blue-700   font-semibold  text-white"
+              className=" bg-blue-800 p-1 px-3 rounded-md hover:bg-blue-800   font-semibold  text-white"
             >
               {loading ? "Loading..." : "Update"}
             </button>

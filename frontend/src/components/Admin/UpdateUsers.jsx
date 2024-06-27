@@ -43,7 +43,7 @@ const EditUser = () => {
 
   return (
     <div className=" bg-slate-100 flex justify-center items-center min-h-screen">
-      <div className="w-full max-w-md p-8 rounded-md shadow-md border-l-8 border-l-blue-600 bg-white">
+      <div className="w-full max-w-md p-8 rounded-md shadow-md border-l-8 border-l-blue-800 bg-white">
         <h2 className="text-lg font-semibold mb-4">Edit User</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
@@ -106,7 +106,7 @@ const EditUser = () => {
           <div className="flex justify-end mt-4">
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+              className="px-4 py-2 bg-blue-800 text-white rounded-md hover:bg-blue-800 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
             >
               Save Changes
             </button>

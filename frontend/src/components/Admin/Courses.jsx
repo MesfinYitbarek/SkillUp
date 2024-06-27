@@ -85,32 +85,32 @@ const Courses = () => {
             <CircularProgress />
           </Box>
         ) : (
-          <div className=" bg-white px-6 py-1 mb-6">
+          <div className=" flex justify-center items-center bg-white p-6 ">
           
-            <div className=" mt-14  ">
-              <table className=" ">
-                <tr className=" font-bold">
+            <div className="   ">
+              <table className="bg-white   ">
+                <tr className=" text-white font-bold">
                   <td></td>
-                  <td className=" pr-20">Course Name</td>
-                  <td className=" px-20">Instructor Name</td>
-                  <td></td>
+                  <td className=" bg-blue-800 text-center  pr-10">Course Name</td>
+                  <td className=" bg-blue-800 p-2 px-10">Instructor Name</td>
+                  <td className="bg-blue-800"></td>
                 </tr>
                 {slicedCourses &&
                   slicedCourses.length > 0 &&
                   slicedCourses.map((data) => (
-                    <tr className="">
+                    <tr className=" hover:bg-gray-200">
                       <td>
-                        <CheckBoxOutlineBlankIcon />
+                        
                       </td>
-                      <td className=" pr-20">
-                        <img src={data.instructorImg} alt="0mq a9s2" />
-                        {data.title}
+                      <td className=" pr-20 p-3  items-center flex gap-2">
+                      <CheckBoxOutlineBlankIcon /> <img src={data.instructorImage} alt="image" className="h-[30px] w-[30px] object-cover rounded-md" /> 
+                         {data.title}
                       </td>
-                      <td className=" px-20">{data.instructor}</td>
+                      <td className=" px-20 ">{data.instructor}</td>
                       <td>
                         <Link
                           to={`/courseDetails/${data._id}`}
-                          className="inline-block px-3 py-1.5 border-blue-500 border  text-blue-600 font-bold rounded "
+                          className="inline-block px-3 py-1.5 border-blue-800 border  text-blue-800 font-bold rounded "
                         >
                           Details
                         </Link>

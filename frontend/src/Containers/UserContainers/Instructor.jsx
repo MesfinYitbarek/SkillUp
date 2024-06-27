@@ -38,9 +38,9 @@ const Instructor = () => {
         <div>
           <DashboardHeader />
           <div className=" fixed bg-white h-screen  w-[230px] top-0 p-5 text-center flex flex-col gap-4">
-            <div className="font-bold  text-blue-500 leading-10  text-lg">
+            <div className="font-bold  text-blue-800 leading-10  text-lg">
               <Link to={"/"}>
-                <CastForEducationIcon className="text-purple-500 mb-2" />{" "}
+                <CastForEducationIcon className="text-blue-800 mb-2" />{" "}
                 SkillUp <span>Instructor</span>
               </Link>
             </div>
@@ -50,7 +50,7 @@ const Instructor = () => {
                   key={item.name}
                   onClick={() => handleClick(index)}
                   className={`
-            bg-blue-500 flex gap-3 text-sm  cursor-pointer   py-2 px-3 rounded-md
+            bg-blue-800 flex gap-3 text-sm  cursor-pointer   py-2 px-3 rounded-md
             ${
               index === activeItem
                 ? `text-white ${(condtion = item.name)} `

@@ -42,7 +42,7 @@ const Topcourses = () => {
         <h2 className="sm:mb-24 mb-8 text-center">
           <div className="flex items-center">
             <hr className="flex-grow border-gray-400 h-px" />
-            <div className="mx-auto px-4 text-4xl text-blue-500 font-semibold">
+            <div className="mx-auto px-4 text-4xl text-blue-800 font-semibold">
               Top Courses
             </div>
             <hr className="flex-grow border-gray-400 h-px" />
@@ -57,7 +57,7 @@ const Topcourses = () => {
                 data-aos-delay="300"
                 data-aos-once="true"
                 key={course.id}
-                className="dark:bg-purple-950 dark:text-white bg-white shadow-lg rounded-md overflow-hidden"
+                className="dark:bg-blue-950 dark:text-white bg-white shadow-lg rounded-md overflow-hidden"
               >
                 <img
                   src={course.imageUrl}
@@ -87,7 +87,7 @@ const Topcourses = () => {
                       >
                         {course.description}
                         {course.description.length > 100 && (
-                          <span className="text-blue-500 cursor-pointer">
+                          <span className="text-blue-800 cursor-pointer">
                             ...Read more
                           </span>
                         )}
@@ -101,7 +101,7 @@ const Topcourses = () => {
                     </span>
 
                     {course.isPaid ? (
-                      <span className="text-blue-600 font-bold">
+                      <span className="text-blue-800 font-bold">
                         &#8377; {course.price}
                       </span>
                     ) : (
@@ -114,7 +114,7 @@ const Topcourses = () => {
                   <div className="flex justify-between items-center">
                     <a
                       href={`/courseDetails/${course._id}`}
-                      className="inline-block px-3 py-1.5 border-blue-500 border text-blue-600 font-bold rounded mt-4"
+                      className="inline-block px-3 py-1.5 border-blue-800 border text-blue-800 font-bold rounded mt-4"
                     >
                       Learn More
                       </a>

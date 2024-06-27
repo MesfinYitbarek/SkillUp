@@ -42,7 +42,7 @@ const AddUsers = () => {
 
   return (
     <div className="  h-screen flex justify-center bg-slate-100 items-center">
-      <div className=" border-t-8 border-t-blue-500    dark:bg-gray-400 bg-white p-[5%] rounded-2xl sm:w-[650px]    border border-slate-300  m-[5%]">
+      <div className=" border-t-8 border-t-blue-800    dark:bg-gray-400 bg-white p-[5%] rounded-2xl sm:w-[650px]    border border-slate-300  m-[5%]">
         <Link to={"/admin"}>
           <ArrowBack />
         </Link>
@@ -95,7 +95,7 @@ const AddUsers = () => {
           <button
             disabled={loading}
             type="submit"
-            className="sm:w-[450px]  font-semibold hover:bg-white hover:text-blue-600 hover:border hover:border-blue-400  p-2 px-6 rounded-lg text-white bg-blue-600"
+            className="sm:w-[450px]  font-semibold hover:bg-white hover:text-blue-800 hover:border hover:border-blue-800  p-2 px-6 rounded-lg text-white bg-blue-800"
           >
             {loading ? "Loading..." : "Create User"}
           </button>

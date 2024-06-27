@@ -31,7 +31,7 @@ export const signin = async (req, res, next) => {
     // Validate Password
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, 'Invalid password!'));
-
+  
     // Generate JWT token
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 

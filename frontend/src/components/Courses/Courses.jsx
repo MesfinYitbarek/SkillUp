@@ -88,7 +88,7 @@ export default function Courses() {
         ></div>
 
         <div className="absolute top-36 left-20">
-          <h1 className="lg:text-4xl text-white font-bold text-center">
+          <h1 className="lg:text-4xl pt-4 text-white font-semibold text-center">
             Courses
           </h1>
         </div>

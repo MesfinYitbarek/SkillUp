@@ -60,7 +60,7 @@ const About = () => {
             <h1 className=" text-red-400 font-bold mb-4">How It Started</h1>
             <h5
               data-aos="zoom-in"
-              className="  mb-5 font-semibold text-5xl text-sky-700"
+              className="  mb-5 font-semibold text-5xl text-blue-800"
             >
               {" "}
               Empowering Lifelong Learners.
@@ -82,7 +82,7 @@ const About = () => {
             alt=" image"
           />
         </div>
-        <div className="  flex flex-col text-white items-center bg-blue-900 p-8 py-16">
+        <div className="  flex flex-col text-white items-center bg-blue-800 p-8 py-16">
           <h2 className=" text-center  font-semibold mb-10  text-3xl ">
             OUR STORY
           </h2>{" "}
@@ -99,9 +99,9 @@ const About = () => {
           <h2 className=" font-semibold mb-5  text-3xl ">OUR MISSION</h2>{" "}
           <hr
             data-aos="fade-right"
-            className=" bg-blue-500 h-1 w-[20%]  mb-10 "
+            className=" bg-blue-800 h-1 w-[20%]  mb-10 "
           />
-          <p className=" border border-blue-500 p-8 py-20 text-center">
+          <p className=" border border-blue-800 p-8 py-20 text-center">
             Our mission is to democratize education by providing affordable,
             high-quality online courses taught by industry experts. We strive to
             create an engaging and supportive learning environment that fosters
@@ -109,14 +109,14 @@ const About = () => {
           </p>
         </div>
         <div className=" mx-14 sm:mx-20  my-20 flex flex-col">
-          <h2 className=" dark:text-white text-3xl font-bold text-sky-800">
+          <h2 className=" dark:text-white text-3xl font-bold text-blue-800">
             What Makes Us Unique?
           </h2>
           <div className=" mt-8 text-justify   grid grid-cols-1 sm:grid-col-2 md:grid-cols-3 lg:grid-cols-4  gap-3  sm:gap-5 justify-between  items-center">
             {unique.map((data) => (
               <div
                 key={data.id}
-                className=" group dark:text-white dark:bg-gray-600  text-sky-800 hover:scale-110 gap-2 flex flex-col text-center items-center pt-7 bg-white hover:bg-gradient-to-r from-purple-500 to-blue-500 hover:text-white shadow-lg  p-3 "
+                className=" group dark:text-white dark:bg-gray-600  text-blue-800 hover:scale-110 gap-2 flex flex-col text-center items-center pt-7 bg-white hover:bg-gradient-to-r from-purple-500 to-blue-500 hover:text-white shadow-lg  p-3 "
               >
                 <h2 className=" text-center mb-2   font-bold text-lg">
                   {data.title}
@@ -134,7 +134,7 @@ const About = () => {
           </div>
         </div>
         <div className=" dark:bg-gray-700 bg-slate-300 px-10 sm:px-20 py-16">
-          <h2 className=" mb-5 dark:text-white text-2xl text-blue-800">
+          <h2 className=" mb-5  dark:text-white text-2xl font-bold text-blue-800">
             Join the SkillUp Community
           </h2>
           <p>
@@ -143,24 +143,24 @@ const About = () => {
           </p>
           <div className=" sm:flex gap-4 sm:flex-row flex-col flex  mt-10 justify-between items-center">
             <Link to={"/courses"}>
-              <h2 className=" bg-blue-500 py-3 px-6 text-white font-semibold rounded-md hover:bg-white hover:text-blue-600 hover:border-blue-600 hover:border">
+              <h2 className=" bg-blue-800 py-3 px-6 text-white font-semibold rounded-md hover:bg-white hover:text-blue-800 hover:border-blue-800 hover:border">
                 Browse Courses <ArrowForward />
               </h2>
             </Link>
             <Link to={"/sign-up"}>
-              <h2 className=" bg-blue-500 py-3 px-6 text-white font-semibold rounded-md hover:bg-white hover:text-blue-600 hover:border-blue-600 hover:border">
+              <h2 className=" bg-blue-800 py-3 px-6 text-white font-semibold rounded-md hover:bg-white hover:text-blue-800 hover:border-blue-800 hover:border">
                 Sign Up for Free <ArrowForward />
               </h2>
             </Link>
             <Link to={"/contact-us"}>
-              <h2 className="  bg-blue-500 py-3 px-6 text-white font-semibold rounded-md hover:bg-white hover:text-blue-600 hover:border-blue-600 hover:border">
+              <h2 className="  bg-blue-800 py-3 px-6 text-white font-semibold rounded-md hover:bg-white hover:text-blue-800 hover:border-blue-800 hover:border">
                 Contact Us <ArrowForward />
               </h2>
             </Link>
           </div>
         </div>
 
-        <div className=" dark:text-white px-10 sm:px-20 text-xl sm:text-4xl py-6 text-sky-800 pb-12 font-bold">
+        <div className=" dark:text-white px-10 sm:px-20 text-xl sm:text-4xl py-6 text-blue-800 pb-12 font-bold">
           <h1>We're excited to be part of your learning journey!</h1>
         </div>
       </div>

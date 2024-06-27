@@ -78,8 +78,8 @@ const Footer = () => {
         <div className="sm:w-auto pb-2 lg:w-[400px]  ">
           <Link
             to={"/"}
-            className="font-bold text-2xl sm:text-3xl flex 
-          gap-2 items-center text-sky-600"
+            className="font-bold italic text-2xl sm:text-3xl flex 
+          gap-2 items-center text-blue-500"
           >
             <span className=" -mr-2 mb-2  text-4xl ">S</span>kill
             <span className="text-white dark:text-white -ml-2">Up.</span>
@@ -95,7 +95,7 @@ const Footer = () => {
               <button
                 className=" hover:bg-white hover:text-sky-950 hover:border-2
                       hover:border-sky-800  dark:bg-white dark:text-blue-900  
-                      bg-blue-600 mt-9 text-white p-2 px-4 rounded-md"
+                      bg-blue-800 mt-9 text-white p-2 px-4 rounded-md"
               >
                 Explore Courses <ArrowForwardIcon />
               </button>
@@ -112,7 +112,7 @@ const Footer = () => {
                 <li key={data.id}>
                   <Link
                     to={data.link}
-                    className="hover:text-blue-600 group font-mono"
+                    className="hover:text-blue-800 group font-mono"
                   >
                     <span
                       className="  bg-left-bottom bg-gradient-to-r
@@ -130,13 +130,13 @@ const Footer = () => {
           }
         </div>
         <div>
-          <h1 className=" mb-8 text-2xl font-bold hover:text-blue-500">
+          <h1 className=" mb-8 text-2xl font-bold hover:text-blue-800">
             Catagories
           </h1>
           <ul>
           {catagory.map((data) => (
                       <li key={data.id} onClick={() => handleCategoryClick(data.name)}>
-                        <a href="#" className="inline-block w-full rounded-md p-2 hover:bg-blue-500">
+                        <a href="#" className="inline-block w-full rounded-md p-2 hover:bg-blue-800">
                           {data.name}
                         </a>
                       </li>
@@ -144,7 +144,7 @@ const Footer = () => {
           </ul>
         </div>
         <div className="">
-          <h1 className=" mb-8 text-2xl font-bold hover:text-blue-500">
+          <h1 className=" mb-8 text-2xl font-bold hover:text-blue-800">
             Contact
           </h1>
           <div>

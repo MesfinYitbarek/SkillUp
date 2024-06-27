@@ -57,12 +57,12 @@ const Users = () => {
             <td></td>
             <td></td>
             <td className=" text-center">
-              <Link to={"/add-users"} className=" border  text-purple-600 hover:bg-purple-500 hover:text-white border-purple-600 px-4 py-1 mr-1 font-semibold">
+              <Link to={"/add-users"} className=" border  text-blue-800 hover:bg-blue-800 hover:text-white border-blue-800 px-4 py-1 mr-1 font-semibold">
                 Add <ArrowRight />
               </Link>
             </td>
           </tr>
-          <tr className=" bg-blue-400    font-semibold text-white ">
+          <tr className=" bg-blue-800    font-semibold text-white ">
             <td className="p-2 ">Name </td>
             <td>Email</td>
             <td>Role</td>
@@ -71,7 +71,7 @@ const Users = () => {
           </tr>
 
           {student.map((data) => (
-            <tr className=" even:bg-slate-100 ">
+            <tr className=" hover:bg-gray-200 ">
               <td className=" flex gap-3 items-center">
                 <img
                   src={data.avatar}
@@ -88,25 +88,25 @@ const Users = () => {
                   Delete
                 </button>
               </td>
-              <td className=" text-center text-purple-600 ">
+              <td className=" text-center text-blue-800 ">
               <Link to={`/update-user/${data._id}`}>Edit</Link>
               </td>
             </tr>
           ))}
         </table>
-        <table className="  text-sky-900 bg-white mt-12 px-10 py-4 ml-16  border-separate border-spacing-y-2 min-w-[800px] ">
+        <table className="  text-blue-800 bg-white mt-12 px-10 py-4 ml-16  border-separate border-spacing-y-2 min-w-[800px] ">
           <tr className=" ">
-            <td className="  text-blue-700 font-bold text-xl ">Instructors</td>
+            <td className="  text-blue-800 font-bold text-xl ">Instructors</td>
             <td></td>
             <td></td>
             <td></td>
             <td className=" text-center">
-              <Link to={"/add-users"} className=" border  text-purple-600 hover:bg-purple-500 hover:text-white border-purple-600 px-4 py-1 mr-1 font-semibold">
+              <Link to={"/add-users"} className=" border  text-blue-800 hover:bg-blue-900 hover:text-white border-blue-800 px-4 py-1 mr-1 font-semibold">
                 Add <ArrowRight />
               </Link>
             </td>
           </tr>
-          <tr className=" bg-blue-400    font-semibold text-white ">
+          <tr className=" bg-blue-800    font-semibold text-white ">
             <td className="p-2 ">Name </td>
             <td>Email</td>
             <td>Role</td>
@@ -115,7 +115,7 @@ const Users = () => {
           </tr>
 
           {instructor.map((data) => (
-            <tr className=" even:bg-slate-100 ">
+            <tr className=" hover:bg-gray-200 ">
               <td className=" flex gap-3 items-center">
                 <img
                   src={data.avatar}
@@ -132,25 +132,25 @@ const Users = () => {
                   Delete
                 </button>
               </td>
-              <td className=" text-center text-purple-600 ">
+              <td className=" text-center text-blue-800 ">
               <Link to={`/update-user/${data._id}`}>Edit</Link>
               </td>
             </tr>
           ))}
         </table>
-        <table className="  text-sky-900  bg-white mt-12 px-10 py-4 ml-16  border-separate border-spacing-y-2 min-w-[800px] ">
+        <table className="  text-blue-800  bg-white mt-12 px-10 py-4 ml-16  border-separate border-spacing-y-2 min-w-[800px] ">
           <tr className=" ">
-            <td className="  text-blue-700 font-bold text-xl ">Admins</td>
+            <td className="  text-blue-800 font-bold text-xl ">Admins</td>
             <td></td>
             <td></td>
             <td></td>
             <td className=" text-center">
-              <Link to={"/add-users"} className=" border  text-purple-600 hover:bg-purple-500 hover:text-white border-purple-600 px-4 py-1 mr-1 font-semibold">
+              <Link to={"/add-users"} className=" border  text-blue-800 hover:bg-blue-900 hover:text-white border-blue-800 px-4 py-1 mr-1 font-semibold">
                 Add <ArrowRight />
               </Link>
             </td>
           </tr>
-          <tr className=" bg-blue-400    font-semibold text-white ">
+          <tr className=" bg-blue-800    font-semibold text-white ">
             <td className="p-2 ">Name </td>
             <td>Email</td>
             <td>Role</td>
@@ -159,7 +159,7 @@ const Users = () => {
           </tr>
 
           {admin.map((data) => (
-            <tr className=" even:bg-slate-100 ">
+            <tr className=" hover:bg-gray-200 ">
               <td className=" flex gap-3 items-center">
                 <img
                   src={data.avatar}
@@ -176,7 +176,7 @@ const Users = () => {
                   Delete
                 </button>
               </td>
-              <td className=" text-center text-purple-600 ">
+              <td className=" text-center text-blue-800 ">
               <Link to={`/update-user/${data._id}`}>Edit</Link>
               </td>
             </tr>
