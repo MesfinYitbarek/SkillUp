@@ -23,6 +23,7 @@
     "@stripe/stripe-js": "^3.5.0",
     "aos": "^2.3.4",
     "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "firebase": "^10.11.1",
     "framer-motion": "^11.2.6",

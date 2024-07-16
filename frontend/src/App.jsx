@@ -40,6 +40,9 @@ import ChangePassword from "./components/Authentication/ChangePassword";
 import CreateAssignment from "./components/Courses/Course Details/Lesson/Assignment/CreateAssignment";
 import Assignment from "./components/Courses/Course Details/Lesson/Assignment/Assignment";
 import Students from "./components/InstructorDashboard/Students";
+import VerifyEmail from "./VerifyEmail";
+import ForgotPassword from "./components/Authentication/ForgetPassword";
+
 
 const App = () => {
   React.useEffect(() => {
@@ -64,7 +67,8 @@ const App = () => {
         <Route path="/courses/:categoryName" element={<Courses />} />
         <Route path="/catagory" element={<Catagory />} />
         <Route path={`/courseDetails/:courseId`} element={<Test />} />
-
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         {/* Common Private Routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<Profile />} />

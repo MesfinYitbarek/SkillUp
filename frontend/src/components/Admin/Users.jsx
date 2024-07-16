@@ -4,12 +4,21 @@ import AdminContainer from "../../Containers/AdminContainer";
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import AddUsers from "./AddUsers";
 const Users = () => {
   const [users, setUsers] = React.useState([]);
   const [error, setError] = useState(null);
   const [student, setStudent] = useState([])
   const [instructor, setInstructor] = useState([])
   const [admin, setAdmin] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   React.useEffect(() => {
     const fetchUsers = async () => {
@@ -57,9 +66,9 @@ const Users = () => {
             <td></td>
             <td></td>
             <td className=" text-center">
-              <Link to={"/add-users"} className=" border  text-blue-800 hover:bg-blue-800 hover:text-white border-blue-800 px-4 py-1 mr-1 font-semibold">
+              <button onClick={openModal} className=" border  text-blue-800 hover:bg-blue-800 hover:text-white border-blue-800 px-4 py-1 mr-1 font-semibold">
                 Add <ArrowRight />
-              </Link>
+              </button>
             </td>
           </tr>
           <tr className=" bg-blue-800    font-semibold text-white ">
@@ -94,6 +103,21 @@ const Users = () => {
             </tr>
           ))}
         </table>
+        {isModalOpen && (
+          <div className="absolute inset-0   bg-gray-800 bg-opacity-50">
+        <div className=" mt-5 flex justify-center items-center ">
+          <div className=" rounded-md shadow-lg relative">
+            <button
+              className="absolute top-6 right-6 text-gray-800 text-2xl font-bold"
+              onClick={closeModal}
+            >
+              X
+            </button>
+            <AddUsers />
+          </div>
+        </div>
+        </div>
+      )}
         <table className="  text-blue-800 bg-white mt-12 px-10 py-4 ml-16  border-separate border-spacing-y-2 min-w-[800px] ">
           <tr className=" ">
             <td className="  text-blue-800 font-bold text-xl ">Instructors</td>
@@ -101,9 +125,10 @@ const Users = () => {
             <td></td>
             <td></td>
             <td className=" text-center">
-              <Link to={"/add-users"} className=" border  text-blue-800 hover:bg-blue-900 hover:text-white border-blue-800 px-4 py-1 mr-1 font-semibold">
+            
+              <button onClick={openModal} className=" border  text-blue-800 hover:bg-blue-800 hover:text-white border-blue-800 px-4 py-1 mr-1 font-semibold">
                 Add <ArrowRight />
-              </Link>
+              </button>
             </td>
           </tr>
           <tr className=" bg-blue-800    font-semibold text-white ">
@@ -145,9 +170,9 @@ const Users = () => {
             <td></td>
             <td></td>
             <td className=" text-center">
-              <Link to={"/add-users"} className=" border  text-blue-800 hover:bg-blue-900 hover:text-white border-blue-800 px-4 py-1 mr-1 font-semibold">
+            <button onClick={openModal} className=" border  text-blue-800 hover:bg-blue-800 hover:text-white border-blue-800 px-4 py-1 mr-1 font-semibold">
                 Add <ArrowRight />
-              </Link>
+              </button>
             </td>
           </tr>
           <tr className=" bg-blue-800    font-semibold text-white ">
@@ -183,6 +208,7 @@ const Users = () => {
           ))}
         </table>
       </div>
+      
     </div>
   );
 };
