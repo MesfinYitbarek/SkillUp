@@ -17,6 +17,8 @@ import http from "http";
 import quizRouter from "./routes/quiz.js";
 import scoreRouter from "./routes/score.js";
 import assignmentRouter from "./routes/assignment.js";
+import reviewRouter from "./routes/review.js";
+import Course from "./models/Course.js";
 
 dotenv.config();
 
@@ -71,6 +73,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/user", userRouter);
+app.use("/api/review", reviewRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/courses", courseRouter);
 app.use("/api/contact", contactRouter);
@@ -80,6 +83,7 @@ app.use("/api/discussion", discussionRouter);
 app.use("/api/quiz", quizRouter);
 app.use("/api/assignment", assignmentRouter);
 app.use('/api/scores', scoreRouter);
+
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

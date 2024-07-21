@@ -46,13 +46,16 @@ const courseSchema = new mongoose.Schema({
   curriculum: {
     type: [Object], 
   },
-  reviews: {
+  review: {
     type: String,
     default:"no data" ,
   },
   rating: {
     type: Number,
     required: true
+  }, reviewCount: {
+    type: Number,
+    default: 0,
   },
   level: {
     type: String,

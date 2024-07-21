@@ -10,11 +10,12 @@ import Header from "../../Common/Header";
 import Footer from "../../Common/Footer";
 import CourseInfo from "./CourseInfo";
 import Lesson from "./Lesson";
+import Reviews from "./Reviews";
 
 const contentData = {
   content1: <CourseInfo />,
   content2: <Lesson />,
-  content3: "This is the content for button 3. Click any button to see its content displayed below.",
+  content3: <Reviews />,
 };
 
 function Test() {
@@ -24,6 +25,8 @@ function Test() {
   const [loading, setLoading] = useState(false);
   const [course, setCourse] = useState(null);
   const [enrollment, setEnrollment] = useState([]);
+  const [userReview, setUserReview] = useState("");
+  const [userRating, setUserRating] = useState(0);
 
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
@@ -92,6 +95,32 @@ function Test() {
     }
   };
 
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/review/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: currentUser.username,
+          courseId,
+          review: userReview,
+          rating: userRating,
+        }),
+      });
+      if (response.ok) {
+        setUserReview("");
+        setUserRating(0);
+        // Refresh reviews
+        setActiveButton(3);
+      } else {
+        setError("Failed to submit review");
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -153,8 +182,50 @@ function Test() {
                   ))}
                 </div>
                 <div className="mb-8">
-                  {activeButton && contentData[`content${activeButton}`]}
+                  {activeButton && 
+                    (activeButton === 3 ? 
+                      <Reviews courseId={courseId} /> : 
+                      contentData[`content${activeButton}`]
+                    )
+                  }
                 </div>
+                {isUserEnrolled && (
+                  <div className="bg-gray-100 rounded-lg p-6 mb-8">
+                    <h3 className="text-xl font-semibold mb-4">Write a Review</h3>
+                    <form onSubmit={handleReviewSubmit}>
+                      <div className="mb-4">
+                        <label className="block mb-2">Rating:</label>
+                        <div className="flex">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star
+                              key={star}
+                              className={`cursor-pointer ${
+                                star <= userRating ? "text-yellow-400" : "text-gray-300"
+                              }`}
+                              onClick={() => setUserRating(star)}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <div className="mb-4">
+                        <label className="block mb-2">Review:</label>
+                        <textarea
+                          className="w-full p-2 border rounded"
+                          rows="4"
+                          value={userReview}
+                          onChange={(e) => setUserReview(e.target.value)}
+                          required
+                        ></textarea>
+                      </div>
+                      <button
+                        type="submit"
+                        className="bg-blue-800 text-white rounded-md px-4 py-2"
+                      >
+                        Submit Review
+                      </button>
+                    </form>
+                  </div>
+                )}
               </div>
 
               <div className="md:w-1/3">

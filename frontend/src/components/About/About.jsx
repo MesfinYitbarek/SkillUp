@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
 import image3 from "../../assets/background image/pexels-peter-olexa-2214257-4012966.jpg";
-
+import image2 from "../../assets/background image/pexels-august-de-richelieu-4260485.jpg";
 const unique = [
   {
     id: 1,
@@ -97,7 +97,7 @@ const About = () => {
                 data-aos="fade-left"
                 data-aos-once="true"
                 className="rounded-lg w-full h-auto"
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
+                src={image2}
                 alt="Students learning"
               />
             </div>
