@@ -14,8 +14,8 @@ export const getScores = async (req, res) => {
 export const getScoresByUserId = async (req, res) => {
     try {
       const { userId } = req.params.userId;
-  const {courseId} = req.params.courseId
-      const scores = await Score.find({userId, courseId})
+      const {courseId} = req.params.courseId
+      const scores = await Score.find({userId :userId, courseId: courseId})
       res.status(200).json(scores);
     } catch (error) {
       res.status(500).json({ message: 'Error fetching scores', error });

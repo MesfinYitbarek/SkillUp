@@ -1,13 +1,12 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import Header from "../Common/Header";
+import { motion } from "framer-motion";
 import CourseListing from "./CourseListing";
 import Footer from "../Common/Footer";
-import img from "../../assets/background image/pexels-vlada-karpovich-4050315.jpg";
-import { Link, useParams } from "react-router-dom";
 import Search from "../Common/Search";
-
 import CourseCatagories from "../CourseCatagory/CourseCatagories";
+import image3 from "../../assets/background image/pexels-peter-olexa-2214257-4012966.jpg";
 export default function Courses() {
   const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
@@ -16,8 +15,8 @@ export default function Courses() {
   const [filtered, setFiltered] = useState([]);
   const [catagorizedCourses, setCatagorizaedCourses] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const { categoryName } = useParams(); 
-  
+  const { categoryName } = useParams();
+
   const handleSearchHeader = (term) => {
     setSearch(term);
     const filtered = courses.filter((course) => {
@@ -30,7 +29,7 @@ export default function Courses() {
     setFiltered(filtered);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchCourses = async () => {
       try {
         const response = await fetch("/api/courses/courses");
@@ -42,11 +41,10 @@ export default function Courses() {
     };
 
     fetchCourses();
-  }, []); 
+  }, []);
 
   const handleCheck = (term) => {
     setSelectedCategories(term);
-    // Filter courses based on Catagory term
     const catagorizedCourses = courses.filter((course) => {
       return course.catagory.includes(term);
     });
@@ -55,7 +53,6 @@ export default function Courses() {
 
   const handleSearch = (term) => {
     setSearchTerm(term);
-    // Filter courses based on search term
     const filteredCourses = courses.filter((course) => {
       return (
         course.title.toLowerCase().includes(term.toLowerCase()) ||
@@ -66,37 +63,55 @@ export default function Courses() {
     setFilteredCourses(filteredCourses);
   };
 
-  // Filter courses based on categoryName from URL
   const displayedCourses = categoryName
     ? courses.filter((course) => course.catagory.includes(categoryName))
     : courses;
 
   return (
-    <div className=" dark:bg-gray-600 bg-slate-50">
-      <div>
-        <Header onSearch={handleSearchHeader} />
-        <div
-          style={{
-            backgroundImage: `url(${img})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            height: "screen",
-            width: "100%",
-            // filter: "brightness(0.5)",
-          }}
-          className="h-[50px] brightness-50 opacity-100 pl-16 items-center py-10 pb-16"
-        ></div>
-
-        <div className="absolute top-36 left-20">
-          <h1 className="lg:text-4xl pt-4 text-white font-semibold text-center">
-            Courses
-          </h1>
+    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white dark:from-gray-800 dark:to-gray-900 dark:text-white">
+      <Header onSearch={handleSearchHeader} />
+      
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="relative h-[40vh] flex items-center justify-center text-white"
+        style={{
+          backgroundImage: `url(${image3})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="z-10 text-center">
+          <motion.h1 
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-6xl font-bold mb-4 text-shadow-lg"
+          >
+            Explore Our Courses
+          </motion.h1>
+          <motion.p 
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="text-2xl text-shadow"
+          >
+            Expand your knowledge with our wide range of courses
+          </motion.p>
         </div>
-        <div className="flex flex-col   mt-3">
-          <Search onSearch={handleSearch} />
-          
-          <div className="flex flex-col md:flex-row  w-full">
+      </motion.div>
+     
+      <div className="container mx-auto px-4 py-8">
+        <Search onSearch={handleSearch} />
+        
+        <div className="flex flex-col md:flex-row gap-8 mt-8">
+          <aside className="w-full md:w-1/4">
             <CourseCatagories onCategoryChange={handleCheck} />
+          </aside>
+          
+          <main className="w-full md:w-3/4">
             <CourseListing
               search={search}
               filtered={filtered}
@@ -104,13 +119,13 @@ export default function Courses() {
               selectedCategories={selectedCategories}
               catagorizedCourses={catagorizedCourses}
               filteredCourses={filteredCourses}
-              courses={displayedCourses} // Display filtered courses based on categoryName
+              courses={displayedCourses}
             />
-          </div>
+          </main>
         </div>
-
-        <Footer />
       </div>
+
+      <Footer />
     </div>
   );
 }

@@ -1,31 +1,36 @@
-import React from 'react'
-import img from "../../assets/background image/pexels-ekaterina-bolovtsova-4050083.jpg";
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowForward } from '@mui/icons-material';
+import img from "../../assets/background image/pexels-ekaterina-bolovtsova-4050083.jpg";
+
 const GetStarted = () => {
   return (
-    <div className=' bg-sky-0 mb-0'>
-      <div className=' '>
-        <div style={{
+    <div className="relative  h-[400px] flex items-center justify-center overflow-hidden">
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
           backgroundImage: `url(${img})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: "screen",
-          width: "100%",
           filter: "brightness(0.4)",
         }}
-        className="  h-[360px]   ">
-
-        </div>
-        <div className=' text-white font-bold -mb-28 text-center relative -top-60'>
-            <h1 className='text-5xl'>Interested? Join us now</h1>
-            <Link to={'/sign-in'}>
-              <button className=' p-3 px-5 bg-blue-800 text-xl my-7 rounded-xl hover:bg-transparent hover:border-2 hover:border-blue-600 '>Get Started Now <ArrowForward/></button>
-            </Link>
-        </div>
+      />
+      <div className="relative z-10 text-center text-white">
+        <h1 className="text-5xl md:text-7xl font-bold mb-8 animate-fade-in-down">
+          Interested? Join us now
+        </h1>
+        <Link to='/sign-in'>
+          <button className="group relative inline-flex items-center justify-center p-4 px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out border-2 border-blue-500 rounded-full shadow-md">
+            <span className="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-blue-500 group-hover:translate-x-0 ease">
+              <ArrowForward className="text-2xl" />
+            </span>
+            <span className="absolute flex items-center justify-center w-full h-full text-white transition-all duration-300 transform group-hover:translate-x-full ease">Get Started Now</span>
+            <span className="relative invisible">Get Started Now</span>
+          </button>
+        </Link>
       </div>
     </div>
-  )
+  );
 }
 
-export default GetStarted
+export default GetStarted;

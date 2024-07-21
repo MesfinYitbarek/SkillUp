@@ -109,7 +109,7 @@ const DiscussionForum = ({ lessonId }) => {
                     <img
                       src={comment.userId.avatar}
                       className=" w-8 h-8 rounded-full"
-                      alt=""
+                      alt="image"
                     />
                   </span>
                   <div className=" bg-slate-100 text-sm p-2 px-3 rounded-r-2xl rounded-tl-3xl">

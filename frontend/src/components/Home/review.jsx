@@ -1,42 +1,40 @@
 import React from "react";
 import Instructor from "./InstructorsData";
-import ShareIcon from "@mui/icons-material/Share";
-const review = () => {
+
+const Review = () => {
   return (
-    <div className=" my-10 dark:bg-gray-800 px-12 sm:py-20 sm:px-20 ">
-      <div className="container  mx-auto px-4 py-8">
-        <h2 className="  sm:mb-24 mb-8 text-center ">
-          <div class="flex items-center">
-            <hr class="flex-grow border-gray-400 h-px" />
-            <div class="mx-auto px-4 text-4xl text-blue-800 font-semibold">
-              From the SkillUp community
-            </div>
-            <hr class="flex-grow border-gray-400 h-px" />
-          </div>
+    <div className="bg-gradient-to-t from-blue-100 to-white dark:from-gray-900 dark:to-blue-900 py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-center mb-16">
+          <span className="inline-block px-6 py-3 bg-blue-800 text-white text-4xl font-bold rounded-full shadow-lg">
+            From the SkillUp Community
+          </span>
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {Instructor.map((instructor) => (
             <div
-              data-aos="fade-up"
-              data-aos-delay="300"
-              data-aos-once="true"
               key={instructor.id}
-              className=" group  border-slate-300 overflow-hidden   "
+              data-aos="fade-up"
+              data-aos-delay="100"
+              data-aos-duration="1000"
+              data-aos-once="true"
+              className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
             >
-              <img
-                src={instructor.image}
-                alt={instructor.name}
-                className="w-60 rounded-full h-60 object-cover "
-              />
-              <div className="px-3  text-blue-950   py-4 flex  justify-center items-center">
-                <div className=" text-center">
-                  <h3 className="dark:text-white text-lg font-bold  px-2 py-[3px] rounded">
-                    {instructor.name}
-                  </h3>
-                  <h4 className=" dark:text-white font-mono">
-                    {instructor.profession}
-                  </h4>
-                </div>
+              <div className="p-6 text-center">
+                <img
+                  src={instructor.image}
+                  alt={instructor.name}
+                  className="w-32 h-32 rounded-full mx-auto mb-4 border-4  text-blue-800 shadow-lg"
+                />
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
+                  {instructor.name}
+                </h3>
+                <p className="text-blue-800 dark:text-blue-400 font-medium mb-4">
+                  {instructor.profession}
+                </p>
+                <p className="text-gray-600 dark:text-gray-300 italic">
+                  "SkillUp has transformed my learning journey. The courses are engaging and the instructors are top-notch!"
+                </p>
               </div>
             </div>
           ))}
@@ -46,4 +44,4 @@ const review = () => {
   );
 };
 
-export default review;
+export default Review;

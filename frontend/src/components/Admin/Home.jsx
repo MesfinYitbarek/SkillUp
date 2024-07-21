@@ -14,6 +14,7 @@ const Home = () => {
   const [instructor, setInstructor] = useState([]);
   const [date, setDate] = useState(new Date());
   const [filtered, setFiletered] = useState([]);
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -40,7 +41,7 @@ const Home = () => {
         const response = await fetch("/api/courses/courses");
         const data = await response.json();
         setCourses(data);
-        const filteredData = data.filter((course) => course.rating >= 4); // Filter courses with rating > 4
+        const filteredData = data.filter((course) => course.rating >= 4);
         setFiletered(filteredData);
       } catch (err) {
         console.error(err);
@@ -69,12 +70,12 @@ const Home = () => {
   ];
 
   return (
-    <div className="ml-60 pt-24 p-12 bg-gray-100 min-h-screen">
-      <div className="flex justify-between items-center gap-6">
+    <div className="ml-0 sm:ml-60 pt-24 p-4 sm:p-12 bg-gray-100 min-h-screen">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {homeData.map((data, index) => (
           <div
             key={index}
-            className="bg-white py-5 px-6 shadow-md flex items-center gap-5 border-l-4 border-blue-800 w-48 text-blue-800 font-bold rounded-md"
+            className="bg-white py-5 px-6 shadow-md flex items-center gap-5 border-l-4 border-blue-800 text-blue-800 font-bold rounded-md"
           >
             <div className="flex-grow">
               <h4 className="text-lg">{data.title}</h4>
@@ -84,36 +85,39 @@ const Home = () => {
           </div>
         ))}
       </div>
-      <div className=" flex items-center justify-center gap-2">
-      <div className="mt-8 bg-white w-[50%] p-6 shadow-md rounded-md">
-        <ReactCalendar
-          onChange={setDate}
-          value={date}
-          className="w-full text-inherit border-none"
-        />
-      </div>
-      <div className=" bg-white m-5 p-3 shadow-md rounded-lg">
-        <h1 className=" text-xl
-         font-bold p-1 px-3">Top courses</h1>
-        <table className="   text-blue-800   border-separate border-spacing-y-2 min-w-[600px]">
-          {filtered &&
-            filtered.map((data) => (
-              <tr className="  hover:bg-gray-200 ">
-                <td className=" p-1 flex items-center gap-1"><CheckCircle/> {data.title}</td>
-                <td className=" px-10">{data.instructor}</td>
-                <td className=" px-10">{data.courseName}</td>
-                <td>
-                  <Link
-                    to={`/courseDetails/${data._id}`}
-                    className="inline-block px-3 py-1.5 border-blue-800 border  text-blue-800 font-bold rounded "
-                  >
-                    Details
-                  </Link>
-                </td>
-              </tr>
-            ))}
-        </table>
-      </div>
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-center gap-4 mt-8">
+        <div className="bg-white w-full lg:w-[50%] p-6 shadow-md rounded-md">
+          <ReactCalendar
+            onChange={setDate}
+            value={date}
+            className="w-full text-inherit border-none"
+          />
+        </div>
+        <div className="bg-white w-full lg:w-[50%] p-3 shadow-md rounded-lg overflow-x-auto">
+          <h1 className="text-xl font-bold p-1 px-3">Top courses</h1>
+          <table className="text-blue-800 border-separate border-spacing-y-2 min-w-full">
+            <tbody>
+              {filtered &&
+                filtered.map((data) => (
+                  <tr key={data._id} className="hover:bg-gray-200">
+                    <td className="p-1 flex items-center gap-1">
+                      <CheckCircle /> {data.title}
+                    </td>
+                    <td className="px-4 sm:px-10">{data.instructor}</td>
+                    <td className="px-4 sm:px-10">{data.courseName}</td>
+                    <td>
+                      <Link
+                        to={`/courseDetails/${data._id}`}
+                        className="inline-block px-3 py-1.5 border-blue-800 border text-blue-800 font-bold rounded"
+                      >
+                        Details
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

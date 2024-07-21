@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../../../firebase";
-import { sendPasswordResetEmail } from "firebase/auth";
+import { sendPasswordResetEmail, onAuthStateChanged } from "firebase/auth";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
@@ -8,6 +9,27 @@ const ForgotPassword = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // User has signed in after resetting password
+        try {
+          const idToken = await user.getIdToken();
+          await axios.post("/api/update-password", { email: user.email }, {
+            headers: {
+              Authorization: `Bearer ${idToken}`,
+            },
+          });
+          setMessage("Password updated in the database successfully.");
+        } catch (err) {
+          setError("Failed to update password in the database.");
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleChange = (e) => {
     setEmail(e.target.value);

@@ -173,7 +173,7 @@ const Footer = () => {
         </div>
       </div>
       <div className=" pb-6 mb-0 text-center">
-        Copyright &copy; {date} SkillUp. All Rights Reserved.
+        &copy; {date} SkillUp. All Rights Reserved.
       </div>
     </div>
   );

@@ -19,8 +19,8 @@ import Users from "../components/Admin/Users";
 import SignOut from "../components/Profile/SignOut";
 import { Link } from "react-router-dom";
 import EnrolledStudents from "../components/Admin/EnrolledStudents";
-
-
+import { useMediaQuery } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 const navigationItems = [
   { name: "Dashboard", icon: <HomeIcon />, isActive: true }, // Set active item initially
   { name: "Courses", icon: <PlayCircleIcon /> },
@@ -34,18 +34,39 @@ const  name = "AddCatagory"
 
 const AdminContainer = () => {
   const [activeItem, setActiveItem] = useState(0); 
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Add this state
+  const isMobile = useMediaQuery("(max-width:768px)");
+  
   const handleClick = (index) => {
     setActiveItem(index);
+    if (isMobile) {
+      setIsSidebarOpen(false);
+    }
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   var condtion = "";
   const { currentUser } = useSelector((state) => state.user);
   return (
-    <div className="  bg-gray-100 pb-12 min-h-screen ">
+    <div className="bg-gray-100 pb-12 min-h-screen">
       <div>
-        <div>
-          <DashboardHeader />
+        <DashboardHeader />
+        {isMobile && (
+          <button
+            onClick={toggleSidebar}
+            className="fixed top-4 left-4 z-50 bg-blue-800 text-white p-2 rounded-md"
+          >
+            <MenuIcon />
+          </button>
+        )}
+        <div
+          className={`bg-white h-screen fixed w-[230px] top-0 p-5 text-center flex flex-col gap-4 transition-transform duration-300 ease-in-out ${
+            isMobile ? (isSidebarOpen ? "translate-x-0" : "-translate-x-full") : ""
+          }`}
+        >
           <div className=" bg-white h-screen fixed w-[230px] top-0 p-5 text-center flex flex-col gap-4">
             <div className="font-bold  text-blue-800 leading-10  text-lg">
               <Link to={'/'}>
@@ -76,6 +97,7 @@ const AdminContainer = () => {
           </div>
         </div>
       </div>
+      <div className={`${isMobile ? "mt-16" : "ml-[230px]"} p-4`}></div>
       {condtion == "Dashboard" ? (
         <Home />
       ) : condtion == "Courses" ? (
@@ -93,6 +115,7 @@ const AdminContainer = () => {
       ) : (
         ""
       )}
+      
     </div>
   );
 };

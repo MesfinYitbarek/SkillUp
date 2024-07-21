@@ -4,12 +4,8 @@ import { useParams, Link } from "react-router-dom";
 import Header from "../../Common/Header";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { useSelector } from "react-redux";
-import Footer from "../../Common/Footer";
 import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { Tabs, Tab, Typography, Box, useMediaQuery } from "@mui/material";
 import DiscussionForum from "./Lesson/DiscussionForum";
 
 function CustomTabPanel(props) {
@@ -51,7 +47,7 @@ const CourseLesson = () => {
   const [lessons, setLessons] = useState([]);
   const [selectedLesson, setSelectedLesson] = useState(null);
   const [progress, setProgress] = useState(0);
-
+  const isMobile = useMediaQuery("(max-width:768px)");
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -78,7 +74,7 @@ const CourseLesson = () => {
     try {
       const response = await axios.get(`/api/lesson/${courseId}/${lessonId}`);
       setSelectedLesson(response.data);
-      setProgress(0); // Reset progress when a new lesson is selected
+      setProgress(0);
     } catch (error) {
       console.error("Error fetching lesson:", error);
       if (error.response && error.response.status === 404) {
@@ -105,121 +101,116 @@ const CourseLesson = () => {
   const isCompleted = progress >= 100;
 
   if (lessons.length === 0) {
-    return <div className=" h-screen flex justify-center items-center   text-red-500 text-2xl "><h1 className=" shadow-md bg-slate-100 p-40">No lessons found for this course.</h1></div>;
+    return (
+      <div className="h-screen flex justify-center items-center text-red-500 text-2xl">
+        <h1 className="shadow-md bg-slate-100 p-40">No lessons found for this course.</h1>
+      </div>
+    );
   }
 
   return (
-    <div className=" dark:bg-gray-800 dark:text-white  min-h-screen">
-      <div className="  top-0 left-0 w-full bg-white z-10">
-        <Header />
-        <div className="relative bg-blue-800 h-1 z-50"></div>
-      </div>
-  <div className=" flex gap-3">
-      <div className=" border-gray-300 bg-slate-100 z-10 p-4 dark:bg-gray-500 dark:text-white overflow-y-scroll">
-        <h1>{}</h1>
-        {lessons.map((lesson, index) => (
-          <div>
-            <button
-              key={index}
-              onClick={() => handleLessonClick(lesson._id)}
-              className={`block w-full text-left py-2 px-2 text-sm rounded-md hover:bg-gray-200 ${
-                selectedLesson && selectedLesson._id === lesson._id
-                  ? "text-white font-bold bg-blue-800 hover:bg-blue-900"
-                  : ""
-              }`}
-            >
-              <DoneAllIcon className="mr-1" /> {lesson.title}
-            </button>
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900 dark:text-white">
+      <Header />
+      <div className="relative bg-blue-800 h-2 z-50"></div>
+
+      <div className={`container mx-auto px-4 py-8 ${isMobile ? 'flex-col' : 'flex gap-8'}`}>
+        <aside className={`bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 ${isMobile ? 'mb-8' : 'w-1/4'}`}>
+          <h2 className="text-2xl font-bold mb-4">Lessons</h2>
+          <nav>
+            {lessons.map((lesson, index) => (
+              <button
+                key={index}
+                onClick={() => handleLessonClick(lesson._id)}
+                className={`block w-full text-left py-3 px-4 mb-2 rounded-md transition-colors duration-200 ${
+                  selectedLesson && selectedLesson._id === lesson._id
+                    ? "bg-blue-800 text-white"
+                    : "hover:bg-gray-100 dark:hover:bg-gray-600"
+                }`}
+              >
+                <DoneAllIcon className="mr-2" /> {lesson.title}
+              </button>
+            ))}
+          </nav>
+          <div className="mt-8 space-y-4">
+            <Link to={`/course/${courseId}/grades`} className="block w-full bg-purple-600 text-white text-center py-2 rounded-md hover:bg-purple-700 transition-colors duration-200">
+              Grades
+            </Link>
+            <Link to="#" className="block w-full bg-green-600 text-white text-center py-2 rounded-md hover:bg-green-700 transition-colors duration-200">
+              Assessment
+            </Link>
           </div>
-        ))}
-        <div className=" flex flex-col gap-5  font-bold mt-5">
-          <Link to={`/course/${courseId}/grades`} className=" bg-blue-800 p-1 rounded-md text-white text-center" >Grade</Link>
-          <Link className=" bg-blue-800 p-1 rounded-md text-white text-center ">Assesment</Link>
-        </div>
-      </div>
+        </aside>
 
-      <div className=" flex flex-col justify-center items-center mx-auto ">
-        {selectedLesson && (
-          <div key={selectedLesson._id} className="mb-6">
-            <div className="flex gap-14">
-              <div className="my-10 flex flex-col justify-center">
-                <div className="my-4">
-                  {isCompleted ? (
-                    <div className="text-green-500 text-xl font-bold">
-                      Completed
-                    </div>
-                  ) : (
-                    <div className="text-blue-800 rounded-md w-[30%]  p-1 px-4 border-2 border-blue-800 text-xl font-bold">
-                      Progress: {Math.round(progress)}%
-                    </div>
-                  )}
-                </div>
+        <main className={`bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 ${isMobile ? 'w-full' : 'w-3/4'}`}>
+          {selectedLesson && (
+            <div key={selectedLesson._id}>
+              <h1 className="text-3xl font-bold mb-6">{selectedLesson.title}</h1>
+              
+              <div className="mb-6">
+                {isCompleted ? (
+                  <div className="text-green-500 text-xl font-bold">Completed</div>
+                ) : (
+                  <div className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full py-2 px-4 inline-block">
+                    Progress: {Math.round(progress)}%
+                  </div>
+                )}
+              </div>
 
-                <div>
-                  <video
-                    className=" h-[360px] w-[800px]"
-                    width="800"
-                    height="360"
-                    controls
-                    onTimeUpdate={handleVideoProgress}
-                  >
-                    <source src={selectedLesson.videoUrl} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-                <h2 className="text-3xl font-bold my-4">
-                  {selectedLesson.title}
-                </h2>
-                <Box sx={{ width: "100%" }}>
-                  <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                    <Tabs
-                      value={value}
-                      onChange={handleChange}
-                      aria-label="basic tabs example"
-                    >
-                      <Tab label="Note" {...a11yProps(0)} />
-                      <Tab label="Item Two" {...a11yProps(1)} />
-                      <Tab label="  Discuss" {...a11yProps(2)} />
-                    </Tabs>
-                  </Box>
-                  <CustomTabPanel value={value} index={0}>
-                    <div className="my-4">
-                      <div
-                        className="border p-4 w-[750px]  overflow-y-auto"
-                        onScroll={handleDocumentScroll}
-                        dangerouslySetInnerHTML={{
-                          __html: selectedLesson.content,
-                        }}
-                      />
-                    </div>
-                  </CustomTabPanel>
-                  <CustomTabPanel value={value} index={1}>
-                    Item Two
-                  </CustomTabPanel>
-                  <CustomTabPanel value={value} index={2}>
-                    <DiscussionForum lessonId={selectedLesson._id} />
-                  </CustomTabPanel>
+              <div className="aspect-w-16 aspect-h-9 mb-8">
+                <video
+                  className="w-full h-full rounded-lg shadow-lg"
+                  controls
+                  onTimeUpdate={handleVideoProgress}
+                >
+                  <source src={selectedLesson.videoUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+
+              <Box sx={{ width: "100%" }}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <Tabs value={value} onChange={handleChange} aria-label="lesson tabs">
+                    <Tab label="Notes" {...a11yProps(0)} />
+                    <Tab label="Resources" {...a11yProps(1)} />
+                    <Tab label="Discussion" {...a11yProps(2)} />
+                  </Tabs>
                 </Box>
+                <CustomTabPanel value={value} index={0}>
+                  <div
+                    className="prose dark:prose-invert max-w-none"
+                    dangerouslySetInnerHTML={{ __html: selectedLesson.content }}
+                  />
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={1}>
+                  <h3 className="text-xl font-semibold mb-4">Additional Resources</h3>
+                  <ul className="list-disc pl-5">
+                    <li><a href="#" className="text-blue-800 hover:underline">Supplementary Reading</a></li>
+                    <li><a href="#" className="text-blue-800 hover:underline">Practice Exercises</a></li>
+                    <li><a href="#" className="text-blue-800 hover:underline">Related Articles</a></li>
+                  </ul>
+                </CustomTabPanel>
+                <CustomTabPanel value={value} index={2}>
+                  <DiscussionForum lessonId={selectedLesson._id} />
+                </CustomTabPanel>
+              </Box>
 
-                <div className="flex">
-                  <Link
-                    to={`/lessons/${courseId}/${selectedLesson._id}/quiz`} 
-                    className=" sticky bg-purple-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
-                  >
-                    Quiz
-                  </Link>
-                  <Link
-                    to={`/lessons/${selectedLesson._id}/assignment`}
-                    className=" sticky bg-blue-800 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  >
-                    Assignment
-                  </Link>
-                </div>
+              <div className="mt-8 flex space-x-4">
+                <Link
+                  to={`/lessons/${courseId}/${selectedLesson._id}/quiz`}
+                  className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transition-colors duration-200"
+                >
+                  Take Quiz
+                </Link>
+                <Link
+                  to={`/lessons/${selectedLesson._id}/assignment`}
+                  className="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-6 rounded-full transition-colors duration-200"
+                >
+                  View Assignment
+                </Link>
               </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </main>
       </div>
     </div>
   );

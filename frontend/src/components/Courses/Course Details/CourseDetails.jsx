@@ -1,45 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import CachedIcon from "@mui/icons-material/Cached";
 import AlignVerticalBottomIcon from "@mui/icons-material/AlignVerticalBottom";
 import SchoolIcon from "@mui/icons-material/School";
-import img from "../../../assets/background image/pexels-artempodrez-4492127.jpg";
+import { Star } from "@mui/icons-material";
+import { FaClock } from "react-icons/fa6";
 import Header from "../../Common/Header";
 import Footer from "../../Common/Footer";
 import CourseInfo from "./CourseInfo";
 import Lesson from "./Lesson";
-import { Star } from "@mui/icons-material";
-import { FaClock } from "react-icons/fa6";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const contentData = {
   content1: <CourseInfo />,
   content2: <Lesson />,
-  content3:
-    "This is the content for button 3. Click any button to see its content displayed below.",
+  content3: "This is the content for button 3. Click any button to see its content displayed below.",
 };
 
 function Test() {
   const [activeButton, setActiveButton] = useState(null);
   const [isUserEnrolled, setIsUserEnrolled] = useState(false);
-console.log(isUserEnrolled)
-  const handleClick = (buttonIndex) => {
-    setActiveButton(buttonIndex);
-  };
-
-  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [course, setCourse] = useState(null);
+  const [enrollment, setEnrollment] = useState([]);
+
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const { courseId } = useParams();
-  const [course, setCourse] = useState([]);
-  const [enrollment, setEnrollment] = useState([]);
-  console.log(enrollment.length)
 
-  // number of enrolled students
   useEffect(() => {
-    const fetchContact = async () => {
+    const fetchEnrollment = async () => {
       try {
         const response = await fetch(`/api/enrollment/${courseId}`);
         const data = await response.json();
@@ -49,8 +40,8 @@ console.log(isUserEnrolled)
       }
     };
 
-    fetchContact();
-  }, [enrollment]);
+    fetchEnrollment();
+  }, [courseId]);
 
   useEffect(() => {
     const fetchCourse = async () => {
@@ -67,15 +58,19 @@ console.log(isUserEnrolled)
         }),
       });
       const isEnrolledData = await isEnrolledResponse.json();
-      console.log(isEnrolledData)
       setIsUserEnrolled(isEnrolledData.isEnrolled);
     };
 
     fetchCourse();
-  }, [courseId]);
+  }, [courseId, currentUser.username]);
+
+  const handleClick = (buttonIndex) => {
+    setActiveButton(buttonIndex);
+  };
 
   const handleEnrollment = async (e) => {
     try {
+      setLoading(true);
       const res = await fetch("/api/enrollment/enrollment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -98,155 +93,123 @@ console.log(isUserEnrolled)
   };
 
   return (
-    <div className="flex flex-col  ">
+    <div className="flex flex-col min-h-screen">
       <Header />
       {course ? (
-        <div>
-          <div className=" flex flex-col gap-4  py-14 justify-center pl-20 bg-blue-900 text-white">
-            <div>
-              <button className=" bg-green-500 text-white px-5 rounded-2xl py-0.5 mb-2">
+        <div className="flex-grow">
+          <div className="bg-blue-900 text-white py-8 px-4 md:px-8 lg:px-20">
+            <div className="max-w-6xl mx-auto">
+              <button className="bg-green-500 text-white px-3 py-1 rounded-full text-sm mb-2">
                 {course.catagory}
               </button>
-              <h1 className=" font-bold text-4xl pb-3">{course.title}</h1>
-              <p className=" opacity-65">{course.description} </p>
+              <h1 className="font-bold text-2xl md:text-3xl lg:text-4xl mb-2">{course.title}</h1>
+              <p className="opacity-75 mb-4">{course.description}</p>
+              <div className="flex flex-wrap items-center gap-4 text-sm">
+                <div className="flex items-center">
+                  <img
+                    src={course.instructorImage}
+                    alt="profile"
+                    className="h-8 w-8 rounded-full mr-2 object-cover"
+                  />
+                  <span>{course.instructor}</span>
+                </div>
+                <div className="flex items-center">
+                  <FaClock className="mr-1" />
+                  <span>{course.duration}</span>
+                </div>
+                <div className="flex items-center">
+                  <SchoolIcon className="mr-1" />
+                  <span>{enrollment.length} Students</span>
+                </div>
+                <div className="flex items-center">
+                  <Star className="text-yellow-400 mr-1" />
+                  <span>{course.rating}</span>
+                </div>
+              </div>
             </div>
-            <div className=" flex items-center gap-4">
-              <div className=" border-2 rounded-full border-white">
+          </div>
+
+          <div className="max-w-6xl mx-auto px-4 py-8">
+            <div className="md:flex md:space-x-8">
+              <div className="md:w-2/3">
                 <img
-                  src={course.instructorImage}
-                  alt="profile"
-                  className=" h-[40px] w-[40px] object-cover rounded-full"
+                  src={course.imageUrl}
+                  className="w-full h-64 md:h-96 object-cover rounded-lg mb-8"
+                  alt="course"
                 />
+                <div className="flex flex-wrap border-b mb-8">
+                  {["Course Info", "Curriculum", "Reviews"].map((label, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleClick(index + 1)}
+                      className={`px-4 py-2 text-lg font-semibold ${
+                        activeButton === index + 1
+                          ? "border-b-2 border-blue-600 text-blue-800"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                <div className="mb-8">
+                  {activeButton && contentData[`content${activeButton}`]}
+                </div>
               </div>
-              <span>{course.instructor}</span>
 
-              <h1 className=" flex items-center">
-                <FaClock className=" mr-2" />
-                {course.duration}
-              </h1>
-              <h1>
-                <SchoolIcon className=" mr-3" />
-                {enrollment.length} Students
-              </h1>
-              <h1>
-                <Star className="text-yellow-400" /> {course.rating}
-              </h1>
-            </div>
-            <div className=" rounded-md text-blue-800 absolute top-72 right-12 p-9 min-w-[260px] bg-slate-100 ">
-              <div className=" py-3 flex flex-col font-bold bg-slate-100 gap-3">
-                {course.isPaid ? (
-                  <div className=" flex flex-col">
-                    <span className="text-blue-800 text-xl mb-3 font-bold">
-                      &#8377; {course.price}
-                    </span>
-                    {isUserEnrolled ? (
-                      <button
-                        className=" bg-blue-800 text-white rounded-md px-3 py-2 "
-                        onClick={() => navigate(`/course-lesson/${courseId}`)}
-                      >
-                        Continue
-                      </button>
+              <div className="md:w-1/3">
+                <div className="bg-gray-100 rounded-lg p-6 sticky top-4">
+                  <div className="mb-4">
+                    {course.isPaid ? (
+                      <span className="text-blue-800 text-2xl font-bold">₹{course.price}</span>
                     ) : (
-                      <button
-                        onClick={() => alert("Not available for now!")}
-                        className=" bg-blue-800 text-white rounded-md px-3 py-2 "
-                        disabled={loading}
-                      >
-                        {loading ? "Loading..." : "Enroll Now"}
-                      </button>
+                      <span className="text-green-500 text-2xl font-bold">Free</span>
                     )}
                   </div>
-                ) : (
-                  <div className=" flex flex-col">
-                    <span className="text-green-500 text-xl mb-3 font-bold">
-                      Free
-                    </span>
-
-                    {isUserEnrolled ? (
-                      <button
-                        className=" bg-blue-800 text-white rounded-md px-3 py-2 "
-                        onClick={() => navigate(`/course-lesson/${courseId}`)}
-                      >
-                        Continue
-                      </button>
-                    ) : (
-                      <button
-                        onClick={handleEnrollment}
-                        className=" bg-blue-800 text-white rounded-md px-3 py-2 "
-                        disabled={loading}
-                      >
-                        {loading ? "Loading..." : "Enroll Now"}
-                      </button>
-                    )}
+                  {isUserEnrolled ? (
+                    <button
+                      onClick={() => navigate(`/course-lesson/${courseId}`)}
+                      className="w-full bg-blue-800 text-white rounded-md px-4 py-2 mb-4"
+                    >
+                      Continue
+                    </button>
+                  ) : (
+                    <button
+                      onClick={course.isPaid ? () => alert("Not available for now!") : handleEnrollment}
+                      className="w-full bg-blue-800 text-white rounded-md px-4 py-2 mb-4"
+                      disabled={loading}
+                    >
+                      {loading ? "Loading..." : "Enroll Now"}
+                    </button>
+                  )}
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center">
+                      <AlignVerticalBottomIcon className="mr-2" />
+                      <span>{course.level}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <SchoolIcon className="mr-2" />
+                      <span>{enrollment.length} Students</span>
+                    </div>
+                    <div className="flex items-center">
+                      <FaClock className="mr-2" />
+                      <span>{course.duration}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <CachedIcon className="mr-2" />
+                      <span>
+                        Last Updated{" "}
+                        {new Date(course.updatedAt).toLocaleDateString()}
+                      </span>
+                    </div>
                   </div>
-                )}
-              </div>
-              <hr />
-              <div className="flex mt-7 flex-col gap-5">
-                <h1>
-                  <AlignVerticalBottomIcon className=" mr-3" />
-                  {course.level}
-                </h1>
-                <h1>
-                  <SchoolIcon className=" mr-2" /> {enrollment.length} Students
-                </h1>
-                <h1 className=" flex items-center">
-                  <FaClock className=" mr-3" />
-                  {course.duration}
-                </h1>
-                <h1>
-                  <CachedIcon />
-                  <span className=" mx-1">Last Updated</span>
-                  {new Date(course.updatedAt).getFullYear()}-
-                  {String(new Date(course.updatedAt).getMonth() + 1).padStart(
-                    2,
-                    "0"
-                  )}
-                  -
-                  {String(new Date(course.updatedAt).getDate()).padStart(
-                    2,
-                    "0"
-                  )}
-                </h1>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <img
-              src={course.imageUrl}
-              className=" w-[70%] h-[500px] object-cover pl-16 pt-9 "
-              alt="image"
-            />
-          </div>
-
-          <div className="flex pl-16 text-2xl text-sky-950 font-semibold ">
-            <button
-              onClick={() => handleClick(1)}
-              className=" px-20 focus:border-b-blue-600 focus:text-blue-800 border-b-4 "
-            >
-              Course Info
-            </button>
-            <button
-              onClick={() => handleClick(2)}
-              className=" px-20 focus:border-b-blue-600 focus:text-blue-800 border-b-4 "
-            >
-              Curriculam
-            </button>
-            <button
-              onClick={() => handleClick(3)}
-              className=" h-16 px-20 focus:border-b-blue-600 focus:text-blue-800 border-b-4"
-            >
-              Reviews
-            </button>
-          </div>
-          <div className="my-8 mb-40 px-20">
-            {activeButton && (
-              <h1 variant="body1">{contentData[`content${activeButton}`]}</h1>
-            )}
           </div>
         </div>
       ) : (
-        <p className="text-center text-gray-700">Loading course details...</p>
+        <p className="text-center text-gray-700 py-8">Loading course details...</p>
       )}
       <Footer />
     </div>

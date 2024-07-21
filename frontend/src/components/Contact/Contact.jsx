@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import image3 from "../../assets/background image/pexels-peter-olexa-2214257-4012966.jpg";
 import Header from "../Common/Header";
 import Email from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -8,11 +8,8 @@ import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
 import IconButton from "@mui/material/IconButton";
 import Collapse from "@mui/material/Collapse";
-import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import Footer from "../Common/Footer";
-import image3 from "../../assets/background image/pexels-peter-olexa-2214257-4012966.jpg";
-import img from "../../assets/background image/pexels-buro-millennial-636760-1438081.jpg";
 import { motion } from "framer-motion";
 
 const Contact = () => {
@@ -20,38 +17,37 @@ const Contact = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const contactData = [
     {
       title: "Postal Address",
-      content: " PO Box CMC Michael, Addis Ababa, Ethiopia",
+      content: "PO Box CMC Michael, Addis Ababa, Ethiopia",
       icon: <LocationOnIcon />,
-      delay: "100",
+      delay: 0.1,
     },
     {
       title: "Phone",
       content: "+251-975364420",
       icon: <PhoneIcon />,
-      delay: "300",
+      delay: 0.3,
     },
     {
       title: "Email",
       content: "contact@skillup.com",
       icon: <Email />,
-      delay: "500",
+      delay: 0.5,
     },
   ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch("/api/contact/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message }),
       });
-
       const data = await response.json();
       console.log(data.message);
       setFormSubmitted(true);
@@ -62,51 +58,65 @@ const Contact = () => {
       console.log(err);
     }
   };
-  const [open, setOpen] = React.useState(true);
-  return (
-    <div className="bg-slate-50 dark:bg-gray-700 dark:text-white">
-      <div className="sm:h-screen">
-        <div>
-          <Header />
-        </div>
-        <div>
-          <div
-            style={{
-              backgroundImage: `url(${image3})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              height: "screen",
-              width: "100%",
-              opacity: "100%",
-            }}
-            className="brightness-50 h-[400px] sm:h-screen text-white"
-          ></div>
-          <div className="flex justify-between absolute top-44 items-center">
-            <div className="p-4"></div>
-            <div className="sm:my-20 sm:mx-20">
-              <p
-                data-aos="zoom-in"
-                className="dark:text-white text-center sm:text-2xl p-4 font-serif   text-white"
-              >
-                <h1 className="text-5xl pb-6 text-white">
-                  We're here to help!
-                </h1>{" "}
-                Whether you have questions about our courses, need assistance
-                navigating the platform, or simply want to share feedback, we'd
-                love to hear from you.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="dark:text-white  sm:my-36 mx-auto  ">
-        <div className=" py-16 dark:bg-gray-800 container pl-14   bg-white flex flex-col gap-3 sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-4 justify-center items-center ">
-          {contactData.map((data) => (
+  return (
+    <div className="bg-gradient-to-b from-slate-50 to-blue-100 dark:from-gray-800 dark:to-gray-900 dark:text-white min-h-screen">
+      <Header />
+
+      {/* Hero Section */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="relative h-[40vh] flex items-center justify-center text-white"
+        style={{
+          backgroundImage: `url(${image3})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div className="z-10 text-center">
+          <motion.h1 
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-6xl font-bold mb-4 text-shadow-lg"
+          >
+            Contact Us
+          </motion.h1>
+          <motion.p 
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+            className="text-2xl text-shadow"
+          >
+            We're here to help and listen!
+          </motion.p>
+        </div>
+      </motion.div>
+
+      <div className="container mx-auto px-4 py-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-bold text-blue-800 dark:text-white mb-4">Get in Touch</h2>
+          <p className="text-xl max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+            Whether you have questions about our courses, need assistance navigating the platform, 
+            or simply want to share feedback, we'd love to hear from you.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 ">
+          {contactData.map((data, index) => (
+            
             <motion.div
               whileHover={{ scale: 1.1, transition: { duration: 0.3 } }}
               whileTap={{ scale: 0.95 }}
-              className="group dark:bg-sky-900 flex flex-col items-center dark:text-white text-sky-800 gap-6 pt-8 shadow-xl rounded-sm  hover:text-white hover:scale-110 hover:bg-gradient-to-r from-purple-500 to-blue-500 p-3 text-center h-[220px] w-[300px]   bg-white"
+              className="group dark:bg-sky-900 flex  flex-col items-center dark:text-white text-sky-800 gap-6 pt-8 shadow-xl rounded-sm  hover:text-white hover:scale-110 hover:bg-gradient-to-r from-purple-500 to-blue-500 p-3 sm:mx-10 text-center h-[220px]    bg-white"
             >
               <div className="border-2 dark:text-white text-blue-800 group-hover:border-white  group-hover:text-white  border-blue-800 p-2 h-[45px] w-[45px] rounded-full ">
                 <div className="">{data.icon}</div>
@@ -116,15 +126,22 @@ const Contact = () => {
                 <p>{data.content}</p>
               </div>
             </motion.div>
+        
           ))}
         </div>
-        <div className=" sm:px-20 sm:py-16 sm:h-screen items-center justify-center my-20 sm:my-28 flex">
-          <div className=" flex items-center">
-            <form
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className=" dark:bg-gray-700 flex justify-center rounded-lg  p-10"
+        >
+          
+          <form
               data-aos="fade-up"
               data-aos-once="true"
               onSubmit={handleSubmit}
-              className="flex flex-col dark:text-white dark:bg-gray-500 space-y-4 sm:w-[650px]   bg-white shadow-xl  p-4 sm:p-20 rounded-xl  border-slate-400"
+              className="flex flex-col dark:text-white dark:bg-gray-500 space-y-4 sm:w-[650px]   bg-white shadow-md  p-4 sm:p-20 rounded-xl  border-slate-400"
             >
               <div className="flex  flex-col space-y-2 sm:flex-row ">
                 <input
@@ -193,9 +210,10 @@ const Contact = () => {
                 </p>
               )}
             </form>
-          </div>
-        </div>
+          
+        </motion.div>
       </div>
+
       <Footer />
     </div>
   );
