@@ -1,9 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ArrowBack } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import ProgressBar from "./ProgressBar";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
 import { getStorage } from "firebase/storage";  
@@ -16,505 +15,361 @@ const CreateCourse = () => {
   const [loading, setLoading] = useState(false);
   const [courseImageFile, setCourseImageFile] = useState(null);
   const [instructorImageFile, setInstructorImageFile] = useState(null);
+  const [learningObjectives, setLearningObjectives] = useState([]);
+  const [prerequisites, setPrerequisites] = useState([]);
+  const [modules, setModules] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const navigate = useNavigate();
 
-  // Learning Objectives & Prerequisites
-  const [learningObjectives, setLearningObjectives] = useState([]);
-  const [prerequisites, setPrerequisites] = useState([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch("/api/courses/catagory");
+        const data = await response.json();
+        setCategories(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-  const handleAddObjective = (event) => {
-    event.preventDefault();
-    setLearningObjectives([...learningObjectives, ""]);
-  };
+    fetchCategories();
+  }, []);
 
-  const handleObjectiveChange = (index, event) => {
-    const newObjectives = [...learningObjectives];
-    newObjectives[index] = event.target.value;
-    setLearningObjectives(newObjectives);
-  };
-
-  const handleRemoveObjective = (index, event) => {
-    const newObjectives = [...learningObjectives];
-    newObjectives.splice(index, 1);
-    setLearningObjectives(newObjectives);
-  };
-
-  const handleAddPrerequisite = (event) => {
-    event.preventDefault();
-    setPrerequisites([...prerequisites, ""]);
-  };
-
-  const handlePrerequisiteChange = (index, event) => {
-    const newPrerequisites = [...prerequisites];
-    newPrerequisites[index] = event.target.value;
-    setPrerequisites(newPrerequisites);
-  };
-
-  const handleRemovePrerequisite = (index, event) => {
-    const newPrerequisites = [...prerequisites];
-    newPrerequisites.splice(index, 1);
-    setPrerequisites(newPrerequisites);
-  };
-
-  // Curriculum
-  const [modules, setModules] = useState([]);
-
-  const handleAddModule = (event) => {
-    event.preventDefault();
-    setModules([...modules, { title: "", content: "" }]);
-  };
-
-  const handleModuleChange = (index, event) => {
-    const newModules = [...modules];
-    if (event.target.id === `moduleTitle-${index}`) {
-      newModules[index].title = event.target.value;
-    } else if (event.target.id === `moduleContent-${index}`) {
-      newModules[index].content = event.target.value;
-    }
-    setModules(newModules);
-  };
-
-  const handleRemoveModule = (index, event) => {
-    const newModules = [...modules];
-    newModules.splice(index, 1);
-    setModules(newModules);
-  };
-
-  console.log(formData);
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.id]:
-        e.target.type === "checkbox" ? e.target.checked : e.target.value,
+      [e.target.id]: e.target.type === "checkbox" ? e.target.checked : e.target.value,
     });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    // Include learningObjectives, prerequisites, and modules in formData
-    formData.learningObjectives = learningObjectives;
-    formData.requirements = prerequisites;
-    formData.curriculum = modules;
-
-    formData.userRef = currentUser._id;
-    formData.instructor = currentUser.username;
-
-    const storage = getStorage();
-    
-    if (courseImageFile) {
-      const courseImageRef = ref(
-        storage,
-        `courseImages/${courseImageFile.name}`
-      );
-      await uploadBytes(courseImageRef, courseImageFile);
-      const courseImageUrl = await getDownloadURL(courseImageRef);
-      formData.imageUrl = courseImageUrl;
-    }
-
-    if (instructorImageFile) {
-      const instructorImageRef = ref(
-        storage,
-        `instructorImages/${instructorImageFile.name}`
-      );
-      await uploadBytes(instructorImageRef, instructorImageFile);
-      const instructorImageUrl = await getDownloadURL(instructorImageRef);
-      formData.instructorImage = instructorImageUrl;
-    }
-
-    try {
-      setLoading(true);
-      const res = await fetch("/api/courses/createCourses", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-      if (data.success === false) {
-        setLoading(false);
-        setError(data.message);
-        return;
-      }
-      setLoading(false);
-      setError(null);
-      navigate("/instructor");
-    } catch (error) {
-      setLoading(false);
-      setError(error.message);
-    }
   };
 
   const handleFileChange = (e, setImageFile) => {
     setImageFile(e.target.files[0]);
   };
 
-  const [catagory, setCatagory] = React.useState([]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  React.useEffect(() => {
-    const fetchCatagory = async () => {
-      try {
-        const response = await fetch("/api/courses/catagory");
-        const data = await response.json();
-        setCatagory(data);
-      } catch (err) {
-        console.error(err);
-      }
+    const fullFormData = {
+      ...formData,
+      learningObjectives,
+      requirements: prerequisites,
+      curriculum: modules,
+      userRef: currentUser._id,
+      instructor: currentUser.username,
     };
 
-    fetchCatagory();
-  }, []);
+    const storage = getStorage();
+    
+    try {
+      if (courseImageFile) {
+        const courseImageRef = ref(storage, `courseImages/${courseImageFile.name}`);
+        await uploadBytes(courseImageRef, courseImageFile);
+        fullFormData.imageUrl = await getDownloadURL(courseImageRef);
+      }
 
-  // Calculate progress based on filled fields
-  const progress = calculateProgress(
-    formData,
-    learningObjectives,
-    prerequisites,
-    modules
-  );
+      if (instructorImageFile) {
+        const instructorImageRef = ref(storage, `instructorImages/${instructorImageFile.name}`);
+        await uploadBytes(instructorImageRef, instructorImageFile);
+        fullFormData.instructorImage = await getDownloadURL(instructorImageRef);
+      }
+
+      const res = await fetch("/api/courses/createCourses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fullFormData),
+      });
+
+      const data = await res.json();
+      if (data.success === false) {
+        setError(data.message);
+        return;
+      }
+      navigate("/instructor");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Helper functions for handling dynamic form fields
+  const handleDynamicFieldChange = (setter, index, value) => {
+    setter(prev => {
+      const newArray = [...prev];
+      newArray[index] = value;
+      return newArray;
+    });
+  };
+
+  const handleAddField = (setter) => {
+    setter(prev => [...prev, ""]);
+  };
+
+  const handleRemoveField = (setter, index) => {
+    setter(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleModuleChange = (index, field, value) => {
+    setModules(prev => {
+      const newModules = [...prev];
+      newModules[index] = { ...newModules[index], [field]: value };
+      return newModules;
+    });
+  };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100">
       <Header />
-      <div className="bg-slate-100 ">
-        <div className="  flex flex-col justify-between  px-40  p-10  items-center">
-          {/*<ProgressBar progress={progress} />*/}
-          <form
-            onSubmit={handleSubmit}
-            className=" flex flex-col gap-5 bg-white rounded-lg border-l-8 border-l-blue-600 py-6 p-10"
-          >
-            <div className="flex  justify-between gap-20 ">
-              <div className=" w-[50%]">
-                <div className="mb-4">
-                  <label
-                    htmlFor="title"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Course Title
-                  </label>
-                  <input
-                    type="text"
-                    id="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="catagory"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Course catagory
-                  </label>
-                  <select
-                    id="catagory"
-                    value={formData.catagory}
-                    onChange={handleChange}
-                    className=" shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                  >
-                    {catagory.map((catagory) => (
-                      <option value={catagory.name}>
-                        {catagory.labelName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="mb-4">
-                  <label
-                    htmlFor="imageUrl"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Course Image
-                  </label>
-                  <input
-                    type="file"
-                    id="imageUrl"
-                    onChange={(e) => handleFileChange(e, setCourseImageFile)}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="instructorImage"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Instructor Image
-                  </label>
-                  <input
-                    type="file"
-                    id="instructorImage"
-                    onChange={(e) =>
-                      handleFileChange(e, setInstructorImageFile)
-                    }
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                    required
-                  />
-                </div>
-                <label htmlFor="level" className=" text-lg font-bold">
-                  Course Level:{" "}
-                </label>
-                <select
-                  id="level"
-                  onChange={handleChange}
-                  className=" dark:bg-slate-100 shadow sm:w-[390px] rounded-lg border border-slate-300 p-2.5 "
-                >
-                  <option value={"All Level"}>All Level</option>
-                  <option value={"Beginner"}>Beginner</option>
-                  <option value={"Intermidate"}>Intermidate</option>
-                  <option value={"Advanced"}>Advanced</option>
-                </select>
-              </div>
-              <div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="description"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Course Description
-                  </label>
-                  <textarea
-                    id="description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                    rows="5"
-                    required
-                  ></textarea>
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="duration"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Course Duration (e.g., 10 weeks)
-                  </label>
-                  <input
-                    type="text"
-                    id="duration"
-                    value={formData.duration}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="isPaid"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Course Pricing
-                  </label>
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id="isPaid"
-                      checked={formData.isPaid}
-                      onChange={handleChange}
-                      className="mr-2"
-                    />
-                    <label htmlFor="isPaid">Paid Course</label>
-                  </div>
-                  {formData.isPaid && (
-                    <div>
-                      <label
-                        htmlFor="price"
-                        className="block text-gray-700 font-bold mb-2"
-                      >
-                        Course Price
-                      </label>
-                      <input
-                        type="number"
-                        id="price"
-                        value={formData.price}
-                        onChange={handleChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                        min="0"
-                        defaultValue={0}
-                        required
-                      />
-                    </div>
-                  )}
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="rating"
-                    className="block text-gray-700 font-bold mb-2"
-                  >
-                    Course Rating (optional)
-                  </label>
-                  <input
-                    type="number"
-                    id="rating"
-                    value={formData.rating}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                    min="0"
-                    max="5"
-                    step="0.1"
-                  />
-                </div>
-                <div className="flex flex-col gap-4">
-                  {/* Learning Objectives */}
-                  <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                      Learning Objectives:
-                    </label>
-                    {learningObjectives.map((objective, index) => (
-                      <div key={index} className="flex items-center gap-2">
-                        <input
-                          type="text"
-                          value={objective}
-                          onChange={(e) => handleObjectiveChange(index, e)}
-                          placeholder="Enter learning objective"
-                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                        />
-                        <button
-                          onClick={() => handleRemoveObjective(index)}
-                          type="button"
-                          className="text-red-500 hover:text-red-700"
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    ))}
-                    <button
-                      type="button"
-                      onClick={handleAddObjective}
-                      className="text-blue-500 hover:text-blue-700"
-                    >
-                      Add Learning Objective
-                    </button>
-                  </div>
-
-                  {/* Prerequisites (similar structure as Learning Objectives) */}
-                  <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                      Prerequisites:
-                    </label>
-                    {prerequisites.map((prerequisite, index) => (
-                      <div key={index} className="flex items-center gap-2">
-                        <input
-                          type="text"
-                          value={prerequisite}
-                          onChange={(e) => handlePrerequisiteChange(index, e)} // Replace with appropriate handler function
-                          placeholder="Enter prerequisite"
-                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                        />
-                        <button
-                          onClick={() => handleRemovePrerequisite(index)}
-                          type="button"
-                          className="text-red-500 hover:text-red-700"
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    ))}
-                    <button
-                      onClick={handleAddPrerequisite}
-                      type="button"
-                      className="text-blue-500 hover:text-blue-700"
-                    >
-                      Add Prerequisite
-                    </button>
-                  </div>
-
-                  {/* Curriculum */}
-                  <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2">
-                      Curriculum:
-                    </label>
-                    {modules.map((module, index) => (
-                      <div
-                        key={index}
-                        className="mb-4 border rounded p-2 shadow-sm"
-                      >
-                        <label
-                          htmlFor={`moduleTitle-${index}`}
-                          className="block text-gray-700 font-bold mb-2"
-                        >
-                          Module Title
-                        </label>
-                        <input
-                          type="text"
-                          id={`moduleTitle-${index}`}
-                          value={module.title}
-                          onChange={(e) => handleModuleChange(index, e)}
-                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                          required
-                        />
-                        <label
-                          htmlFor={`moduleContent-${index}`}
-                          className="block text-gray-700 font-bold mb-2"
-                        >
-                          Module Content
-                        </label>
-                        <textarea
-                          id={`moduleContent-${index}`}
-                          value={module.content}
-                          onChange={(e) => handleModuleChange(index, e)}
-                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
-                          rows="5"
-                          required
-                        />
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveModule(index)}
-                          className="text-red-500 hover:text-red-700 mt-2"
-                        >
-                          Remove Module
-                        </button>
-                      </div>
-                    ))}
-                    <button
-                      onClick={handleAddModule}
-                      type="button"
-                      className="text-blue-500 hover:text-blue-700"
-                    >
-                      Add Module
-                    </button>
-                  </div>
-                  <button
-                    className=" mt-14 bg-blue-600 p-4 py-2 text-white rounded-md"
-                    disabled={loading}
-                    type="submit"
-                  >
-                    {loading ? "Loading..." : "Create Course"}
-                  </button>
-                </div>
-              </div>
+      <div className="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-bold text-center mb-10">Create a New Course</h1>
+        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Left Column */}
+            <div>
+              <InputField
+                label="Course Title"
+                id="title"
+                value={formData.title || ""}
+                onChange={handleChange}
+                required
+              />
+              <SelectField
+                label="Course Category"
+                id="category"
+                value={formData.category || ""}
+                onChange={handleChange}
+                options={categories}
+              />
+              <FileInput
+                label="Course Image"
+                id="imageUrl"
+                onChange={(e) => handleFileChange(e, setCourseImageFile)}
+                required
+              />
+              <FileInput
+                label="Instructor Image"
+                id="instructorImage"
+                onChange={(e) => handleFileChange(e, setInstructorImageFile)}
+                required
+              />
+              <SelectField
+                label="Course Level"
+                id="level"
+                value={formData.level || ""}
+                onChange={handleChange}
+                options={[
+                  { name: "All Level", labelName: "All Level" },
+                  { name: "Beginner", labelName: "Beginner" },
+                  { name: "Intermediate", labelName: "Intermediate" },
+                  { name: "Advanced", labelName: "Advanced" },
+                ]}
+              />
             </div>
+            {/* Right Column */}
+            <div>
+              <TextArea
+                label="Course Description"
+                id="description"
+                value={formData.description || ""}
+                onChange={handleChange}
+                required
+              />
+              <InputField
+                label="Course Duration (e.g., 10 weeks)"
+                id="duration"
+                value={formData.duration || ""}
+                onChange={handleChange}
+                required
+              />
+              <div className="mb-6">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="isPaid"
+                    checked={formData.isPaid || false}
+                    onChange={handleChange}
+                    className="mr-2"
+                  />
+                  <span className="text-gray-700 font-bold">Paid Course</span>
+                </label>
+                {formData.isPaid && (
+                  <InputField
+                    label="Course Price"
+                    id="price"
+                    type="number"
+                    value={formData.price || ""}
+                    onChange={handleChange}
+                    min="0"
+                    required
+                  />
+                )}
+              </div>
+              <InputField
+                label="Course Rating (optional)"
+                id="rating"
+                type="number"
+                value={formData.rating || ""}
+                onChange={handleChange}
+                min="0"
+                max="5"
+                step="0.1"
+              />
+            </div>
+          </div>
 
-            {error && <p className=" text-red-500 mt-5">{error}</p>}
-          </form>
-        </div>
+          {/* Learning Objectives */}
+          <DynamicFields
+            label="Learning Objectives"
+            fields={learningObjectives}
+            onAdd={() => handleAddField(setLearningObjectives)}
+            onChange={(index, value) => handleDynamicFieldChange(setLearningObjectives, index, value)}
+            onRemove={(index) => handleRemoveField(setLearningObjectives, index)}
+          />
+
+          {/* Prerequisites */}
+          <DynamicFields
+            label="Prerequisites"
+            fields={prerequisites}
+            onAdd={() => handleAddField(setPrerequisites)}
+            onChange={(index, value) => handleDynamicFieldChange(setPrerequisites, index, value)}
+            onRemove={(index) => handleRemoveField(setPrerequisites, index)}
+          />
+
+          {/* Curriculum */}
+          <div className="mb-6">
+            <h3 className="text-xl font-bold mb-4">Curriculum</h3>
+            {modules.map((module, index) => (
+              <div key={index} className="mb-4 border rounded p-4">
+                <InputField
+                  label={`Module ${index + 1} Title`}
+                  value={module.title || ""}
+                  onChange={(e) => handleModuleChange(index, "title", e.target.value)}
+                  required
+                />
+                <TextArea
+                  label="Module Content"
+                  value={module.content || ""}
+                  onChange={(e) => handleModuleChange(index, "content", e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveField(setModules, index)}
+                  className="text-red-500 hover:text-red-700 mt-2"
+                >
+                  Remove Module
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={() => handleAddField(setModules)}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Add Module
+            </button>
+          </div>
+
+          {error && <p className="text-red-500 mb-4">{error}</p>}
+          
+          <button
+            className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-300"
+            disabled={loading}
+            type="submit"
+          >
+            {loading ? "Creating Course..." : "Create Course"}
+          </button>
+        </form>
       </div>
       <Footer />
     </div>
   );
 };
 
-const calculateProgress = (
-  formData,
-  learningObjectives,
-  prerequisites,
-  modules
-) => {
-  const totalFields = 15;
+// Helper components
+const InputField = ({ label, id, ...props }) => (
+  <div className="mb-6">
+    <label htmlFor={id} className="block text-gray-700 font-bold mb-2">{label}</label>
+    <input
+      id={id}
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      {...props}
+    />
+  </div>
+);
 
-  let filledFields = Object.keys(formData).length;
-  filledFields += learningObjectives.length;
-  filledFields += prerequisites.length;
-  filledFields += modules.length * 2;
+const SelectField = ({ label, id, options, ...props }) => (
+  <div className="mb-6">
+    <label htmlFor={id} className="block text-gray-700 font-bold mb-2">{label}</label>
+    <select
+      id={id}
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      {...props}
+    >
+      {options.map((option) => (
+        <option key={option.name} value={option.name}>
+          {option.labelName}
+        </option>
+      ))}
+    </select>
+  </div>
+);
 
-  const progress = Math.round((filledFields / totalFields) * 100);
+const FileInput = ({ label, id, ...props }) => (
+  <div className="mb-6">
+    <label htmlFor={id} className="block text-gray-700 font-bold mb-2">{label}</label>
+    <input
+      type="file"
+      id={id}
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      {...props}
+    />
+  </div>
+);
 
-  return progress;
-};
+const TextArea = ({ label, id, ...props }) => (
+  <div className="mb-6">
+    <label htmlFor={id} className="block text-gray-700 font-bold mb-2">{label}</label>
+    <textarea
+      id={id}
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      rows="5"
+      {...props}
+    ></textarea>
+  </div>
+);
+
+const DynamicFields = ({ label, fields, onAdd, onChange, onRemove }) => (
+  <div className="mb-6">
+    <h3 className="text-xl font-bold mb-4">{label}</h3>
+    {fields.map((field, index) => (
+      <div key={index} className="flex items-center gap-2 mb-2">
+        <input
+          type="text"
+          value={field}
+          onChange={(e) => onChange(index, e.target.value)}
+          placeholder={`Enter ${label.toLowerCase()}`}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        />
+        <button
+          onClick={() => onRemove(index)}
+          type="button"
+          className="text-red-500 hover:text-red-700"
+        >
+          Remove
+        </button>
+      </div>
+    ))}
+    <button
+      type="button"
+      onClick={onAdd}
+      className="text-blue-500 hover:text-blue-700"
+    >
+      Add {label}
+    </button>
+  </div>
+);
 
 export default CreateCourse;

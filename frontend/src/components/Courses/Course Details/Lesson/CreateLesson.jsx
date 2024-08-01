@@ -1,26 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus, FaUpload } from "react-icons/fa";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../../../firebase";
-import { addLesson, setLessonId } from "../../../../redux/lesson/lesson"; // Import actions
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Header from "../../../Common/Header";
 import Footer from "../../../Common/Footer";
-import img from "../../../../assets/background image/vectorstock_24205971.png";
 
 const CreateLesson = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { courseId } = useParams();
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading } = useSelector((state) => state.user);
 
   const [lessons, setLessons] = useState([
     {
@@ -117,139 +108,118 @@ const CreateLesson = () => {
   };
 
   return (
-    <div className=" bg-slate-50">
-      <div className=" fixed top-0 left-0 right-0">
-        <Header />
-      </div>
-      <div className="mt-32 flex justify-center items-center">
-        <div
-         
-          className="text-blue-600 container mx-auto p-14 w-[50%] my-12 bg-white shadow-md rounded-lg"
-        >
-
+    <div className="bg-gradient-to-b from-blue-100 to-white min-h-screen">
+      <Header />
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">Create New Lesson</h1>
+        <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
           {lessons.map((lesson, index) => (
-            <div key={index} className="mb-6 p-4 border rounded-lg">
-              <div className="mb-4">
-                <label
-                  htmlFor={`title-${index}`}
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                 Lesson title:
-                </label>
-                <input
-                  type="text"
-                  id={`title-${index}`}
-
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  value={lesson.title}
-                  onChange={(e) =>
-                    handleLessonChange(index, "title", e.target.value)
-                  }
-                />
-              </div>
-
-              <div className="mb-4">
-                <label
-                  htmlFor={`description-${index}`}
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Description:
-                </label>
-                <textarea
-
-                  id={`description-${index}`}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  value={lesson.description}
-                  maxLength={100}
-                  onChange={(e) =>
-                    handleLessonChange(index, "description", e.target.value)
-                  }
-                />
-              </div>
-
-              <div className="mb-4">
-                <label
-                  htmlFor={`videoFile-${index}`}
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Video:
-                </label>
-                <input
-                  type="file"
-                  id={`videoFile-${index}`}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  onChange={(e) => handleVideoFileChange(index, e)}
-                />
-                {lesson.videoFile && (
-                  <div className="mt-2">
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div
-                        className={`bg-blue-500 h-2 rounded-full`}
-                        style={{ width: `${lesson.uploadProgress}%` }}
-                      ></div>
-                    </div>
-                    <span className="text-gray-500 text-sm">
-                      {lesson.uploadProgress}% Uploaded
+            <div key={index} className="p-6 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">Lesson {index + 1}</h2>
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor={`title-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                    Lesson Title
+                  </label>
+                  <input
+                    type="text"
+                    id={`title-${index}`}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={lesson.title}
+                    onChange={(e) => handleLessonChange(index, "title", e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`description-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                    Description
+                  </label>
+                  <textarea
+                    id={`description-${index}`}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={lesson.description}
+                    onChange={(e) => handleLessonChange(index, "description", e.target.value)}
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div>
+                  <label htmlFor={`videoFile-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                    Video
+                  </label>
+                  <div className="flex items-center space-x-2">
+                    <label
+                      htmlFor={`videoFile-${index}`}
+                      className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
+                    >
+                      <FaUpload className="inline mr-2" />
+                      Choose File
+                    </label>
+                    <input
+                      type="file"
+                      id={`videoFile-${index}`}
+                      className="hidden"
+                      onChange={(e) => handleVideoFileChange(index, e)}
+                    />
+                    <span className="text-sm text-gray-500">
+                      {lesson.videoFile ? lesson.videoFile.name : "No file chosen"}
                     </span>
                   </div>
-                )}
+                  {lesson.videoFile && (
+                    <div className="mt-2">
+                      <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div
+                          className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                          style={{ width: `${lesson.uploadProgress}%` }}
+                        ></div>
+                      </div>
+                      <span className="text-sm text-gray-500">
+                        {Math.round(lesson.uploadProgress)}% Uploaded
+                      </span>
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <label htmlFor={`documentText-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                    Note
+                  </label>
+                  <textarea
+                    id={`documentText-${index}`}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={lesson.documentText}
+                    onChange={(e) => handleLessonChange(index, "documentText", e.target.value)}
+                    rows="4"
+                  ></textarea>
+                </div>
               </div>
-
-              <div className="mb-4">
-                <label
-                  htmlFor={`documentText-${index}`}
-                  className="block text-gray-700 font-bold mb-2"
-                >
-                  Note:
-                </label>
-                <textarea
-                  id={`documentText-${index}`}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  value={lesson.documentText}
-                  onChange={(e) =>
-                    handleLessonChange(index, "documentText", e.target.value)
-                  }
-                />
-              </div>
-
-              <div className="flex justify-end mb-4">
+              {lessons.length > 1 && (
                 <button
                   onClick={() => removeLesson(index)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="mt-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300"
                 >
-                  <FaMinus className="inline" /> Remove Lesson
+                  <FaMinus className="inline mr-2" /> Remove Lesson
                 </button>
-              </div>
+              )}
             </div>
           ))}
-
-          <div className="flex justify-between mb-4">
+          <div className="p-6 flex justify-between items-center">
             <button
               onClick={addLesson}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300"
             >
-              <FaPlus className="inline" /> Add Lesson
+              <FaPlus className="inline mr-2" /> Add Lesson
             </button>
-          </div>
-
-          <div className="flex justify-between">
             <button
               disabled={loading}
               onClick={handleCreateLesson}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition duration-300 disabled:opacity-50"
             >
-              {loading ? "Loading..." : "Create Lesson"}
+              {loading ? "Creating..." : "Create Lessons"}
             </button>
-           
           </div>
         </div>
       </div>
-      <div>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };
 
 export default CreateLesson;
-

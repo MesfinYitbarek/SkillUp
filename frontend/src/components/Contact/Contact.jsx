@@ -134,14 +134,14 @@ const Contact = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
-          className=" dark:bg-gray-700 flex justify-center rounded-lg  p-10"
+          className=" dark:bg-gray-700 flex justify-center rounded-lg  :p-10"
         >
           
           <form
               data-aos="fade-up"
               data-aos-once="true"
               onSubmit={handleSubmit}
-              className="flex flex-col dark:text-white dark:bg-gray-500 space-y-4 sm:w-[650px]   bg-white shadow-md  p-4 sm:p-20 rounded-xl  border-slate-400"
+              className="flex flex-col dark:text-white dark:bg-gray-500 space-y-4 w-[370px] sm:w-[650px]   bg-white shadow-md  p-4 sm:p-20 rounded-xl  border-slate-400"
             >
               <div className="flex  flex-col space-y-2 sm:flex-row ">
                 <input
