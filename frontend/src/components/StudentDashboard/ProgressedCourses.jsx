@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
+import { useSearch } from "../../SearchContext";
 
 const ProgressedCourses = () => {
+  const { searchTerm } = useSearch();
   const [course, setCourse] = useState([]);
   const [coursesPerPage] = useState(6);
   const { currentUser } = useSelector((state) => state.user);
@@ -46,7 +48,12 @@ const ProgressedCourses = () => {
   };
 
   // Get the current page courses
-  const slicedCourses = course.slice(
+  const filteredCourses = course.filter(data =>
+    data.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    data.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const slicedCourses = filteredCourses.slice(
     coursesPerPage * (currentPage - 1),
     coursesPerPage * currentPage
   );

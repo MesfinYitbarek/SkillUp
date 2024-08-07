@@ -17,7 +17,7 @@ const Profile = () => {
   };
 
   return (
-    <div>
+    <div className=" font-lato">
       <div
         className={`${
           isChangePasswordOpen ? " brightness-50" : "brightness-100"
@@ -59,13 +59,13 @@ const Profile = () => {
                 <SignOut />
               </div>
             </div>
-            <div className=" text-7xl p-3   ">
+            <div className=" text-7xl p-3 font-lato   ">
               <div className=" flex flex-col mb-10">
                 <Link
                   to={`/${currentUser.role}`}
                   className=" mt-12 text-lg text-blue-800 font-semibold"
                 >
-                  <h1 className=" hover:bg-blue-800  hover:text-white border rounded-md border-blue-600 p-1.5 px-4">
+                  <h1 className=" hover:bg-blue-800  hover:text-white border rounded-md border-blue-600 p-1.5 px-4 text-center">
                     My Courses <DoubleArrowIcon className=" ml-1" />
                   </h1>
                 </Link>

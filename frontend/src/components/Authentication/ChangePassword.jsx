@@ -9,6 +9,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import { makeStyles } from '@mui/styles';
+import { FaX } from 'react-icons/fa6';
+
+
 // Custom styles
 const useStyles = makeStyles({
   container: {
@@ -16,7 +19,7 @@ const useStyles = makeStyles({
     padding: "20px",
     paddingLeft:"50px",
     paddingRight:"50px",
-    borderRadius: "10px",
+    borderRadius: "5px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     maxWidth: "400px",
     margin: "0 auto"
@@ -44,6 +47,7 @@ const useStyles = makeStyles({
     display: "block",
     margin: "20px auto 0 auto",
     fontWeight: "bold",
+   
   },
   alert: {
     marginBottom: "20px",
@@ -92,7 +96,12 @@ const ChangePassword = ({ onClose }) => {
 
   return (
     <div className={classes.container}>
-      <h2 className={classes.header}>Change Your Password</h2>
+      <div className=' flex justify-end'>
+      <button className=' font-lato   justify-end text-end font-bold' type="button" onClick={onClose}>
+        <FaX/>
+      </button>
+      </div>
+      <h2 className="text-center font-bold text-xl font-lato py-2  ">Change Your Password</h2>
       {message && (
         <Box sx={{ width: "100%" }} className={classes.alert}>
           <Collapse in={open}>
@@ -115,6 +124,7 @@ const ChangePassword = ({ onClose }) => {
           </Collapse>
         </Box>
       )}
+      
       <form onSubmit={handleChangePassword}>
         <TextField
           className={classes.input}
@@ -154,9 +164,7 @@ const ChangePassword = ({ onClose }) => {
           Change Password
         </Button>
       </form>
-      <button className=' mt-2 justify-end text-end font-bold' type="button" onClick={onClose}>
-        Close
-      </button>
+      
     </div>
   );
 };

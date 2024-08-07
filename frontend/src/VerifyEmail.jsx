@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { Forward } from "@mui/icons-material";
 
 const VerifyEmail = () => {
   const [emailVerified, setEmailVerified] = useState(false);
@@ -26,7 +27,7 @@ const VerifyEmail = () => {
                 username: userTempData.username,
                 email: userTempData.email,
                 password: userTempData.password,
-                uid: user.uid
+                uid: user.uid,
               }),
             });
 
@@ -50,9 +51,21 @@ const VerifyEmail = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-2xl font-bold mb-4">Verify your email address</h1>
       <p className="text-center">
-        A verification email has been sent to your email address. Please check your inbox and follow the instructions to verify your email.
+        A verification email has been sent to your email address. Please check
+        your inbox and follow the instructions to verify your email.
       </p>
-      {emailVerified && <p className="text-green-500 mt-4">Email verified! Redirecting...</p>}
+      {emailVerified && (
+        <p className="text-green-500 mt-4">Email verified! Redirecting...</p>
+      )}
+      {!emailVerified && (
+        <Link
+          to="https://www.gmail.com"
+          target="_blanck"
+          className="mt-10 p-3 border-2 border-black font-bold"
+        >
+          Open Gmail
+        </Link>
+      )}
     </div>
   );
 };

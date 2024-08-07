@@ -174,7 +174,7 @@ const LessonEdit = () => {
 
             <div className="mb-6">
               <label htmlFor="documentText" className="block text-gray-700 font-semibold mb-2">
-                Document
+               Note
               </label>
               <div className="relative">
                 <FaFileAlt className="absolute top-3 left-3 text-gray-400" />
@@ -184,7 +184,7 @@ const LessonEdit = () => {
                   rows="6"
                   value={lesson.documentText}
                   onChange={(e) => handleLessonChange("documentText", e.target.value)}
-                  placeholder="Enter lesson document content"
+                  placeholder="Enter lesson note "
                 ></textarea>
               </div>
             </div>

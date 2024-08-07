@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useLocation } from "react-router-dom";
 import {
   FormControl,
   InputLabel,
@@ -22,6 +23,10 @@ const CourseListing = ({
   catagorizedCourses,
   selectedCategories,
 }) => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const searchQuery = searchParams.get("search");
+
   const [displayedCourses, setDisplayedCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,12 +37,18 @@ const CourseListing = ({
   const [page, setPage] = useState(1);
 
   const allCourses = useMemo(() => {
+    if (searchQuery) {
+      return courses.filter(course => 
+        course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        course.description.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
     if (search) return filtered;
     if (categoryName) return courses.filter((course) => course.catagory.includes(categoryName));
     if (searchTerm) return filteredCourses;
     if (selectedCategories.length) return catagorizedCourses;
     return courses;
-  }, [search, filtered, categoryName, courses, searchTerm, filteredCourses, selectedCategories, catagorizedCourses]);
+  }, [searchQuery, search, filtered, categoryName, courses, searchTerm, filteredCourses, selectedCategories, catagorizedCourses]);
 
   const sortedCourses = useMemo(() => {
     if (sortBy === "") return allCourses;
@@ -97,7 +108,11 @@ const CourseListing = ({
     <div className="pr-4 dark:bg-gray-800">
       <div className="container mx-auto px-4 pb-8">
         <h2 className="dark:text-white text-3xl text-blue-800 font-semibold sm:mb-24 mb-8 text-center">
-          Explore Our Courses
+          {searchQuery 
+            ? `Search Results for "${searchQuery}"`
+            : categoryName 
+              ? `Courses in ${categoryName}`
+              : "Explore Our Courses"}
         </h2>
 
         <div className="dark:text-white flex justify-between items-center mb-4">

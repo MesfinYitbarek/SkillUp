@@ -8,7 +8,6 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Link, useNavigate } from "react-router-dom";
 import Menu from "./MenuData";
 import { useSelector } from "react-redux";
-import LogoutIcon from '@mui/icons-material/Logout';
 import SignOut from "../Profile/SignOut";
 import EmailIcon from "@mui/icons-material/Email";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -16,25 +15,32 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/X";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import PhoneIcon from "@mui/icons-material/Phone";
+import { useSearch } from "../../SearchContext";
 
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [showMenu, setShowMenu] = React.useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate(); // Import useNavigate
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
+ const { searchTerm, setSearchTerm } = useSearch();
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTerm.trim()) {
-      onSearch(searchTerm.trim());
+      navigate(`/courses?search=${encodeURIComponent(searchTerm.trim())}`);
     }
-    navigate(`/courses/${searchTerm}`); 
   };
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+
 
   const [catagory, setCatagory] = React.useState([]);
 
@@ -163,19 +169,19 @@ const Header = () => {
 
           {/*Search bar */}
           <div className="relative group hidden sm:block">
-          <form onSubmit={handleSearch} >
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search For Courses"
-              className="sm:w-[200px] sm:group-hover:w-[300px] transtion-all duration-300  border-2 border-gray-300 px-2 py-1 focus:outline-none focus:border-1 focus:border-primary dark:border-gray-500 dark:bg-gray-800"
-            />
-            <button type="submit" >
-            <IoMdSearch
-              className="text-gray-500 group-hover:primary absolute top-1/2 -translate-y-1/2 right-3"
-            />
-            </button>
+          <form onSubmit={handleSearch}>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Search For Courses"
+          className="sm:w-[200px] sm:group-hover:w-[300px] transtion-all duration-300 border-2 border-gray-300 px-2 py-1 focus:outline-none focus:border-1 focus:border-primary dark:border-gray-500 dark:bg-gray-800"
+        />
+        <button type="submit">
+          <IoMdSearch
+            className="text-gray-500 group-hover:primary absolute top-1/2 -translate-y-1/2 right-3"
+          />
+        </button>
             </form>
           </div>
           <Link to="/profile" className="flex items-center">

@@ -60,14 +60,16 @@ const Students = () => {
                 <tr className=" bg-blue-800   font-semibold text-white ">
                   <td className="p-2">Student Name</td>
                   <td className=" px-10">Student Email</td>
-                  <td className=" px-10">Course Name</td>
+                  <td className=" px-10">Assignment</td>
+                  <td className=" px-10">Grade</td>
                   <td></td>
                 </tr>
                 {enrollment.map((data) => (
                   <tr className=" hover:bg-gray-200 ">
                     <td className=" p-1"><Checkbox/> {data.username}</td>
                     <td className=" px-10">{data.email}</td>
-                    <td className=" px-10">{data.courseName}</td>
+                    <td className=" px-10">Assignment</td>
+                    <td className=" px-10">Grade</td>
                     <td className="    text-red-600    text-center">
                       <button
                         onClick={() => handleDeleteEnrollment(data._id)}

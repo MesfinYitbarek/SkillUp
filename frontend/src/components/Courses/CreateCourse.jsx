@@ -120,11 +120,11 @@ const CreateCourse = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen  bg-gradient-to-tr from-gray-200 via-indigo-100 to-blue-200  font-lato ">
       <Header />
-      <div className="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-center mb-10">Create a New Course</h1>
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-8">
+      <div className="container mx-auto py-10 px-4 sm:px-20 lg:px-20">
+        <h1 className="text-3xl font-bold text-blue-900 text-tr text-center mb-10">Create a New Course</h1>
+        <form onSubmit={handleSubmit} className=" shadow-sm rounded-lg border text-md border-blue-800 p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Left Column */}
             <div>
@@ -206,16 +206,6 @@ const CreateCourse = () => {
                   />
                 )}
               </div>
-              <InputField
-                label="Course Rating (optional)"
-                id="rating"
-                type="number"
-                value={formData.rating || ""}
-                onChange={handleChange}
-                min="0"
-                max="5"
-                step="0.1"
-              />
             </div>
           </div>
 
@@ -266,21 +256,22 @@ const CreateCourse = () => {
             <button
               type="button"
               onClick={() => handleAddField(setModules)}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              className="bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-600"
             >
               Add Module
             </button>
           </div>
 
           {error && <p className="text-red-500 mb-4">{error}</p>}
-          
+          <div className=" flex justify-center items-center">
           <button
-            className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-300"
+            className=" px-5 bg-blue-800 text-white py-3 rounded-md hover:bg-blue-700 transition duration-300"
             disabled={loading}
             type="submit"
           >
             {loading ? "Creating Course..." : "Create Course"}
           </button>
+          </div>
         </form>
       </div>
       <Footer />
@@ -294,7 +285,7 @@ const InputField = ({ label, id, ...props }) => (
     <label htmlFor={id} className="block text-gray-700 font-bold mb-2">{label}</label>
     <input
       id={id}
-      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      className=" appearance-none border   border-blue-800 w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       {...props}
     />
   </div>
@@ -305,7 +296,7 @@ const SelectField = ({ label, id, options, ...props }) => (
     <label htmlFor={id} className="block text-gray-700 font-bold mb-2">{label}</label>
     <select
       id={id}
-      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      className=" appearance-none border border-blue-800  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       {...props}
     >
       {options.map((option) => (
@@ -323,7 +314,7 @@ const FileInput = ({ label, id, ...props }) => (
     <input
       type="file"
       id={id}
-      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      className=" appearance-none border border-blue-800 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       {...props}
     />
   </div>
@@ -334,7 +325,7 @@ const TextArea = ({ label, id, ...props }) => (
     <label htmlFor={id} className="block text-gray-700 font-bold mb-2">{label}</label>
     <textarea
       id={id}
-      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      className="appearance-none border border-blue-800 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       rows="5"
       {...props}
     ></textarea>
@@ -351,7 +342,7 @@ const DynamicFields = ({ label, fields, onAdd, onChange, onRemove }) => (
           value={field}
           onChange={(e) => onChange(index, e.target.value)}
           placeholder={`Enter ${label.toLowerCase()}`}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="appearance-none border border-blue-800 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
         <button
           onClick={() => onRemove(index)}
@@ -365,7 +356,7 @@ const DynamicFields = ({ label, fields, onAdd, onChange, onRemove }) => (
     <button
       type="button"
       onClick={onAdd}
-      className="text-blue-500 hover:text-blue-700"
+      className="text-blue-500 hover:text-blue-800"
     >
       Add {label}
     </button>

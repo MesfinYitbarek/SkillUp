@@ -108,7 +108,7 @@ const CreateLesson = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-blue-100 to-white min-h-screen">
+    <div className=" font-lato bg-gradient-to-b from-blue-100 to-white min-h-screen">
       <Header />
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">Create New Lesson</h1>
@@ -124,6 +124,7 @@ const CreateLesson = () => {
                   <input
                     type="text"
                     id={`title-${index}`}
+                    placeholder="Enter lesson title"
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={lesson.title}
                     onChange={(e) => handleLessonChange(index, "title", e.target.value)}
@@ -137,6 +138,7 @@ const CreateLesson = () => {
                     id={`description-${index}`}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={lesson.description}
+                    placeholder="Enter lesson description"
                     onChange={(e) => handleLessonChange(index, "description", e.target.value)}
                     rows="3"
                   ></textarea>
@@ -148,7 +150,7 @@ const CreateLesson = () => {
                   <div className="flex items-center space-x-2">
                     <label
                       htmlFor={`videoFile-${index}`}
-                      className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
+                      className="cursor-pointer bg-blue-800 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
                     >
                       <FaUpload className="inline mr-2" />
                       Choose File
@@ -187,6 +189,7 @@ const CreateLesson = () => {
                     value={lesson.documentText}
                     onChange={(e) => handleLessonChange(index, "documentText", e.target.value)}
                     rows="4"
+                    placeholder="Enter lesson note "
                   ></textarea>
                 </div>
               </div>
@@ -210,7 +213,7 @@ const CreateLesson = () => {
             <button
               disabled={loading}
               onClick={handleCreateLesson}
-              className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition duration-300 disabled:opacity-50"
+              className="bg-blue-800 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition duration-300 disabled:opacity-50"
             >
               {loading ? "Creating..." : "Create Lessons"}
             </button>

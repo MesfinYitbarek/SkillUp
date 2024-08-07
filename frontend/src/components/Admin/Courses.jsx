@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Box } from "@mui/material";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import { useSearch } from "../../SearchContext";
 
 const Courses = () => {
+  const { searchTerm } = useSearch();
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -61,7 +63,12 @@ const Courses = () => {
     setCurrentPage(newPage);
   };
 
-  const slicedCourses = courses.slice(
+  const filteredCourses = courses.filter(course =>
+    course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    course.instructor.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const slicedCourses = filteredCourses.slice(
     coursesPerPage * (currentPage - 1),
     coursesPerPage * currentPage
   );

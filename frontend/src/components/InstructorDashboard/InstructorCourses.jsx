@@ -5,8 +5,10 @@ import Pagination from "@mui/material/Pagination";
 import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import { useSearch } from "../../SearchContext";
 
 const InstructorCourse = () => {
+  const { searchTerm } = useSearch();
   const [courses, setCourses] = useState([]);
   const { loading, currentUser } = useSelector((state) => state.user);
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,7 +79,12 @@ const InstructorCourse = () => {
     setExpandedCourse((prev) => (prev === courseId ? null : courseId));
   };
 
-  const slicedCourses = courses.slice(
+  const filteredCourses = courses.filter(course =>
+    course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    course.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const slicedCourses = filteredCourses.slice(
     coursesPerPage * (currentPage - 1),
     coursesPerPage * currentPage
   );
@@ -100,56 +107,94 @@ const InstructorCourse = () => {
           </Box>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {slicedCourses &&
                 slicedCourses.length > 0 &&
                 slicedCourses.map((course) => (
                   <div
                     key={course._id}
-                    className="bg-white rounded-2xl border border-slate-300 overflow-hidden  p-4"
+                    className="bg-white rounded-2xl border border-slate-300 overflow-hidden flex flex-col h-full"
                   >
                     <img
                       src={course.imageUrl}
                       alt={course.title}
-                      className="w-full h-36 object-cover rounded-md"
+                      className="w-full h-48 object-cover"
                     />
-                    <div className="px-3 py-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <h3 className="text-lg font-bold py-[3px] rounded">
-                          {course.title}
-                        </h3>
-                      </div>
-                      <p className="dark:text-white cursor-pointer font-semibold text-blue-950 mb-2">
+                    <div className="p-4 flex flex-col flex-grow">
+                      <h3 className="text-lg font-bold mb-2 truncate">
+                        {course.title}
+                      </h3>
+                      <p className="dark:text-white text-blue-950 mb-2 flex-grow">
                         {expandedCourse === course._id ? (
                           <span
                             onClick={() => handleToggleDescription(course._id)}
+                            className="cursor-pointer"
                           >
                             {course.description}
                           </span>
                         ) : (
                           <span
-                            className="line-clamp-2"
+                            className="line-clamp-2 cursor-pointer"
                             onClick={() => handleToggleDescription(course._id)}
                           >
                             {course.description}
                             {course.description.length > 100 && (
-                              <span className="text-blue-500 cursor-pointer">
+                              <span className="text-blue-500 ml-1">
                                 ...Read more
                               </span>
                             )}
                           </span>
                         )}
                       </p>
-                      <div className="flex justify-between items-center mt-2 mb-3">
+                      <div className="flex justify-between items-center  mt-2 mb-3">
                         <span className="dark:text-white text-gray-700 text-sm">
                           Duration: {course.duration}
                         </span>
-                        <span>
-                          <StarIcon className=" text-yellow-400" />
+                        <span className="flex items-center">
+                          <StarIcon className="text-yellow-400" />
                           <span className="text-gray-700 ml-1">
-                            {course.rating}
+                          {Number(course.rating).toFixed(2)} ({course.reviewCount} reviews)
                           </span>
                         </span>
+                       
+                      </div>
+                      <hr className="my-3" />
+                      <div className="flex flex-wrap gap-2 justify-between items-center">
+                        <Link
+                          to={`/courseDetails/${course._id}`}
+                          className="inline-block px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded"
+                        >
+                          Details
+                        </Link>
+                        <button
+                          disabled={loading}
+                          onClick={() => handleCourseDelete(course._id)}
+                          className="px-3 py-1 border-red-500 border text-red-600 font-bold rounded"
+                        >
+                          {loading ? "Loading..." : "Delete"}
+                        </button>
+                        <Link
+                          to={`/course-edit/${course._id}`}
+                          className="px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded"
+                        >
+                          Edit
+                        </Link>
+                      </div>
+                      <div className="mt-4 flex gap-4 items-center">
+                        <Link
+                          to={`/course-lessons/${course._id}`}
+                          state={course.title}
+                          className="flex-1 text-center px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded"
+                        >
+                          Lesson
+                        </Link>
+                        <Link
+                          to={`/students/${course._id}`}
+                          state={course.title}
+                          className="flex-1 text-center px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded"
+                        >
+                          Students
+                        </Link>
                         {course.isPaid ? (
                           <span className="text-blue-600 font-bold">
                             &#36;{course.price}
@@ -157,40 +202,6 @@ const InstructorCourse = () => {
                         ) : (
                           <span className="text-green-500 font-bold">Free</span>
                         )}
-                      </div>
-                      <hr />
-                      <div className="flex justify-between items-center mt-3"></div>
-                      <div className="flex justify-between items-center">
-                        <Link
-                          to={`/courseDetails/${course._id}`}
-                          className="inline-block px-3 py-1 border-blue-800 border  text-blue-800  font-bold rounded "
-                        >
-                          Details
-                        </Link>
-                        <button
-                          disabled={loading}
-                          onClick={() => handleCourseDelete(course._id)}
-                          className="px-3 py-1 border-red-500 border  text-red-600 font-bold rounded mt-1"
-                        >
-                          {loading ? "Loading..." : "Delete"}
-                        </button>
-                        <Link to={`/course-edit/${course._id}`}>Edit</Link>
-                      </div>
-                      <div className=" mt-4 flex  gap-6 items-center">
-                        <Link
-                          to={`/course-lessons/${course._id}`}
-                          state={course.title}
-                          className="  px-3 py-1 border-blue-800 0 border  text-blue-800  font-bold rounded "
-                        >
-                          Lesson
-                        </Link>
-                        <Link
-                          to={`/students/${course._id}`}
-                          state={course.title}
-                          className="  px-3 py-1 border-blue-800  border  text-blue-800  font-bold rounded "
-                        >
-                          Students
-                        </Link>
                       </div>
                     </div>
                   </div>

@@ -4,21 +4,16 @@ import DashboardHeader from "../../components/Common/DashboardHeader";
 import { useSelector } from "react-redux";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 import InstructorCourse from "../../components/InstructorDashboard/InstructorCourses";
-import MessageIcon from "@mui/icons-material/Message";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import SchoolIcon from "@mui/icons-material/School";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SignOut from "../../components/Profile/SignOut";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import EnrolledStudent from "../../components/InstructorDashboard/EnrolledStudent";
 
 const navigationItems = [
   { name: "My Courses", icon: <PlayCircleIcon />, isActive: true },
-  { name: "Messages", icon: <MessageIcon /> },
-  { name: "Enrolled Students", icon: <SchoolIcon /> },
   { name: <SignOut />, icon: <LogoutIcon />, link: <SignOut /> },
 ];
 
@@ -40,8 +35,8 @@ const Instructor = () => {
           <div className=" fixed bg-white h-screen  w-[230px] top-0 p-5 text-center flex flex-col gap-4">
             <div className="font-bold  text-blue-800 leading-10  text-lg">
               <Link to={"/"}>
-                <CastForEducationIcon className="text-blue-800 mb-2" />{" "}
-                SkillUp <span>Instructor</span>
+                <CastForEducationIcon className="text-blue-800 mb-2" /> SkillUp{" "}
+                <span>Instructor</span>
               </Link>
             </div>
             <div className=" text-start flex p-2 flex-col gap-2">
@@ -84,10 +79,6 @@ const Instructor = () => {
       <div className="ml-52">
         {condtion == "My Courses" ? (
           <InstructorCourse />
-        ) : condtion == "Messages" ? (
-          <ContactDisplay />
-        ) : condtion == "Enrolled Students" ? (
-          <EnrolledStudent />
         ) : condtion == "Log Out" ? (
           <SignOut />
         ) : (

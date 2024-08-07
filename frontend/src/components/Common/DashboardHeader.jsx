@@ -8,17 +8,23 @@ import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import MessageIcon from "@mui/icons-material/Message";
 import { Badge, Stack } from "@mui/material";
 import { io } from "socket.io-client";
+import { useSearch } from "../../SearchContext";
 
 const DashboardHeader = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [newMessageCount, setNewMessageCount] = useState(0);
+  const { searchTerm, setSearchTerm } = useSearch();
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   useEffect(() => {
     // Fetch initial message count
-    fetch('/api/contact/newMessageCount')
-      .then(response => response.json())
-      .then(data => setNewMessageCount(data.count))
-      .catch(error => console.error('Error fetching message count:', error));
+    fetch("/api/contact/newMessageCount")
+      .then((response) => response.json())
+      .then((data) => setNewMessageCount(data.count))
+      .catch((error) => console.error("Error fetching message count:", error));
 
     // Setup Socket.IO
     const socket = io("http://localhost:4444"); // Replace with your server URL
@@ -57,9 +63,19 @@ const DashboardHeader = () => {
             type="text"
             placeholder="Search here"
             className="px-2 py-1.5 bg-gray-100 border-gray-400"
+            value={searchTerm}
+            onChange={handleSearchChange}
           />
         </div>
-        <div className={` ${currentUser.role == "instructor" ? "hidden" : currentUser.role == "student" ? "hidden" : "flex" } gap-16 flex justify-between items-center`}>
+        <div
+          className={` ${
+            currentUser.role == "instructor"
+              ? "hidden"
+              : currentUser.role == "student"
+              ? "hidden"
+              : "flex"
+          } gap-16 flex justify-between items-center`}
+        >
           <div className="bg-gray-100 px-2 py-1.5">
             <Stack spacing={4} direction="row" sx={{ color: "action.active" }}>
               <Badge color="secondary" badgeContent={newMessageCount} showZero>

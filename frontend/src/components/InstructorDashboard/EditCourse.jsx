@@ -179,7 +179,7 @@ const EditCourse = () => {
   }, []);
 
   return (
-    <div className=" bg-slate-100">
+    <div className=" bg-slate-100 font-lato ">
       <div className="p-10 px-32">
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
