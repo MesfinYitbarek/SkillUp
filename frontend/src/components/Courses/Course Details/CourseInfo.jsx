@@ -23,8 +23,8 @@ const CourseInfo = () => {
       {course ? (
         <div className=" flex flex-col gap-7">
           <div className="p-6  border border-slate-300 ">
-            <h1 className=" text-2xl font-bold py-4">What you'll learn</h1>
-            <div className="sm:grid sm:grid-cols-2 ">
+            <h1 className=" text-2xl font-bold py-4 font-lato">What you'll learn</h1>
+            <div className=" ">
               <p>
                 <ul className=" list-none pl-4 ">
                   {course.learningObjectives?.map((objective, index) => (
@@ -37,8 +37,8 @@ const CourseInfo = () => {
               </p>
             </div>
           </div>
-          <div className=" flex flex-col">
-            <h1 className=" py-5 flex gap-2  font-bold text-2xl">
+          <div className=" flex flex-col p-6  border border-slate-300">
+            <h1 className=" py-5 flex gap-2 font-lato  font-bold text-2xl">
               Requirements
             </h1>
             <p>

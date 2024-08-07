@@ -27,13 +27,13 @@ function Reviews({ courseId }) {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
-      <h2 className="text-3xl font-bold mb-6 text-gray-800 border-b pb-2">Course Reviews</h2>
+    <div className="bg-white shadow-lg  p-6 mb-8 border">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 border-b pb-2 font-lato">Course Reviews</h2>
       {reviews.length === 0 ? (
-        <p className="text-gray-600 italic">No reviews yet. Be the first to review this course!</p>
+        <p className="text-gray-600 italic ">No reviews yet. Be the first to review this course!</p>
       ) : (
         reviews.map((review) => (
-          <div key={review._id} className="mb-6 border-b pb-4 last:border-b-0">
+          <div key={review._id} className="mb-4 border-b pb-4 last:border-b-0">
             <div className="flex items-center justify-between mb-2">
               <span className="font-semibold text-lg text-gray-800">{review.username}</span>
               <span className="text-sm text-gray-500">{formatDate(review.createdAt)}</span>
