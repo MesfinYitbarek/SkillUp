@@ -131,7 +131,7 @@ const Footer = () => {
         </div>
         <div>
           <h1 className=" mb-8 text-2xl font-bold hover:text-blue-800">
-            Catagories
+            Categories
           </h1>
           <ul>
           {catagory.map((data) => (

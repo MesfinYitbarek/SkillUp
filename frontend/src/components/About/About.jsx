@@ -80,7 +80,7 @@ const About = () => {
         <div className="px-14 sm:px-20 flex flex-col md:flex-row gap-24 justify-between items-center py-20">
           <div className="md:w-1/2">
             <h1 className="text-red-400 font-bold mb-4">How It Started</h1>
-            <h5 data-aos="zoom-in" className="mb-5 font-semibold text-5xl text-blue-800">
+            <h5 data-aos="zoom-in "data-aos-once="true" className="mb-5 font-semibold text-5xl text-blue-800">
               Empowering Lifelong Learners
             </h5>
             <p className="text-justify text-lg leading-relaxed">

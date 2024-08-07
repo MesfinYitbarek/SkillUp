@@ -65,7 +65,7 @@ function Test() {
     };
 
     fetchCourse();
-  }, [courseId, currentUser.username]);
+  }, [courseId]);
 
   const handleClick = (buttonIndex) => {
     setActiveButton(buttonIndex);

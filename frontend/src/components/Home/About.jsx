@@ -33,7 +33,7 @@ const About = () => {
                 Empowering Lifelong Learners in a Changing World.
               </p>
               <Link to="/sign-in">
-                <button className=" mt-3 group relative inline-flex items-center justify-start overflow-hidden rounded-full bg-blue-800 px-8 py-3 font-bold text-white transition-all hover:bg-white">
+                <button className=" mt-12 group relative inline-flex items-center justify-start overflow-hidden rounded-full bg-blue-800 px-8 py-3 font-bold text-white transition-all hover:bg-white">
                   <span className="absolute inset-0 rounded-full border-0 border-white transition-all duration-100 ease-linear group-hover:border-[25px]"></span>
                   <span className="relative w-full text-left  text-white transition-colors duration-200 ease-in-out group-hover:text-blue-800">
                     Join For Free <ArrowForward className="ml-2 inline" />

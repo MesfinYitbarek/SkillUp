@@ -114,7 +114,7 @@ const Header = () => {
           {/* Mobile Menu */}
           <div className={`sm:hidden fixed top-0 left-0 z-50 bg-white dark:bg-gray-800 p-4 shadow-md w-[30%] h-screen overflow-y-auto ${showMenu ? 'block' : 'hidden'}`}>
             <ul className="flex flex-col gap-4 text-blue-800 dark:text-white">
-              {Menu.map((data) => (
+              {Menu && Menu.map((data) => (
                 <li key={data.id} className="hover:bg-slate-200">
                   <Link to={data.link} className="hover:text-blue-800 group font-mono" onClick={toggleMenu}>
                     <span className="bg-left-bottom bg-gradient-to-r from-sky-500 to-sky-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
@@ -129,7 +129,7 @@ const Header = () => {
           {/* Desktop Menu */}
           <nav className="hidden sm:block">
             <ul className="flex flex-row sm:gap-10 items-center text-sky-900 dark:text-white">
-              {Menu.map((data) => (
+              {Menu && Menu.map((data) => (
                 <li key={data.id} className="hover:bg-slate-100">
                   <Link to={data.link} className="hover:text-blue-800 group font-mono">
                     <span className="bg-left-bottom bg-gradient-to-r from-sky-500 to-sky-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
@@ -141,14 +141,14 @@ const Header = () => {
               <li className="group relative bg-white dark:bg-gray-600 cursor-pointer border-2 py-1/2 px-9">
                 <a href="#" className="object-cover flex items-center gap-[2px] py-1">
                   <DashboardIcon className="-ml-4 mr-1 text-blue-800" />
-                  Catagories
+                  Categories
                   <span>
                     <FaCaretDown className="transition-all duration-200 group-hover:rotate-180 ml-3" />
                   </span>
                 </a>
                 <div className="absolute z-[9999] hidden group-hover:block w-[200px] rounded-md bg-white p-2 text-black shadow-md">
                   <ul className="">
-                    {catagory.map((data) => (
+                    {catagory && catagory.map((data) => (
                       <li key={data.id} onClick={() => handleCategoryClick(data.name)}>
                         <a href="#" className="inline-block w-full rounded-md p-2 hover:bg-gray-200">
                           {data.name}

@@ -86,14 +86,14 @@ const Hero = () => {
                       hover:border-sky-800 font-semibold dark:bg-white dark:text-blue-900  
                       bg-blue-800 mt-9 text-white p-2 px-4 rounded-md"
           >
-            <Link to="/courses">
+            <Link to="/courses" className="bg-blue-800">
               Explore Courses <ArrowForwardIcon />
             </Link>
           </button>
           </motion.p>
         </div>
       </motion.div>
-      <div className="dark:bg-gray-800 flex mt-10 mb-5 pb-10 justify-between text-center text-blue-800 font-bold text-lg items-center px-2 sm:px-32 h-[200px] shadow-xl">
+      <div className="dark:bg-gray-800 flex mt-10 mb-5 pb-10 justify-center gap-36 text-center text-blue-800 font-bold text-lg items-center px-2 sm:px-32 h-[200px] shadow-xl">
         <div ref={coursesRef} className="flex flex-col items-center sm:w-[170px] text-center gap-4 rounded-lg bg-slate-200 p-7">
           <div className="bg-slate-100 text-blue-800 p-2 rounded-full h-[50px] w-[50px]">
             <PlayCircleIcon fontSize="large" />
