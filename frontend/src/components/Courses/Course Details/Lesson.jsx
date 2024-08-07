@@ -21,8 +21,8 @@ const Lesson = () => {
   }, [courseId]);
 
   return (
-    <div className="text-sky-900">
-      <h1 className="text-2xl font-bold pb-9">Course Curriculum</h1>
+    <div className="">
+      <h1 className="text-2xl font-bold pb-9 font-lato">Course Curriculum</h1>
       {course ? (
         <div>
           {course.curriculum && (

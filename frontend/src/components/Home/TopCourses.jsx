@@ -93,7 +93,7 @@ const TopCourses = () => {
                   </a>
                   <div className="flex items-center">
                     <StarIcon className="text-yellow-400 mr-1" />
-                    <span className="text-gray-700 dark:text-gray-300">{course.rating} ({course.reviewCount} reviews)</span>
+                    <span className="text-gray-700 dark:text-gray-300">{Number(course.rating).toFixed(2)} ({course.reviewCount} reviews)</span>
                   </div>
                 </div>
               </div>

@@ -122,11 +122,11 @@ function Test() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen dark:bg-gray-800 dark:text-white">
       <Header />
       {course ? (
         <div className="flex-grow">
-          <div className="bg-blue-900 text-white py-8 px-4 md:px-8 lg:px-20">
+          <div className="bg-blue-900 dark:bg-gray-700  text-white py-8 px-4 md:px-8 lg:px-20">
             <div className="max-w-6xl mx-auto">
               <button className="bg-green-500 text-white px-3 py-1 rounded-full text-sm mb-2">
                 {course.catagory}
@@ -140,7 +140,7 @@ function Test() {
                     alt="profile"
                     className="h-8 w-8 rounded-full mr-2 object-cover"
                   />
-                  <span>{course.instructor}</span>
+                  <span>{course.instructor} (instructor)</span>
                 </div>
                 <div className="flex items-center">
                   <FaClock className="mr-1" />
@@ -152,7 +152,7 @@ function Test() {
                 </div>
                 <div className="flex items-center">
                   <Star className="text-yellow-400 mr-1" />
-                  <span>{course.rating}</span>
+                  <span>{Number(course.rating).toFixed(2)} ({course.reviewCount} reviews)</span>
                 </div>
               </div>
             </div>
@@ -166,7 +166,7 @@ function Test() {
                   className="w-full h-64 md:h-96 object-cover rounded-lg mb-8"
                   alt="course"
                 />
-                <div className="flex flex-wrap border-b mb-8">
+                <div className="flex flex-wrap border-b mb-8 font-lato">
                   {["Course Info", "Curriculum", "Reviews"].map((label, index) => (
                     <button
                       key={index}
@@ -229,7 +229,7 @@ function Test() {
               </div>
 
               <div className="md:w-1/3">
-                <div className="bg-gray-100 rounded-lg p-6 sticky top-4">
+                <div className="bg-gray-100 rounded-lg p-6 sticky top-4 dark:bg-gray-700 dark:text-white">
                   <div className="mb-4">
                     {course.isPaid ? (
                       <span className="text-blue-800 text-2xl font-bold">₹{course.price}</span>
@@ -253,7 +253,7 @@ function Test() {
                       {loading ? "Loading..." : "Enroll Now"}
                     </button>
                   )}
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-4">
                     <div className="flex items-center">
                       <AlignVerticalBottomIcon className="mr-2" />
                       <span>{course.level}</span>

@@ -11,9 +11,10 @@ const InstructorCourse = () => {
   const { loading, currentUser } = useSelector((state) => state.user);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [coursesPerPage] = useState(6); // 6 courses per page
+  const [coursesPerPage] = useState(6);
   const [error, setError] = useState(null);
   const [expandedCourse, setExpandedCourse] = useState(null);
+
   useEffect(() => {
     setTimeout(() => {
       try {
@@ -76,7 +77,6 @@ const InstructorCourse = () => {
     setExpandedCourse((prev) => (prev === courseId ? null : courseId));
   };
 
-  // Get the current page courses
   const slicedCourses = courses.slice(
     coursesPerPage * (currentPage - 1),
     coursesPerPage * currentPage
@@ -198,7 +198,7 @@ const InstructorCourse = () => {
             </div>
             <div className="flex justify-center mt-4">
               <Pagination
-                count={Math.ceil(courses.length / coursesPerPage)} // Total pages based on courses and per page limit
+                count={Math.ceil(courses.length / coursesPerPage)}
                 page={currentPage}
                 onChange={handlePageChange}
                 color="primary"

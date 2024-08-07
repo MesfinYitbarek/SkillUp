@@ -157,22 +157,21 @@ const CourseListing = ({
     </div>
   );
 };
-
 const CourseCard = React.memo(({ course, expandedCourse, handleToggleDescription }) => (
-  <div className="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-    <Link to={`/courseDetails/${course._id}`}>
+  <div className="bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
+    <Link to={`/courseDetails/${course._id}`} className="flex-shrink-0">
       <img
         src={course.imageUrl}
         alt={course.title}
         className="w-full h-48 object-cover"
       />
     </Link>
-    <div className="p-4">
-      <h3 className="text-lg font-semibold dark:text-white mb-2">
+    <div className="p-4 flex flex-col flex-grow">
+      <h3 className="text-lg font-semibold dark:text-white mb-2 line-clamp-2">
         {course.title}
       </h3>
       
-      <p className="text-gray-600 cursor-pointer dark:text-gray-300 mb-4">
+      <p className="text-gray-600 cursor-pointer dark:text-gray-300 mb-4 flex-grow">
         {expandedCourse === course._id ? (
           <span onClick={() => handleToggleDescription(course._id)}>
             {course.description}
@@ -204,17 +203,17 @@ const CourseCard = React.memo(({ course, expandedCourse, handleToggleDescription
         )}
       </div>
       <hr />
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mt-4">
         <Link
           to={`/courseDetails/${course._id}`}
-          className="inline-block px-3 py-1.5 border-blue-800 border text-blue-800 font-bold rounded mt-4"
+          className="inline-block px-3 py-1.5 border-blue-800 border text-blue-800 font-bold rounded"
         >
           Details
         </Link>
         <span>
           <StarIcon className="text-yellow-500" />
           <span className="ml-2 text-gray-600 dark:text-gray-300">
-            {course.rating} ({course.reviewCount} reviews)
+            {Number(course.rating).toFixed(2)} ({course.reviewCount} reviews)
           </span>
         </span>
       </div>
