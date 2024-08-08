@@ -19,6 +19,7 @@ import scoreRouter from "./routes/score.js";
 import assignmentRouter from "./routes/assignment.js";
 import reviewRouter from "./routes/review.js";
 import Course from "./models/Course.js";
+import progressrouter from "./routes/progress.js";
 
 dotenv.config();
 
@@ -83,7 +84,7 @@ app.use("/api/discussion", discussionRouter);
 app.use("/api/quiz", quizRouter);
 app.use("/api/assignment", assignmentRouter);
 app.use('/api/scores', scoreRouter);
-
+app.use('/api/progress', progressrouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

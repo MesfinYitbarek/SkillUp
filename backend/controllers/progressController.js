@@ -1,44 +1,42 @@
-import Progress from '../models/Progress';
-
-const express = require('express');
+import Progress from '../models/Progress.js';
 
 
-const router = express.Router();
+export const getProgress = async (req, res) => {
+  try {
+    const { userId, courseId } = req.params;
+    let progress = await Progress.findOne({ userId, courseId });
+    
+    if (!progress) {
+      progress = { lessons: {} };
+    }
+    
+    res.json(progress.lessons);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching progress', error: error.message });
+  }
+};
 
-// Update progress for a specific lesson
 export const updateProgress = async (req, res) => {
-    const { userId } = req.user;
-    const { courseId, lessonId } = req.params;
-    const { progress } = req.body;
-  
-    try {
-      let progressDoc = await Progress.findOne({ userId, courseId, lessonId });
-      if (progressDoc) {
-        progressDoc.progress = progress;
-        await progressDoc.save();
-      } else {
-        progressDoc = new Progress({ userId, courseId, lessonId, progress });
-        await progressDoc.save();
-      }
-      res.json(progressDoc);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+  try {
+    const { userId, courseId, lessonId } = req.params;
+    const { type, value } = req.body;
+
+    let progress = await Progress.findOne({ userId, courseId });
+
+    if (!progress) {
+      progress = new Progress({ userId, courseId, lessons: {} });
     }
-  };
-  
-// Retrieve user progress for a specific course
-export const getProgress =  async (req, res) => {
-    const { userId } = req.user;
-    const { courseId, lessonId } = req.params;
-  
-    try {
-      const progress = await Progress.findOne({ userId, courseId, lessonId });
-      if (progress) {
-        res.json(progress);
-      } else {
-        res.status(404).json({ message: 'Progress not found' });
-      }
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+
+    if (!progress.lessons.get(lessonId)) {
+      progress.lessons.set(lessonId, {});
     }
-  };
+
+    progress.lessons.get(lessonId)[type] = value;
+
+    await progress.save();
+
+    res.json(progress.lessons.get(lessonId));
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating progress', error: error.message });
+  }
+};

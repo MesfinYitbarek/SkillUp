@@ -1,8 +1,14 @@
 import express from "express";
-import { getProgress,  updateProgress } from "../controllers/progressController";
-import { verifyToken } from "../Utils/verifyUser";
-const progressRouter = express.Router();
-progressRouter.post('/:courseId/:lessonId', verifyToken, updateProgress);
-progressRouter.get('/:courseId/:lessonId', verifyToken, getProgress);
+import { getProgress,  updateProgress } from "../controllers/progressController.js";
+import { verifyToken } from "../Utils/verifyUser.js";
 
-export default progressRouter
+
+const progressrouter = express.Router();
+// Assuming you have an auth middleware
+
+progressrouter.get('/:userId/:courseId',verifyToken, getProgress);
+progressrouter.post('/:userId/:courseId/:lessonId',verifyToken,updateProgress);
+
+
+
+export default progressrouter

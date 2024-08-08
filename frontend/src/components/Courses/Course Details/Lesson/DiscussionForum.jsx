@@ -64,7 +64,6 @@ const DiscussionForum = ({ lessonId }) => {
       socket.emit("newComment", newComment);
     } catch (error) {
       console.error(error);
-      
     }
   };
 
@@ -106,14 +105,24 @@ const DiscussionForum = ({ lessonId }) => {
               <li key={comment._id} className="">
                 <div className=" flex gap-2 items-center ">
                   <span>
-                    <img
-                      src={comment.userId.avatar}
-                      className=" w-8 h-8 rounded-full"
-                      alt="image"
-                    />
+                    {comment.userId && comment.userId.avatar ? (
+                      <img
+                        src={comment.userId.avatar}
+                        className=" w-8 h-8 rounded-full"
+                        alt="image"
+                      />
+                    ) : comment.userId ? (
+                      <div className=" w-8 h-8 rounded-full bg-gray-300">
+                        ??
+                      </div>
+                    ) : (
+                      <div className=" w-8 h-8 rounded-full bg-gray-300">
+                        Loading...
+                      </div>
+                    )}
                   </span>
                   <div className=" bg-slate-100 text-sm p-2 px-3 rounded-r-2xl rounded-tl-3xl">
-                    <span className="username">{comment.userId.username}</span>
+                    <span className="username">{comment.userId && comment.userId.username}</span>
                     <div className=" flex gap-10">
                       <p className="">{comment.content}</p>
                       <span className="">
@@ -127,25 +136,35 @@ const DiscussionForum = ({ lessonId }) => {
                     comment.replies.map((reply) => (
                       <li key={reply._id} className="flex gap-2 items-center">
                         <span>
-                          <img
-                            src={reply.userId.avatar}
-                            className=" w-6 h-6 rounded-full"
-                            alt=""
-                          />
+                          {reply.userId.avatar ? (
+                            <img
+                              src={reply.userId.avatar}
+                              className=" w-6 h-6 rounded-full"
+                              alt=""
+                            />
+                          ) : (
+                            <div className=" w-6 h-6 rounded-full bg-gray-300"></div>
+                          )}
                         </span>
                         <div className=" bg-slate-200 text-sm p-2 px-3 rounded-r-2xl rounded-tl-3xl">
-                          <span className="username">{reply.userId.username}</span>
+                          <span className="username">
+                            {reply.userId.username}
+                          </span>
                           <div className=" flex gap-10">
                             <p className="">{reply.content}</p>
                             <span className="">
-                              {moment(reply.createdAt).format("YYYY-MM-DD HH:mm")}
+                              {moment(reply.createdAt).format(
+                                "YYYY-MM-DD HH:mm"
+                              )}
                             </span>
                           </div>
                         </div>
                       </li>
                     ))}
                 </ul>
-                <ReplyForm onSubmit={(reply) => handleNewReply(comment._id, reply)} />
+                <ReplyForm
+                  onSubmit={(reply) => handleNewReply(comment._id, reply)}
+                />
               </li>
             ))
           ) : (
@@ -175,7 +194,9 @@ const CommentForm = ({ onSubmit }) => {
         placeholder="Write your comment..."
         className=" p-3"
       />
-      <button className="text-sm ml-3" type="submit">Post Comment</button>
+      <button className="text-sm ml-3" type="submit">
+        Post Comment
+      </button>
     </form>
   );
 };
@@ -197,7 +218,9 @@ const ReplyForm = ({ onSubmit }) => {
         placeholder="Write your reply..."
         className=" p-2"
       />
-      <button className="text-sm ml-3" type="submit">Post Reply</button>
+      <button className="text-sm ml-3" type="submit">
+        Post Reply
+      </button>
     </form>
   );
 };
