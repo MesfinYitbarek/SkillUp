@@ -1,4 +1,4 @@
-import { Delete } from "@mui/icons-material";
+
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -16,7 +16,7 @@ const ProgressedCourses = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log(course);
+ 
 
   useEffect(() => {
     setTimeout(() => {

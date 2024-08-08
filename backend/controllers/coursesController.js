@@ -3,6 +3,7 @@ import errorHandler from "../Utils/error.js";
 import Catagory from "../models/Catagory.js";
 import Course from "../models/Course.js";
 import Enrollment from "../models/Enrollment.js";
+import CompletedCourse from "../models/CompletedCourse.js";
 
 //courses
 
@@ -118,15 +119,30 @@ export const personalcourses = async (req, res, next) => {
 // course diplay for enrolled students
 export const enrolledCourses = async (req, res, next) => {
   try {
+    // Find all enrollments for the user
     const enroll = await Enrollment.find({ username: req.params.username });
+
     if (enroll.length === 0) {
       return res.status(200).json([]);
     } else {
       const courses = [];
+
       for (const enrollment of enroll) {
-        const course = await Course.find({ title: enrollment.courseName });
-        courses.push(course[0]);
+        // Check if the course is completed
+        const completed = await CompletedCourse.findOne({
+          userId: enrollment.userId,
+          courseId: enrollment.courseId
+        });
+
+        // If not completed, add the course to the list
+        if (!completed) {
+          const course = await Course.findOne({ title: enrollment.courseName });
+          if (course) {
+            courses.push(course);
+          }
+        }
       }
+
       res.status(200).json(courses);
     }
   } catch (error) {

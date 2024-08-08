@@ -66,6 +66,23 @@ const CourseLesson = () => {
   };
 
   useEffect(() => {
+    if (overallProgress === 100) {
+      saveCompletedCourse();
+    }
+  }, [overallProgress]);
+  
+  const saveCompletedCourse = async () => {
+    try {
+      await axios.post('/api/completed-courses', {
+        userId: currentUser._id,
+        courseId
+      });
+    } catch (error) {
+      console.error("Error saving completed course:", error);
+    }
+  };
+  
+  useEffect(() => {
     const fetchLessons = async () => {
       try {
         const response = await axios.get(`/api/lesson/${courseId}`);
