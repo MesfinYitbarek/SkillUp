@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import { useSearch } from "../../SearchContext";
+import { Timeline } from "@mui/icons-material";
 
 const InstructorCourse = () => {
   const { searchTerm } = useSearch();
@@ -120,7 +121,7 @@ const InstructorCourse = () => {
                       alt={course.title}
                       className="w-full h-48 object-cover"
                     />
-                    <div className="p-4 flex flex-col flex-grow">
+                    <div className="p-4 px-3.5 flex flex-col flex-grow">
                       <h3 className="text-lg font-bold mb-2 truncate">
                         {course.title}
                       </h3>
@@ -148,7 +149,7 @@ const InstructorCourse = () => {
                       </p>
                       <div className="flex justify-between items-center  mt-2 mb-3">
                         <span className="dark:text-white text-gray-700 text-sm">
-                          Duration: {course.duration}
+                          <Timeline/> {course.duration}
                         </span>
                         <span className="flex items-center">
                           <StarIcon className="text-yellow-400" />

@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Instructor from "./InstructorsData";
 import ShareIcon from "@mui/icons-material/Share";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import X from "@mui/icons-material/X";
 
 const TopInstructors = () => {
+  const [hoveredInstructor, setHoveredInstructor] = useState(null);
+
   return (
     <div className="bg-gradient-to-b from-slate-100 to-purple-100 dark:from-gray-900 dark:to-blue-900 py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -44,9 +51,27 @@ const TopInstructors = () => {
                   <span className="text-sm text-blue-800 font-semibold">
                     {instructor.courses} courses
                   </span>
-                  <button className="p-2 bg-blue-100 dark:bg-blue-900 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors duration-300">
-                    <ShareIcon className="text-blue-800 dark:text-blue-400" />
-                  </button>
+                  <div className="relative group">
+                    <div className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2 flex flex-col space-y-2">
+                        <a href="#" className="text-blue-600 hover:text-blue-800">
+                          <FacebookIcon />
+                        </a>
+                        <a href="#" className="text-pink-600 hover:text-pink-800">
+                          <InstagramIcon />
+                        </a>
+                        <a href="#" className="text-blue-500 hover:text-blue-700">
+                          <LinkedInIcon />
+                        </a>
+                        <a href="#" className=" hover:text-blue-600">
+                          <X />
+                        </a>
+                      </div>
+                    </div>
+                    <button className="p-2 bg-blue-100 dark:bg-blue-900 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors duration-300">
+                      <ShareIcon className="text-blue-800 dark:text-blue-400" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

@@ -123,7 +123,7 @@ const CreateCourse = () => {
     <div className="min-h-screen  bg-gradient-to-tr from-gray-200 via-indigo-100 to-blue-200  font-lato ">
       <Header />
       <div className="container mx-auto py-10 px-4 sm:px-20 lg:px-20">
-        <h1 className="text-3xl font-bold text-blue-900 text-tr text-center mb-10">Create a New Course</h1>
+        {/* <h1 className="text-3xl font-bold text-blue-900 text-tr text-center mb-10">Create a New Course</h1> */}
         <form onSubmit={handleSubmit} className=" shadow-sm rounded-lg border text-md border-blue-800 p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Left Column */}

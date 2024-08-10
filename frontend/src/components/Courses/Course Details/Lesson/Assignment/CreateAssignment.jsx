@@ -30,11 +30,11 @@ const CreateAssignment = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-blue-100 to-white min-h-screen">
+    <div className="bg-gradient-to-b from-blue-100 to-white font-lato min-h-screen">
       <Header />
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">Create New Assignment</h1>
-        <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+        {/* <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">Create New Assignment</h1> */}
+        <div className="max-w-2xl mx-auto bg-white  rounded-lg overflow-hidden">
           <form onSubmit={handleSubmit} className="p-8">
             <div className="mb-6">
               <label className="block text-gray-700 font-bold mb-2" htmlFor="title">
@@ -81,7 +81,7 @@ const CreateAssignment = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 transition duration-300 font-bold"
+                className="bg-blue-800 text-white px-6 py-3 rounded-md hover:bg-blue-900 transition duration-300 font-bold"
               >
                 Create Assignment
               </button>

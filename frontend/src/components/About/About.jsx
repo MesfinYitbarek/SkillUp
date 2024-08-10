@@ -94,8 +94,7 @@ const About = () => {
           <div className="md:w-1/2 mt-10 md:mt-0">
             <div className="bg-blue-100 rounded-lg p-8 shadow-lg">
               <img
-                data-aos="fade-left"
-                data-aos-once="true"
+                
                 className="rounded-lg w-full h-auto"
                 src={image2}
                 alt="Students learning"

@@ -279,14 +279,9 @@ const CourseLesson = () => {
               to={`/course/${courseId}/grades`}
               className="block w-full bg-blue-800 text-white text-center py-2 rounded-md hover:bg-blue-700 transition-colors duration-200"
             >
-              Grades
+              Grade
             </Link>
-            <Link
-              to="#"
-              className="block w-full bg-blue-800 text-white text-center py-2 rounded-md hover:bg-blue-700 transition-colors duration-200"
-            >
-              Assessment
-            </Link>
+            
           </div>
         </aside>
 

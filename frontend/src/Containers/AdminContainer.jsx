@@ -8,7 +8,6 @@ import MessageIcon from "@mui/icons-material/Message";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import WorkspacesIcon from "@mui/icons-material/Workspaces";
 import GroupIcon from "@mui/icons-material/Group";
-import SchoolIcon from "@mui/icons-material/School";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Home from "../components/Admin/Home";
@@ -18,7 +17,6 @@ import ContactDisplay from "../components/Contact/ContactDisplay";
 import Users from "../components/Admin/Users";
 import SignOut from "../components/Profile/SignOut";
 import { Link } from "react-router-dom";
-import EnrolledStudents from "../components/Admin/EnrolledStudents";
 import { useMediaQuery } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 const navigationItems = [
@@ -27,7 +25,6 @@ const navigationItems = [
   { name: "Categories", icon: <WorkspacesIcon /> },
   { name: "Messages", icon: <MessageIcon /> },
   { name: "Users", icon: <GroupIcon /> },
-  { name: "Enrolled Students", icon: <SchoolIcon /> },
   { name: <SignOut />, icon: <LogoutIcon />, link: <SignOut /> },
 ];
 const  name = "AddCatagory"
@@ -108,8 +105,6 @@ const AdminContainer = () => {
         <ContactDisplay />
       ) : condtion == "Users" ? (
         <Users />
-      )  : condtion == "Enrolled Students" ? (
-        <EnrolledStudents />
       )  : condtion == "Log Out" ? (
         <SignOut />
       ) : (

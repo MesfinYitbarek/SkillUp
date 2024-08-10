@@ -180,19 +180,20 @@ const EditCourse = () => {
 
   return (
     <div className=" bg-slate-100 font-lato ">
+      
       <div className="p-10 px-32">
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
         {course && (
           <form onSubmit={handleSubmit}>
-            <div className=" bg-white flex justify-between p-10 border-y-8 border-y-blue-600 rounded-lg ">
+            <div className=" bg-white flex justify-between p-10 border-y-8 border-y-blue-800 rounded-lg ">
               <div>
                 <div className="mb-4">
                   <label className="block font-bold text-gray-700 mb-2" htmlFor="title">
                     Title
                   </label>
                   <input
-                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-blue-800 focus:ring-opacity-50"
                     type="text"
                     name="title"
                     value={course.title || ""}
@@ -212,7 +213,7 @@ const EditCourse = () => {
                     id="catagory"
                     value={course.catagory}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-blue-800 focus:ring-opacity-50"
                   >
                     {catagory.map((catagory) => (
                       <option value={catagory.name}>
@@ -229,7 +230,7 @@ const EditCourse = () => {
                     Course Image 
                   </label>
                   <input
-                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-blue-800 focus:ring-opacity-50"
                     type="file"
                     name="imageUrl"
                    
@@ -245,7 +246,7 @@ const EditCourse = () => {
                     Instructor Image URL
                   </label>
                   <input
-                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-blue-800 focus:ring-opacity-50"
                     type="file"
                     name="instructorImage"
                   
@@ -272,7 +273,7 @@ const EditCourse = () => {
                 <div className=" flex items-center justify-center">
                 <button
                   type="submit"
-                  className="border mt-16 bg-blue-600 rounded-md text-white hover:bg-blue-700 hover:text-white border-blue-600 px-4 py-2 mr-1 font-semibold"
+                  className="border mt-16 bg-blue-800 rounded-md text-white hover:bg-blue-700 hover:text-white border-blue-800 px-4 py-2 mr-1 font-semibold"
                 >
                   Update Category
                 </button>
@@ -288,7 +289,7 @@ const EditCourse = () => {
                     Course Description
                   </label>
                   <input
-                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-blue-800 focus:ring-opacity-50"
                     type="text"
                     name="description"
                     value={course.description || ""}
@@ -304,7 +305,7 @@ const EditCourse = () => {
                     Course Duration (e.g., 10 weeks)
                   </label>
                   <input
-                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-purple-500 focus:ring-opacity-50"
+                    className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-blue-800 focus:ring-opacity-50"
                     type="text"
                     name="duration"
                     value={course.duration || ""}
@@ -344,7 +345,7 @@ const EditCourse = () => {
                       id="price"
                       value={course.price}
                       onChange={handleChange}
-                      className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline ${
+                      className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-800 focus:shadow-outline ${
                         !course.isPaid ? "opacity-50 cursor-not-allowed" : ""
                       }`}
                       min="0"
@@ -366,7 +367,7 @@ const EditCourse = () => {
                           value={objective}
                           onChange={(e) => handleObjectiveChange(index, e)}
                           placeholder="Enter learning objective"
-                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-800 focus:shadow-outline"
                         />
                         <button
                           onClick={() => handleRemoveObjective(index)}
@@ -398,7 +399,7 @@ const EditCourse = () => {
                           value={prerequisite}
                           onChange={(e) => handlePrerequisiteChange(index, e)}
                           placeholder="Enter prerequisite"
-                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-500 focus:shadow-outline"
+                          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-blue-800 focus:shadow-outline"
                         />
                         <button
                           onClick={() => handleRemovePrerequisite(index)}

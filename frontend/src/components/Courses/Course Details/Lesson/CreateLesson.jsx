@@ -111,7 +111,7 @@ const CreateLesson = () => {
     <div className=" font-lato bg-gradient-to-b from-blue-100 to-white min-h-screen">
       <Header />
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">Create New Lesson</h1>
+        {/* <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">Create New Lesson</h1> */}
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
           {lessons.map((lesson, index) => (
             <div key={index} className="p-6 border-b border-gray-200">
