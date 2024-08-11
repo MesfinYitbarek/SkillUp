@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useState } from "react";
+import { Delete } from "@mui/icons-material";
 
 const ContactDisplay = () => {
-  const [contact, setContact] = React.useState([]);
+  const [contact, setContact] = useState([]);
   const [error, setError] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchContact = async () => {
       try {
         const response = await fetch("/api/contact/contactDisplay");
@@ -14,18 +14,19 @@ const ContactDisplay = () => {
         setContact(data);
       } catch (err) {
         console.error(err);
+        setError("Error fetching messages");
       }
     };
 
     fetchContact();
-  }, [contact]);
+  }, []);
 
   const handleDeleteContact = async (contactId) => {
     try {
       const response = await axios.delete(`/api/contact/delete/${contactId}`);
 
       if (response.data.success) {
-        setContact([...contact.filter((contact) => contact._id !== contactId)]);
+        setContact(contact.filter((c) => c._id !== contactId));
       } else {
         setError("Error deleting Contact message");
       }
@@ -36,32 +37,42 @@ const ContactDisplay = () => {
   };
 
   return (
-    <div className="  pt-10 flex justify-center items-center">
-      <div className=" bg-white rounded-md mt-12 px-10 py-4">
-        <table className="  text-blue-800   border-separate border-spacing-y-2 min-w-[600px]">
-          <tr className=" ">
-            <td className=" text-blue-800 font-bold text-xl ">Messsages</td>
-            <td></td>
-            <td ></td>
-            <td></td>
-          </tr>
-          <tr className=" bg-blue-800   font-semibold text-white ">
-            <td className="p-2">Name</td>
-            <td>Email</td>
-            <td>Message</td>
-            <td></td>
-          </tr>
-          {contact.map((data) => (
-            <tr className=" hover:bg-gray-200 ">
-              <td className=" p-1">{data.name}</td>
-              <td>{data.email}</td>
-              <td>{data.message}</td>
-              <td className="    text-red-600    text-center">
-                <button onClick={() => handleDeleteContact(data._id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </table>
+    <div className="flex justify-center items-center pt-10 px-4 sm:px-6 lg:px-8">
+      <div className="bg-white rounded-lg shadow-md w-full max-w-6xl mt-12 p-6">
+        <h2 className="text-blue-800 font-bold text-2xl mb-6">Messages</h2>
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <span className="block sm:inline">{error}</span>
+          </div>
+        )}
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-blue-800">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Email</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">Message</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-white uppercase tracking-wider">Action</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {contact.map((data) => (
+                <tr key={data._id} className="hover:bg-gray-100">
+                  <td className="px-6 py-4 whitespace-nowrap">{data.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{data.email}</td>
+                  <td className="px-6 py-4">
+                    <div className="max-w-xs truncate">{data.message}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button onClick={() => handleDeleteContact(data._id)} className="text-red-600 hover:text-red-900">
+                      <Delete fontSize="small" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

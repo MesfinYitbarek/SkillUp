@@ -43,9 +43,9 @@ const DashboardHeader = () => {
   }, [newMessageCount, currentUser._id]);
 
   return (
-    <div className="bg-blue-800 p-6 py-2 fixed top-0 left-0 w-full ">
-      <div className="bg-white ml-[230px] flex justify-between items-center py-2 px-10">
-        <div className="font-bold flex gap-1">
+    <div className="bg-blue-800  p-6 py-2 fixed top-0 left-0 w-full ">
+      <div className="bg-white ml-[230px] flex justify-between items-center py-2  px-2 sm:px-10">
+        <div className="font-bold sm:flex gap-1 hidden">
           <CalendarViewDayIcon />
           <h1 className="opacity-70">
             Hello <span>{currentUser.username}</span>
@@ -62,7 +62,7 @@ const DashboardHeader = () => {
           <input
             type="text"
             placeholder="Search here"
-            className="px-2 py-1.5 bg-gray-100 border-gray-400"
+            className="px-2 py-1.5 w-[60%] sm:w-full bg-gray-100 border-gray-400"
             value={searchTerm}
             onChange={handleSearchChange}
           />
@@ -74,7 +74,7 @@ const DashboardHeader = () => {
               : currentUser.role == "student"
               ? "hidden"
               : "flex"
-          } gap-16 flex justify-between items-center`}
+          } gap-16 sm:flex hidden  justify-between items-center`}
         >
           <div className="bg-gray-100 px-2 py-1.5">
             <Stack spacing={4} direction="row" sx={{ color: "action.active" }}>
