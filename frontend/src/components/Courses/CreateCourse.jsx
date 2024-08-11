@@ -2,9 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ArrowBack } from "@mui/icons-material";
-import { Link } from "react-router-dom";
-import Header from "../Common/Header";
-import Footer from "../Common/Footer";
 import { getStorage } from "firebase/storage";  
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -121,7 +118,6 @@ const CreateCourse = () => {
 
   return (
     <div className="min-h-screen  bg-gradient-to-tr from-gray-200 via-indigo-100 to-blue-200  font-lato ">
-      <Header />
       <div className="container mx-auto py-10 px-4 sm:px-20 lg:px-20">
         {/* <h1 className="text-3xl font-bold text-blue-900 text-tr text-center mb-10">Create a New Course</h1> */}
         <form onSubmit={handleSubmit} className=" shadow-sm rounded-lg border text-md border-blue-800 p-8">
@@ -274,7 +270,6 @@ const CreateCourse = () => {
           </div>
         </form>
       </div>
-      <Footer />
     </div>
   );
 };

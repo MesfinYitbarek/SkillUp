@@ -91,8 +91,8 @@ const InstructorCourse = () => {
   );
 
   return (
-    <div className="px-16 dark:bg-gray-800">
-      <div className="container mx-auto px-4 py-4">
+    <div className=" md:px-16 dark:bg-gray-800">
+      <div className="container mx-auto py-4">
         {error ? (
           <p className="text-red-500 text-center">{error}</p>
         ) : isLoading ? (
@@ -108,13 +108,13 @@ const InstructorCourse = () => {
           </Box>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {slicedCourses &&
                 slicedCourses.length > 0 &&
                 slicedCourses.map((course) => (
                   <div
                     key={course._id}
-                    className="bg-white rounded-2xl border border-slate-300 overflow-hidden flex flex-col h-full"
+                    className="bg-white rounded-2xl border border-slate-300 overflow-hidden flex flex-col h-full shadow-md hover:shadow-lg transition-shadow duration-300"
                   >
                     <img
                       src={course.imageUrl}
@@ -147,36 +147,35 @@ const InstructorCourse = () => {
                           </span>
                         )}
                       </p>
-                      <div className="flex justify-between items-center  mt-2 mb-3">
-                        <span className="dark:text-white text-gray-700 text-sm">
-                          <Timeline/> {course.duration}
+                      <div className="flex justify-between items-center mt-2 mb-3">
+                        <span className="dark:text-white text-gray-700 text-sm flex items-center">
+                          <Timeline className="mr-1" /> {course.duration}
                         </span>
                         <span className="flex items-center">
                           <StarIcon className="text-yellow-400" />
                           <span className="text-gray-700 ml-1">
-                          {Number(course.rating).toFixed(2)} ({course.reviewCount} reviews)
+                            {Number(course.rating).toFixed(1)} ({course.reviewCount})
                           </span>
                         </span>
-                       
                       </div>
                       <hr className="my-3" />
                       <div className="flex flex-wrap gap-2 justify-between items-center">
                         <Link
                           to={`/courseDetails/${course._id}`}
-                          className="inline-block px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded"
+                          className="inline-block px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded hover:bg-blue-800 hover:text-white transition-colors duration-300"
                         >
                           Details
                         </Link>
                         <button
                           disabled={loading}
                           onClick={() => handleCourseDelete(course._id)}
-                          className="px-3 py-1 border-red-500 border text-red-600 font-bold rounded"
+                          className="px-3 py-1 border-red-500 border text-red-600 font-bold rounded hover:bg-red-500 hover:text-white transition-colors duration-300"
                         >
                           {loading ? "Loading..." : "Delete"}
                         </button>
                         <Link
                           to={`/course-edit/${course._id}`}
-                          className="px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded"
+                          className="px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded hover:bg-blue-800 hover:text-white transition-colors duration-300"
                         >
                           Edit
                         </Link>
@@ -185,14 +184,14 @@ const InstructorCourse = () => {
                         <Link
                           to={`/course-lessons/${course._id}`}
                           state={course.title}
-                          className="flex-1 text-center px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded"
+                          className="flex-1 text-center px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded hover:bg-blue-800 hover:text-white transition-colors duration-300"
                         >
                           Lesson
                         </Link>
                         <Link
                           to={`/students/${course._id}`}
                           state={course.title}
-                          className="flex-1 text-center px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded"
+                          className="flex-1 text-center px-3 py-1 border-blue-800 border text-blue-800 font-bold rounded hover:bg-blue-800 hover:text-white transition-colors duration-300"
                         >
                           Students
                         </Link>
@@ -208,9 +207,9 @@ const InstructorCourse = () => {
                   </div>
                 ))}
             </div>
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center mt-8">
               <Pagination
-                count={Math.ceil(courses.length / coursesPerPage)}
+                count={Math.ceil(filteredCourses.length / coursesPerPage)}
                 page={currentPage}
                 onChange={handlePageChange}
                 color="primary"

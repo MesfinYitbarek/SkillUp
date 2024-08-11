@@ -8,7 +8,6 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import WorkspacesIcon from "@mui/icons-material/Workspaces";
 import GroupIcon from "@mui/icons-material/Group";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import Home from "../components/Admin/Home";
@@ -16,7 +15,6 @@ import Courses from "../components/Admin/Courses";
 import Catagory from "../components/Admin/Catagory";
 import ContactDisplay from "../components/Contact/ContactDisplay";
 import Users from "../components/Admin/Users";
-import SignOut from "../components/Profile/SignOut";
 import { Link } from "react-router-dom";
 
 const navigationItems = [
@@ -25,7 +23,6 @@ const navigationItems = [
   { name: "Categories", icon: <WorkspacesIcon /> },
   { name: "Messages", icon: <MessageIcon /> },
   { name: "Users", icon: <GroupIcon /> },
-  { name: "Log Out", icon: <LogoutIcon />, link: <SignOut /> },
 ];
 
 const AdminContainer = () => {
@@ -70,8 +67,6 @@ const AdminContainer = () => {
         return <ContactDisplay />;
       case "Users":
         return <Users />;
-      case "Log Out":
-        return <SignOut />;
       default:
         return null;
     }
