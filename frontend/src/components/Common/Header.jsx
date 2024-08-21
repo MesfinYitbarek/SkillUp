@@ -73,7 +73,7 @@ const Header = () => {
   return (
     <header className="">
       <div>
-        <div className=" hidden text-sm sm:flex justify-between items-center dark:bg-gray-700  bg-blue-800 py-2 text-white px-16 pr-36">
+        <div className="hidden sm:flex justify-between items-center dark:bg-gray-700  bg-blue-800 py-2 text-white px-4 pr-10">
           <div className=" items-center flex gap-5">
             <h1>
               <PhoneIcon fontSize="small" />
