@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node backend/server.js",
     "dev": "nodemon backend/server.js",
-    "build": "npm install --force && npm install --force --prefix frontend && npm run build --prefix frontend"
+    "build": "rm -rf frontend/package-lock.json frontend/node_modules && npm install --force && npm install --force --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
   "license": "ISC",
