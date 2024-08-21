@@ -11,6 +11,7 @@ import Footer from "../../Common/Footer";
 import CourseInfo from "./CourseInfo";
 import Lesson from "./Lesson";
 import Reviews from "./Reviews";
+import { Box, CircularProgress, Typography } from "@mui/material";
 
 const contentData = {
   content1: <CourseInfo />,
@@ -27,6 +28,7 @@ function Test() {
   const [enrollment, setEnrollment] = useState([]);
   const [userReview, setUserReview] = useState("");
   const [userRating, setUserRating] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
@@ -51,6 +53,7 @@ function Test() {
       const response = await fetch(`/api/courses/courseDetails/${courseId}`);
       const data = await response.json();
       setCourse(data);
+      setIsLoading(false);
 
       const isEnrolledResponse = await fetch(`/api/enrollment/isEnrolled`, {
         method: "POST",
@@ -121,6 +124,22 @@ function Test() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "300px" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+  if (course.length === 0) {
+    return (
+      <Typography variant="h6" align="center">
+        No detail information about this course.
+      </Typography>
+    );
+  }
+
+
   return (
     <div className="flex flex-col min-h-screen dark:bg-gray-800 dark:text-white">
       <Header />
@@ -152,7 +171,7 @@ function Test() {
                 </div>
                 <div className="flex items-center">
                   <Star className="text-yellow-400 mr-1" />
-                  <span>{Number(course.rating).toFixed(2)} ({course.reviewCount} reviews)</span>
+                  <span>{Number(course.rating).toFixed(1)} ({course.reviewCount} reviews)</span>
                 </div>
               </div>
             </div>

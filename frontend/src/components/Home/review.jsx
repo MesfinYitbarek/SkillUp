@@ -6,7 +6,7 @@ const Review = () => {
     <div className="bg-gradient-to-t from-blue-100 to-white dark:from-gray-900 dark:to-blue-900 py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-center mb-16">
-          <span className="inline-block px-6 py-3 bg-blue-800 text-white text-4xl font-bold rounded-full shadow-lg">
+          <span className="inline-block  font-lato px-6 py-3 bg-blue-800 text-white text-3xl font-bold rounded-full shadow-lg">
             From the SkillUp Community
           </span>
         </h2>
@@ -24,7 +24,7 @@ const Review = () => {
                 <img
                   src={instructor.image}
                   alt={instructor.name}
-                  className="w-32 h-32 rounded-full mx-auto mb-4 border-4  text-blue-800 shadow-lg"
+                  className="w-32 h-32 object-cover rounded-full mx-auto mb-4 border-4  text-blue-800 shadow-lg"
                 />
                 <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
                   {instructor.name}
@@ -33,7 +33,7 @@ const Review = () => {
                   {instructor.profession}
                 </p>
                 <p className="text-gray-600 dark:text-gray-300 italic">
-                  "SkillUp has transformed my learning journey. The courses are engaging and the instructors are top-notch!"
+                  {instructor.review}
                 </p>
               </div>
             </div>

@@ -6,7 +6,7 @@ import GroupIcon from "@mui/icons-material/Group";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import img from "../../assets/background image/pexels-vlada-karpovich-4050315.jpg";
 import CountUp from "react-countup";
-import { useInView } from 'react-intersection-observer';
+import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
 
 const Hero = () => {
@@ -14,17 +14,25 @@ const Hero = () => {
   const [users, setUsers] = useState([]);
   const [student, setStudent] = useState([]);
   const [instructor, setInstructor] = useState([]);
-  const { ref: coursesRef, inView: coursesInView } = useInView({ triggerOnce: true });
-  const { ref: studentsRef, inView: studentsInView } = useInView({ triggerOnce: true });
-  const { ref: instructorsRef, inView: instructorsInView } = useInView({ triggerOnce: true });
+  const { ref: coursesRef, inView: coursesInView } = useInView({
+    triggerOnce: true,
+  });
+  const { ref: studentsRef, inView: studentsInView } = useInView({
+    triggerOnce: true,
+  });
+  const { ref: instructorsRef, inView: instructorsInView } = useInView({
+    triggerOnce: true,
+  });
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await fetch("/api/user/users");
         const data = await response.json();
-        const filteredStudent = data.filter((user) => user.role === 'student');
-        const filteredInstructor = data.filter((user) => user.role === 'instructor');
+        const filteredStudent = data.filter((user) => user.role === "student");
+        const filteredInstructor = data.filter(
+          (user) => user.role === "instructor"
+        );
         setStudent(filteredStudent);
         setInstructor(filteredInstructor);
         setUsers(data);
@@ -51,8 +59,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="dark:bg-gray-800">
-      <motion.div 
+    <div className="dark:bg-gray-800 bg-slate-100">
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -65,16 +73,16 @@ const Hero = () => {
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="z-10 px-4 sm:px-1 w-full max-w-4xl mx-auto">
-          <motion.h1 
+          <motion.h1
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
             className="text-3xl sm:text-5xl md:text-7xl font-bold font-roboto mb-4 text-shadow-lg"
           >
-            The <span className="">Future</span> of{" "}
-            <span className="">Online Learning</span> is <span>Here.</span>
+            Elevate Your Learning Journey with{" "}
+            <span className="text-blue-00">Our Online Courses.</span>
           </motion.h1>
-          <motion.div 
+          <motion.div
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
@@ -92,27 +100,27 @@ const Hero = () => {
           </motion.div>
         </div>
       </motion.div>
-      <div className="dark:bg-gray-800 flex flex-col sm:flex-row justify-center items-center gap-8 sm:gap-16 md:gap-24 text-center text-blue-800 font-bold text-lg py-10 px-4 sm:px-8 md:px-16">
-        <StatCard 
-          ref={coursesRef} 
-          icon={<PlayCircleIcon fontSize="large" />} 
-          title="Courses" 
-          count={courses.length} 
-          inView={coursesInView} 
+      <div className="bg-gradient-to-tr  from-slate-100 to-purple-100 dark:bg-gray-800  shadow-xl my-6 flex flex-col sm:flex-row justify-center items-center gap-8 sm:gap-16 md:gap-24 text-center text-blue-800 font-bold text-lg py-10 px-4 sm:px-8 md:px-16">
+        <StatCard
+          ref={coursesRef}
+          icon={<PlayCircleIcon fontSize="large" />}
+          title="Courses"
+          count={courses.length}
+          inView={coursesInView}
         />
-        <StatCard 
-          ref={studentsRef} 
-          icon={<SchoolIcon fontSize="large" />} 
-          title="Students" 
-          count={student.length} 
-          inView={studentsInView} 
+        <StatCard
+          ref={studentsRef}
+          icon={<SchoolIcon fontSize="large" />}
+          title="Students"
+          count={student.length}
+          inView={studentsInView}
         />
-        <StatCard 
-          ref={instructorsRef} 
-          icon={<GroupIcon fontSize="large" />} 
-          title="Instructors" 
-          count={instructor.length} 
-          inView={instructorsInView} 
+        <StatCard
+          ref={instructorsRef}
+          icon={<GroupIcon fontSize="large" />}
+          title="Instructors"
+          count={instructor.length}
+          inView={instructorsInView}
         />
       </div>
     </div>
@@ -120,7 +128,10 @@ const Hero = () => {
 };
 
 const StatCard = React.forwardRef(({ icon, title, count, inView }, ref) => (
-  <div ref={ref} className="flex flex-col items-center w-full sm:w-[170px] text-center gap-4 rounded-lg bg-slate-200 p-7">
+  <div
+    ref={ref}
+    className="flex flex-col items-center w-full sm:w-[170px] text-center gap-4 rounded-lg dark:bg-gray-800 dark:text-white bg-white p-7"
+  >
     <div className="bg-slate-100 text-blue-800 p-2 rounded-full h-[50px] w-[50px] flex items-center justify-center">
       {icon}
     </div>

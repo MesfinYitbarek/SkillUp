@@ -231,7 +231,7 @@ const CourseLesson = () => {
 
       <div className={`container mx-auto px-4 py-8 ${isMobile ? "flex-col" : "flex gap-8"}`}>
         <aside className={`bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 ${isMobile ? "mb-8" : "w-1/4"}`}>
-          <h2 className="text-2xl font-bold mb-4 font-lato ">Lessons</h2>
+          <h2 className="text-2xl font-bold mb-4 font-lato ">Course cotent</h2>
           <div className="mb-4 flex items-center justify-between">
             <span className=" text-blue-800 text-lg font-bold font-lato">Overall Progress:</span>
             <div className="relative inline-flex">

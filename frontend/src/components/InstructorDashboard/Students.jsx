@@ -1,30 +1,29 @@
-import React from "react";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
-import { CheckBox } from "@mui/icons-material";
 import { Checkbox } from "@mui/material";
+
 const Students = () => {
   const [enrollment, setEnrollment] = useState([]);
   const [error, setError] = useState(null);
   const { courseId } = useParams();
-  console.log(enrollment);
-  React.useEffect(() => {
-    const fetchContact = async () => {
+
+  useEffect(() => {
+    const fetchEnrollment = async () => {
       try {
         const response = await fetch(`/api/enrollment/${courseId}`);
         const data = await response.json();
         setEnrollment(data);
       } catch (err) {
         console.error(err);
+        setError("Error fetching enrollment data");
       }
     };
 
-    fetchContact();
-  }, [enrollment]);
+    fetchEnrollment();
+  }, [courseId]);
 
   const handleDeleteEnrollment = async (enrollmentId) => {
     try {
@@ -33,59 +32,57 @@ const Students = () => {
       );
 
       if (response.data.success) {
-        setEnrollment([
-          ...enrollment.filter((enrollment) => enrollment._id !== enrollmentId),
-        ]);
+        setEnrollment(enrollment.filter((e) => e._id !== enrollmentId));
       } else {
-        setError("Error deleting enrolled student message");
+        setError("Error deleting enrolled student");
       }
     } catch (err) {
       console.error(err);
-      setError("Error deleting enrolled student message");
+      setError("Error deleting enrolled student");
     }
   };
 
   return (
-    <div>
-      <div>
-        <Header/>
-        <div>
-          <div className="  flex justify-center items-center">
-            <div className=" bg-white rounded-md my-12 px-10 py-4">
-              <table className="  text-blue-800   border-separate border-spacing-y-2 min-w-[600px]">
-                <tr className=" ">
-                  
-                  <td></td>
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow p-4 sm:px-20 px-5">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white rounded-md shadow-md overflow-x-auto">
+            <table className="w-full text-blue-800 border-separate border-spacing-y-2">
+              <thead>
+                <tr className="bg-blue-800 text-white">
+                  <th className="p-2 text-left">Student Name</th>
+                  <th className="p-2 text-left">Student Email</th>
+                  <th className="p-2 text-left">Assignment</th>
+                  <th className="p-2 text-left">Grade</th>
+                  <th className="p-2 text-left">Action</th>
                 </tr>
-                <tr className=" bg-blue-800   font-semibold text-white ">
-                  <td className="p-2">Student Name</td>
-                  <td className=" px-10">Student Email</td>
-                  <td className=" px-10">Assignment</td>
-                  <td className=" px-10">Grade</td>
-                  <td></td>
-                </tr>
+              </thead>
+              <tbody>
                 {enrollment.map((data) => (
-                  <tr className=" hover:bg-gray-200 ">
-                    <td className=" p-1"><Checkbox/> {data.username}</td>
-                    <td className=" px-10">{data.email}</td>
-                    <td className=" px-10">Assignment</td>
-                    <td className=" px-10">Grade</td>
-                    <td className="    text-red-600    text-center">
+                  <tr key={data._id} className="hover:bg-gray-200">
+                    <td className="p-2">
+                      <Checkbox /> {data.username}
+                    </td>
+                    <td className="p-2">{data.email}</td>
+                    <td className="p-2">Assignment</td>
+                    <td className="p-2">Grade</td>
+                    <td className="p-2">
                       <button
                         onClick={() => handleDeleteEnrollment(data._id)}
-                        className=" px-10"
+                        className="text-red-600 hover:text-red-800"
                       >
                         Delete
                       </button>
                     </td>
                   </tr>
                 ))}
-              </table>
-            </div>
+              </tbody>
+            </table>
           </div>
         </div>
-      </div>
-      <Footer/>
+      </main>
+      <Footer />
     </div>
   );
 };

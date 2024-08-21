@@ -5,7 +5,7 @@ import { ArrowForward } from "@mui/icons-material";
 
 const About = () => {
   return (
-    <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-gray-800 dark:to-blue-900 min-h-screen flex items-center justify-center p-4">
+    <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-gray-800 dark:to-blue-900 min-h-screen flex items-center justify-center p-4 font-roboto">
       <div className="max-w-7xl mx-auto bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden">
         <div className="flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 p-12">

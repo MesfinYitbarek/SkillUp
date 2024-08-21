@@ -228,7 +228,7 @@ const CourseCard = React.memo(({ course, expandedCourse, handleToggleDescription
         <span>
           <StarIcon className="text-yellow-500" />
           <span className="ml-2 text-gray-600 dark:text-gray-300">
-            {Number(course.rating).toFixed(2)} ({course.reviewCount} reviews)
+            {Number(course.rating).toFixed(1)} ({course.reviewCount} reviews)
           </span>
         </span>
       </div>

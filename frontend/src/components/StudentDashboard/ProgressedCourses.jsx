@@ -1,10 +1,8 @@
-
+// ProgressedCourses.js
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-import Pagination from "@mui/material/Pagination";
+import { CircularProgress, Box, Pagination, Grid, Card, CardContent, CardMedia, Typography, Button } from "@mui/material";
 import { useSearch } from "../../SearchContext";
 
 const ProgressedCourses = () => {
@@ -15,8 +13,6 @@ const ProgressedCourses = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-
- 
 
   useEffect(() => {
     setTimeout(() => {
@@ -30,14 +26,13 @@ const ProgressedCourses = () => {
     }, 1000);
   }, []);
 
-
   useEffect(() => {
     const fetchCourseDetails = async () => {
       const response = await fetch(
         `/api/courses/enrolledCourses/${currentUser.username}`
       );
       const data = await response.json();
-      setCourse(data); 
+      setCourse(data);
     };
 
     fetchCourseDetails();
@@ -47,10 +42,10 @@ const ProgressedCourses = () => {
     setCurrentPage(newPage);
   };
 
-  // Get the current page courses
-  const filteredCourses = course.filter(data =>
-    data.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    data.description.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCourses = course.filter(
+    (data) =>
+      data.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      data.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const slicedCourses = filteredCourses.slice(
@@ -58,86 +53,78 @@ const ProgressedCourses = () => {
     coursesPerPage * currentPage
   );
 
-  if(!slicedCourses){
-    return <div className=" flex justify-center items-center"><h1>No course found!</h1></div>
+  if (error) {
+    return (
+      <Typography color="error" align="center">
+        {error}
+      </Typography>
+    );
   }
+
+  if (isLoading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "300px" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (slicedCourses.length === 0) {
+    return (
+      <Typography variant="h6" align="center">
+        No progressed courses found.
+      </Typography>
+    );
+  }
+
   return (
-    <div>
-      {error ? ( 
-          <p className="text-red-500 text-center">
-            Error fetching courses. Please check your network connection and try
-            again.
-          </p>
-        ) : isLoading ? ( 
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "300px",
-            }}
-          >
-            <CircularProgress />
-          </Box>
-        ) : (
-          <>
-      <div className="  grid grid-cols-3 gap-5">
+    <Box>
+      <Grid container spacing={3}>
         {slicedCourses.map((data) => (
-          <div>
-            <div className=" bg-white rounded-lg shadow-sm  p-5 flex flex-col  gap-5 ">
-              <div>
-                <img
-                  src={data.imageUrl}
-                  className=" object-cover w-[320px] h-[130px]"
-                  alt=""
-                />
-              </div>
-              
-              <div className="  p-2   flex flex-col gap-2">
-                <h1 className="font-bold">{data.title}</h1>
-                <div className="flex justify-between items-center ">
-                  <h2 className=" bg-slate-100 p-1 px-3">{data.duration}</h2> 
-
-                  {course.isPaid ? (
-                    <span className="text-blue-600 text-xl mb-3 font-bold">
-                      &#8377; {course.price}
-                    </span>
-                  ) : (
-                    <span className="text-green-500 text-xl mb-3 font-bold">
-                      Free
-                    </span>
-                  )}
-                </div>
-
-                <p className=" opacity-75 ">{data.description}</p>
-                <div className=" flex justify-between items-center">
-                 {/* <button className=" p-0.5 px-5  text-red-500 bg-red-100 ">
-                    {" "}
-                    <Delete />
-                </button>*/}
-                  <Link
-                    to={`/course-lesson/${data._id}`}
-                    className="inline-block px-3 py-1.5 border-purple-500 border bg-red-50 text-purple-600 font-bold rounded "
-                  >
-                    Continue
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-center mt-4">
-              <Pagination
-                count={Math.ceil(slicedCourses.length / coursesPerPage)} // Total pages based on courses and per page limit
-                page={currentPage}
-                onChange={handlePageChange}
-                color="primary" // Optional: Set color theme
+          <Grid item xs={12} sm={6} md={4} key={data._id}>
+            <Card elevation={3}>
+              <CardMedia
+                component="img"
+                height="140"
+                image={data.imageUrl}
+                alt={data.title}
               />
-            </div>
-          </>
-        )}
-    </div>
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  {data.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" gutterBottom>
+                  {data.description}
+                </Typography>
+                <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
+                  <Typography variant="body2" bgcolor="action.hover" px={1} py={0.5} borderRadius={1}>
+                    {data.duration}
+                  </Typography>
+                  <Typography variant="body1" color={data.isPaid ? "primary" : "success.main"} fontWeight="bold">
+                    {data.isPaid ? `₹${data.price}` : "Free"}
+                  </Typography>
+                </Box>
+                <Box mt={2}>
+                  <Link to={`/course-lesson/${data._id}`} style={{ textDecoration: 'none' }}>
+                    <Button variant="outlined" color="primary" fullWidth>
+                      Continue
+                    </Button>
+                  </Link>
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+      <Box display="flex" justifyContent="center" mt={4}>
+        <Pagination
+          count={Math.ceil(filteredCourses.length / coursesPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+        />
+      </Box>
+    </Box>
   );
 };
 
