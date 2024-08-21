@@ -21,7 +21,7 @@ import reviewRouter from "./routes/review.js";
 import Course from "./models/Course.js";
 import progressrouter from "./routes/progress.js";
 import completedrouter from "./routes/completed.js";
-
+import path from "path"
 dotenv.config();
 
 // Connect to MongoDB database
@@ -33,6 +33,8 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+  const __dirname = path.resolve();
 
 const app = express();
 const server = http.createServer(app);
@@ -88,6 +90,11 @@ app.use('/api/scores', scoreRouter);
 app.use('/api/progress', progressrouter);
 app.use('/api/completed-courses', completedrouter);
 
+app.use(express.static(path.join(__dirname, '/frontend/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+})
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
