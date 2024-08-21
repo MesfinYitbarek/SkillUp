@@ -72,7 +72,7 @@ const Hero = () => {
         }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="z-10 px-4 sm:px-1 w-full max-w-4xl mx-auto">
+        <div className="z-10 px-4 sm:px-1 w-full max-w-4xl mx-auto text-center sm:text-start">
           <motion.h1
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -93,14 +93,14 @@ const Hero = () => {
                         hover:border-sky-800 font-semibold dark:bg-white dark:text-blue-900  
                         bg-blue-800 mt-9 text-white p-2 px-4 rounded-md"
             >
-              <Link to="/courses" className=" flex items-center">
+              <Link to="/courses" className="flex items-center">
                 Explore Courses <ArrowForwardIcon className="ml-2" />
               </Link>
             </button>
           </motion.div>
         </div>
       </motion.div>
-      <div className="bg-gradient-to-tr  from-slate-100 to-purple-100 dark:bg-gray-800  shadow-xl my-6 flex flex-col sm:flex-row justify-center items-center gap-8 sm:gap-16 md:gap-24 text-center text-blue-800 font-bold text-lg py-10 px-4 sm:px-8 md:px-16">
+      <div className="bg-gradient-to-tr from-slate-100 to-purple-100 dark:bg-gray-800 shadow-xl my-6 flex flex-col sm:flex-row justify-center items-center gap-8 sm:gap-16 md:gap-24 text-center text-blue-800 font-bold text-lg py-10 px-4 sm:px-8 md:px-16">
         <StatCard
           ref={coursesRef}
           icon={<PlayCircleIcon fontSize="large" />}

@@ -71,8 +71,8 @@ const Footer = () => {
   };
   return (
     <div className="bg-sky-950 font-roboto  w-full text-white flex flex-col justify-between items-center p-8 gap-3">
-      <div className=" pb-2  sm:flex justify-between pt-6  gap-20 text-white">
-        <div className="sm:w-auto pb-2 lg:w-[400px]  ">
+      <div className=" pb-2   sm:flex justify-between pt-6  gap-20 text-white">
+        <div className="sm:w-auto pb-2  lg:w-[400px]  ">
           <Link
             to={"/"}
             className="font-bold italic text-2xl sm:text-3xl flex 
@@ -99,8 +99,8 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-        <div>
-          <h1 className=" mb-8  text-2xl font-bold">Pages</h1>
+        <div className=" py-5 sm:py-0">
+          <h1 className=" mb-4  text-2xl font-bold">Pages</h1>
           {
             <ul>
               {Menu.map((data) => (
@@ -124,8 +124,8 @@ const Footer = () => {
             </ul>
           }
         </div>
-        <div>
-          <h1 className=" mb-8 text-2xl font-bold ">Categories</h1>
+        <div className=" py-5 sm:py-0">
+          <h1 className=" mb-4 text-2xl font-bold ">Categories</h1>
           <ul>
             {catagory.map((data) => (
               <li key={data.id} onClick={() => handleCategoryClick(data.name)}>
@@ -139,7 +139,7 @@ const Footer = () => {
             ))}
           </ul>
         </div>
-        <div className="">
+        <div className=" py-5 sm:py-0">
           <h1 className=" mb-8 text-2xl font-bold">Contact</h1>
           <div>
             <p>
@@ -162,7 +162,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className=" pb-6 mb-0 text-center">
+      <div className=" py-6 mb-0 text-center">
         &copy; {date} SkillUp. All Rights Reserved.
       </div>
     </div>

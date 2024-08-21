@@ -21,6 +21,16 @@ const TopCourses = () => {
     };
 
     fetchCourses();
+
+    const handleResize = () => {
+      setCurrentIndex(0); // Reset index on resize to prevent out-of-bound issues
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const handleToggleDescription = (courseId) => {
@@ -74,46 +84,51 @@ const TopCourses = () => {
               </button>
             </>
           )}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:px-20 px-14 sm:gap-24 gap-8">
+          <div className="flex overflow-hidden sm:px-20  sm:pr-36 sm:gap-10">
             {visibleCourses.map((course) => (
-              <div key={course.id} className="bg-white dark:bg-blue-950 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
-                <img src={course.imageUrl} alt={course.title} className="w-full h-48 object-cover" />
-                <div className="p-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-bold text-slate-800 dark:text-blue-300">{course.title}</h3>
-                    <img src={course.instructorImage} alt="Instructor" className="w-12 h-12 rounded-full border-2 border-slate-300" />
-                  </div>
-                  <p className="text-gray-700 dark:text-gray-300 mb-4 cursor-pointer">
-                    {expandedCourse === course._id ? (
-                      <span onClick={() => handleToggleDescription(course._id)}>{course.description}</span>
-                    ) : (
-                      <span className="line-clamp-2" onClick={() => handleToggleDescription(course._id)}>
-                        {course.description}
-                        {course.description.length > 100 && (
-                          <span className="text-blue-600 ml-1 cursor-pointer">...Read more</span>
-                        )}
-                      </span>
-                    )}
-                  </p>
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-gray-600 dark:text-gray-400">Duration: {course.duration}</span>
-                    {course.isPaid ? (
-                      <span className="text-blue-800 dark:text-blue-300 font-bold">₹ {course.price}</span>
-                    ) : (
-                      <span className="text-green-500 font-bold">Free</span>
-                    )}
-                  </div>
-                  <hr className="mb-4" />
-                  <div className="flex justify-between items-center">
-                    <a
-                      href={`/courseDetails/${course._id}`}
-                      className="inline-block px-4 py-2 bg-blue-800 text-white font-bold rounded-lg transition duration-300 hover:bg-blue-800"
-                    >
-                      Detail
-                    </a>
-                    <div className="flex items-center">
-                      <StarIcon className="text-yellow-400 mr-1" />
-                      <span className="text-gray-700 dark:text-gray-300">{Number(course.rating).toFixed(1)} ({course.reviewCount} reviews)</span>
+              <div
+                key={course.id}
+                className="flex-none w-full sm:w-1/2 lg:w-1/3 p-4 "
+              >
+                <div className="bg-white dark:bg-blue-950 shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105" data-aos="fade-up" data-aos-delay="300" data-aos-once="true">
+                  <img src={course.imageUrl} alt={course.title} className="w-full h-48 object-cover" />
+                  <div className="p-6">
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="text-xl font-bold text-slate-800 dark:text-blue-300">{course.title}</h3>
+                      <img src={course.instructorImage} alt="Instructor" className="w-12 h-12 rounded-full border-2 border-slate-300" />
+                    </div>
+                    <p className="text-gray-700 dark:text-gray-300 mb-4 cursor-pointer">
+                      {expandedCourse === course._id ? (
+                        <span onClick={() => handleToggleDescription(course._id)}>{course.description}</span>
+                      ) : (
+                        <span className="line-clamp-2" onClick={() => handleToggleDescription(course._id)}>
+                          {course.description}
+                          {course.description.length > 100 && (
+                            <span className="text-blue-600 ml-1 cursor-pointer">...Read more</span>
+                          )}
+                        </span>
+                      )}
+                    </p>
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-gray-600 dark:text-gray-400">Duration: {course.duration}</span>
+                      {course.isPaid ? (
+                        <span className="text-blue-800 dark:text-blue-300 font-bold">₹ {course.price}</span>
+                      ) : (
+                        <span className="text-green-500 font-bold">Free</span>
+                      )}
+                    </div>
+                    <hr className="mb-4" />
+                    <div className="flex justify-between items-center">
+                      <a
+                        href={`/courseDetails/${course._id}`}
+                        className="inline-block px-4 py-2 bg-blue-800 text-white font-bold rounded-lg transition duration-300 hover:bg-blue-800"
+                      >
+                        Detail
+                      </a>
+                      <div className="flex items-center">
+                        <StarIcon className="text-yellow-400 mr-1" />
+                        <span className="text-gray-700 dark:text-gray-300">{Number(course.rating).toFixed(1)} ({course.reviewCount} reviews)</span>
+                      </div>
                     </div>
                   </div>
                 </div>

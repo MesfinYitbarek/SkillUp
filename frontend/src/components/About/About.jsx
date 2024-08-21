@@ -6,6 +6,7 @@ import Header from "../Common/Header";
 import Footer from "../Common/Footer";
 import image3 from "../../assets/background image/pexels-peter-olexa-2214257-4012966.jpg";
 import image2 from "../../assets/background image/pexels-august-de-richelieu-4260485.jpg";
+
 const unique = [
   {
     id: 1,
@@ -41,9 +42,9 @@ const About = () => {
   return (
     <div className="dark:text-white dark:bg-gray-800">
       <Header />
-      
+
       {/* Hero Section */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -56,7 +57,7 @@ const About = () => {
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="z-10 text-center">
-          <motion.h1 
+          <motion.h1
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
@@ -64,7 +65,7 @@ const About = () => {
           >
             About SkillUp
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
@@ -80,7 +81,11 @@ const About = () => {
         <div className="px-14 sm:px-20 flex flex-col md:flex-row gap-24 justify-between items-center py-20">
           <div className="md:w-1/2">
             <h1 className="text-red-400 font-bold mb-4">How It Started</h1>
-            <h5 data-aos="zoom-in "data-aos-once="true" className="mb-5 font-semibold text-5xl text-blue-800">
+            <h5
+              data-aos="zoom-in"
+              data-aos-once="true"
+              className="mb-5 font-semibold text-5xl text-blue-800"
+            >
               Empowering Lifelong Learners
             </h5>
             <p className="text-justify text-lg leading-relaxed">
@@ -94,7 +99,6 @@ const About = () => {
           <div className="md:w-1/2 mt-10 md:mt-0">
             <div className="bg-blue-100 rounded-lg p-8 shadow-lg">
               <img
-                
                 className="rounded-lg w-full h-auto"
                 src={image2}
                 alt="Students learning"
@@ -142,13 +146,17 @@ const About = () => {
                 className="group dark:text-white dark:bg-gray-600 text-blue-800 hover:scale-105 transition-all duration-300 flex flex-col text-center items-center pt-7 bg-white hover:bg-gradient-to-r from-purple-500 to-blue-500 hover:text-white shadow-lg p-6 rounded-lg"
               >
                 <div className="text-5xl mb-4">{data.icon}</div>
-                <h2 className="text-center mb-2 font-bold text-xl">{data.title}</h2>
+                <h2 className="text-center mb-2 font-bold text-xl">
+                  {data.title}
+                </h2>
                 <hr
                   data-aos="fade-left"
                   data-aos-delay="200"
                   className="bg-blue-500 h-1 mb-3 w-[60%]"
                 />
-                <p className="font-semibold p-1 rounded-md">{data.description}</p>
+                <p className="font-semibold p-1 rounded-md">
+                  {data.description}
+                </p>
               </div>
             ))}
           </div>
