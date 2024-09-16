@@ -7,6 +7,7 @@ import Footer from "../Common/Footer";
 import Search from "../Common/Search";
 import CourseCatagories from "../CourseCatagory/CourseCatagories";
 import image3 from "../../assets/background image/pexels-peter-olexa-2214257-4012966.jpg";
+
 export default function Courses() {
   const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
@@ -75,7 +76,7 @@ export default function Courses() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="relative h-[40vh] flex items-center justify-center text-white"
+        className="relative h-[30vh] sm:h-[40vh] flex items-center justify-center text-white"
         style={{
           backgroundImage: `url(${image3})`,
           backgroundSize: "cover",
@@ -83,12 +84,12 @@ export default function Courses() {
         }}
       >
         <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="z-10 text-center">
+        <div className="z-10 text-center px-4">
           <motion.h1 
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-6xl font-bold mb-4 text-shadow-lg"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-shadow-lg"
           >
             Explore Our Courses
           </motion.h1>
@@ -96,7 +97,7 @@ export default function Courses() {
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="text-2xl text-shadow"
+            className="text-lg sm:text-xl md:text-2xl text-shadow"
           >
             Expand your knowledge with our wide range of courses
           </motion.p>
