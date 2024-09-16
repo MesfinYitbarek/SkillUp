@@ -1,6 +1,4 @@
 import React from "react";
-import LightMode from "../../assets/light-mode.png";
-import Darkmode from "../../assets/dark-mode.png";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 
@@ -22,12 +20,18 @@ const DarkMode = () => {
   }, [theme]);
 
   return (
-    <div className="relative hidden sm:flex items-center ">
-      <LightModeIcon
-        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-        className="w-12 cursor-pointer drop-shadow-[1px_1px_1px_rgba(0,0,0,0.1)]
-        translation-all duration-300 absolute right-0 z-10 "
-      />
+    <div className="relative flex items-center">
+      {theme === "light" ? (
+        <LightModeIcon
+          onClick={() => setTheme("dark")}
+          className="w-6 h-6 cursor-pointer text-yellow-500 hover:text-yellow-600 transition-all duration-300"
+        />
+      ) : (
+        <DarkModeIcon
+          onClick={() => setTheme("light")}
+          className="w-6 h-6 cursor-pointer text-gray-300 hover:text-gray-100 transition-all duration-300"
+        />
+      )}
     </div>
   );
 };
