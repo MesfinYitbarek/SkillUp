@@ -74,7 +74,7 @@ const AdminContainer = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
-      <DashboardHeader />
+      <DashboardHeader setActiveItem={setActiveItem} />
       <div className="flex flex-grow">
         <button
           onClick={toggleSidebar}

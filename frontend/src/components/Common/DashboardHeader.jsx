@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { Notifications, SearchOutlined } from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
+import { SearchOutlined } from "@mui/icons-material";
 import DarkMode from "./DarkMode";
 import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
@@ -10,13 +10,19 @@ import { Badge, Stack } from "@mui/material";
 import { io } from "socket.io-client";
 import { useSearch } from "../../SearchContext";
 
-const DashboardHeader = () => {
+const DashboardHeader = ({ setActiveItem }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [newMessageCount, setNewMessageCount] = useState(0);
   const { searchTerm, setSearchTerm } = useSearch();
+  const navigate = useNavigate();
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
+  };
+
+  const handleMessageClick = () => {
+    setActiveItem(3); // Assuming "Messages" is at index 3 in the navigationItems array
+    navigate('/admin'); // Navigate to the admin page
   };
 
   useEffect(() => {
@@ -40,11 +46,11 @@ const DashboardHeader = () => {
     return () => {
       socket.disconnect();
     };
-  }, [newMessageCount, currentUser._id]);
+  }, [currentUser._id]);
 
   return (
-    <div className="bg-blue-800  p-6 py-2 fixed top-0 left-0 w-full ">
-      <div className="bg-white ml-20 sm:ml-[230px] flex justify-between items-center py-2  px-2 sm:px-10">
+    <div className="bg-blue-800 p-6 py-2 fixed top-0 left-0 w-full z-50">
+      <div className="bg-white ml-20 sm:ml-[230px] flex justify-between items-center py-2 px-2 sm:px-10">
         <div className="font-bold sm:flex gap-1 hidden">
           <CalendarViewDayIcon />
           <h1 className="opacity-70">
@@ -62,26 +68,26 @@ const DashboardHeader = () => {
           <input
             type="text"
             placeholder="Search here"
-            className="px-2 py-1.5  w-full bg-gray-100 border-gray-400"
+            className="px-2 py-1.5 w-full bg-gray-100 border-gray-400"
             value={searchTerm}
             onChange={handleSearchChange}
           />
         </div>
-        <div
-          className={`  gap-16 sm:flex hidden  justify-between items-center`}
-        >
+        <div className={`gap-16 sm:flex hidden justify-between items-center`}>
           <div
             className={`${
-              currentUser.role == "instructor"
-                ? "hidden"
-                : currentUser.role == "student"
+              currentUser.role === "instructor" || currentUser.role === "student"
                 ? "hidden"
                 : "flex"
-            }
-          bg-gray-100 px-2 py-1.5`}
+            } bg-gray-100 px-2 py-1.5`}
           >
             <Stack spacing={4} direction="row" sx={{ color: "action.active" }}>
-              <Badge color="secondary" badgeContent={newMessageCount} showZero>
+              <Badge 
+                color="secondary" 
+                badgeContent={newMessageCount > 0 ? newMessageCount : null} 
+                onClick={handleMessageClick}
+                style={{ cursor: 'pointer' }}
+              >
                 <MessageIcon />
               </Badge>
             </Stack>
