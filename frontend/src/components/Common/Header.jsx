@@ -24,6 +24,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { searchTerm, setSearchTerm } = useSearch();
   const [catagory, setCatagory] = useState([]);
+  const [showCategoryMenu, setShowCategoryMenu] = useState(false);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -67,6 +68,7 @@ const Header = () => {
 
   const handleCategoryClick = (catagoryName) => {
     navigate(`/courses/${catagoryName}`);
+    setShowMenu(false);
   };
 
   return (
@@ -125,11 +127,11 @@ const Header = () => {
                   </button>
                 </form>
               </div>
-              <ul className="flex flex-col gap-6 text-blue-800 dark:text-white mt-16">
+              <ul className="flex flex-col gap-4 text-blue-800 dark:text-white mt-8">
                 {Menu &&
                   Menu.map((data) => (
-                    <li key={data.id} className="hover:bg-slate-200 p-2 rounded">
-                      <Link to={data.link} className="hover:text-blue-800 group font-mono text-lg" onClick={toggleMenu}>
+                    <li key={data.id} className="hover:bg-slate-200 p-2 rounded transition-all duration-300">
+                      <Link to={data.link} className="hover:text-blue-800 group font-mono text-lg flex items-center" onClick={toggleMenu}>
                         <span className="bg-left-bottom bg-gradient-to-r from-sky-500 to-sky-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                           {data.name}
                         </span>
@@ -137,23 +139,28 @@ const Header = () => {
                     </li>
                   ))}
                 <li className="group bg-white dark:bg-gray-600 cursor-pointer border-2 p-2 rounded">
-                  <a href="#" className="object-cover flex items-center gap-[2px] py-1">
-                    <DashboardIcon className="mr-2 text-blue-800" />
-                    Categories
-                    <span>
-                      <FaCaretDown className="transition-all duration-200 group-hover:rotate-180 ml-3" />
+                  <button
+                    onClick={() => setShowCategoryMenu(!showCategoryMenu)}
+                    className="w-full object-cover flex items-center justify-between gap-[2px] py-1"
+                  >
+                    <span className="flex items-center">
+                      <DashboardIcon className="mr-2 text-blue-800" />
+                      Categories
                     </span>
-                  </a>
-                  <ul className="mt-2 space-y-2">
-                    {catagory &&
-                      catagory.map((data) => (
-                        <li key={data.id} onClick={() => handleCategoryClick(data.name)} className="pl-4">
-                          <a href="#" className="block p-2 hover:bg-gray-200 rounded">
-                            {data.name}
-                          </a>
-                        </li>
-                      ))}
-                  </ul>
+                    <FaCaretDown className={`transition-all duration-200 ${showCategoryMenu ? 'rotate-180' : ''}`} />
+                  </button>
+                  {showCategoryMenu && (
+                    <ul className="mt-2 space-y-2">
+                      {catagory &&
+                        catagory.map((data) => (
+                          <li key={data.id} onClick={() => handleCategoryClick(data.name)} className="pl-4">
+                            <a href="#" className="block p-2 hover:bg-gray-200 rounded transition-all duration-300">
+                              {data.name}
+                            </a>
+                          </li>
+                        ))}
+                    </ul>
+                  )}
                 </li>
               </ul>
             </div>
