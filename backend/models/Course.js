@@ -52,7 +52,6 @@ const courseSchema = new mongoose.Schema({
   },
   rating: {
     type: Number,
-    required: true
   }, reviewCount: {
     type: Number,
     default: 0,
